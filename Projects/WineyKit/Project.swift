@@ -8,7 +8,6 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-
 let wineyKitTargets: [Target] = [
     .init(name: "WineyKit",
           platform: .iOS,
