@@ -7,16 +7,17 @@
 //
 
 import SwiftUI
-import WineyKit
+import WineyKit //폰트 정보
 
 struct ContentView: View {
-    var body: some View {
-      Text("\(WineyKit().a)")
-    }
+  var body: some View {
+    Text("aa")
+      .wineyFont(.captionM2) //폰트 설정법
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+      ContentView()
+  }
 }
