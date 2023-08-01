@@ -25,9 +25,9 @@ public enum WineyFontType {
 
 // 깔끔하게 정리하기 보류
 public extension View {
-
   func wineyFont(_ fontStyle: WineyFontType) -> some View {
     switch fontStyle {
+      
     case .largeTitle:
       return self
         .font(
@@ -37,6 +37,7 @@ public extension View {
             .swiftUIFont(size: 32)
         )
         .lineSpacing(39) //행간
+      
     case .title1:
       return self
         .font(
@@ -46,6 +47,7 @@ public extension View {
             .swiftUIFont(size: 26)
         )
         .lineSpacing(32) //행간
+      
     case .title2:
       return self
         .font(
@@ -55,6 +57,7 @@ public extension View {
             .swiftUIFont(size: 20)
         )
         .lineSpacing(25) //행간
+      
     case .headLine:
       return self
         .font(
@@ -64,6 +67,7 @@ public extension View {
             .swiftUIFont(size: 18)
         )
         .lineSpacing(23) //행간
+      
     case .subhead:
       return self
         .font(
@@ -73,6 +77,7 @@ public extension View {
             .swiftUIFont(size: 15)
         )
         .lineSpacing(20) //행간
+      
     case .bodyB1:
       return self
         .font(
@@ -82,6 +87,7 @@ public extension View {
             .swiftUIFont(size: 17)
         )
         .lineSpacing(24) //행간
+      
     case .bodyM1:
       return self
         .font(
@@ -91,6 +97,7 @@ public extension View {
             .swiftUIFont(size: 17)
         )
         .lineSpacing(24) //행간
+      
     case .bodyB2:
       return self
         .font(
@@ -100,6 +107,7 @@ public extension View {
             .swiftUIFont(size: 14)
         )
         .lineSpacing(19) //행간
+      
     case .bodyM2:
       return self
         .font(
@@ -109,6 +117,7 @@ public extension View {
             .swiftUIFont(size: 14)
         )
         .lineSpacing(19) //행간
+      
     case .captionB1:
       return self
         .font(
@@ -118,6 +127,7 @@ public extension View {
             .swiftUIFont(size: 13)
         )
         .lineSpacing(17) //행간
+      
     case .captionM1:
       return self
         .font(
@@ -127,6 +137,7 @@ public extension View {
             .swiftUIFont(size: 13)
         )
         .lineSpacing(17) //행간
+      
     case .captionM2:
       return self
         .font(
