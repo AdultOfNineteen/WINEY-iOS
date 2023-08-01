@@ -31,7 +31,7 @@ public extension View {
     case .largeTitle:
       return self
         .font(
-          UtilsFontFamily
+          WineyKitFontFamily
             .Pretendard
             .bold
             .swiftUIFont(size: 32)
@@ -41,7 +41,7 @@ public extension View {
     case .title1:
       return self
         .font(
-          UtilsFontFamily
+          WineyKitFontFamily
             .Pretendard
             .bold
             .swiftUIFont(size: 26)
@@ -51,7 +51,7 @@ public extension View {
     case .title2:
       return self
         .font(
-          UtilsFontFamily
+          WineyKitFontFamily
             .Pretendard
             .bold
             .swiftUIFont(size: 20)
@@ -61,7 +61,7 @@ public extension View {
     case .headLine:
       return self
         .font(
-          UtilsFontFamily
+          WineyKitFontFamily
             .Pretendard
             .bold
             .swiftUIFont(size: 18)
@@ -71,7 +71,7 @@ public extension View {
     case .subhead:
       return self
         .font(
-          UtilsFontFamily
+          WineyKitFontFamily
             .Pretendard
             .medium
             .swiftUIFont(size: 15)
@@ -81,7 +81,7 @@ public extension View {
     case .bodyB1:
       return self
         .font(
-          UtilsFontFamily
+          WineyKitFontFamily
             .Pretendard
             .bold
             .swiftUIFont(size: 17)
@@ -91,7 +91,7 @@ public extension View {
     case .bodyM1:
       return self
         .font(
-          UtilsFontFamily
+          WineyKitFontFamily
             .Pretendard
             .medium
             .swiftUIFont(size: 17)
@@ -101,7 +101,7 @@ public extension View {
     case .bodyB2:
       return self
         .font(
-          UtilsFontFamily
+          WineyKitFontFamily
             .Pretendard
             .bold
             .swiftUIFont(size: 14)
@@ -111,7 +111,7 @@ public extension View {
     case .bodyM2:
       return self
         .font(
-          UtilsFontFamily
+          WineyKitFontFamily
             .Pretendard
             .medium
             .swiftUIFont(size: 14)
@@ -121,7 +121,7 @@ public extension View {
     case .captionB1:
       return self
         .font(
-          UtilsFontFamily
+          WineyKitFontFamily
             .Pretendard
             .bold
             .swiftUIFont(size: 13)
@@ -131,7 +131,7 @@ public extension View {
     case .captionM1:
       return self
         .font(
-          UtilsFontFamily
+          WineyKitFontFamily
             .Pretendard
             .medium
             .swiftUIFont(size: 13)
@@ -141,7 +141,7 @@ public extension View {
     case .captionM2:
       return self
         .font(
-          UtilsFontFamily
+          WineyKitFontFamily
             .Pretendard
             .medium
             .swiftUIFont(size: 11)

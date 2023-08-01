@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Utils //폰트 정보
+import WineyKit //폰트 정보
 
 struct ContentView: View {
   var body: some View {
