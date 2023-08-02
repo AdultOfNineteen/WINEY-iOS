@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SignupButtonStyle: ButtonStyle {
+struct WineyConfirmButtonStyle: ButtonStyle {
   
   @Binding var validState: Bool
   
@@ -50,7 +50,7 @@ struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     Button("다음", action: {})
       .buttonStyle(
-        SignupButtonStyle(validBy: $buttonState)
+        WineyConfirmButtonStyle(validBy: $buttonState)
       )
   }
 }
