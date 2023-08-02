@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-public struct SignUpButton: View {
+public struct WineyConfirmButton: View {
   @Binding var validState: Bool
   let title: String
   let action: () -> Void
@@ -26,7 +26,7 @@ public struct SignUpButton: View {
   public var body: some View {
     Button(title, action: action)
     .buttonStyle(
-      SignupButtonStyle(validBy: $validState)
+      WineyConfirmButtonStyle(validBy: $validState)
     )
   }
 }
@@ -37,7 +37,7 @@ struct SignUpButton_Previews: PreviewProvider {
   @State static var buttonState = true
   
   static var previews: some View {
-    SignUpButton(
+    WineyConfirmButton(
       title: "다음",
       validBy: $buttonState,
       action:  {}
