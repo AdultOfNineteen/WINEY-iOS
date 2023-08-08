@@ -29,7 +29,10 @@ let appTargets: [Target] = [
           sources: ["Sources/**"],
           resources: ["Resources/**"],
           dependencies: [
-            .project(target: "WineyKit", path: "../WineyKit")
+            .project(target: "WineyKit", path: "../WineyKit"),
+            .external(name: "ComposableArchitecture"),
+            .external(name: "TCACoordinators"),
+            .external(name: "CombineExt"),
           ])
 ]
 
