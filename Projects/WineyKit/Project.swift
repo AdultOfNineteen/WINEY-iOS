@@ -5,6 +5,7 @@
 //  Created by 박혜운 on 2023/07/31.
 //
 
+import Foundation
 import ProjectDescription
 import ProjectDescriptionHelpers
 
@@ -28,6 +29,18 @@ let wineyKitTargets: [Target] = [
           infoPlist: .extendingDefault(with: infoPlist),
           sources: ["Sources/**"],
           resources: ["Resources/**"],
+          scripts: [
+            .pre(
+              script: """
+              ROOT_DIR=\(ProcessInfo.processInfo.environment["TUIST_ROOT_DIR"] ?? "")
+              
+              ${ROOT_DIR}/swiftlint --config ${ROOT_DIR}/.swiftlint.yml
+              
+              """,
+              name: "SwiftLint",
+              basedOnDependencyAnalysis: false
+            )
+          ],
           dependencies: [
             .project(target: "Utils", path: "../Utils")
           ]

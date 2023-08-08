@@ -1,3 +1,4 @@
+import Foundation
 import ProjectDescription
 import ProjectDescriptionHelpers
 
@@ -9,6 +10,18 @@ let utilsTargets: [Target] = [
           bundleId: "com.adultOfNineteen.utils",
           deploymentTarget: .iOS(targetVersion: "15.0", devices: [.iphone]),
           sources: ["Sources/**"],
+          scripts: [
+            .pre(
+              script: """
+              ROOT_DIR=\(ProcessInfo.processInfo.environment["TUIST_ROOT_DIR"] ?? "")
+              
+              ${ROOT_DIR}/swiftlint --config ${ROOT_DIR}/.swiftlint.yml
+              
+              """,
+              name: "SwiftLint",
+              basedOnDependencyAnalysis: false
+            )
+          ],
           dependencies: [
           ]
          )
