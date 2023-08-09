@@ -1,3 +1,4 @@
+import Foundation
 import ProjectDescription
 import ProjectDescriptionHelpers
 //import MyPlugin
@@ -28,6 +29,18 @@ let appTargets: [Target] = [
           infoPlist: .extendingDefault(with: infoPlist),
           sources: ["Sources/**"],
           resources: ["Resources/**"],
+          scripts: [
+            .pre(
+              script: """
+              ROOT_DIR=\(ProcessInfo.processInfo.environment["TUIST_ROOT_DIR"] ?? "")
+              
+              ${ROOT_DIR}/swiftlint --config ${ROOT_DIR}/.swiftlint.yml
+              
+              """,
+              name: "SwiftLint",
+              basedOnDependencyAnalysis: false
+            )
+          ],
           dependencies: [
             .project(target: "WineyKit", path: "../WineyKit"),
             .external(name: "ComposableArchitecture"),
