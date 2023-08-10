@@ -9,7 +9,7 @@
 import SwiftUI
 import WineyKit // 폰트 정보
 
-
+// 회원가입 화면 후반에 해당합니다. 현재 사용되는 곳은 없지만 일단 남겨 두었습니다
 struct ContentView: View {
   @State private var isBottomSheetVisible = false
   @State private var isDetailViewVisible = false
