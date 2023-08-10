@@ -73,7 +73,9 @@ line_length:
 # 룰 적용 제외할 파일
 excluded:
   - Tuist
-  - Project.swift
+  - Projects/App/Project.swift
+  - Projects/Utils/Project.swift
+  - Projects/WineyKit/Project.swift
   - Derived
   - template
   - .tuist-bin

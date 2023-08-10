@@ -17,28 +17,27 @@ struct WineyConfirmButtonStyle: ButtonStyle {
   }
   
   func makeBody(configuration: Self.Configuration) -> some View {
-    
-      configuration
-        .label
-        .wineyFont(.headLine)
-        .multilineTextAlignment(.center)
-        .lineLimit(1)
-        .frame(maxWidth: .infinity)
-        .frame(height: 56)
-        .clipShape(RoundedRectangle(cornerRadius: 5))
-        .disabled(!validState)
-        .foregroundColor(
+    configuration
+      .label
+      .wineyFont(.headLine)
+      .multilineTextAlignment(.center)
+      .lineLimit(1)
+      .frame(maxWidth: .infinity)
+      .frame(height: 56)
+      .clipShape(RoundedRectangle(cornerRadius: 5))
+      .disabled(!validState)
+      .foregroundColor(
+        validState ?
+        WineyKitAsset.gray100.swiftUIColor : WineyKitAsset.gray600.swiftUIColor
+      )
+      .background(
+        RoundedRectangle( cornerRadius: 6)
+        .fill(
           validState ?
-          WineyKitAsset.gray100.swiftUIColor : WineyKitAsset.gray600.swiftUIColor
+          WineyKitAsset.main1.swiftUIColor : WineyKitAsset.gray900.swiftUIColor
         )
-        .background(
-          RoundedRectangle( cornerRadius: 6)
-          .fill(
-            validState ?
-            WineyKitAsset.main1.swiftUIColor : WineyKitAsset.gray900.swiftUIColor
-          )
-        )
-        .opacity(validState ? (configuration.isPressed ? 0.7 : 1) : 0.6)
+      )
+      .opacity(validState ? (configuration.isPressed ? 0.7 : 1) : 0.6)
     
   }
 }

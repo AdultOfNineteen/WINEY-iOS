@@ -40,7 +40,7 @@ struct SignUpButton_Previews: PreviewProvider {
     WineyConfirmButton(
       title: "다음",
       validBy: $buttonState,
-      action:  {}
+      action: {}
     )
   }
 }
