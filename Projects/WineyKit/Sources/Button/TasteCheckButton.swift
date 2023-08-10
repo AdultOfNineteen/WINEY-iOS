@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-//WineyKit에 두고, 기능 모듈 분화 시 해당 모듈로 이동 (특정 화면에서만 쓰이는 버튼이기 때문)
+// WineyKit에 두고, 기능 모듈 분화 시 해당 모듈로 이동 (특정 화면에서만 쓰이는 버튼이기 때문)
 public struct TasteCheckButton: View {
   let mainTitle: String
   let subTitle: String
