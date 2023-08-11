@@ -8,8 +8,8 @@
 
 import Foundation
 
-public enum LoginPathType {
-  case kakao
-  case apple
-  case gmail
+public enum AuthPathType: String {
+  case kakao = "카카오"
+  case apple = "애플"
+  case gmail = "구글"
 }
