@@ -62,10 +62,11 @@ public let authCoordinatorReducer: Reducer<
         
       case .routeAction(_, action: .auth(.completeSocialNetworking)):
         state.routes = [
-          .root(
-            .setSignUp(.init()),
-            embedInNavigationView: false
-          )
+          .push(.setSignUp(.init()))
+//          .root(
+//            .setSignUp(.init()),
+//            embedInNavigationView: true
+//          )
         ]
         return .none
       case .routeAction(_, action: .setSignUp(.signUpCompleted)):

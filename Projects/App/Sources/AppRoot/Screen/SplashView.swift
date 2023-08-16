@@ -23,7 +23,7 @@ public struct SplashView: View {
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .onAppear {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { //SplashView 확인용 강제 딜레이
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // SplashView 확인용 강제 딜레이
           viewStore.send(._onAppear)
         }
       }
