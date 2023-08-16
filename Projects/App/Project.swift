@@ -25,7 +25,7 @@ let appTargets: [Target] = [
           platform: .iOS,
           product: .app,
           bundleId: "com.adultOfNineteen.app",
-          deploymentTarget: .iOS(targetVersion: "15.0", devices: [.iphone]),
+          deploymentTarget: .iOS(targetVersion: "16.0", devices: [.iphone]),
           infoPlist: .extendingDefault(with: infoPlist),
           sources: ["Sources/**"],
           resources: ["Resources/**"],

@@ -25,7 +25,7 @@ let wineyKitTargets: [Target] = [
           platform: .iOS,
           product: .framework,
           bundleId: "com.adultOfNineteen.wineyKit",
-          deploymentTarget: .iOS(targetVersion: "15.0", devices: [.iphone]),
+          deploymentTarget: .iOS(targetVersion: "16.0", devices: [.iphone]),
           infoPlist: .extendingDefault(with: infoPlist),
           sources: ["Sources/**"],
           resources: ["Resources/**"],
