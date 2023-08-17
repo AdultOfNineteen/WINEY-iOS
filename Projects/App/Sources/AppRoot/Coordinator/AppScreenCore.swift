@@ -53,6 +53,7 @@ Reducer<
         )
       }
     ),
+  
   authCoordinatorReducer
     .pullback(
       state: /AppScreenState.auth,
@@ -63,7 +64,10 @@ Reducer<
           userDefaultsService: $0.userDefaultsService
         )
       }
-    ),
+    )
+    .debug("🍷🍷🍷🍷🍷authCoordinatorReducer Reducer")
+  ,
+  
   
   tabBarReducer
     .pullback(
