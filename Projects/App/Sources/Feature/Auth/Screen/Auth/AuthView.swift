@@ -11,6 +11,7 @@ import SwiftUI
 import WineyKit
 
 struct AuthView: View {
+  @State private var didAppear = false
   private let store: Store<AuthState, AuthAction>
   
   public init(store: Store<AuthState, AuthAction>) {
@@ -71,7 +72,11 @@ struct AuthView: View {
         }
         .wineyFont(.captionM1)
       }
-      .onAppear { viewStore.send(._onAppear) }
+      .onAppear {
+        guard !didAppear else { return }
+        viewStore.send(._onAppear)
+        didAppear = true
+      }
     }
     .navigationBarHidden(true)
   }

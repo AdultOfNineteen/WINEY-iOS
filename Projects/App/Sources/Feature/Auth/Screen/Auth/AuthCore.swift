@@ -70,7 +70,6 @@ public let setAuthReducer = Reducer.combine([
       print("로그인 경로 서버 통신을 통한 전달 완료")
       return .none
       
-      
     case let .categoryTapped(path):
       switch path {
       case .kakao:
@@ -93,6 +92,7 @@ public let setAuthReducer = Reducer.combine([
     case .gmailSingUp:
       // 로그인 서비스에서 처리
       return Effect(value: .completeSocialNetworking)
+      
     case .completeSocialNetworking:
       print("네트워킹 완료")
       return .none

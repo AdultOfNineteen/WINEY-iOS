@@ -11,11 +11,15 @@ import ComposableArchitecture
 import Foundation
 
 public struct SignUpState: Equatable {
+  
 }
 
 public enum SignUpAction: Equatable {
   case start
   case signUpCompleted
+  
+  // MARK: - User Action
+  case backButtonTapped
 }
 
 public struct SetSignUpEnvironment {
@@ -34,10 +38,11 @@ public struct SetSignUpEnvironment {
 public let setSignUpReducer: Reducer<SignUpState, SignUpAction, SetSignUpEnvironment> =
 Reducer { state, action, environment in
   switch action {
-  case .signUpCompleted:
+  case .start:
     return .none
 
-  case .start:
+  default:
     return .none
   }
 }
+.debug("SignUp Reducer")

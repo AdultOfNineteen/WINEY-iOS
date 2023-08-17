@@ -12,6 +12,7 @@ import Foundation
 import TCACoordinators
 
 public struct AppCoordinatorState: Equatable, IndexedRouterState {
+  
   public var routes: [Route<AppScreenState>] // 첫 화면으로는 splash가 할당되어 있음
   
   public init(routes: [Route<AppScreenState>] = [
@@ -58,10 +59,13 @@ public let appCoordinatorReducer: Reducer<
   .withRouteReducer(
     Reducer { state, action, env in
       switch action {
-      case .updateRoutes:
-        return .none
         
+      case .updateRoutes(let newRoutes):
+        state.routes = newRoutes
+        return .none
+
       case .routeAction(_, action: .splash(._moveToHome)):
+        
         state.routes = [
           .root(
             .tabBar(.init(main: .init())),
@@ -79,8 +83,8 @@ public let appCoordinatorReducer: Reducer<
         ]
         return .none
         
-      case .routeAction(_, action: .auth(.routeAction( _, action: .setSignUp(.signUpCompleted)))):
-        state.routes = [
+      case .routeAction(_, action: .auth(.routeAction(_, action: .setSignUp(.signUpCompleted)))):
+        state.routes = [ // Auth 반응 원인 찾는 중 
           .root(
             .tabBar(.init(main: .init())),
             embedInNavigationView: true
@@ -88,7 +92,9 @@ public let appCoordinatorReducer: Reducer<
         ]
         return .none
         
+        
       default: return .none
       }
     }
+    .debug("🍷AppCoordinator Reducer")
   )

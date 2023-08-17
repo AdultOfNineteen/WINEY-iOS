@@ -17,7 +17,7 @@ public struct AuthCoordinatorState: Equatable, IndexedRouterState {
   public init(routes: [Route<AuthScreenState>] = [
     .root(
       .auth(.init()),
-      embedInNavigationView: false
+      embedInNavigationView: true
     )
   ]) {
     self.routes = routes
@@ -57,21 +57,21 @@ public let authCoordinatorReducer: Reducer<
   .withRouteReducer(
     Reducer { state, action, env in
       switch action {
-      case .updateRoutes:
-        return .none
         
       case .routeAction(_, action: .auth(.completeSocialNetworking)):
-        state.routes = [
-          .push(.setSignUp(.init()))
-//          .root(
-//            .setSignUp(.init()),
-//            embedInNavigationView: true
-//          )
-        ]
+        state.routes.append(.push(.setSignUp(.init())))
         return .none
+
+      case .routeAction(_, action: .setSignUp(.backButtonTapped)):
+        state.routes.pop()
+        return .none
+        
       case .routeAction(_, action: .setSignUp(.signUpCompleted)):
         return .none
-      default: return .none
+        
+      default:
+        return .none
       }
     }
+    .debug("AuthCoordinatorCore")
   )
