@@ -8,6 +8,7 @@
 
 import ComposableArchitecture
 import SwiftUI
+import WineyKit
 
 struct SignUpView: View {
   private let store: Store<SignUpState, SignUpAction>
@@ -18,11 +19,17 @@ struct SignUpView: View {
     var body: some View {
       WithViewStore(store) { viewStore in
         VStack {
-          Text("SignUpView")
+          NavigationBar(
+            leftIcon: Image(systemName: "arrow.backward"),
+            leftIconButtonAction: {
+              viewStore.send(.backButtonTapped)
+            })
+          Text("휴대폰 번호를 입력해주세요")
           Button("회원가입 완료") {
             viewStore.send(.signUpCompleted)
           }
         }
+        .navigationBarHidden(true)
       }
     }
 }
