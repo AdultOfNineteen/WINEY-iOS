@@ -75,7 +75,7 @@ Reducer { state, action, environment in
     
   case .edited(let number):
     state.inputCode = number
-    state.validCode = number.count == 13
+    state.validCode = number.count == 6
     return .none
     
   case .tappedCodeConfirmButton:
