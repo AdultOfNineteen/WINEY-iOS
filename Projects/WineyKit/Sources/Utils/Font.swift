@@ -46,7 +46,7 @@ public extension View {
             .bold
             .swiftUIFont(size: 26)
         )
-        .lineSpacing(32) // 행간
+        .lineSpacing(3.2) // 행간
       
     case .title2:
       return self
