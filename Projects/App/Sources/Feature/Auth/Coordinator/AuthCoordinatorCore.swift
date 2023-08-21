@@ -16,7 +16,7 @@ public struct AuthCoordinatorState: Equatable, IndexedRouterState {
   
   public init(routes: [Route<AuthScreenState>] = [
     .root(
-      .auth(.init()),
+      .login(.init()),
       embedInNavigationView: true
     )
   ]) {
@@ -58,15 +58,48 @@ public let authCoordinatorReducer: Reducer<
     Reducer { state, action, env in
       switch action {
         
-      case .routeAction(_, action: .auth(.completeSocialNetworking)):
-        state.routes.append(.push(.setSignUp(.init())))
+      case .routeAction(_, action: .login(._completeSocialNetworking)):
+        state.routes.append(.push(.setPhoneSignUp(.init())))
         return .none
 
-      case .routeAction(_, action: .setSignUp(.backButtonTapped)):
+      case .routeAction(_, action: .setPhoneSignUp(.tappedBackButton)):
         state.routes.pop()
         return .none
+
+      case .routeAction(_, action: .setPhoneSignUp(._moveCodeSignUpView)):
+        state.routes.append( .push( .setCodeSignUP(.init())))
+        return .none
         
-      case .routeAction(_, action: .setSignUp(.signUpCompleted)):
+      case .routeAction(_, action: .setCodeSignUp(._backToFirstView)):
+        if let firstView = state.routes.first {
+          state.routes = [
+            firstView
+          ]
+        }
+        return .none
+        
+      case .routeAction(_, action: .setCodeSignUp(.tappedBottomAlreadySignUpButton)):
+        if let firstView = state.routes.first {
+          state.routes = [
+            firstView
+          ]
+        }
+        return .none
+        
+      case .routeAction(_, action: .setCodeSignUp(._moveFlavorSignUpView)):
+        state.routes.append( .push( .setFlavorSignUp(.init())))
+        return .none
+        
+      case .routeAction(_, action: .setFlavorSignUp(._backToFirstView)):
+        if let firstView = state.routes.first {
+          state.routes = [
+            firstView
+          ]
+        }
+        return .none
+      
+      case .routeAction(_, action: .setFlavorSignUp(._moveWelcomeSignUpView)):
+        state.routes.append( .push( .setWelcomeSignUp(.init())))
         return .none
         
       default:

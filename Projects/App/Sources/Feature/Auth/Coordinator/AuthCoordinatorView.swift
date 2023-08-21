@@ -22,14 +22,29 @@ public struct AuthCoordinatorView: View {
     TCARouter(store) { screen in
       SwitchStore(screen) {
         CaseLet(
-          state: /AuthScreenState.auth,
-          action: AuthScreenAction.auth,
-          then: AuthView.init
+          state: /AuthScreenState.login,
+          action: AuthScreenAction.login,
+          then: LoginView.init
         )
         CaseLet(
-          state: /AuthScreenState.setSignUp,
-          action: AuthScreenAction.setSignUp,
+          state: /AuthScreenState.setPhoneSignUp,
+          action: AuthScreenAction.setPhoneSignUp,
           then: SignUpView.init
+        )
+        CaseLet(
+          state: /AuthScreenState.setCodeSignUP,
+          action: AuthScreenAction.setCodeSignUp,
+          then: CodeSignUpView.init
+        )
+        CaseLet(
+          state: /AuthScreenState.setFlavorSignUp,
+          action: AuthScreenAction.setFlavorSignUp,
+          then: FlavorSignUpView.init
+        )
+        CaseLet(
+          state: /AuthScreenState.setWelcomeSignUp,
+          action: AuthScreenAction.setWelcomeSignUp,
+          then: WelcomeSignUpView.init
         )
       }
     }
