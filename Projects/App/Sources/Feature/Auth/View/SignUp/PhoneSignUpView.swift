@@ -45,7 +45,8 @@ struct SignUpView: View {
             
             WineyConfirmButton(
               title: "다음",
-              validBy: true,
+              validBy:
+                viewStore.state.validPhoneNumber,
               action: {
                 viewStore.send(.tappedNextButton)
               }
