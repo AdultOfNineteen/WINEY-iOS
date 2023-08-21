@@ -14,6 +14,7 @@ let infoPlist: [String: InfoPlist.Value] = [
   "CFBundleVersion": "1",
   "CFBundleDevelopmentRegion": "ko_KR",
   "UIUserInterfaceStyle": "Dark",
+  "UILaunchStoryboardName":"LaunchScreen",
   "UIAppFonts": [
     "Item 0": "Pretendard-Medium.otf",
     "Item 1": "Pretendard-Bold.otf"
