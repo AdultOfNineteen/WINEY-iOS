@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct TasteCheckButtonStyle: ButtonStyle {
+struct FlavorCheckButtonStyle: ButtonStyle {
   let mainTitle: String
   let subTitle: String
   
@@ -65,13 +65,13 @@ struct TasteCheckButtonStyle: ButtonStyle {
 
 // MARK: - 사용법
 
-struct TasteCheckButtonStyle_Previews: PreviewProvider {
+struct FlavorCheckButtonStyle_Previews: PreviewProvider {
   @State static var buttonState = true
   
   static var previews: some View {
     Button("", action: {})
       .buttonStyle(
-        TasteCheckButtonStyle(
+        FlavorCheckButtonStyle(
           mainTitle: "밀크 초콜릿",
           subTitle: "안달면 초콜릿을 왜 먹어?"
         )

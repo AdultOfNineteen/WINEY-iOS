@@ -9,16 +9,16 @@
 import SwiftUI
 
 public struct WineyConfirmButton: View {
-  @Binding var validState: Bool
+  var validState: Bool
   let title: String
   let action: () -> Void
   
   public init(
     title: String,
-    validBy validState: Binding<Bool>,
+    validBy validState: Bool,
     action: @escaping () -> Void
   ){
-    self._validState = validState
+    self.validState = validState
     self.title = title
     self.action = action
   }
@@ -26,7 +26,7 @@ public struct WineyConfirmButton: View {
   public var body: some View {
     Button(title, action: action)
     .buttonStyle(
-      WineyConfirmButtonStyle(validBy: $validState)
+      WineyConfirmButtonStyle(validBy: validState)
     )
   }
 }
@@ -39,7 +39,7 @@ struct SignUpButton_Previews: PreviewProvider {
   static var previews: some View {
     WineyConfirmButton(
       title: "다음",
-      validBy: $buttonState,
+      validBy: buttonState,
       action: {}
     )
   }

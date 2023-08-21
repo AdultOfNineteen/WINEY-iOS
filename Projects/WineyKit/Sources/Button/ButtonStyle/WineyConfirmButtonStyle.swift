@@ -10,10 +10,10 @@ import SwiftUI
 
 struct WineyConfirmButtonStyle: ButtonStyle {
   
-  @Binding var validState: Bool
+  var validState: Bool
   
-  init(validBy validState: Binding<Bool>) {
-    self._validState = validState
+  init(validBy validState: Bool) {
+    self.validState = validState
   }
   
   func makeBody(configuration: Self.Configuration) -> some View {
@@ -49,7 +49,7 @@ struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     Button("다음", action: {})
       .buttonStyle(
-        WineyConfirmButtonStyle(validBy: $buttonState)
+        WineyConfirmButtonStyle(validBy: buttonState)
       )
   }
 }

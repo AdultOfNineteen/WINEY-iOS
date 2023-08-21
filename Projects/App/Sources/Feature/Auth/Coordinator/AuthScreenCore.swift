@@ -12,13 +12,19 @@ import Foundation
 import TCACoordinators
 
 public enum AuthScreenState: Equatable {
-  case auth(AuthState)
-  case setSignUp(SignUpState)
+  case login(LoginState)
+  case setPhoneSignUp(PhoneSignUpState)
+  case setCodeSignUP(CodeSignUpState)
+  case setFlavorSignUp(FlavorSignUpState)
+  case setWelcomeSignUp(WelcomeSignUpState)
 }
 
 public enum AuthScreenAction {
-  case auth(AuthAction)
-  case setSignUp(SignUpAction)
+  case login(LoginAction)
+  case setPhoneSignUp(PhoneSignUpAction)
+  case setCodeSignUp(CodeSignUpAction)
+  case setFlavorSignUp(FlavorSignUpAction)
+  case setWelcomeSignUp(WelcomeSignUpAction)
 }
 
 internal struct AuthScreenEnvironment {
@@ -36,24 +42,60 @@ internal let authScreenReducer = Reducer<
   AuthScreenAction,
   AuthScreenEnvironment
 >.combine([
-  setAuthReducer
+  setLoginReducer
     .pullback(
-      state: /AuthScreenState.auth,
-      action: /AuthScreenAction.auth,
+      state: /AuthScreenState.login,
+      action: /AuthScreenAction.login,
       environment: {
-        SetAuthEnvironment(
+        SetLoginEnvironment(
           mainQueue: $0.mainQueue,
           userDefaultsService: .live
         )
       }
     ),
   
-  setSignUpReducer
+  setPhoneSignUpReducer
     .pullback(
-      state: /AuthScreenState.setSignUp,
-      action: /AuthScreenAction.setSignUp,
+      state: /AuthScreenState.setPhoneSignUp,
+      action: /AuthScreenAction.setPhoneSignUp,
       environment: {
-        SetSignUpEnvironment(
+        SetPhoneSignUpEnvironment(
+          mainQueue: $0.mainQueue,
+          userDefaultsService: .live
+        )
+      }
+    ),
+  
+  setCodeSignUpReducer
+    .pullback(
+      state: /AuthScreenState.setCodeSignUP,
+      action: /AuthScreenAction.setCodeSignUp,
+      environment: {
+        SetCodeSignUpEnvironment(
+          mainQueue: $0.mainQueue,
+          userDefaultsService: .live
+        )
+      }
+    ),
+  
+  setFlavorSignUpReducer
+    .pullback(
+      state: /AuthScreenState.setFlavorSignUp,
+      action: /AuthScreenAction.setFlavorSignUp,
+      environment: {
+        SetFlavorSignUpEnvironment(
+          mainQueue: $0.mainQueue,
+          userDefaultsService: .live
+        )
+      }
+    ),
+  
+  setWelcomeSignUpReducer
+    .pullback(
+      state: /AuthScreenState.setWelcomeSignUp,
+      action: /AuthScreenAction.setWelcomeSignUp,
+      environment: {
+        SetWelcomeSignUpEnvironment(
           mainQueue: $0.mainQueue,
           userDefaultsService: .live
         )

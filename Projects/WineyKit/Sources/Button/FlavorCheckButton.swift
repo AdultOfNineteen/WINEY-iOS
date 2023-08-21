@@ -8,8 +8,7 @@
 
 import SwiftUI
 
-// WineyKit에 두고, 기능 모듈 분화 시 해당 모듈로 이동 (특정 화면에서만 쓰이는 버튼이기 때문)
-public struct TasteCheckButton: View {
+public struct FlavorCheckButton: View {
   let mainTitle: String
   let subTitle: String
   let action: () -> Void
@@ -27,7 +26,7 @@ public struct TasteCheckButton: View {
   public var body: some View {
     Button("", action: action)
     .buttonStyle(
-      TasteCheckButtonStyle(
+      FlavorCheckButtonStyle(
         mainTitle: self.mainTitle,
         subTitle: self.subTitle)
     )
@@ -36,10 +35,10 @@ public struct TasteCheckButton: View {
 
 // MARK: - 사용예시
 
-struct TasteCheckButton_Previews: PreviewProvider {
+struct FlavorCheckButton_Previews: PreviewProvider {
   @State static var buttonState = true
   static var previews: some View {
-    TasteCheckButton(
+    FlavorCheckButton(
       mainTitle: "밀크 초콜릿",
       subTitle: "안달면 초콜릿을 왜 먹어?",
       action: {}

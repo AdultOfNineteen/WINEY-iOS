@@ -20,6 +20,7 @@ public struct SplashView: View {
     WithViewStore(store) { viewStore in
       VStack(alignment: .center, spacing: 0) {
         Text("Winey SplashView")
+        Spacer()
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .onAppear {
@@ -28,6 +29,8 @@ public struct SplashView: View {
         }
       }
     }
+    .background(.white)
+    .navigationViewStyle(StackNavigationViewStyle())
     .navigationBarHidden(true)
   }
 }
