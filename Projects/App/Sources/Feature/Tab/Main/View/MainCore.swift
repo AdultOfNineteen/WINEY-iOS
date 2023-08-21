@@ -22,7 +22,6 @@ public enum MainAction {
   // MARK: - Inner SetState Action
   
   // MARK: - Child Action
-
 }
 
 public struct MainEnvironment {

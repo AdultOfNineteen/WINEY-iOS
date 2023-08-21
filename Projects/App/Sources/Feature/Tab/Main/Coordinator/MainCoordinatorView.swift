@@ -30,7 +30,6 @@ public struct MainCoordinatorView: View {
         Spacer()
       }
       .background(.pink)
-      .ignoresSafeArea()
     }
   }
 }

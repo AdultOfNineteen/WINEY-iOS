@@ -16,7 +16,7 @@ public struct TabBarView: View {
     self.store = store
   }
   
-  public var body: some View { //홈, 노트, 노트모음, 마이페이지 Coordinator
+  public var body: some View { // 홈, 노트, 노트모음, 마이페이지 Coordinator
     WithViewStore(store) { viewStore in
       Text("TabBarView")
     }
