@@ -34,33 +34,36 @@ public struct NavigationBar: View {
   
   public var body: some View {
     ZStack {
-      HStack {
-        BarButton(
-          type: .left,
-          icon: leftIcon,
-          action: leftIconButtonAction
-        )
-        
-        Spacer()
-        
-        BarButton(
-          type: .right,
-          icon: rightIcon,
-          action: rightIconButtonAction,
-          disabled: $isRightButtonActive
-        )
-      }
-      
-      if let title = title {
-        HStack {
-          Spacer()
-          
-          Text(title)
-            .foregroundColor(WineyKitAsset.gray100.swiftUIColor)
+      VStack(spacing: 0) {
+        HStack(spacing: 0) {
+          BarButton(
+            type: .left,
+            icon: leftIcon,
+            action: leftIconButtonAction
+          )
           
           Spacer()
+          
+          BarButton(
+            type: .right,
+            icon: rightIcon,
+            action: rightIconButtonAction,
+            disabled: $isRightButtonActive
+          )
         }
       }
+      .padding(.horizontal, 5)
+        
+        if let title = title {
+          HStack {
+            Spacer()
+            
+            Text(title)
+              .foregroundColor(WineyKitAsset.gray100.swiftUIColor)
+            
+            Spacer()
+          }
+        }
     }
     .frame(height: 68, alignment: .center)
     .background(Color.black)
@@ -96,8 +99,7 @@ fileprivate struct BarButton: View {
         if let icon = icon {
           icon
             .foregroundColor(.white)
-            .frame(width: 24, height: 24, alignment: .center)
-            .padding(.leading, 12)
+            .frame(width: 48, height: 48, alignment: .center)
         }
       }
     }
@@ -108,6 +110,7 @@ fileprivate struct BarButton: View {
 struct NavigationBar_Previews: PreviewProvider {
   static var previews: some View {
     NavigationBar(
+      title: "제목",
       leftIcon: Image(systemName: "arrow.backward")
       )
   }
