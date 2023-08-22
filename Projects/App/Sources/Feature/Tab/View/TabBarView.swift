@@ -18,7 +18,34 @@ public struct TabBarView: View {
   
   public var body: some View { // 홈, 노트, 노트모음, 마이페이지 Coordinator
     WithViewStore(store) { viewStore in
-      Text("TabBarView")
+      TabView(
+        selection: viewStore.binding(
+          get: { $0.selectedTab },
+          send: TabBarAction.tabSelected)
+      ) {
+        MainCoordinatorView(
+          store: store.scope(
+            state: \TabBarState.main,
+            action: TabBarAction.main
+          )
+        )
+        .tabItem {
+          Text(TabBarItem.main.description)
+        }
+        .tag(TabBarItem.main)
+        
+        
+        WritingNoteCoordinatorView(
+          store: store.scope(
+            state: \TabBarState.writingNote,
+            action: TabBarAction.writingNote
+          )
+        )
+        .tabItem {
+          Text(TabBarItem.writingNote.description)
+        }
+        .tag(TabBarItem.writingNote)
+      }
     }
   }
 }

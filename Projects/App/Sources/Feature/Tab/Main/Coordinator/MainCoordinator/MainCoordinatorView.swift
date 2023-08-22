@@ -20,16 +20,13 @@ public struct MainCoordinatorView: View {
   
   public var body: some View {
     TCARouter(store) { screen in
-      VStack {
-        Spacer()
-        HStack {
-          Spacer()
-          Text("하이하이")
-          Spacer()
-        }
-        Spacer()
+      SwitchStore(screen) {
+        CaseLet(
+          state: /MainScreenState.main,
+          action: MainScreenAction.main,
+          then: MainView.init
+        )
       }
-      .background(.pink)
     }
   }
 }
