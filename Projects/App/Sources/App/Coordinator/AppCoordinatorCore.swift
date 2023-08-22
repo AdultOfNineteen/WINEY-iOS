@@ -65,7 +65,12 @@ public let appCoordinatorReducer: Reducer<
       case .routeAction(_, action: .splash(._moveToHome)):
         state.routes = [
           .root(
-            .tabBar(.init(main: .init())),
+            .tabBar(
+              .init(
+                main: .init(),
+                writingNote: .init()
+              )
+            ),
             embedInNavigationView: true
           )
         ]
@@ -82,7 +87,12 @@ public let appCoordinatorReducer: Reducer<
       case .routeAction(_, action: .auth(.routeAction(_, action: .setWelcomeSignUp(.tappedStartButton)))):
         state.routes = [
           .root(
-            .tabBar(.init(main: .init())),
+            .tabBar(
+              .init(
+                main: .init(),
+                writingNote: .init()
+              )
+            ),
             embedInNavigationView: true
           )
         ]

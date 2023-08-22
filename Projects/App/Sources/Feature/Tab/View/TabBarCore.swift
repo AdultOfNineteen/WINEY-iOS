@@ -12,16 +12,21 @@ import Foundation
 
 public struct TabBarState: Equatable {
   public var main: MainCoordinatorState
+  public var writingNote: WritingNoteCoordinatorState
+  public var selectedTab: TabBarItem = .main
   
   public init(
-    main: MainCoordinatorState
+    main: MainCoordinatorState,
+    writingNote: WritingNoteCoordinatorState
   ) {
     self.main = main
+    self.writingNote = writingNote
   }
 }
 
 public enum TabBarAction {
   // MARK: - User Action
+  case tabSelected(TabBarItem)
   
   // MARK: - Inner Business Action
   
@@ -29,7 +34,7 @@ public enum TabBarAction {
   
   // MARK: - Child Action
   case main(MainCoordinatorAction)
-  
+  case writingNote(WritingNoteCoordinatorAction)
 }
 
 public struct TabBarEnvironment {
@@ -59,6 +64,16 @@ public let tabBarReducer = Reducer<
         MainCoordinatorEnvironment(
           mainQueue: $0.mainQueue,
           userDefaultsService: $0.userDefaultsService
+        )
+      }
+    ),
+  writingNoteCoordinatorReducer
+    .pullback(
+      state: \TabBarState.writingNote,
+      action: /TabBarAction.writingNote,
+      environment: {
+        WritingNoteCoordinatorEnvironment(
+          mainQueue: $0.mainQueue
         )
       }
     )
