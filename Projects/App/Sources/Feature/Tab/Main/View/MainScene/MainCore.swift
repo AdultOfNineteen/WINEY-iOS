@@ -11,11 +11,16 @@ import ComposableArchitecture
 import Foundation
 
 public struct MainState: Equatable {
-  public init() { }
+  var wineCardListState = WineCardListState()
+  
+  public init() {
+    
+  }
 }
 
 public enum MainAction {
   // MARK: - User Action
+  case wineCardListAction(WineCardListAction)
   
   // MARK: - Inner Business Action
   
