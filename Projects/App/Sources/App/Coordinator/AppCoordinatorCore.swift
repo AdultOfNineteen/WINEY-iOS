@@ -68,7 +68,7 @@ public let appCoordinatorReducer: Reducer<
             .tabBar(
               .init(
                 main: .init(),
-                writingNote: .init()
+                note: .init()
               )
             ),
             embedInNavigationView: true
@@ -90,7 +90,7 @@ public let appCoordinatorReducer: Reducer<
             .tabBar(
               .init(
                 main: .init(),
-                writingNote: .init()
+                note: .init()
               )
             ),
             embedInNavigationView: true

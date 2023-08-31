@@ -139,7 +139,7 @@ public extension View {
             .medium
             .swiftUIFont(size: 13)
         )
-        .lineSpacing(17) // 행간
+        .lineSpacing(1) // 행간
       
     case .captionM2:
       return self

@@ -11,7 +11,7 @@ import ComposableArchitecture
 import Foundation
 
 public struct MainState: Equatable {
-  var wineCardListState = WineCardListState()
+  var wineCardListState = WineCardScrollState()
   
   public init() {
     
@@ -20,21 +20,26 @@ public struct MainState: Equatable {
 
 public enum MainAction {
   // MARK: - User Action
-  case wineCardListAction(WineCardListAction)
+  case tappedAnalysisButton
   
   // MARK: - Inner Business Action
   
   // MARK: - Inner SetState Action
   
   // MARK: - Child Action
+  case wineCardScrollAction(WineCardScrollAction)
 }
 
 public struct MainEnvironment {
   public init() { }
 }
 
-public let mainReducer = Reducer.combine([
-  Reducer<MainState, MainAction, MainEnvironment> { state, action, env in
+public let mainReducer: Reducer<MainState, MainAction, MainEnvironment> =
+Reducer { state, action, environment in
+  switch action {
+  case .tappedAnalysisButton:
+    return .none
+  case .wineCardScrollAction:
     return .none
   }
-])
+}
