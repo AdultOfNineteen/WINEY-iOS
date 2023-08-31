@@ -63,4 +63,3 @@ Reducer { state, action, environment in
     return .none
   }
 }
-.debug("PhoneSignUp Reducer")

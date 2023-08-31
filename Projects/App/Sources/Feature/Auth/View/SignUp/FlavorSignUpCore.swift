@@ -93,4 +93,3 @@ Reducer { state, action, environment in
     return .none
   }
 }
-.debug("FlavorSignUp Reducer")

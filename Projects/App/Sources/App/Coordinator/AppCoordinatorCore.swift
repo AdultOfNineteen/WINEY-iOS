@@ -101,5 +101,4 @@ public let appCoordinatorReducer: Reducer<
       default: return .none
       }
     }
-    .debug("🍷AppCoordinator Reducer")
   )

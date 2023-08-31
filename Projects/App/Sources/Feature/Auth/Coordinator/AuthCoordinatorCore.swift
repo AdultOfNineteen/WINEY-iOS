@@ -106,5 +106,4 @@ public let authCoordinatorReducer: Reducer<
         return .none
       }
     }
-    .debug("AuthCoordinatorCore")
   )
