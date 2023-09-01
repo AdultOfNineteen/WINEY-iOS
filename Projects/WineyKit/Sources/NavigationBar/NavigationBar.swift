@@ -111,7 +111,8 @@ struct NavigationBar_Previews: PreviewProvider {
   static var previews: some View {
     NavigationBar(
       title: "제목",
-      leftIcon: Image(systemName: "arrow.backward")
-      )
+      leftIcon:
+        Image(systemName: "chevron.backward")
+    )
   }
 }
