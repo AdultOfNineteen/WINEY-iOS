@@ -110,8 +110,8 @@ public extension View {
         }
       }
       .ignoresSafeArea()
+      .animation(.easeInOut(duration: 0.3), value: isPresented.wrappedValue)
     }
-    .animation(.easeInOut(duration: 0.1), value: isPresented.wrappedValue)
   }
 }
 
