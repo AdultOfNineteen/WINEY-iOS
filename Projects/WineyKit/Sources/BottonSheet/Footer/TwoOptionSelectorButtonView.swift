@@ -41,7 +41,6 @@ public struct TwoOptionSelectorButtonView: View {
             Button(leftTitle) {
               leftAction()
             }
-//            .frame(height: 25)
             .foregroundColor(WineyKitAsset.gray100.swiftUIColor)
             .wineyFont(.headLine)
             Spacer()
@@ -51,7 +50,6 @@ public struct TwoOptionSelectorButtonView: View {
             Button(rightTitle) {
               rightAction()
             }
-//            .frame(height: 25)
             .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
             .wineyFont(.headLine)
             
