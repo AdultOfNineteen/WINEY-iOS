@@ -10,7 +10,7 @@ import Combine
 import ComposableArchitecture
 import Foundation
 
-public enum LoginPathType: String {
+public enum LoginPathType: String, Equatable {
   case kakao = "카카오"
   case apple = "애플"
   case gmail = "구글"
