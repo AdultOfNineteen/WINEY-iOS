@@ -44,21 +44,29 @@ public struct BottomSheet<
   
   public var body: some View {
     VStack(spacing: 0) {
+      RoundedRectangle(cornerRadius: 6)
+        .frame(width: 66, height: 5)
+        .foregroundColor(WineyKitAsset.gray900.swiftUIColor)
+        .padding(.top, 10)
+        .padding(.bottom, 20)
+      
       headerArea
-        .padding(.top, 32)
+        .padding(.bottom, 16)
       
       content
-        .padding(.horizontal, 24)
-        .padding(.top, 32)
+      
+      Spacer()
       
       bottomArea
-        .padding(.top, 24)
+        .padding(.bottom, 20)
       
       Spacer()
         .frame(height: keyWindow?.safeAreaInsets.bottom)
-        .padding(.top, 8)
     }
+    .frame(maxHeight: 393)
     .background(backgroundColor)
+    .cornerRadius(12, corners: .topLeft)
+    .cornerRadius(12, corners: .topRight)
   }
 }
 
@@ -78,10 +86,9 @@ public extension View {
   ) -> some View {
     ZStack {
       self
-      
       ZStack(alignment: .bottom) {
         if isPresented.wrappedValue {
-          WineyKitAsset.gray950.swiftUIColor.opacity(0.85)
+          WineyKitAsset.background1.swiftUIColor.opacity(0.85)
             .ignoresSafeArea(.container, edges: .all)
             .zIndex(1)
             .onTapGesture {
