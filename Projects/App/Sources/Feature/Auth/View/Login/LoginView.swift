@@ -54,6 +54,7 @@ struct LoginView: View {
           .padding(.bottom, 36)
         
         serviceInfoTextSpace
+          .padding(.bottom, WineyGridRules.bottomButtonPadding)
       }
     }
   }
