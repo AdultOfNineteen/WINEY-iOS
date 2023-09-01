@@ -18,18 +18,29 @@ struct SignUpView: View {
   }
     var body: some View {
       WithViewStore(store) { viewStore in
-        GeometryReader {_ in
-          VStack {
+        GeometryReader { geometry in
+          VStack(spacing: 0) {
             NavigationBar(
-              leftIcon: Image(systemName: "arrow.backward"),
+              leftIcon: Image("navigationBack_button")
+              ,
               leftIconButtonAction: {
                 viewStore.send(.tappedBackButton)
               })
             
-            Text("휴대폰 번호를 입력해주세요")
+            HStack(alignment: .firstTextBaseline) {
+              Text("휴대폰 번호를 입력해주세요")
+              .wineyFont(.title1)
+              Spacer()
+            }
+            .padding(
+              .leading,
+              WineyGridRules
+              .globalHorizontalPadding
+            )
             
             CustomTextField(
-              mainTitle: "휴대폰 번호",
+              mainTitle: "전화번호",
+              placeholderText: "11자리 입력",
               errorMessage: "올바른 번호를 입력해주세요",
               inputText: viewStore.binding(
                 get: { $0.inputPhoneNumber },
@@ -42,6 +53,14 @@ struct SignUpView: View {
               },
               onEditingChange: { }
             )
+            .padding(
+              .horizontal,
+              WineyGridRules
+              .globalHorizontalPadding
+            )
+            .padding(.top, 54)
+            
+            Spacer()
             
             WineyConfirmButton(
               title: "다음",
@@ -51,19 +70,36 @@ struct SignUpView: View {
                 viewStore.send(.tappedNextButton)
               }
             )
-            Spacer()
+            .padding(
+              .horizontal,
+              WineyGridRules
+              .globalHorizontalPadding
+            )
+            .padding(.bottom, WineyGridRules.bottomButtonPadding)
           }
         }
         .bottomSheet(
-          backgroundColor: Color.black,
+          backgroundColor: WineyKitAsset.gray950.swiftUIColor,
           isPresented: viewStore.binding(
             get: \.isPresentedBottomSheet,
             send: .tappedOutsideOfBottomSheet
           ),
-          headerArea: { Text("헤더") },
+          headerArea: {
+            Image("rock_image")
+          },
           content: {
-            Text("인증번호가 발송되었어요\n3분 안에 인증번호를 입력해주세요")
-              .foregroundColor(.white)
+            VStack(spacing: 14) {
+              VStack(spacing: 2.4) {
+                Text("인증번호가 발송되었어요")
+                Text("3분 안에 인증번호를 입력해주세요")
+              }
+              .foregroundColor(WineyKitAsset.gray200.swiftUIColor)
+              .wineyFont(.bodyB1)
+              
+              Text("*인증번호 요청 3회 초과 시 5분 제한")
+                .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
+                .wineyFont(.captionM2)
+            }
           },
           bottomArea: {
             WineyConfirmButton(
@@ -73,11 +109,16 @@ struct SignUpView: View {
                 viewStore.send(.tappedBottomCodeSendConfirmButton)
               }
             )
+            .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
           }
         )
+        .onChange(of: viewStore.state.isPresentedBottomSheet ) { sheetAppear in
+          if sheetAppear {
+            UIApplication.shared.endEditing()
+          }
+        }
       }
       .navigationBarHidden(true)
-
     }
   
   func formatPhoneNumber(_ number: String) -> String {
