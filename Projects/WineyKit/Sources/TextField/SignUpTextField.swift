@@ -15,11 +15,13 @@ public struct CustomTextField: View {
   public let maximumInputCount: Int
   public let isInputTextCompleteCondition: (String) -> Bool
   public var onEditingChange: () -> Void = {}
+  public let placeholderText: String
   @Binding public var inputText: String
   @Binding public var rightAccessoryText: String?
     
   public init(
     mainTitle: String,
+    placeholderText: String,
     rightAccessoryText: Binding<String?> = .constant(nil),
     errorMessage: String,
     inputText: Binding<String>,
@@ -29,6 +31,7 @@ public struct CustomTextField: View {
     onEditingChange: @escaping () -> Void = {}
   ) {
     self.mainTitle = mainTitle
+    self.placeholderText = placeholderText
     self._rightAccessoryText = rightAccessoryText
     self.errorMessage = errorMessage
     self._inputText = inputText
@@ -48,32 +51,37 @@ public struct CustomTextField: View {
       )
       .foregroundColor(
         inputText.isEmpty || isInputTextCompleteCondition(inputText) ?
-        .gray : .red
+        WineyKitAsset.gray600.swiftUIColor : WineyKitAsset.error.swiftUIColor
       )
+      .wineyFont(.bodyB2)
+      .padding(.bottom, 13)
           
       HStack {
-        TextField("", text: $inputText)
+        TextField(placeholderText, text: $inputText)
           .keyboardType(.numberPad)
           .onChange(of: inputText) { newValue in
             inputText =
             textStyle(String(newValue.prefix(maximumInputCount)))
             onEditingChange()
           }
+          .foregroundColor(.white)
+          .wineyFont(.bodyB1)
               
         if let accessoryText = rightAccessoryText {
           Text(accessoryText)
         }
       }
+      .frame(height: 24)
+      .padding(.bottom, 9)
           
       Rectangle()
         .frame(height: 1)
         .foregroundColor(
           isInputTextCompleteCondition(inputText) ?
             .white :
-            inputText.isEmpty ? .gray : .red
+            inputText.isEmpty ? WineyKitAsset.gray600.swiftUIColor : WineyKitAsset.error.swiftUIColor
         )
     }
-    .padding(.bottom, 10)
   }
 }
 
@@ -88,6 +96,7 @@ struct CustomTextFieldExample: View {
     VStack(spacing: 20) {
       CustomTextField(
         mainTitle: "휴대폰 번호",
+        placeholderText: "11자리 입력",
         errorMessage: "올바른 번호를 입력해주세요",
         inputText: $phoneNumber,
         textStyle: formatPhoneNumber(_:),
@@ -100,6 +109,7 @@ struct CustomTextFieldExample: View {
             
       CustomTextField(
         mainTitle: "인증번호",
+        placeholderText: "",
         rightAccessoryText: $timerText,
         errorMessage: "인증번호를 입력해주세요",
         inputText: $authCode,

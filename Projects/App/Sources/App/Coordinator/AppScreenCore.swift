@@ -64,7 +64,6 @@ Reducer<
         )
       }
     )
-    .debug("🍷🍷🍷🍷🍷authCoordinatorReducer Reducer")
   ,
   
   tabBarReducer

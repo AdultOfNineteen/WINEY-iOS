@@ -13,6 +13,7 @@ import WineyKit
 struct CodeSignUpBottomSheetFooter: View {
   private let store: Store<CodeSignUpState, CodeSignUpAction>
   
+  
   init(store: Store<CodeSignUpState, CodeSignUpAction>) {
     self.store = store
   }
@@ -21,17 +22,19 @@ struct CodeSignUpBottomSheetFooter: View {
     WithViewStore(store, observe: \.bottomSheetType) { viewStore in
       VStack {
         if viewStore.state == .back {
-          HStack {
-            Button("아니오") {
+          TwoOptionSelectorButtonView(
+            leftTitle: "아니오",
+            leftAction: {
               viewStore.send(._presentBottomSheet(false))
-            }
-            Button("네") {
+            },
+            rightTitle: "예",
+            rightAction: {
               viewStore.send(._backToFirstView)
             }
-          }
+          )
         }
         
-        if viewStore.state == .alreadySignUp {
+        if case .alreadySignUp = viewStore.state {
           WineyConfirmButton(
             title: "확인",
             validBy: true,
@@ -47,6 +50,16 @@ struct CodeSignUpBottomSheetFooter: View {
             validBy: true,
             action: {
               viewStore.send(.tappedBottomFailConfirmButton)
+            }
+          )
+        }
+        
+        if viewStore.state == .resendCode {
+          WineyConfirmButton(
+            title: "확인",
+            validBy: true,
+            action: {
+              viewStore.send(.tappedBottomResendCodeButton)
             }
           )
         }

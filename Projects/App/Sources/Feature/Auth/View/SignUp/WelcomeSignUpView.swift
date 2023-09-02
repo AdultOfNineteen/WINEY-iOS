@@ -21,12 +21,17 @@ struct WelcomeSignUpView: View {
         GeometryReader {_ in
           VStack(spacing: 0) {
             
+            Spacer()
+              .frame(height: 68)
+            
             HStack(alignment: .firstTextBaseline) {
               Text("안녕하세요\n와이니에 오신 걸 환영해요!")
                 .wineyFont(.title1)
               Spacer()
             }
+            .padding(.leading, WineyGridRules.globalHorizontalPadding)
             
+            Spacer()
             
             WineyConfirmButton(
               title: "시작하기",
@@ -35,6 +40,11 @@ struct WelcomeSignUpView: View {
                 viewStore.send(.tappedStartButton)
               }
             )
+            .padding(
+              .horizontal,
+              WineyGridRules.globalHorizontalPadding
+            )
+            .padding(.bottom, WineyGridRules.bottomButtonPadding)
           }
         }
       }

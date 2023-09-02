@@ -11,8 +11,20 @@ import ComposableArchitecture
 import Foundation
 
 public enum CodeBottomSheetType: Equatable {
+  public static func == (lhs: CodeBottomSheetType, rhs: CodeBottomSheetType) -> Bool {
+    switch (lhs, rhs) {
+    case (.back, .back), (.codeFail, .codeFail), (.resendCode, .resendCode):
+      return true
+    case let (.alreadySignUp((lhsPhone, lhsPath)), .alreadySignUp((rhsPhone, rhsPath))):
+      return lhsPhone == rhsPhone && lhsPath == rhsPath
+    default:
+      return false
+    }
+  }
+  
   case back
-  case alreadySignUp
+  case resendCode
+  case alreadySignUp((phone: String, path: LoginPathType))
   case codeFail
 }
 
@@ -35,6 +47,7 @@ public enum CodeSignUpAction {
   case tappedBackButton
   case tappedCodeConfirmButton
   case tappedBottomFailConfirmButton
+  case tappedBottomResendCodeButton
   case tappedBottomAlreadySignUpButton
   case tappedOutsideOfBottomSheet
   case tappedReSendCodeButton
@@ -78,6 +91,9 @@ Reducer { state, action, environment in
     state.validCode = number.count == 6
     return .none
     
+  case .tappedReSendCodeButton:
+    return Effect(value: ._changeBottomSheet(type: .resendCode))
+    
   case .tappedCodeConfirmButton:
     // Environment 통한 통신결과 반영
     let envResult: Result<CodeResponseType, Error> = .success(.completed) // 임시
@@ -90,12 +106,16 @@ Reducer { state, action, environment in
   case .tappedBottomFailConfirmButton:
     return Effect(value: ._presentBottomSheet(false))
     
+  case .tappedBottomResendCodeButton:
+    return Effect(value: ._presentBottomSheet(false))
+    
   case ._handleSignUpResponse(.success(let result)):
     switch result {
     case .completed:
       return Effect(value: ._moveFlavorSignUpView)
     case .alreadySignUp:
-      return Effect(value: ._changeBottomSheet(type: .alreadySignUp))
+      // 통신 결과를 통한 값 반영
+      return Effect(value: ._changeBottomSheet(type: .alreadySignUp(("010-1234-1234", .kakao)))) // 임시 값
     case .codeFail:
       return Effect(value: ._changeBottomSheet(type: .codeFail))
     }
@@ -115,4 +135,3 @@ Reducer { state, action, environment in
     return .none
   }
 }
-.debug("CodeSignUp Reducer")

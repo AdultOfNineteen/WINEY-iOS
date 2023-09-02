@@ -39,7 +39,7 @@ public extension View {
             .bold
             .swiftUIFont(size: 32)
         )
-        .lineSpacing(39) // 행간
+        .lineSpacing(3.9) // 행간
       
     case .title1:
       return self
@@ -59,7 +59,7 @@ public extension View {
             .bold
             .swiftUIFont(size: 20)
         )
-        .lineSpacing(25) // 행간
+        .lineSpacing(2.5) // 행간
       
     case .headLine:
       return self
@@ -69,7 +69,7 @@ public extension View {
             .bold
             .swiftUIFont(size: 18)
         )
-        .lineSpacing(23) // 행간
+        .lineSpacing(2.3) // 행간
       
     case .subhead:
       return self
@@ -79,7 +79,7 @@ public extension View {
             .medium
             .swiftUIFont(size: 15)
         )
-        .lineSpacing(20) // 행간
+        .lineSpacing(2.0) // 행간
       
     case .bodyB1:
       return self
@@ -89,7 +89,7 @@ public extension View {
             .bold
             .swiftUIFont(size: 17)
         )
-        .lineSpacing(24) // 행간
+        .lineSpacing(2.4) // 행간
       
     case .bodyM1:
       return self
@@ -99,7 +99,7 @@ public extension View {
             .medium
             .swiftUIFont(size: 17)
         )
-        .lineSpacing(24) // 행간
+        .lineSpacing(2.4) // 행간
       
     case .bodyB2:
       return self
@@ -109,7 +109,7 @@ public extension View {
             .bold
             .swiftUIFont(size: 14)
         )
-        .lineSpacing(19) // 행간
+        .lineSpacing(1.9) // 행간
       
     case .bodyM2:
       return self
@@ -119,7 +119,7 @@ public extension View {
             .medium
             .swiftUIFont(size: 14)
         )
-        .lineSpacing(19) // 행간
+        .lineSpacing(1.9) // 행간
       
     case .captionB1:
       return self
@@ -129,7 +129,7 @@ public extension View {
             .bold
             .swiftUIFont(size: 13)
         )
-        .lineSpacing(17) // 행간
+        .lineSpacing(1.7) // 행간
       
     case .captionM1:
       return self
@@ -149,6 +149,7 @@ public extension View {
             .medium
             .swiftUIFont(size: 11)
         )
+
         .lineSpacing(18) // 행간
       
     case .captionM3:

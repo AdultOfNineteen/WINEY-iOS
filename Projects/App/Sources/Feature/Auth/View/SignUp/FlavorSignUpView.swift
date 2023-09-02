@@ -18,73 +18,93 @@ struct FlavorSignUpView: View {
   }
     var body: some View {
       WithViewStore(store) { viewStore in
-        GeometryReader {_ in
-          VStack {
-            
-            NavigationBar(
-              leftIcon: Image(systemName: "arrow.backward"),
-              leftIconButtonAction: {
-                viewStore.send(.tappedBackButton)
-              }
-            )
-            .overlay(alignment: .trailing) {
-              Text("\(viewStore.state.pageState.rawValue)/3")
-                .padding(.trailing, 24)
-                .foregroundColor(WineyKitAsset.gray500.swiftUIColor)
-                .wineyFont(.bodyB2)
-            }
-            
-            Text("어떤 맛을 좋아하시나요?")
-            Text("좋아하실만한 와인을 추천해드릴게요!")
-            
-            Text("\(viewStore.state.pageState.question())")
-              .wineyFont(.captionB1)
-              .foregroundColor(.white)
-              .padding(.horizontal, 22)
-              .padding(.vertical, 11)
-              .background {
-                RoundedRectangle(cornerRadius: 50)
-                  .fill(WineyKitAsset.main1.swiftUIColor)
-              }
-            
-            HStack {
-              if viewStore.state.pageState.rawValue == 1 {
-                chocolateView
-                  .transition(.slideInAndOut(edge: .leading))
-              } else if viewStore.state.pageState.rawValue == 2 {
-                coffeeView
-                  .transition(.slideInAndOut(edge: .leading))
-              } else {
-                fruitView
-                  .transition(.slideInAndOut(edge: .leading))
-              }
-            }
-            .animation(.easeInOut, value: viewStore.state.pageState.rawValue)
-            Spacer()
-          }
-          .bottomSheet(
-            backgroundColor: Color.black,
-            isPresented: viewStore.binding(
-              get: \.isPresentedBottomSheet,
-              send: .tappedOutsideOfBottomSheet
-            ),
-            headerArea: {
-              Text("좌물쇠 그림")
-            },
-            content: {
-              Text("진행을 중단하고 처음으로\n되돌아가시겠어요?")
-            },
-            bottomArea: {
-              HStack {
-                Button("아니오") {
-                  viewStore.send(._presentBottomSheet(false))
-                }
-                Button("네") {
-                  viewStore.send(._backToFirstView)
-                }
-              }
+        VStack(spacing: 0) {
+          NavigationBar(
+            leftIcon: Image("navigationBack_button"),
+            leftIconButtonAction: {
+              viewStore.send(.tappedBackButton)
             }
           )
+          .overlay(alignment: .trailing) {
+            Text("\(viewStore.state.pageState.rawValue)/3")
+              .padding(.trailing, WineyGridRules.globalHorizontalPadding)
+              .foregroundColor(WineyKitAsset.gray500.swiftUIColor)
+              .wineyFont(.bodyB2)
+          }
+          
+          VStack(alignment: .leading, spacing: 14) {
+            HStack(alignment: .firstTextBaseline) {
+              Text("어떤 맛을 좋아하시나요?")
+                .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+                .wineyFont(.title1)
+              Spacer()
+            }
+            
+            Text("좋아하실만한 와인을 추천해드릴게요!")
+              .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
+              .wineyFont(.bodyM2)
+          }
+          .padding(.leading, WineyGridRules.globalHorizontalPadding)
+          .padding(.bottom, 66)
+          
+          Text("\(viewStore.state.pageState.question())")
+            .wineyFont(.captionB1)
+            .foregroundColor(.white)
+            .padding(.horizontal, 22)
+            .padding(.vertical, 11)
+            .background {
+              RoundedRectangle(cornerRadius: 50)
+                .fill(WineyKitAsset.main1.swiftUIColor)
+            }
+            .padding(.bottom, 20)
+          
+          HStack {
+            if viewStore.state.pageState.rawValue == 1 {
+              chocolateView
+                .transition(.slideInAndOut(edge: .leading))
+            } else if viewStore.state.pageState.rawValue == 2 {
+              coffeeView
+                .transition(.slideInAndOut(edge: .leading))
+            } else {
+              fruitView
+                .transition(.slideInAndOut(edge: .leading))
+            }
+          }
+          .padding(.horizontal, 24)
+          .animation(.easeInOut, value: viewStore.state.pageState.rawValue)
+          
+          Spacer()
+        }
+        .bottomSheet(
+          backgroundColor: WineyKitAsset.gray950.swiftUIColor,
+          isPresented: viewStore.binding(
+            get: \.isPresentedBottomSheet,
+            send: .tappedOutsideOfBottomSheet
+          ),
+          headerArea: {
+            Image("rock_image")
+          },
+          content: {
+            CustomVStack(text1: "진행을 중단하고 처음으로", text2: "되돌아가시겠어요?")
+          },
+          bottomArea: {
+            TwoOptionSelectorButtonView(
+              leftTitle: "아니오",
+              leftAction: {
+                viewStore.send(._presentBottomSheet(false))
+              },
+              rightTitle: "예",
+              rightAction: {
+                viewStore.send(._backToFirstView)
+              }
+            )
+            .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+          }
+        )
+        .onChange(of: viewStore.state.isPresentedBottomSheet ) { sheetAppear in
+          if sheetAppear {
+            UIApplication.shared.endEditing()
+          }
         }
         .navigationBarHidden(true)
       }

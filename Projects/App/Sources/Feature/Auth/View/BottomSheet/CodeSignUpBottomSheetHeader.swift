@@ -12,7 +12,7 @@ import WineyKit
 struct CodeSignUpBottomSheetHeader: View {
   var body: some View {
     HStack {
-      Text("자물쇠이미지")
+      Image("rock_image")
     }
   }
 }

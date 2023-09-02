@@ -41,4 +41,3 @@ Reducer { state, action, environment in
     return .none
   }
 }
-.debug("WelcomeSignUp Reducer")
