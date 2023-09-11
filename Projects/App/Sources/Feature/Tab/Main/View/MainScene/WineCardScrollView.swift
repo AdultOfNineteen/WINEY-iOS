@@ -10,16 +10,16 @@ import ComposableArchitecture
 import SwiftUI
 
 public struct WineCardScrollView: View {
-  private let store: Store<WineCardScrollState, WineCardScrollAction>
+  private let store: StoreOf<WineCardScroll>
   @GestureState var offset: CGFloat = 0
   @State var currentIdx = 0
   
-  public init(store: Store<WineCardScrollState, WineCardScrollAction>) {
+  public init(store: StoreOf<WineCardScroll>) {
     self.store = store
   }
   
   public var body: some View {
-    WithViewStore(store) { viewStore in
+    WithViewStore(store, observe: { $0 }) { viewStore in
       GeometryReader { geo in
         let width = geo.size.width - (95 - 14)   // 22는 trailing Space
         

@@ -13,10 +13,6 @@ import Foundation
 public struct TabBar: Reducer {
   
   public struct State: Equatable {
-    //
-    //    case main(MainCoordinator.State)
-    //    case note(NoteCoordinator.State)
-    //    case selectedTab(TabBarItem = .main)
     public var main: MainCoordinator.State
     public var note: NoteCoordinator.State
     public static var selectedTab: TabBarItem = .main

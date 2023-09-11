@@ -10,14 +10,14 @@ import ComposableArchitecture
 import SwiftUI
 
 public struct NoteView: View {
-  private let store: Store<NoteState, NoteAction>
+  private let store: StoreOf<Note>
   
-  public init(store: Store<NoteState, NoteAction>) {
+  public init(store: StoreOf<Note>) {
     self.store = store
   }
   
   public var body: some View {
-    WithViewStore(store) { viewStore in
+    WithViewStore(store, observe: { $0 }) { viewStore in
       VStack {
         Text("Note View")
       }
