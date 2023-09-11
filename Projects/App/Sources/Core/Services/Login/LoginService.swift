@@ -10,10 +10,10 @@ import ComposableArchitecture
 import Foundation
 
 public struct LoginService {
-  public var getLoginPath: () -> Effect<LoginPathType, Error>
+  public var getLoginPath: () -> Effect<LoginPathType>
   
   private init(
-    getLoginPath: @escaping () -> Effect<LoginPathType, Error>
+    getLoginPath: @escaping () -> Effect<LoginPathType>
   ) {
     self.getLoginPath = getLoginPath
   }

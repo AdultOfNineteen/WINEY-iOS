@@ -12,41 +12,55 @@ import SwiftUI
 import TCACoordinators
 
 public struct AuthCoordinatorView: View {
-  private let store: Store<AuthCoordinatorState, AuthCoordinatorAction>
+  private let store: StoreOf<AuthCoordinator>
   
-  public init(store: Store<AuthCoordinatorState, AuthCoordinatorAction>) {
+  public init(store: StoreOf<AuthCoordinator>) {
     self.store = store
   }
   
   public var body: some View {
     TCARouter(store) { screen in
-      SwitchStore(screen) {
-        CaseLet(
-          state: /AuthScreenState.login,
-          action: AuthScreenAction.login,
-          then: LoginView.init
-        )
-        CaseLet(
-          state: /AuthScreenState.setPhoneSignUp,
-          action: AuthScreenAction.setPhoneSignUp,
-          then: SignUpView.init
-        )
-        CaseLet(
-          state: /AuthScreenState.setCodeSignUP,
-          action: AuthScreenAction.setCodeSignUp,
-          then: CodeSignUpView.init
-        )
-        CaseLet(
-          state: /AuthScreenState.setFlavorSignUp,
-          action: AuthScreenAction.setFlavorSignUp,
-          then: FlavorSignUpView.init
-        )
-        CaseLet(
-          state: /AuthScreenState.setWelcomeSignUp,
-          action: AuthScreenAction.setWelcomeSignUp,
-          then: WelcomeSignUpView.init
-        )
+      SwitchStore(screen) { screen in
+        switch screen {
+        case .login:
+          CaseLet(
+            /AuthScreen.State.login,
+            action: AuthScreen.Action.login,
+            then: LoginView.init
+          )
+          
+        case .setPhoneSignUp:
+          CaseLet(
+            /AuthScreen.State.setPhoneSignUp,
+            action: AuthScreen.Action.setPhoneSignUp,
+            then: SignUpView.init
+          )
+          
+        case .setCodeSignUP:
+          CaseLet(
+            /AuthScreen.State.setCodeSignUP,
+            action: AuthScreen.Action.setCodeSignUp,
+            then: CodeSignUpView.init
+          )
+          
+        case .setFlavorSignUp:
+          CaseLet(
+            /AuthScreen.State.setFlavorSignUp,
+            action: AuthScreen.Action.setFlavorSignUp,
+            then: FlavorSignUpView.init
+          )
+          
+        case .setWelcomeSignUp:
+          CaseLet(
+            /AuthScreen.State.setWelcomeSignUp,
+            action: AuthScreen.Action.setWelcomeSignUp,
+            then: WelcomeSignUpView.init
+          )
+        }
       }
+    }
+    .onAppear{
+      print("AuthCoordinatorView 생성")
     }
   }
 }

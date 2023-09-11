@@ -11,129 +11,127 @@ import SwiftUI
 import WineyKit
 
 struct CodeSignUpView: View {
-  private let store: Store<CodeSignUpState, CodeSignUpAction>
+  private let store: StoreOf<CodeSignUp>
+  @ObservedObject var viewStore: ViewStoreOf<CodeSignUp>
   @FocusState private var isTextFieldFocused: Bool
   
-  public init(store: Store<CodeSignUpState, CodeSignUpAction>) {
+  public init(store: StoreOf<CodeSignUp>) {
     self.store = store
+    self.viewStore = ViewStore(self.store, observe: { $0 })
   }
-    var body: some View {
-      WithViewStore(store) { viewStore in
-        GeometryReader {_ in
-          VStack(spacing: 0) {
-            NavigationBar(
-              leftIcon: Image("navigationBack_button"),
-              leftIconButtonAction: {
-                viewStore.send(.tappedBackButton)
-              })
-            
-            HStack(alignment: .firstTextBaseline) {
-              Text("인증번호를 입력해주세요")
-                .wineyFont(.title1)
-              Spacer()
-            }
-            .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-            .padding(.bottom, 54)
-            
-            CustomTextField(
-              mainTitle: "인증번호",
-              placeholderText: "",
-              errorMessage: "인증번호를 확인해주세요",
-              inputText: viewStore.binding(
-                get: { $0.inputCode },
-                send: CodeSignUpAction.edited
-              ),
-              textStyle: { $0 },
-              maximumInputCount: 6,
-              isInputTextCompleteCondition: { text in
-                text.count == 6
-              },
-              onEditingChange: { }
-            )
-            .focused($isTextFieldFocused)
-            .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-            .padding(.bottom, 15)
-            
-            HStack(spacing: 10) {
-              Text("인증번호가 오지 않나요?")
-                .wineyFont(.bodyM2)
-              
-              Button(
-                action: {
-                  viewStore.send(.tappedReSendCodeButton)
-                },
-                label: {
-                  VStack(spacing: 0) {
-                    Text("인증번호 재전송")
-                    .wineyFont(.bodyB2)
-                    .offset(y: -0.5)
-                    .overlay(alignment: .bottom) {
-                      Rectangle()
-                        .frame(height: 1.5)
-                    }
-                  }
-                }
-              )
-              
-              Spacer()
-            }
-            .foregroundColor(
-              WineyKitAsset.gray500.swiftUIColor
-            )
-            .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-            
-            Spacer()
-            
-            WineyConfirmButton(
-              title: "다음",
-              validBy:
-                viewStore.state.validCode,
-              action: {
-                viewStore.send(.tappedCodeConfirmButton)
-              }
-            )
-            .padding(
-              .horizontal,
-              WineyGridRules
-              .globalHorizontalPadding
-            )
-            .padding(.bottom, WineyGridRules.bottomButtonPadding)
-          }
+  
+  public var body: some View {
+    GeometryReader {_ in
+      VStack(spacing: 0) {
+        NavigationBar(
+          leftIcon: Image("navigationBack_button"),
+          leftIconButtonAction: {
+            viewStore.send(.tappedBackButton)
+          })
+        
+        HStack(alignment: .firstTextBaseline) {
+          Text("인증번호를 입력해주세요")
+            .wineyFont(.title1)
+          Spacer()
         }
-        .bottomSheet(
-          backgroundColor: WineyKitAsset.gray950.swiftUIColor,
-          isPresented: viewStore.binding(
-            get: \.isPresentedBottomSheet,
-            send: .tappedOutsideOfBottomSheet
+        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+        .padding(.bottom, 54)
+        
+        CustomTextField(
+          mainTitle: "인증번호",
+          placeholderText: "",
+          errorMessage: "인증번호를 확인해주세요",
+          inputText: viewStore.binding(
+            get: \.inputCode,
+            send: CodeSignUp.Action.edited
           ),
-          headerArea: {
-            CodeSignUpBottomSheetHeader()
+          textStyle: { $0 },
+          maximumInputCount: 6,
+          isInputTextCompleteCondition: { text in
+            text.count == 6
           },
-          content: {
-            CodeSignUpBottomSheetContent(
-              store: store.scope(
-                state: \.bottomSheetType,
-                action: { CodeSignUpAction.tappedOutsideOfBottomSheet } // 양식 맞춤
-              )
-            )
-          },
-          bottomArea: {
-            HStack {
-              CodeSignUpBottomSheetFooter(
-                store: store // 분리해서 넣는 게 좋을까 논의
-              )
+          onEditingChange: { }
+        )
+        .focused($isTextFieldFocused)
+        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+        .padding(.bottom, 15)
+        
+        HStack(spacing: 10) {
+          Text("인증번호가 오지 않나요?")
+            .wineyFont(.bodyM2)
+          
+          Button(
+            action: {
+              viewStore.send(.tappedReSendCodeButton)
+            },
+            label: {
+              VStack(spacing: 0) {
+                Text("인증번호 재전송")
+                  .wineyFont(.bodyB2)
+                  .offset(y: -0.5)
+                  .overlay(alignment: .bottom) {
+                    Rectangle()
+                      .frame(height: 1.5)
+                  }
+              }
             }
-            .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+          )
+          
+          Spacer()
+        }
+        .foregroundColor(
+          WineyKitAsset.gray500.swiftUIColor
+        )
+        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+        
+        Spacer()
+        
+        WineyConfirmButton(
+          title: "다음",
+          validBy:
+            viewStore.state.validCode,
+          action: {
+            viewStore.send(.tappedCodeConfirmButton)
           }
         )
-        .onChange(of: viewStore.state.isPresentedBottomSheet ) { sheetAppear in
-          if sheetAppear {
-            UIApplication.shared.endEditing()
-          }
-        }
+        .padding(
+          .horizontal,
+          WineyGridRules
+            .globalHorizontalPadding
+        )
+        .padding(.bottom, WineyGridRules.bottomButtonPadding)
       }
-      .navigationBarHidden(true)
     }
+    .bottomSheet(
+      backgroundColor: WineyKitAsset.gray950.swiftUIColor,
+      isPresented: viewStore.binding(
+        get: \.isPresentedBottomSheet,
+        send: .tappedOutsideOfBottomSheet
+      ),
+      headerArea: {
+        CodeSignUpBottomSheetHeader()
+      },
+      content: {
+        CodeSignUpBottomSheetContent(
+          store: self.store
+        )
+      },
+      bottomArea: {
+        HStack {
+          CodeSignUpBottomSheetFooter(
+            store: store 
+          )
+        }
+        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+      }
+    )
+    .onChange(of: viewStore.state.isPresentedBottomSheet ) { sheetAppear in
+      if sheetAppear {
+        UIApplication.shared.endEditing()
+      }
+    }
+    .navigationBarHidden(true)
+  }
   
   func formatPhoneNumber(_ number: String) -> String {
     var digits = number.filter { $0.isNumber }
@@ -150,12 +148,9 @@ struct CodeSignUpView: View {
 struct CodeSignUpView_Previews: PreviewProvider {
   static var previews: some View {
     CodeSignUpView(
-      store: Store<CodeSignUpState, CodeSignUpAction>(
+      store: Store(
         initialState: .init(),
-        reducer: setCodeSignUpReducer,
-        environment: SetCodeSignUpEnvironment(
-          mainQueue: .main,
-          userDefaultsService: .live)
+        reducer: { CodeSignUp() }
       )
     )
   }

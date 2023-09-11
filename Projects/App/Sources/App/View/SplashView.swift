@@ -11,18 +11,18 @@ import SwiftUI
 import WineyKit
 
 public struct SplashView: View {
-  private let store: Store<SplashState, SplashAction>
+  private let store: StoreOf<Splash>
   
-  public init(store: Store<SplashState, SplashAction>) {
+  public init(store: StoreOf<Splash>) {
     self.store = store
   }
   
   public var body: some View {
-    WithViewStore(store) { viewStore in
+    VStack {
       mainLogoSpace
       .onAppear {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // SplashView 확인용 강제 딜레이
-          viewStore.send(._onAppear)
+          store.send(._onAppear)
         }
       }
     }
@@ -44,19 +44,5 @@ public struct SplashView: View {
         .offset(y: 2)
       }
     }
-  }
-}
-
-struct SplashView_Previews: PreviewProvider {
-  static var previews: some View {
-    SplashView(
-      store: Store<SplashState, SplashAction>(
-        initialState: .init(),
-        reducer: splashReducer,
-        environment: SplashEnvironment(
-          userDefaultsService: .live
-        )
-      )
-    )
   }
 }
