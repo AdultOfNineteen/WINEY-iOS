@@ -11,23 +11,23 @@ import SwiftUI
 import WineyKit
 
 public struct TabBarView: View {
-  private let store: Store<TabBarState, TabBarAction>
+  private let store: StoreOf<TabBar>
   
-  public init(store: Store<TabBarState, TabBarAction>) {
+  public init(store: StoreOf<TabBar>) {
     self.store = store
   }
   
   public var body: some View { // 홈, 노트, 노트모음, 마이페이지 Coordinator
-    WithViewStore(store) { viewStore in
+    WithViewStore(store, observe: { $0 }) { viewStore in
       TabView(
         selection: viewStore.binding(
-          get: { $0.selectedTab },
-          send: TabBarAction.tabSelected)
+          get: { _ in TabBar.State.selectedTab },
+          send: TabBar.Action.tabSelected)
       ) {
         MainCoordinatorView(
           store: store.scope(
-            state: \TabBarState.main,
-            action: TabBarAction.main
+            state: \.main,
+            action: TabBar.Action.main
           )
         )
         .tabItem {
@@ -40,8 +40,8 @@ public struct TabBarView: View {
         
         NoteCoordinatorView(
           store: store.scope(
-            state: \TabBarState.note,
-            action: TabBarAction.note
+            state: \.note,
+            action: TabBar.Action.note
           )
         )
         .tabItem {

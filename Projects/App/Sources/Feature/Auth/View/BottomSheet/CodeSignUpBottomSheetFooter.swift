@@ -11,10 +11,10 @@ import SwiftUI
 import WineyKit
 
 struct CodeSignUpBottomSheetFooter: View {
-  private let store: Store<CodeSignUpState, CodeSignUpAction>
+  private let store: StoreOf<CodeSignUp>
   
   
-  init(store: Store<CodeSignUpState, CodeSignUpAction>) {
+  init(store: StoreOf<CodeSignUp>) {
     self.store = store
   }
   

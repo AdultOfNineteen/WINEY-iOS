@@ -19,12 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     self.window = UIWindow(frame: UIScreen.main.bounds)
-    let appView = WineyApp( // A ppView를 만들기 위해선
-      store: .init( // Store를 넣어줘야 함, 아래는 Store를 만들기 위해 넣어줘야 할 파라미터
-        initialState: .init(), // 초기 상태
-        reducer: appReducer, // 따로 생성해둔 Reducer
-        environment: .init()
-      )
+    let appView = AppCoordinatorView(
+      store: .init(
+        initialState: .initialState,
+        reducer: { AppCoordinator() })
     )
   
     window?.rootViewController = UIHostingController(rootView: appView)

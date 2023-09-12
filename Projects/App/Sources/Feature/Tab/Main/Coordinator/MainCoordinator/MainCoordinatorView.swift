@@ -12,20 +12,23 @@ import SwiftUI
 import TCACoordinators
 
 public struct MainCoordinatorView: View {
-  private let store: Store<MainCoordinatorState, MainCoordinatorAction>
+  private let store: StoreOf<MainCoordinator>
   
-  public init(store: Store<MainCoordinatorState, MainCoordinatorAction>) {
+  public init(store: StoreOf<MainCoordinator>) {
     self.store = store
   }
   
   public var body: some View {
     TCARouter(store) { screen in
-      SwitchStore(screen) {
-        CaseLet(
-          state: /MainScreenState.main,
-          action: MainScreenAction.main,
-          then: MainView.init
-        )
+      SwitchStore(screen) { screen in
+        switch screen {
+        default:
+          CaseLet(
+            /MainScreen.State.main,
+            action: MainScreen.Action.main,
+            then: MainView.init
+          )
+        }
       }
     }
   }

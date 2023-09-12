@@ -11,14 +11,14 @@ import SwiftUI
 import WineyKit
 
 struct CodeSignUpBottomSheetContent: View {
-  private let store: Store<CodeBottomSheetType, Void>
+  private let store: StoreOf<CodeSignUp>
   
-  init(store: Store<CodeBottomSheetType, Void>) {
+  init(store: StoreOf<CodeSignUp>) {
     self.store = store
   }
   
   var body: some View {
-    WithViewStore(store) { viewStore in
+    WithViewStore(store, observe: \.bottomSheetType) { viewStore in
       switch viewStore.state {
         
       case .back:
