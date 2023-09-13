@@ -20,16 +20,27 @@ struct TabBarInfoView: View {
   
   var body: some View {
     GeometryReader { geo in
-      VStack(spacing: 0) {
+      VStack {
+        Spacer()
         
         HStack {
+          Spacer().frame(width: 45)
           singleTab(tab: TabBarItem.main)
+          
+          Spacer()
+          singleTab(tab: TabBarItem.map)
+          
+          Spacer()
           singleTab(tab: TabBarItem.note)
+          
+          Spacer()
+          singleTab(tab: TabBarItem.userInfo)
+          
+          Spacer().frame(width: 45)
         }
-        .cornerRadius(10, corners: [.topLeft, .topRight])
-        .padding(.vertical, 20)
-        
-        WineyKitAsset.gray200.swiftUIColor.frame(height: keyWindow?.safeAreaInsets.bottom ?? 0)
+        .padding(.vertical, 12)
+        .background(WineyKitAsset.gray900.swiftUIColor)
+        .cornerRadius(14, corners: [.topLeft, .topRight])
       }
       .ignoresSafeArea(edges: [.bottom])
     }
@@ -40,25 +51,22 @@ extension TabBarInfoView {
   private func singleTab(tab: TabBarItem) -> some View {
     VStack(spacing: 4) {
       if selection == tab {
-        tab.icon
+        tab.selectedIcon
         
         Text(tab.description)
           .wineyFont(.captionB1)
           .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
       } else {
-        tab.icon
+        tab.defaultIcon
         
         Text(tab.description)
           .wineyFont(.captionB1)
-          .foregroundColor(WineyKitAsset.gray300.swiftUIColor)
+          .foregroundColor(WineyKitAsset.gray800.swiftUIColor)
       }
     }
-    .padding(.horizontal, 20)
-    .padding(.vertical, 12)
+    .padding(.bottom, 25)
     .onTapGesture {
-      withAnimation(.linear(duration: 0.2)) {
-        selection = tab
-      }
+      selection = tab
     }
   }
 }

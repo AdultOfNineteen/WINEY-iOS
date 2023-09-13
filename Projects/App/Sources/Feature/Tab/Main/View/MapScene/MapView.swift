@@ -23,4 +23,3 @@ struct MapView: View {
     Text("Map View")
   }
 }
-

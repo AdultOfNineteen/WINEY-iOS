@@ -20,6 +20,7 @@ public struct Main: Reducer {
   public enum Action {
     // MARK: - User Action
     case tappedAnalysisButton
+    case mainTabTapped
     
     // MARK: - Inner Business Action
     
@@ -32,6 +33,8 @@ public struct Main: Reducer {
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case .tappedAnalysisButton:
+      return .none
+    case .mainTabTapped:
       return .none
     case .wineCardScrollAction:
       return .none
