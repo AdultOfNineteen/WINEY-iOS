@@ -19,6 +19,7 @@ public struct MainScreen: Reducer {
   public enum Action {
     case main(Main.Action)
   }
+  
   public var body: some ReducerOf<Self> {
     Scope(state: /State.main, action: /Action.main) {
       Main()

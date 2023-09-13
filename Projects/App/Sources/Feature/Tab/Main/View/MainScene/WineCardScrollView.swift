@@ -25,13 +25,17 @@ public struct WineCardScrollView: View {
         
         // 카드 축소 반영 spacing
         HStack(spacing: 14) {
-          ForEach(viewStore.state.wineList.indices, id: \.self) { index in
+          ForEach(viewStore.state.wineCards.indices, id: \.self) { index in
             let isSelected = index == currentIdx
-            
-            WineCard(wineData: viewStore.state.wineList[index])
-              .frame(width: geo.size.width - 90, height: 392)
-              .scaleEffect(isSelected ? 1.0 : 0.9)
-              .animation(.spring(), value: isSelected)
+            WineCardView(
+              store: self.store.scope(
+                state: \.wineCards.elements[index],
+                action: { .wineCard(id: index, action: $0) }
+              )
+            )
+            .frame(width: geo.size.width - 90, height: 392)
+            .scaleEffect(isSelected ? 1.0 : 0.9)
+            .animation(.spring(), value: isSelected)
           }
         }
         .offset(x: (CGFloat(currentIdx) * -width) + (currentIdx != 0 ? 25 : 0) + offset)
@@ -45,7 +49,7 @@ public struct WineCardScrollView: View {
               let progress = -offsetX / width
               let roundIndex = progress.rounded()
               
-              currentIdx = max(min(currentIdx + Int(roundIndex), viewStore.state.wineList.count - 1), 0)
+              currentIdx = max(min(currentIdx + Int(roundIndex), viewStore.state.wineCards.count - 1), 0)
             })
         )
       }

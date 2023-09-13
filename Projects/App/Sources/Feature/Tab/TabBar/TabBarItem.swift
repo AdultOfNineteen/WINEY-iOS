@@ -25,10 +25,10 @@ public enum TabBarItem: Int, CaseIterable, Equatable {
   public var icon: Image {
     switch self {
     case .main:
-      return WineyKitAsset.homeIcon.swiftUIImage
+      return WineyAsset.Assets.homeIcon.swiftUIImage
       
     case .note:
-      return WineyKitAsset.noteIcon.swiftUIImage
+      return WineyAsset.Assets.noteIcon.swiftUIImage
     }
   }
 }

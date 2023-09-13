@@ -6,27 +6,30 @@
 //  Copyright © 2023 com.adultOfNineteen. All rights reserved.
 //
 
+import ComposableArchitecture
 import SwiftUI
 import WineyKit
 
-public struct WineCard: View {
-  public let wineData: WineData
+public struct WineCardView: View {
+  private let store: StoreOf<WineCard>
+  @ObservedObject var viewStore: ViewStoreOf<WineCard>
   
-  public init (
-    wineData: WineData
-  ) {
-    self.wineData = wineData
+  public init(store: StoreOf<WineCard>) {
+    self.store = store
+    self.viewStore = ViewStore(self.store, observe: { $0 })
   }
   
   public var body: some View {
+    
     GeometryReader { geo in
+      let cardWidth: CGFloat = geo.size.width
+      
       ZStack {
-        WineCardBackground(wineBackgroundComponent: wineData.wineType.backgroundColor)
-          .offset(y: 11)
+        WineCardBackground(wineBackgroundComponent: viewStore.wineCardData.wineType.backgroundColor)
+          .offset(x: 17.5, y: 21)
         
         // Wine Card Border
         Path { path in
-          let cardWidth: CGFloat = 282
           let cardHeight: CGFloat = 382
           let arcRadius: CGFloat = 38
           let cornerRadius: CGFloat = 5
@@ -85,7 +88,7 @@ public struct WineCard: View {
         .fill(.ultraThinMaterial)
         .overlay(
           Path { path in
-            let cardWidth: CGFloat = 282
+            let cardWidth: CGFloat = geo.size.width
             let cardHeight: CGFloat = 382
             let arcRadius: CGFloat = 38
             let cornerRadius: CGFloat = 5
@@ -147,96 +150,100 @@ public struct WineCard: View {
         )
         
         Path { path in
-          let lineTopLeft = CGPoint(x: ((geo.size.width - 282) / 2) + 30, y: ((geo.size.height - 382) / 2) + 145)
-          let lineTopRight = CGPoint(x: lineTopLeft.x + 282 - 18 - 30, y: lineTopLeft.y)
+          let lineTopLeft = CGPoint(x: 30, y: 145)
+          let lineTopRight = CGPoint(x: geo.size.width - 30, y: lineTopLeft.y)
           path.move(to: lineTopLeft)
           path.addLine(to: lineTopRight)
         }
-        .stroke(wineData.wineType.lineColor, lineWidth: 1)
+        .stroke(viewStore.wineCardData.wineType.lineColor, lineWidth: 1)
         
         Path { path in
           let lineVerticalStart = CGPoint(
-            x: ((geo.size.width - 282) / 2) + 107,
-            y: ((geo.size.height - 382) / 2) + 145
+            x: 107,
+            y: 145
           )
           let lineVerticalEnd = CGPoint(x: lineVerticalStart.x, y: lineVerticalStart.y + 382 - 205)
           path.move(to: lineVerticalStart)
           path.addLine(to: lineVerticalEnd)
         }
-        .stroke(wineData.wineType.lineColor, lineWidth: 1)
+        .stroke(viewStore.wineCardData.wineType.lineColor, lineWidth: 1)
         
         Path { path in
-          let lineSecondLeft = CGPoint(x: ((geo.size.width - 282) / 2) + 107, y: ((geo.size.height - 382) / 2) + 203)
-          let lineSecondRight = CGPoint(x: lineSecondLeft.x + 282 - 18 - 107, y: lineSecondLeft.y)
+          let lineSecondLeft = CGPoint(x: 107, y: 203)
+          let lineSecondRight = CGPoint(x: geo.size.width - 30, y: lineSecondLeft.y)
           path.move(to: lineSecondLeft)
           path.addLine(to: lineSecondRight)
         }
-        .stroke(wineData.wineType.lineColor, lineWidth: 1)
+        .stroke(viewStore.wineCardData.wineType.lineColor, lineWidth: 1)
         
         Path { path in
-          let lineThirdLeft = CGPoint(x: ((geo.size.width - 282) / 2) + 107, y: ((geo.size.height - 382) / 2) + 261)
-          let lineThirdRight = CGPoint(x: lineThirdLeft.x + 282 - 18 - 107, y: lineThirdLeft.y)
+          let lineThirdLeft = CGPoint(x: 107, y: 261)
+          let lineThirdRight = CGPoint(x: geo.size.width - 30, y: lineThirdLeft.y)
           path.move(to: lineThirdLeft)
           path.addLine(to: lineThirdRight)
         }
-        .stroke(wineData.wineType.lineColor, lineWidth: 1)
+        .stroke(viewStore.wineCardData.wineType.lineColor, lineWidth: 1)
         
-        wineData.wineType.illustImage
-          .position(x: ((geo.size.width - 282) / 2) + 30 + 33, y: ((geo.size.height - 382) / 2) + 181 + 59)
+        viewStore.wineCardData.wineType.illustImage
+          .position(x: 30 + 33, y: 181 + 59)
         
         VStack(spacing: 0) {
           // MARK: WINE TYPE
           HStack {
-            Text(wineData.wineType.typeName)
-              .wineyFont(.display1)  // TODO: 임시 폰트
+            Text(viewStore.wineCardData.wineType.typeName)
+              .wineyFont(.display1)
               .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
               .frame(height: 54, alignment: .topLeading)
             
-            WineyKitAsset.star1.swiftUIImage
-              .resizable()
-              .frame(width: 22, height: 22)
-              .padding(.top, 11)
+            WineyAsset.Assets.star1.swiftUIImage
+              .padding(.top, 14)
             
             Spacer()
+            
+            WineyAsset.Assets.icArrowRight.swiftUIImage
+              .padding(.top, 12)
+              .padding(.trailing, 23)
           }
-          .padding(.leading, ((geo.size.width - 282) / 2) + 30)
-          .padding(.top, ((geo.size.height - 382) / 2) + 28)
+          .padding(.leading, 30)
+          .padding(.top, 26)
           
-          // MARK: WINE NAME
+          // MARK: WINE NAME45
           HStack {
-            Text(wineData.wineName)
+            Text(viewStore.wineCardData.wineName.useNonBreakingSpace())
               .wineyFont(.captionM1)
               .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
               .lineLimit(2)
-              .frame(width: 222, height: 40, alignment: .topLeading)
+              .frame(height: 40, alignment: .topLeading)
+              .padding(.top, 4)
             
             Spacer()
           }
-          .padding(.leading, ((geo.size.width - 282) / 2) + 30)
-          .padding(.top, 14)
+          .padding(.leading, 30)
+          .padding(.trailing, 30)
+          .padding(.top, 12)
           
           // MARK: NATIONAL ANTHEMS
           VStack(spacing: 0) {
             HStack {
-              Text("national anthems")
+              Text("national an thems")
                 .wineyFont(.captionM3)
                 .foregroundColor(.white)
               
               Spacer()
             }
-            .padding(.leading, ((geo.size.width - 282) / 2) + 120)
+            .padding(.leading, 120)
             
             HStack {
-              Text(wineData.nationalAnthems)
+              Text(viewStore.wineCardData.nationalAnthems)
                 .wineyFont(.captionB1)
                 .foregroundColor(.white)
               
               Spacer()
             }
-            .padding(.leading, ((geo.size.width - 282) / 2) + 120)
-            .padding(.top, 3)
+            .padding(.leading, 120)
+            .padding(.top, 4)
           }
-          .padding(.top, 20)
+          .padding(.top, 18)
           
           // MARK: Varieties
           VStack(spacing: 0) {
@@ -247,17 +254,17 @@ public struct WineCard: View {
               
               Spacer()
             }
-            .padding(.leading, ((geo.size.width - 282) / 2) + 120)
+            .padding(.leading, 120)
             
             HStack {
-              Text(wineData.varities)
+              Text(viewStore.wineCardData.varities)
                 .wineyFont(.captionB1)
                 .foregroundColor(.white)
               
               Spacer()
             }
-            .padding(.leading, ((geo.size.width - 282) / 2) + 120)
-            .padding(.top, 3)
+            .padding(.leading, 120)
+            .padding(.top, 4)
           }
           .padding(.top, 24)
           
@@ -270,23 +277,34 @@ public struct WineCard: View {
               
               Spacer()
             }
-            .padding(.leading, ((geo.size.width - 282) / 2) + 120)
+            .padding(.leading, 120)
             
             HStack {
-              Text("\(String(format: "%.2f", wineData.purchasePrice))")
+              Text("\(String(format: "%.2f", viewStore.wineCardData.purchasePrice))")
                 .wineyFont(.captionB1)
                 .foregroundColor(.white)
               
               Spacer()
             }
-            .padding(.leading, ((geo.size.width - 282) / 2) + 120)
-            .padding(.top, 3)
+            .padding(.leading, 120)
+            .padding(.top, 4)
           }
           .padding(.top, 24)
           
           Spacer()
         }
       }
+      .onTapGesture {
+        viewStore.send(.wineCardTapped)
+      }
     }
+  }
+}
+
+
+// For Text alignment - Justified
+extension String {
+  func useNonBreakingSpace() -> String {
+    return self.replacingOccurrences(of: " ", with: "\u{202F}\u{202F}")
   }
 }

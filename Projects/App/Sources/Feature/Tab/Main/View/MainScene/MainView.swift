@@ -50,7 +50,7 @@ public struct MainView: View {
                   .wineyFont(.title1)
                   .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
                 
-                WineyKitAsset.wineIcon.swiftUIImage
+                WineyAsset.Assets.wineIcon.swiftUIImage
                   .resizable()
                   .frame(width: 30, height: 30)
               }

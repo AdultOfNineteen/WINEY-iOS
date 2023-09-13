@@ -9,35 +9,37 @@
 import SwiftUI
 import WineyKit
 
-struct WineBackgroundColor {
-  var backgroundColor: Color
-  var firstCircleStart: Color
-  var firstCircleEnd: Color
-  var secondCircle: Color
-}
-
 // MARK: WINEDATA
-public struct WineData: Hashable {
+public struct WineCardData: Hashable, Identifiable {
+  public let id: Int
+  public let wineType: WineType
+  public let wineName: String
+  public let nationalAnthems: String
+  public let varities: String
+  public let purchasePrice: Double
   
   public init (
+    id: Int,
     wineType: WineType,
     wineName: String,
     nationalAnthems: String,
     varities: String,
     purchasePrice: Double
   ) {
+    self.id = id
     self.wineType = wineType
     self.wineName = wineName
     self.nationalAnthems = nationalAnthems
     self.varities = varities
     self.purchasePrice = purchasePrice
   }
-  
-  public let wineType: WineType
-  public let wineName: String
-  public let nationalAnthems: String
-  public let varities: String
-  public let purchasePrice: Double
+}
+
+struct WineBackgroundColor {
+  var backgroundColor: Color
+  var firstCircleStart: Color
+  var firstCircleEnd: Color
+  var secondCircle: Color
 }
 
 // MARK: WINE TYPE
@@ -82,6 +84,24 @@ public enum WineType: String {
       return Color(red: 118/255, green: 129/255, blue: 105/255)
     }
   }
+  
+  var cirlcleBorderColor: Color {
+    switch self {
+    case .red:
+      return Color(red: 184/255, green: 74/255, blue: 74/255)
+    case .white:
+      return Color(red: 123/255, green: 116/255, blue: 80/255)
+    case .rose:
+      return Color(red: 250/255, green: 177/255, blue: 177/255)
+    case .sparkl:
+      return Color(red: 180/255, green: 175/255, blue: 135/255)
+    case .port:
+      return Color(red: 122/255, green: 99/255, blue: 72/255)
+    case .etc:
+      return Color(red: 145/255, green: 177/255, blue: 126/255)
+    }
+  }
+
   
   var backgroundColor: WineBackgroundColor {
     switch self {
@@ -139,17 +159,17 @@ public enum WineType: String {
   var illustImage: Image {
     switch self {
     case .red:
-      return  WineyKitAsset.redIllust.swiftUIImage
+      return  WineyAsset.Assets.redIllust.swiftUIImage
     case .white:
-      return  WineyKitAsset.whiteIllust.swiftUIImage
+      return  WineyAsset.Assets.whiteIllust.swiftUIImage
     case .rose:
-      return  WineyKitAsset.roseIllust.swiftUIImage
+      return  WineyAsset.Assets.roseIllust.swiftUIImage
     case .sparkl:
-      return  WineyKitAsset.sparklIllust.swiftUIImage
+      return  WineyAsset.Assets.sparklIllust.swiftUIImage
     case .port:
-      return  WineyKitAsset.portIllust.swiftUIImage
+      return  WineyAsset.Assets.portIllust.swiftUIImage
     case .etc:
-      return  WineyKitAsset.etcIllust.swiftUIImage
+      return  WineyAsset.Assets.etcIllust.swiftUIImage
     }
   }
 }
