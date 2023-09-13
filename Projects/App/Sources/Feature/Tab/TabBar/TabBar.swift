@@ -11,7 +11,6 @@ import ComposableArchitecture
 import Foundation
 
 public struct TabBar: Reducer {
-  
   public struct State: Equatable {
     public var main: MainCoordinator.State
     public var note: NoteCoordinator.State
