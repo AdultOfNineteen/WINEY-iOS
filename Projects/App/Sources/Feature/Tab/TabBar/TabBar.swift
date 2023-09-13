@@ -12,10 +12,10 @@ import Foundation
 
 public struct TabBar: Reducer {
   public struct State: Equatable {
-    public var main: MainCoordinator.State
-    public var map: MapCoordinator.State
-    public var note: NoteCoordinator.State
-    public var userInfo: UserInfoCoordinator.State
+    @PresentationState var main: MainCoordinator.State?
+    @PresentationState var map: MapCoordinator.State?
+    @PresentationState var note: NoteCoordinator.State?
+    @PresentationState var userInfo: UserInfoCoordinator.State?
     public var selectedTab: TabBarItem = .main
     public var isTabHidden: Bool = false
     
@@ -44,10 +44,10 @@ public struct TabBar: Reducer {
     // MARK: - Inner SetState Action
     
     // MARK: - Child Action
-    case main(MainCoordinator.Action)
-    case map(MapCoordinator.Action)
-    case note(NoteCoordinator.Action)
-    case userInfo(UserInfoCoordinator.Action)
+    case main(PresentationAction<MainCoordinator.Action>)
+    case map(PresentationAction<MapCoordinator.Action>)
+    case note(PresentationAction<NoteCoordinator.Action>)
+    case userInfo(PresentationAction<UserInfoCoordinator.Action>)
   }
   
   public var body: some ReducerOf<Self> {
@@ -55,10 +55,6 @@ public struct TabBar: Reducer {
       switch action {
       case let.tabSelected(tab):
         state.selectedTab = tab
-        
-        if tab == .main {
-          return .send(.main(.routeAction(0, action: .main(.mainTabTapped))))
-        }
         return .none
       case .main:
         return .none
@@ -73,23 +69,17 @@ public struct TabBar: Reducer {
         return .none
       }
     }
-    
-    Scope(state: \.main, action: /Action.main) {
+    .ifLet(\.$main, action: /Action.main) {
       MainCoordinator()
     }
-    
-    Scope(state: \.map, action: /Action.map) {
+    .ifLet(\.$map, action: /Action.map) {
       MapCoordinator()
     }
-    
-    Scope(state: \.note, action: /Action.note) {
+    .ifLet(\.$note, action: /Action.note) {
       NoteCoordinator()
     }
-    
-    Scope(state: \.userInfo, action: /Action.userInfo) {
+    .ifLet(\.$userInfo, action: /Action.userInfo) {
       UserInfoCoordinator()
     }
-    
-    
   }
 }

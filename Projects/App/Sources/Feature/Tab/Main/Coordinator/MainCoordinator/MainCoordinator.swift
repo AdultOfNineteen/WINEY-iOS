@@ -19,7 +19,7 @@ public struct MainCoordinator: Reducer {
     public init(
       routes: [Route<MainScreen.State>] = [
         .root(
-          .main(.init()),
+          .main(.init(tooltipState: true)),
           embedInNavigationView: true
         )
       ]
@@ -36,6 +36,9 @@ public struct MainCoordinator: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       return .none
+    }
+    .forEachRoute {
+      MainScreen()
     }
   }
 }

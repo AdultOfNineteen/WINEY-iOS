@@ -75,6 +75,8 @@ public struct WineCardScroll: Reducer {
       default:
         return .none
       }
+    }.forEach(\.wineCards, action: /WineCardScroll.Action.wineCard) {
+      WineCard()
     }
   }
 }

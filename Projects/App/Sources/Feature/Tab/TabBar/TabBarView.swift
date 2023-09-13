@@ -28,12 +28,14 @@ public struct TabBarView: View {
           send: TabBar.Action._setTabHiddenStatus
         )
       ) {
-        MainCoordinatorView(
-          store: store.scope(
-            state: \.main,
+        IfLetStore(
+          self.store.scope(
+            state: \.$main,
             action: TabBar.Action.main
           )
-        )
+        ) {
+          MainCoordinatorView(store: $0)
+        }
         .tabBarItem(
           tab: .main,
           selection: viewStore.binding(
@@ -41,12 +43,14 @@ public struct TabBarView: View {
             send: TabBar.Action.tabSelected)
         )
         
-        MapCoordinatorView(
-          store: store.scope(
-            state: \.map,
+        IfLetStore(
+          self.store.scope(
+            state: \.$map,
             action: TabBar.Action.map
           )
-        )
+        ) {
+          MapCoordinatorView(store: $0)
+        }
         .tabBarItem(
           tab: .map,
           selection: viewStore.binding(
@@ -54,12 +58,14 @@ public struct TabBarView: View {
             send: TabBar.Action.tabSelected)
         )
         
-        NoteCoordinatorView(
-          store: store.scope(
-            state: \.note,
+        IfLetStore(
+          self.store.scope(
+            state: \.$note,
             action: TabBar.Action.note
           )
-        )
+        ) {
+          NoteCoordinatorView(store: $0)
+        }
         .tabBarItem(
           tab: .note,
           selection: viewStore.binding(
@@ -67,12 +73,14 @@ public struct TabBarView: View {
             send: TabBar.Action.tabSelected)
         )
         
-        UserInfoCoordinatorView(
-          store: store.scope(
-            state: \.userInfo,
+        IfLetStore(
+          self.store.scope(
+            state: \.$userInfo,
             action: TabBar.Action.userInfo
           )
-        )
+        ) {
+          UserInfoCoordinatorView(store: $0)
+        }
         .tabBarItem(
           tab: .userInfo,
           selection: viewStore.binding(

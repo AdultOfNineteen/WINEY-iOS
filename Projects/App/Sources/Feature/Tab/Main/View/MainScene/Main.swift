@@ -12,32 +12,53 @@ import Foundation
 
 public struct Main: Reducer {
   public struct State: Equatable {
-    var wineCardListState = WineCardScroll.State()
+    @PresentationState var wineCardListState: WineCardScroll.State?
+    var tooltipState: Bool
     
-    public init() {}
+    public init(
+      tooltipState: Bool
+    ) {
+      self.tooltipState = tooltipState
+    }
   }
   
   public enum Action {
     // MARK: - User Action
     case tappedAnalysisButton
     case mainTabTapped
+    case userScroll
     
     // MARK: - Inner Business Action
+    case _viewWillAppear
     
     // MARK: - Inner SetState Action
     
     // MARK: - Child Action
-    case wineCardScrollAction(WineCardScroll.Action)
+    case wineCardScroll(PresentationAction<WineCardScroll.Action>)
   }
-  
-  public func reduce(into state: inout State, action: Action) -> Effect<Action> {
-    switch action {
-    case .tappedAnalysisButton:
-      return .none
-    case .mainTabTapped:
-      return .none
-    case .wineCardScrollAction:
-      return .none
+    
+  public var body: some ReducerOf<Self> {
+    Reduce<State, Action> { state, action in
+      switch action {
+      case ._viewWillAppear:
+        state.wineCardListState = WineCardScroll.State.init()
+        return .none
+      case .tappedAnalysisButton:
+        return .none
+      case .mainTabTapped:
+        return .none
+      case .wineCardScroll:
+        state.wineCardListState = WineCardScroll.State.init()
+        return .none
+      case .userScroll:
+        state.tooltipState = false
+        return .none
+      default:
+        return .none
+      }
     }
-  } 
+    .ifLet(\.$wineCardListState, action: /Action.wineCardScroll) {
+      WineCardScroll()
+    }
+  }
 }
