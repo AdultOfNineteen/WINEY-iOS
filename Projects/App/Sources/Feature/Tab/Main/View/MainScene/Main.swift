@@ -12,7 +12,7 @@ import Foundation
 
 public struct Main: Reducer {
   public struct State: Equatable {
-    @PresentationState var wineCardListState: WineCardScroll.State?
+    var wineCardListState: WineCardScroll.State?
     var tooltipState: Bool
     
     public init(
@@ -34,9 +34,9 @@ public struct Main: Reducer {
     // MARK: - Inner SetState Action
     
     // MARK: - Child Action
-    case wineCardScroll(PresentationAction<WineCardScroll.Action>)
+    case wineCardScroll(WineCardScroll.Action)
   }
-    
+  
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
@@ -57,7 +57,7 @@ public struct Main: Reducer {
         return .none
       }
     }
-    .ifLet(\.$wineCardListState, action: /Action.wineCardScroll) {
+    .ifLet(\.wineCardListState, action: /Action.wineCardScroll) {
       WineCardScroll()
     }
   }

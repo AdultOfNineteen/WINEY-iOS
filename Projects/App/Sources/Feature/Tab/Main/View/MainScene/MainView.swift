@@ -22,7 +22,6 @@ public struct MainView: View {
   public var body: some View {
     GeometryReader { _ in
       VStack(alignment: .leading, spacing: 0) {
-        
         // MARK: HEADER
         ZStack {
           HStack {
@@ -85,7 +84,7 @@ public struct MainView: View {
             
             IfLetStore(
               self.store.scope(
-                state: \.$wineCardListState,
+                state: \.wineCardListState,
                 action: Main.Action.wineCardScroll
               )
             ) {

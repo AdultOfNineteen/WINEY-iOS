@@ -27,7 +27,7 @@ public struct MainCoordinator: Reducer {
       self.routes = routes
     }
   }
-
+  
   public enum Action: IndexedRouterAction {
     case updateRoutes([Route<MainScreen.State>])
     case routeAction(Int, action: MainScreen.Action)
@@ -35,7 +35,25 @@ public struct MainCoordinator: Reducer {
   
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
-      return .none
+      switch action {
+      case let .routeAction(
+        _,
+        action: .main(
+          .wineCardScroll(
+            .wineCard(id: _, action: ._navigateToCardDetail(id, wineData))
+          )
+        )
+      ):
+        state.routes.push(.wineDetail(.init(wineCardData: wineData)))
+        return .none
+        
+      case .routeAction(_, action: .wineDetail(.tappedBackButton)):
+        state.routes.pop()
+        return .none
+        
+      default:
+        return .none
+      }
     }
     .forEachRoute {
       MainScreen()

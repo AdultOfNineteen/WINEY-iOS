@@ -11,7 +11,6 @@ import SwiftUI
 import WineyKit
 
 public struct WineDetailView: View {
-  
   private let store: StoreOf<WineDetail>
   @ObservedObject var viewStore: ViewStoreOf<WineDetail>
   
@@ -26,6 +25,7 @@ public struct WineDetailView: View {
         title: "와인 상세정보",
         leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
         leftIconButtonAction: {
+          viewStore.send(.tappedBackButton)
         }
       )
       
@@ -85,6 +85,8 @@ public struct WineDetailView: View {
         .padding(.horizontal, 24)
       }
     }
+    .navigationViewStyle(StackNavigationViewStyle())
+    .navigationBarHidden(true)
     .background(Color(red: 31/255, green: 33/255, blue: 38/255))
     
   }
