@@ -30,6 +30,7 @@ public struct Main: Reducer {
     
     // MARK: - Inner Business Action
     case _viewWillAppear
+    case _navigateToAnalysis
     
     // MARK: - Inner SetState Action
     
@@ -43,16 +44,22 @@ public struct Main: Reducer {
       case ._viewWillAppear:
         state.wineCardListState = WineCardScroll.State.init()
         return .none
+        
       case .tappedAnalysisButton:
-        return .none
+        print("Go to Analysis")
+        return .send(._navigateToAnalysis)
+        
       case .mainTabTapped:
         return .none
+        
       case .wineCardScroll:
         state.wineCardListState = WineCardScroll.State.init()
         return .none
+        
       case .userScroll:
         state.tooltipState = false
         return .none
+        
       default:
         return .none
       }

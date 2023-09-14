@@ -28,17 +28,19 @@ public struct MainCoordinatorView: View {
             action: MainScreen.Action.main,
             then: MainView.init
           )
+          
+        case .analysis:
+          CaseLet(
+            /MainScreen.State.analysis,
+            action: MainScreen.Action.analysis,
+            then: WineAnalysisView.init
+          )
+          
         case .wineDetail:
           CaseLet(
             /MainScreen.State.wineDetail,
             action: MainScreen.Action.wineDetail,
             then: WineDetailView.init
-          )
-        default:
-          CaseLet(
-            /MainScreen.State.main,
-            action: MainScreen.Action.main,
-            then: MainView.init
           )
         }
       }

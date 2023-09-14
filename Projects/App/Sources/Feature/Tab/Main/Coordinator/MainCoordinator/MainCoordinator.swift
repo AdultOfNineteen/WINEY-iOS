@@ -40,14 +40,22 @@ public struct MainCoordinator: Reducer {
         _,
         action: .main(
           .wineCardScroll(
-            .wineCard(id: _, action: ._navigateToCardDetail(id, wineData))
+            .wineCard(id: _, action: ._navigateToCardDetail(_, wineData))
           )
         )
       ):
-        state.routes.push(.wineDetail(.init(wineCardData: wineData)))
+        state.routes.append(.push(.wineDetail(.init(wineCardData: wineData))))
+        return .none
+    
+      case .routeAction(_, action: .main(._navigateToAnalysis)):
+        state.routes.append(.push(.analysis(.init(isPresentedBottomSheet: false))))
         return .none
         
       case .routeAction(_, action: .wineDetail(.tappedBackButton)):
+        state.routes.pop()
+        return .none
+  
+      case .routeAction(_, action: .analysis(.tappedBackButton)):
         state.routes.pop()
         return .none
         

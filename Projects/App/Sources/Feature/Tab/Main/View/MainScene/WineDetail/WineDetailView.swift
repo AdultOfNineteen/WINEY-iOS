@@ -20,7 +20,7 @@ public struct WineDetailView: View {
   }
   
   public var body: some View {
-    VStack {
+    VStack(spacing: 0) {
       NavigationBar(
         title: "와인 상세정보",
         leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
@@ -46,7 +46,6 @@ public struct WineDetailView: View {
               Spacer()
             }
             .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-            .padding(.top, 14)
             
             HStack {
               Text(viewStore.wineCardData.wineName.useNonBreakingSpace())
@@ -82,13 +81,12 @@ public struct WineDetailView: View {
           
             .frame(height: 450)
         }
-        .padding(.horizontal, 24)
+        .padding(.top, 14)
+        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
       }
     }
-    .navigationViewStyle(StackNavigationViewStyle())
     .navigationBarHidden(true)
     .background(Color(red: 31/255, green: 33/255, blue: 38/255))
-    
   }
 }
 

@@ -56,7 +56,7 @@ public struct MainView: View {
         }
         .padding(.top, 17)
         .padding(.bottom, 10)
-        .padding(.horizontal, 24)
+        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
         
         ScrollView {
           LazyVStack(spacing: 0) {
@@ -80,7 +80,7 @@ public struct MainView: View {
               Spacer()
             }
             .padding(.top, 10)
-            .padding(.horizontal, 24)
+            .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
             
             IfLetStore(
               self.store.scope(
@@ -109,7 +109,7 @@ public struct MainView: View {
               WineyAsset.Assets.icArrowRight.swiftUIImage
             }
             .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-            .padding(.horizontal, 24)
+            .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
           }
           
           
@@ -128,6 +128,5 @@ public struct MainView: View {
     }
     .background(Color(red: 31/255, green: 33/255, blue: 38/255))
     .navigationViewStyle(StackNavigationViewStyle())
-    .navigationBarHidden(true)
   }
 }
