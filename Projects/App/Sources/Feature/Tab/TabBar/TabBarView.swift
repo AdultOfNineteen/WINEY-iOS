@@ -30,7 +30,7 @@ public struct TabBarView: View {
       ) {
         IfLetStore(
           self.store.scope(
-            state: \.$main,
+            state: \.main,
             action: TabBar.Action.main
           )
         ) {
@@ -45,7 +45,7 @@ public struct TabBarView: View {
         
         IfLetStore(
           self.store.scope(
-            state: \.$map,
+            state: \.map,
             action: TabBar.Action.map
           )
         ) {
@@ -60,7 +60,7 @@ public struct TabBarView: View {
         
         IfLetStore(
           self.store.scope(
-            state: \.$note,
+            state: \.note,
             action: TabBar.Action.note
           )
         ) {
@@ -75,7 +75,7 @@ public struct TabBarView: View {
         
         IfLetStore(
           self.store.scope(
-            state: \.$userInfo,
+            state: \.userInfo,
             action: TabBar.Action.userInfo
           )
         ) {

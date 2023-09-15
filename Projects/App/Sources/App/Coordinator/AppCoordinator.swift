@@ -75,7 +75,8 @@ public struct AppCoordinator: Reducer {
         ]
         return .none
         
-      default: return .none
+      default:
+        return .none
 
       }
     }

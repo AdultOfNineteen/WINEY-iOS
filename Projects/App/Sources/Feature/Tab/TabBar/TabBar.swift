@@ -12,10 +12,10 @@ import Foundation
 
 public struct TabBar: Reducer {
   public struct State: Equatable {
-    @PresentationState var main: MainCoordinator.State?
-    @PresentationState var map: MapCoordinator.State?
-    @PresentationState var note: NoteCoordinator.State?
-    @PresentationState var userInfo: UserInfoCoordinator.State?
+    var main: MainCoordinator.State?
+    var map: MapCoordinator.State?
+    var note: NoteCoordinator.State?
+    var userInfo: UserInfoCoordinator.State?
     public var selectedTab: TabBarItem = .main
     public var isTabHidden: Bool = false
     
@@ -44,10 +44,10 @@ public struct TabBar: Reducer {
     // MARK: - Inner SetState Action
     
     // MARK: - Child Action
-    case main(PresentationAction<MainCoordinator.Action>)
-    case map(PresentationAction<MapCoordinator.Action>)
-    case note(PresentationAction<NoteCoordinator.Action>)
-    case userInfo(PresentationAction<UserInfoCoordinator.Action>)
+    case main(MainCoordinator.Action)
+    case map(MapCoordinator.Action)
+    case note(NoteCoordinator.Action)
+    case userInfo(UserInfoCoordinator.Action)
   }
   
   public var body: some ReducerOf<Self> {
@@ -56,29 +56,50 @@ public struct TabBar: Reducer {
       case let.tabSelected(tab):
         state.selectedTab = tab
         return .none
-      case .main:
-        return .none
+        
+      case .main(
+        .routeAction(
+          _, action: .main(._navigateToAnalysis)
+        )
+      ):
+        return .send(._setTabHiddenStatus(true))
+        
+      case .main(.routeAction(_, action: .analysis(.tappedBackButton))):
+        return .send(._setTabHiddenStatus(false))
+        
+      case .main(.routeAction(_, action: .main(.wineCardScroll(.wineCard(id: _, action: _))))):
+        return .send(._setTabHiddenStatus(true))
+        
+      case .main(.routeAction(_, action: .wineDetail(.tappedBackButton))):
+        return .send(._setTabHiddenStatus(false))
+        
       case .map:
         return .none
+        
       case .note:
         return .none
+        
       case .userInfo:
         return .none
+        
       case ._setTabHiddenStatus(let status):
         state.isTabHidden = status
         return .none
+        
+      default:
+        return .none
       }
     }
-    .ifLet(\.$main, action: /Action.main) {
+    .ifLet(\.main, action: /Action.main) {
       MainCoordinator()
     }
-    .ifLet(\.$map, action: /Action.map) {
+    .ifLet(\.map, action: /Action.map) {
       MapCoordinator()
     }
-    .ifLet(\.$note, action: /Action.note) {
+    .ifLet(\.note, action: /Action.note) {
       NoteCoordinator()
     }
-    .ifLet(\.$userInfo, action: /Action.userInfo) {
+    .ifLet(\.userInfo, action: /Action.userInfo) {
       UserInfoCoordinator()
     }
   }
