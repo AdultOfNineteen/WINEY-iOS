@@ -49,8 +49,6 @@ struct WineAnalysisResultView: View {
         WineAnalysisResultScrollView()
         
       }
-      
-      Spacer()
     }
     .background(Color(red: 31/255, green: 33/255, blue: 38/255))
     .edgesIgnoringSafeArea(.bottom)
@@ -92,6 +90,8 @@ struct WineAnalysisResultScrollView: View {
         WinePreferNationView()
           .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
         WinePreferView()
+          .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
+        WineHexagonGraphView()
           .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
       }
     }
