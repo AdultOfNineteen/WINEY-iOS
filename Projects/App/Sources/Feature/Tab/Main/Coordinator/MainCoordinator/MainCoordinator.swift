@@ -46,16 +46,8 @@ public struct MainCoordinator: Reducer {
       ):
         state.routes.append(.push(.wineDetail(.init(wineCardData: wineData))))
         return .none
-    
-      case .routeAction(_, action: .main(._navigateToAnalysis)):
-        state.routes.append(.push(.analysis(.init(isPresentedBottomSheet: false))))
-        return .none
         
       case .routeAction(_, action: .wineDetail(.tappedBackButton)):
-        state.routes.pop()
-        return .none
-  
-      case .routeAction(_, action: .analysis(.tappedBackButton)):
         state.routes.pop()
         return .none
         

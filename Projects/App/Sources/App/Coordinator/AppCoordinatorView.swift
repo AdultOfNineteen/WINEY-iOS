@@ -28,12 +28,21 @@ public struct AppCoordinatorView: View {
             action: AppScreen.Action.splash,
             then: SplashView.init
           )
+          
         case .auth:
           CaseLet(
             /AppScreen.State.auth,
             action: AppScreen.Action.auth,
             then: AuthCoordinatorView.init
           )
+          
+        case .analysis:
+          CaseLet(
+            /AppScreen.State.analysis,
+            action: AppScreen.Action.analysis,
+            then: WineAnalysisCoordinatorView.init
+          )
+          
         case .tabBar:
           CaseLet(
             /AppScreen.State.tabBar,

@@ -128,5 +128,6 @@ public struct MainView: View {
     }
     .background(Color(red: 31/255, green: 33/255, blue: 38/255))
     .navigationViewStyle(StackNavigationViewStyle())
+    .navigationBarHidden(true)
   }
 }

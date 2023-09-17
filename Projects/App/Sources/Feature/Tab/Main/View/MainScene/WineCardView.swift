@@ -236,7 +236,7 @@ public struct WineCardView: View {
             HStack {
               Text(viewStore.wineCardData.nationalAnthems)
                 .wineyFont(.captionB1)
-                .foregroundColor(.white)
+                .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
               
               Spacer()
             }
@@ -250,7 +250,7 @@ public struct WineCardView: View {
             HStack {
               Text("Varieties")
                 .wineyFont(.captionM3)
-                .foregroundColor(.white)
+                .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
               
               Spacer()
             }
@@ -259,7 +259,7 @@ public struct WineCardView: View {
             HStack {
               Text(viewStore.wineCardData.varities)
                 .wineyFont(.captionB1)
-                .foregroundColor(.white)
+                .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
               
               Spacer()
             }
@@ -273,7 +273,7 @@ public struct WineCardView: View {
             HStack {
               Text("Purchase Price")
                 .wineyFont(.captionM3)
-                .foregroundColor(.white)
+                .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
               
               Spacer()
             }
@@ -282,7 +282,7 @@ public struct WineCardView: View {
             HStack {
               Text("\(String(format: "%.2f", viewStore.wineCardData.purchasePrice))")
                 .wineyFont(.captionB1)
-                .foregroundColor(.white)
+                .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
               
               Spacer()
             }

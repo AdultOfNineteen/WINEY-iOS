@@ -29,13 +29,6 @@ public struct MainCoordinatorView: View {
             then: MainView.init
           )
           
-        case .analysis:
-          CaseLet(
-            /MainScreen.State.analysis,
-            action: MainScreen.Action.analysis,
-            then: WineAnalysisView.init
-          )
-          
         case .wineDetail:
           CaseLet(
             /MainScreen.State.wineDetail,
@@ -44,6 +37,7 @@ public struct MainCoordinatorView: View {
           )
         }
       }
+      .navigationBarHidden(true)
     }
   }
 }

@@ -29,7 +29,7 @@ public struct AppCoordinator: Reducer {
     case routeAction(Int, action: AppScreen.Action)
     case updateRoutes([Route<AppScreen.State>])
   }
-
+  
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
@@ -48,7 +48,7 @@ public struct AppCoordinator: Reducer {
             embedInNavigationView: true
           )
         ]
-      return .none
+        return .none
         
       case .routeAction(_, action: .splash(._moveToAuth)):
         state.routes = [
@@ -75,9 +75,17 @@ public struct AppCoordinator: Reducer {
         ]
         return .none
         
+      case .routeAction(_, action: .tabBar(.main(.routeAction(_, action: .main(._navigateToAnalysis))))):
+        state.routes.append(.push(.analysis(.initialState)))
+        return .none
+        
+      case .routeAction(_, action: .analysis(.routeAction(_, action: .wineAnaylsis(.tappedBackButton)))):
+        state.routes.pop()
+        return .none
+        
       default:
         return .none
-
+        
       }
     }
     .forEachRoute {

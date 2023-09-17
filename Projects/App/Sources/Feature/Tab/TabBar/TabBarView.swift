@@ -89,5 +89,6 @@ public struct TabBarView: View {
         )
       }
     }
+    .navigationBarHidden(true)
   }
 }

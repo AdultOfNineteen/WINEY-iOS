@@ -111,6 +111,9 @@ struct WineAnalysisView: View {
         }
       }
     }
+    .onAppear {
+      viewStore.send(._onAppear)
+    }
     .background(Color(red: 31/255, green: 33/255, blue: 38/255))
     .navigationBarHidden(true)
   }

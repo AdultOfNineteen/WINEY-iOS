@@ -1,0 +1,77 @@
+//
+//  WineAnalysisLoading.swift
+//  Winey
+//
+//  Created by 정도현 on 2023/09/16.
+//  Copyright © 2023 com.adultOfNineteen. All rights reserved.
+//
+
+import ComposableArchitecture
+import SwiftUI
+import WineyKit
+
+struct WineAnalysisLoadingView: View {
+  private let store: StoreOf<WineAnalysisLoading>
+  @ObservedObject var viewStore: ViewStoreOf<WineAnalysisLoading>
+  
+  public init(store: StoreOf<WineAnalysisLoading>) {
+    self.store = store
+    self.viewStore = ViewStore(self.store, observe: { $0 })
+  }
+  
+  
+  var body: some View {
+    VStack(spacing: 0) {
+      NavigationBar(
+        leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
+        leftIconButtonAction: {
+          viewStore.send(.tappedBackButton)
+        }
+      )
+      
+      ZStack(alignment: .center) {
+        WineyAsset.Assets.analysisLoading.swiftUIImage
+        
+        VStack(spacing: 5) {
+          HStack(spacing: 0) {
+            Text(viewStore.userName + "님")
+              .foregroundColor(WineyKitAsset.main3.swiftUIColor)
+            Text("의 테이스팅 노트를")
+              .foregroundColor(.white)
+          }
+          Text("분석중이에요!")
+            .foregroundColor(.white)
+          
+          Spacer()
+        }
+        .padding(.top, 18)
+        .wineyFont(.title2)
+      }
+      .padding(.top, 21)
+      
+      Spacer()
+    }
+    .background(Color(red: 31/255, green: 33/255, blue: 38/255))
+    .navigationBarHidden(true)
+    .onAppear {
+      // loading 확인 딜레이
+      DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        viewStore.send(._onAppear)
+      }
+    }
+  }
+}
+
+
+struct WineAnalysisLoadingView_Previews: PreviewProvider {
+  static var previews: some View {
+    WineAnalysisLoadingView(
+      store: Store(
+        initialState: WineAnalysisLoading.State.init(userName: "성경"),
+        reducer: {
+          WineAnalysisLoading()
+        }
+      )
+    )
+  }
+}

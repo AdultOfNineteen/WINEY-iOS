@@ -30,6 +30,8 @@ public struct WineAnalysis: Reducer {
     
     // MARK: - Inner Business Action
     case _presentBottomSheet(Bool)
+    case _navigateLoading
+    case _onAppear
     
     // MARK: - Inner SetState Action
     
@@ -44,7 +46,7 @@ public struct WineAnalysis: Reducer {
       
     case .tappedConfirmButton:
       print("Tapped Confirm Button")
-      return .none
+      return .send(._navigateLoading)
       
     case .tappedAnalysis:
       print("Tapped Analysis Button")
@@ -54,6 +56,9 @@ public struct WineAnalysis: Reducer {
       state.isPresentedBottomSheet = bool
       return .none
       
+    case ._onAppear:
+      state.isPresentedBottomSheet = false
+      return .none
     default:
       return .none
     }
