@@ -33,7 +33,7 @@ public enum WineRank: Int {
   case rank2
   case rank3
   
-  var pieGraphColor: Color {
+  public var pieGraphColor: Color {
     switch self {
     case .rank1:
       return WineyKitAsset.main1.swiftUIColor
@@ -44,7 +44,7 @@ public enum WineRank: Int {
     }
   }
   
-  var circleGraphStartColor: Color {
+  public var circleGraphStartColor: Color {
     switch self {
     case .rank1:
       return Color(red: 119/255, green: 75/255, blue: 1)
@@ -55,7 +55,7 @@ public enum WineRank: Int {
     }
   }
   
-  var circleGraphEndColor: Color {
+  public var circleGraphEndColor: Color {
     switch self {
     case .rank1:
       return Color(red: 119/255, green: 75/255, blue: 1)
@@ -67,7 +67,7 @@ public enum WineRank: Int {
     }
   }
   
-  var circleRadius: CGFloat {
+  public var circleRadius: CGFloat {
     switch self {
     case .rank1:
       return 142
@@ -78,7 +78,7 @@ public enum WineRank: Int {
     }
   }
   
-  var circleFont: WineyFontType {
+  public var circleFont: WineyFontType {
     switch self {
     case .rank1:
       return WineyFontType.bodyB1
@@ -89,7 +89,7 @@ public enum WineRank: Int {
     }
   }
   
-  var offsetX: CGFloat {
+  public var offsetX: CGFloat {
     switch self {
     case .rank1:
       return -68
@@ -100,7 +100,7 @@ public enum WineRank: Int {
     }
   }
   
-  var offsetY: CGFloat {
+  public var offsetY: CGFloat {
     switch self {
     case .rank1:
       return -72

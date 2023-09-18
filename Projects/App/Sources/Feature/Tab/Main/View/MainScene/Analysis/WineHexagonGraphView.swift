@@ -9,14 +9,13 @@
 import SwiftUI
 import WineyKit
 
-struct WineHexagonGraphView: View {
-  var body: some View {
+public struct WineHexagonGraphView: View {
+  public var body: some View {
     GeometryReader { geo in
       VStack(spacing: 0) {
         Text("선호하는 맛")
           .wineyFont(.title2)
           .padding(.top, 66)
-        
         
         Spacer()
         
@@ -26,16 +25,17 @@ struct WineHexagonGraphView: View {
           .padding(.bottom, 64)
       }
       .frame(width: geo.size.width)
+      
     }
   }
 }
 
-struct HexagonView: View {
+public struct HexagonView: View {
   var hexagonSize: CGFloat
   var color: Color
   var lineWidth: CGFloat
   
-  var body: some View {
+  public var body: some View {
     GeometryReader { geometry in
       Path { path in
         let size: CGFloat = hexagonSize
@@ -59,7 +59,7 @@ struct HexagonView: View {
   }
 }
 
-struct HexagonDataView: View {
+public struct HexagonDataView: View {
   @State var animation = 0.0
   var hexagonSize: CGFloat
   var sweat: CGFloat
@@ -69,7 +69,7 @@ struct HexagonDataView: View {
   var wineBody: CGFloat
   var acid: CGFloat
   
-  var body: some View {
+  public var body: some View {
     GeometryReader { geometry in
       Path { path in
         let size: CGFloat = hexagonSize
@@ -99,8 +99,8 @@ struct HexagonDataView: View {
   }
 }
 
-struct HexagonBackgroundView: View {
-  var body: some View {
+public struct HexagonBackgroundView: View {
+  public var body: some View {
     GeometryReader { geo in
       ZStack(alignment: .center) {
         HexagonView(
@@ -143,8 +143,8 @@ struct HexagonBackgroundView: View {
   }
 }
 
-struct HexagonGraphDataView: View {
-  var body: some View {
+public struct HexagonGraphDataView: View {
+  public var body: some View {
     GeometryReader { geo in
       ZStack {
         HexagonBackgroundView()
@@ -167,8 +167,8 @@ struct HexagonGraphDataView: View {
 }
 
 
-struct WineHexagonGraphView_Previews: PreviewProvider {
-  static var previews: some View {
+public struct WineHexagonGraphView_Previews: PreviewProvider {
+  public static var previews: some View {
     WineHexagonGraphView()
   }
 }

@@ -19,7 +19,11 @@ struct MapView: View {
     self.viewStore = ViewStore(self.store, observe: { $0 })
   }
   
-  var body: some View {
-    Text("Map View")
+  public var body: some View {
+    WithViewStore(store, observe: { $0 }) { viewStore in
+      VStack {
+        Text("Note View")
+      }
+    }
   }
 }

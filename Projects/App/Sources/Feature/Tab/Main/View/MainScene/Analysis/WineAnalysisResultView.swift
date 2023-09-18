@@ -10,7 +10,7 @@ import ComposableArchitecture
 import SwiftUI
 import WineyKit
 
-struct WineAnalysisResultView: View {
+public struct WineAnalysisResultView: View {
   private let store: StoreOf<WineAnalysisResult>
   @ObservedObject var viewStore: ViewStoreOf<WineAnalysisResult>
   
@@ -20,7 +20,7 @@ struct WineAnalysisResultView: View {
   }
   
   
-  var body: some View {
+  public var body: some View {
     VStack(spacing: 0) {
       NavigationBar(
         leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
@@ -55,7 +55,7 @@ struct WineAnalysisResultView: View {
     .navigationBarHidden(true)
   }
   
-  var circleGraphView: some View {
+  public var circleGraphView: some View {
     VStack {
       VStack(spacing: 0) {
         HStack(spacing: 0) {
@@ -83,24 +83,31 @@ struct WineAnalysisResultView: View {
 }
 
 
-struct WineAnalysisResultScrollView: View {
-  var body: some View {
+public struct WineAnalysisResultScrollView: View {
+  public var body: some View {
     GeometryReader { geo in
       ScrollView {
         WinePreferNationView()
           .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
-        WinePreferView()
+        WinePreferTasteView()
           .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
         WineHexagonGraphView()
           .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
+        
+        WinePreferSmellView()
+          .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
+        
+        WinePriceView()
+          .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
       }
+      .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
     }
   }
 }
 
 
-struct WineAnalysisResultView_Previews: PreviewProvider {
-  static var previews: some View {
+public struct WineAnalysisResultView_Previews: PreviewProvider {
+  public static var previews: some View {
     WineAnalysisResultView(
       store: Store(
         initialState: WineAnalysisResult.State.init(),

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct CarouselView<Content: View>: View {
+public struct CarouselView<Content: View>: View {
   var content: Content
   var count: Int
   
@@ -22,7 +22,7 @@ struct CarouselView<Content: View>: View {
     self.count = count
   }
   
-  var body: some View {
+  public var body: some View {
     GeometryReader { geometry in
       ScrollView(.vertical, showsIndicators: false) {
         VStack(spacing: 337) {
@@ -50,8 +50,8 @@ struct CarouselView<Content: View>: View {
 }
 
 
-struct ContentView: View {
-  var body: some View {
+public struct ContentView: View {
+  public var body: some View {
     CarouselView(count: 3) {
       WinePreferNationView()
       WinePreferNationView()
@@ -60,8 +60,8 @@ struct ContentView: View {
   }
 }
 
-struct PreView: PreviewProvider {
-  static var previews: some View {
+public struct PreView: PreviewProvider {
+  public static var previews: some View {
     ContentView()
   }
 }

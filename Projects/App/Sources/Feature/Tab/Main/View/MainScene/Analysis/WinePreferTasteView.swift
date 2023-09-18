@@ -9,21 +9,21 @@
 import SwiftUI
 import WineyKit
 
-struct WinePreferView: View {
+public struct WinePreferTasteView: View {
   let wines: [WineRankData] = [
     WineRankData(id: 1, rank: .rank1, wineName: "프리미티보", percentage: 74),
     WineRankData(id: 2, rank: .rank2, wineName: "메들로", percentage: 12),
     WineRankData(id: 3, rank: .rank3, wineName: "까르베네 소비뇽", percentage: 6)
   ]
   
-  var body: some View {
+  public var body: some View {
     GeometryReader { geo in
       VStack(spacing: 0) {
         Text("선호 품종")
           .wineyFont(.title2)
           .padding(.top, 66)
         
-        WinePreferCirlcePositionView(wineData: wines)
+        WinePreferTasteCirlcePositionView(wineData: wines)
         
         Spacer()
         WineyAsset.Assets.arrowBottom.swiftUIImage
@@ -34,14 +34,14 @@ struct WinePreferView: View {
   }
 }
 
-struct WinePreferCirlcePositionView: View {
+public struct WinePreferTasteCirlcePositionView: View {
   var wineData: [WineRankData]
   
-  var body: some View {
+  public var body: some View {
     GeometryReader { geo in
       ZStack {
         ForEach(wineData) { wine in
-          WinePreferCirlceView(wine: wine)
+          WinePreferTasteCirlceView(wine: wine)
             .offset(x: wine.rank.offsetX, y: wine.rank.offsetY)
         }
         .frame(width: geo.size.width, height: geo.size.height)
@@ -51,11 +51,11 @@ struct WinePreferCirlcePositionView: View {
 }
 
 
-struct WinePreferCirlceView: View {
+public struct WinePreferTasteCirlceView: View {
   var wine: WineRankData
   @State var radiusAnimation = 0.0
   
-  var body: some View {
+  public var body: some View {
     ZStack {
       Circle()
         .fill(
@@ -88,8 +88,8 @@ struct WinePreferCirlceView: View {
   }
 }
 
-struct WinePreferView_Previews: PreviewProvider {
-  static var previews: some View {
-    WinePreferView()
+public struct WinePreferTasteView_Previews: PreviewProvider {
+  public static var previews: some View {
+    WinePreferTasteView()
   }
 }

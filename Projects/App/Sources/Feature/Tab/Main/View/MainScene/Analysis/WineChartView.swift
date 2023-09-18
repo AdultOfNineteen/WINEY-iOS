@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct WineChartView: View {
-  var body: some View {
+public struct WineChartView: View {
+  public var body: some View {
     VStack(spacing: 0) {
       VStack {
         Text("선호 국가")
@@ -41,8 +41,8 @@ struct WineChartView: View {
   }
 }
 
-struct WineChartView_Previews: PreviewProvider {
-  static var previews: some View {
+public struct WineChartView_Previews: PreviewProvider {
+  public static var previews: some View {
     WineChartView()
   }
 }

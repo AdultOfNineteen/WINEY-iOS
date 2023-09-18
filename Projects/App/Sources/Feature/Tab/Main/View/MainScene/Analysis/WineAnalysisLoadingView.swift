@@ -10,7 +10,7 @@ import ComposableArchitecture
 import SwiftUI
 import WineyKit
 
-struct WineAnalysisLoadingView: View {
+public struct WineAnalysisLoadingView: View {
   private let store: StoreOf<WineAnalysisLoading>
   @ObservedObject var viewStore: ViewStoreOf<WineAnalysisLoading>
   
@@ -20,7 +20,7 @@ struct WineAnalysisLoadingView: View {
   }
   
   
-  var body: some View {
+  public var body: some View {
     VStack(spacing: 0) {
       NavigationBar(
         leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
@@ -63,8 +63,8 @@ struct WineAnalysisLoadingView: View {
 }
 
 
-struct WineAnalysisLoadingView_Previews: PreviewProvider {
-  static var previews: some View {
+public struct WineAnalysisLoadingView_Previews: PreviewProvider {
+  public static var previews: some View {
     WineAnalysisLoadingView(
       store: Store(
         initialState: WineAnalysisLoading.State.init(userName: "성경"),

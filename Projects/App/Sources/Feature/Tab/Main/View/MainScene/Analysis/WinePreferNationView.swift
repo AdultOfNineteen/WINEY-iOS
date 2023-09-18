@@ -10,8 +10,8 @@ import ComposableArchitecture
 import SwiftUI
 import WineyKit
 
-struct WinePreferNationView: View {
-  var body: some View {
+public struct WinePreferNationView: View {
+  public var body: some View {
     GeometryReader { geo in
       VStack(spacing: 0) {
         Text("선호 국가")
@@ -41,13 +41,13 @@ struct WinePreferNationView: View {
   }
 }
 
-struct WineBottle: View {
+public struct WineBottle: View {
   @State var countAnimation = 0
   var nationName: String
   var count: Int
   var rank: Int
   
-  var body: some View {
+  public var body: some View {
     // MARK: WINE BOTTLE
     ZStack(alignment: .center) {
       WineyAsset.Assets.wineBottle.swiftUIImage
@@ -91,8 +91,8 @@ struct WineBottle: View {
   }
 }
 
-struct WinePreferNationView_Previews: PreviewProvider {
-  static var previews: some View {
+public struct WinePreferNationView_Previews: PreviewProvider {
+  public static var previews: some View {
     WinePreferNationView()
   }
 }
