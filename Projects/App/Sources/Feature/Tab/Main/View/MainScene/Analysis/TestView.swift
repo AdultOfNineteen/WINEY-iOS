@@ -25,7 +25,7 @@ public struct CarouselView<Content: View>: View {
   public var body: some View {
     GeometryReader { geometry in
       ScrollView(.vertical, showsIndicators: false) {
-        VStack(spacing: 337) {
+        VStack(spacing: 0) {
           ForEach(0..<count, id: \.self) { index in
             content
               .frame(width: nil, height: geometry.size.height)
@@ -33,6 +33,7 @@ public struct CarouselView<Content: View>: View {
         }
       }
       .content.offset(y: offset)
+      .frame(width: geometry.size.width, height: geometry.size.height)
       .gesture(
         DragGesture()
           .onEnded { gesture in
@@ -45,17 +46,24 @@ public struct CarouselView<Content: View>: View {
             print(currentIndex)
           }
       )
-    }    .animation(.easeInOut)
+    }
+    .animation(.easeInOut)
   }
 }
 
 
 public struct ContentView: View {
   public var body: some View {
-    CarouselView(count: 3) {
-      WinePreferNationView()
-      WinePreferNationView()
-      WinePreferNationView()
+    GeometryReader { geometry in
+      CarouselView(count: 3) {
+        WinePreferNationView()
+          .frame(width: geometry.size.width, height: geometry.size.height)
+        WinePreferNationView()
+          .frame(width: geometry.size.width, height: geometry.size.height)
+        WinePreferNationView()
+          .frame(width: geometry.size.width, height: geometry.size.height)
+      }
+      .frame(width: geometry.size.width, height: geometry.size.height)
     }
   }
 }

@@ -9,7 +9,7 @@
 import SwiftUI
 import WineyKit
 
-public struct WineHexagonGraphView: View {
+public struct WinePreferTasteView: View {
   public var body: some View {
     GeometryReader { geo in
       VStack(spacing: 0) {
@@ -160,15 +160,12 @@ public struct HexagonGraphDataView: View {
       }
       .frame(width: geo.size.width)
     }
-    .onAppear {
-      
-    }
   }
 }
 
 
 public struct WineHexagonGraphView_Previews: PreviewProvider {
   public static var previews: some View {
-    WineHexagonGraphView()
+    WinePreferTasteView()
   }
 }

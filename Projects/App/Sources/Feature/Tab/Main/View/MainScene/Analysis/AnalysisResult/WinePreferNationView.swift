@@ -37,6 +37,7 @@ public struct WinePreferNationView: View {
         WineyAsset.Assets.arrowBottom.swiftUIImage
           .padding(.bottom, 64)
       }
+      .frame(width: geo.size.width)
     }
   }
 }

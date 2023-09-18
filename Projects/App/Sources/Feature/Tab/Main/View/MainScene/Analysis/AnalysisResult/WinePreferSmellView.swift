@@ -90,8 +90,8 @@ public struct WinePreferCircleBackground: View {
       ZStack {
         Circle()
           .fill(Color(red: 81/225, green: 35/225, blue: 223/225).opacity(0.5))
-          .frame(width: geo.size.width / 2)
-          .blur(radius: 50)
+          .frame(width: geo.size.width / 3)
+          .blur(radius: 40)
       }
       .frame(width: geo.size.width, height: geo.size.height)
     }

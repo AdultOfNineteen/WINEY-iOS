@@ -47,7 +47,6 @@ public struct WineAnalysisResultView: View {
         .padding(.horizontal, 24)
         
         WineAnalysisResultScrollView()
-        
       }
     }
     .background(Color(red: 31/255, green: 33/255, blue: 38/255))
@@ -89,18 +88,15 @@ public struct WineAnalysisResultScrollView: View {
       ScrollView {
         WinePreferNationView()
           .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
+        WinePreferCategoryView()
+          .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
         WinePreferTasteView()
           .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
-        WineHexagonGraphView()
-          .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
-        
         WinePreferSmellView()
           .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
-        
         WinePriceView()
           .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
       }
-      .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
     }
   }
 }

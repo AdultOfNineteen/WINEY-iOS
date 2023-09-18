@@ -9,7 +9,7 @@
 import SwiftUI
 import WineyKit
 
-public struct WinePreferTasteView: View {
+public struct WinePreferCategoryView: View {
   let wines: [WineRankData] = [
     WineRankData(id: 1, rank: .rank1, wineName: "프리미티보", percentage: 74),
     WineRankData(id: 2, rank: .rank2, wineName: "메들로", percentage: 12),
@@ -90,6 +90,6 @@ public struct WinePreferTasteCirlceView: View {
 
 public struct WinePreferTasteView_Previews: PreviewProvider {
   public static var previews: some View {
-    WinePreferTasteView()
+    WinePreferCategoryView()
   }
 }

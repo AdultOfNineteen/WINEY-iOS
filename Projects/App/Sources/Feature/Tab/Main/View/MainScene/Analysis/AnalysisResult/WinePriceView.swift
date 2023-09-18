@@ -15,7 +15,6 @@ struct WinePriceView: View {
       VStack(spacing: 0) {
         Text("가격대")
           .wineyFont(.title2)
-          .padding(.top, 66)
         
         WinePriceContentView()
           .padding(.top, 16)
@@ -25,6 +24,7 @@ struct WinePriceView: View {
         WineyAsset.Assets.arrowTop.swiftUIImage
           .padding(.bottom, 64)
       }
+      .padding(.top, 66)
       .frame(width: geo.size.width)
     }
   }
