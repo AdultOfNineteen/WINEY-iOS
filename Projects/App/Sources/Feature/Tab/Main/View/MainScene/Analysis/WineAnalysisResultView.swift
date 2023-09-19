@@ -25,8 +25,15 @@ public struct WineAnalysisResultView: View {
         VStack {
           Spacer()
           
-          WineAnalysisCarouselContainerView()
-            .frame(width: geo.size.width, height: geo.size.height-221)
+          WineAnalysisCarouselView(
+            store: Store(
+              initialState: viewStore.carouselList,
+              reducer: {
+                WineAnalysisCarousel()
+              }
+            )
+          )
+          .frame(width: geo.size.width, height: geo.size.height-221)
         }
         
         VStack(spacing: 0) {
@@ -53,7 +60,7 @@ public struct WineAnalysisResultView: View {
           .padding(.top, 39)
           .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
           .background(Color(red: 31/255, green: 33/255, blue: 38/255))
-
+          
           Rectangle()
             .opacity(0)
         }
@@ -65,35 +72,14 @@ public struct WineAnalysisResultView: View {
   }
 }
 
-public struct WineAnalysisResultScrollView: View {
-  public var body: some View {
-    GeometryReader { geo in
-      ScrollView {
-        WineAnalysisInitView()
-          .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
-        WinePreferNationView()
-          .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
-        WinePreferCategoryView()
-          .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
-        WinePreferTasteView()
-          .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
-        WinePreferSmellView()
-          .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
-        WinePriceView()
-          .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
-      }
-    }
-  }
-}
-
 public struct WineAnalysisResultView_Previews: PreviewProvider {
   public static var previews: some View {
     WineAnalysisResultView(
       store: Store(
         initialState: WineAnalysisResult.State.init(),
-        reducer: {
-          WineAnalysisResult()
-        }
+          reducer: {
+            WineAnalysisResult()
+          }
       )
     )
   }

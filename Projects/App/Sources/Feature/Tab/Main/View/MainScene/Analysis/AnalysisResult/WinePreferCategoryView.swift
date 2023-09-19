@@ -6,22 +6,26 @@
 //  Copyright © 2023 com.adultOfNineteen. All rights reserved.
 //
 
+import ComposableArchitecture
 import SwiftUI
 import WineyKit
 
 public struct WinePreferCategoryView: View {
-  let wines: [WineRankData] = [
-    WineRankData(id: 1, rank: .rank1, wineName: "프리미티보", percentage: 74),
-    WineRankData(id: 2, rank: .rank2, wineName: "메들로", percentage: 12),
-    WineRankData(id: 3, rank: .rank3, wineName: "까르베네 소비뇽", percentage: 6)
-  ]
+  private let store: StoreOf<WinePreferCategory>
+  @ObservedObject var viewStore: ViewStoreOf<WinePreferCategory>
+  
+  public init(store: StoreOf<WinePreferCategory>) {
+    self.store = store
+    self.viewStore = ViewStore(self.store, observe: { $0 })
+  }
   
   public var body: some View {
     GeometryReader { geo in
       VStack(spacing: 0) {
-        WineAnalysisTitle(title: "선호 품종")
+        WineAnalysisTitle(title: viewStore.title)
           .padding(.top, 66)
-        WinePreferTasteCirlcePositionView(wineData: wines)
+        
+        WinePreferTasteCirlcePositionView(wineData: viewStore.state.wines)
         
         Spacer()
         WineyAsset.Assets.arrowBottom.swiftUIImage
@@ -47,7 +51,6 @@ public struct WinePreferTasteCirlcePositionView: View {
     }
   }
 }
-
 
 public struct WinePreferTasteCirlceView: View {
   var wine: WineRankData
@@ -83,11 +86,5 @@ public struct WinePreferTasteCirlceView: View {
         radiusAnimation = wine.rank.circleRadius
       }
     }
-  }
-}
-
-public struct WinePreferTasteView_Previews: PreviewProvider {
-  public static var previews: some View {
-    WinePreferCategoryView()
   }
 }

@@ -11,23 +11,33 @@ import SwiftUI
 import WineyKit
 
 public struct WinePreferNationView: View {
+  private let store: StoreOf<WinePreferNation>
+  @ObservedObject var viewStore: ViewStoreOf<WinePreferNation>
+  
+  public init(store: StoreOf<WinePreferNation>) {
+    self.store = store
+    self.viewStore = ViewStore(self.store, observe: { $0 })
+  }
+  
   public var body: some View {
     GeometryReader { geo in
       VStack(spacing: 0) {
-        WineAnalysisTitle(title: "선호 국가")
+        WineAnalysisTitle(title: viewStore.titleName)
           .padding(.top, 66)
         
         HStack {
           Spacer().frame(width: 48)
           
-          WineBottle(nationName: "이탈리아", count: 3, rank: 1)
-          Spacer()
-          
-          WineBottle(nationName: "미국", count: 1, rank: 2)
-          Spacer()
-          
-          WineBottle(nationName: "이탈리아", count: 1, rank: 3)
-          Spacer().frame(width: 48)
+          ForEach(viewStore.winePreferNationList) { wine in
+            WineBottle(
+              nationName: wine.nationName,
+              count: wine.count,
+              
+              rank: wine.id
+            )
+            Spacer()
+              .frame(width: wine.id == 3 ? 48 : .infinity)
+          }
         }
         .padding(.top, 44)
         
@@ -37,6 +47,9 @@ public struct WinePreferNationView: View {
           .padding(.bottom, 64)
       }
       .frame(width: geo.size.width)
+    }
+    .onAppear {
+      viewStore.send(._onAppear)
     }
   }
 }
@@ -84,7 +97,7 @@ public struct WineBottle: View {
       .frame(height: 208)
     }
     .onAppear {
-      withAnimation(.easeOut(duration: 1.0)) {
+      withAnimation(.easeIn(duration: 1.0)) {
         countAnimation = count
       }
     }
@@ -109,6 +122,8 @@ public struct WineAnalysisTitle: View {
 
 public struct WinePreferNationView_Previews: PreviewProvider {
   public static var previews: some View {
-    WinePreferNationView()
+    WinePreferNationView(store: Store(initialState: WinePreferNation.State.init(), reducer: {
+      WinePreferNation()
+    }))
   }
 }

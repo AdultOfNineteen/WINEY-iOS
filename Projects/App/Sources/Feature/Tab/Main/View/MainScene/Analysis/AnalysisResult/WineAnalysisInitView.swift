@@ -31,7 +31,7 @@ public struct WineAnalysisInitView: View {
         .wineyFont(.captionM1)
         .padding(.top, 22)
         
-        WinePreferSmellContentView()
+        Text("PIE CHART")
           .padding(.top, 76)
         
         Spacer()

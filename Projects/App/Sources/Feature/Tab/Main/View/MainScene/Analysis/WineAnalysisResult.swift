@@ -10,24 +10,19 @@ import CombineExt
 import ComposableArchitecture
 import Foundation
 
-public struct WinePreferNation: Equatable {
-  var nationName: String
-  var count: Int
-}
+
 
 public struct WineAnalysisResult: Reducer {
   public struct State: Equatable {
     let wineRecommend: String = "이탈리아의 프리미티보 품종으로 만든 레드 와인"
     let wineCount: Int = 7
     let wineRepurchase: Int = 5
-    let winePreferNation: [WinePreferNation] = [
-      WinePreferNation(nationName: "이탈리아", count: 3),
-      WinePreferNation(nationName: "미국", count: 1),
-      WinePreferNation(nationName: "칠레", count: 1)
-    ]
+    
+    var carouselList = WineAnalysisCarousel.State.init()
     
     public init(
     ) {
+      
     }
   }
   
@@ -36,21 +31,30 @@ public struct WineAnalysisResult: Reducer {
     case tappedBackButton
     
     // MARK: - Inner Business Action
-    case _onAppear
+    case _viewWillAppear
     
     // MARK: - Inner SetState Action
     
     // MARK: - Child Action
+    case carousel(WineAnalysisCarousel.Action)
   }
 
-  public func reduce(into state: inout State, action: Action) -> Effect<Action> {
-    switch action {
-    case .tappedBackButton:
-      return .none
-    case ._onAppear:
-      return .none
-    default:
-      return .none
+  public var body: some ReducerOf<Self> {
+    Reduce<State, Action> { state, action in
+      switch action {
+      case .carousel:
+        return .none
+      case .tappedBackButton:
+        return .none
+      case ._viewWillAppear:
+        return .none
+      default:
+        return .none
+      }
+    }
+    
+    Scope(state: \.carouselList, action: /Action.carousel) {
+      WineAnalysisCarousel()
     }
   }
 }

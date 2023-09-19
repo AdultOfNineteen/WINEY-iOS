@@ -6,28 +6,99 @@
 //  Copyright © 2023 com.adultOfNineteen. All rights reserved.
 //
 
+import ComposableArchitecture
 import SwiftUI
 import WineyKit
 
 public struct WinePreferTasteView: View {
+  private let store: StoreOf<WinePreferTaste>
+  @ObservedObject var viewStore: ViewStoreOf<WinePreferTaste>
+  
+  public init(store: StoreOf<WinePreferTaste>) {
+    self.store = store
+    self.viewStore = ViewStore(self.store, observe: { $0 })
+  }
+  
   public var body: some View {
     GeometryReader { geo in
       VStack(spacing: 0) {
-        WineAnalysisTitle(title: "선호하는 맛")
+        WineAnalysisTitle(title: viewStore.title)
           .padding(.top, 66)
         
         Spacer()
         
-        HexagonGraphDataView()
+        HexagonGraphDataView(store: store)
         
         WineyAsset.Assets.arrowBottom.swiftUIImage
           .padding(.bottom, 64)
       }
       .frame(width: geo.size.width)
-      
     }
   }
 }
+
+public struct HexagonGraphDataView: View {
+  private let store: StoreOf<WinePreferTaste>
+  @ObservedObject var viewStore: ViewStoreOf<WinePreferTaste>
+  
+  public init(store: StoreOf<WinePreferTaste>) {
+    self.store = store
+    self.viewStore = ViewStore(self.store, observe: { $0 })
+  }
+  
+  public var body: some View {
+    GeometryReader { geo in
+      ZStack {
+        HexagonBackgroundView()
+        HexagonDataView(
+          store: store,
+          hexagonSize: geo.size.width / 22
+        )
+      }
+      .frame(width: geo.size.width)
+    }
+  }
+}
+
+public struct HexagonDataView: View {
+  private let store: StoreOf<WinePreferTaste>
+  @ObservedObject var viewStore: ViewStoreOf<WinePreferTaste>
+  var hexagonSize: CGFloat
+  
+  public init(store: StoreOf<WinePreferTaste>, hexagonSize: CGFloat) {
+    self.store = store
+    self.viewStore = ViewStore(self.store, observe: { $0 })
+    self.hexagonSize = hexagonSize
+  }
+    
+  public var body: some View {
+    GeometryReader { geometry in
+      Path { path in
+        let size: CGFloat = hexagonSize
+        let sideLength = size / 2 * sqrt(3)
+        
+        let centerX = geometry.size.width / 2
+        let centerY = geometry.size.height / 2
+        
+        let points: [CGPoint] = [
+          CGPoint(x: centerX, y: centerY - size * viewStore.sweet),
+          CGPoint(x: centerX + sideLength * viewStore.remain, y: centerY - size / 2 * viewStore.remain),
+          CGPoint(x: centerX + sideLength * viewStore.alcohol, y: centerY + size / 2 * viewStore.alcohol),
+          CGPoint(x: centerX, y: centerY + size * viewStore.tannin),
+          CGPoint(x: centerX - sideLength * viewStore.wineBody, y: centerY + size / 2 * viewStore.wineBody),
+          CGPoint(x: centerX - sideLength * viewStore.acid, y: centerY - size / 2 * viewStore.acid)
+        ]
+        path.addLines(points)
+      }
+      .fill(WineyKitAsset.main3.swiftUIColor.opacity(0.5))
+      .scaleEffect(viewStore.animation)
+      .onAppear {
+        viewStore.send(._onAppear, animation: .easeIn(duration: 1.0))
+      }
+    }
+  }
+}
+
 
 public struct HexagonView: View {
   var hexagonSize: CGFloat
@@ -54,46 +125,6 @@ public struct HexagonView: View {
         path.closeSubpath()
       }
       .stroke(color, lineWidth: lineWidth)
-    }
-  }
-}
-
-public struct HexagonDataView: View {
-  @State var animation = 0.0
-  var hexagonSize: CGFloat
-  var sweat: CGFloat
-  var remain: CGFloat
-  var alcohol: CGFloat
-  var tannin: CGFloat
-  var wineBody: CGFloat
-  var acid: CGFloat
-  
-  public var body: some View {
-    GeometryReader { geometry in
-      Path { path in
-        let size: CGFloat = hexagonSize
-        let sideLength = size / 2 * sqrt(3)
-        
-        let centerX = geometry.size.width / 2
-        let centerY = geometry.size.height / 2
-        
-        let points: [CGPoint] = [
-          CGPoint(x: centerX, y: centerY - size * sweat),
-          CGPoint(x: centerX + sideLength * remain, y: centerY - size / 2 * remain),
-          CGPoint(x: centerX + sideLength * alcohol, y: centerY + size / 2 * alcohol),
-          CGPoint(x: centerX, y: centerY + size * tannin),
-          CGPoint(x: centerX - sideLength * wineBody, y: centerY + size / 2 * wineBody),
-          CGPoint(x: centerX - sideLength * acid, y: centerY - size / 2 * acid)
-        ]
-        path.addLines(points)
-      }
-      .fill(WineyKitAsset.main3.swiftUIColor.opacity(0.5))
-      .scaleEffect(animation)
-      .onAppear {
-        withAnimation(.easeIn(duration: 1.0)) {
-          animation = 1.0
-        }
-      }
     }
   }
 }
@@ -139,32 +170,5 @@ public struct HexagonBackgroundView: View {
       .wineyFont(.captionB1)
       .frame(width: geo.size.width)
     }
-  }
-}
-
-public struct HexagonGraphDataView: View {
-  public var body: some View {
-    GeometryReader { geo in
-      ZStack {
-        HexagonBackgroundView()
-        HexagonDataView(
-          hexagonSize: geo.size.width / 22,
-          sweat: 7,
-          remain: 2,
-          alcohol: 7,
-          tannin: 2,
-          wineBody: 6,
-          acid: 3
-        )
-      }
-      .frame(width: geo.size.width)
-    }
-  }
-}
-
-
-public struct WineHexagonGraphView_Previews: PreviewProvider {
-  public static var previews: some View {
-    WinePreferTasteView()
   }
 }

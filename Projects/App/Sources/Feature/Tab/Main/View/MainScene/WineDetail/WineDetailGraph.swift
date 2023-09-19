@@ -90,7 +90,7 @@ struct WineDetailGraph: View {
       }
     }
     .onAppear {
-      withAnimation(.easeOut(duration: 1.0)) {
+      withAnimation(.easeIn(duration: 1.0)) {
         originalHeight = CGFloat(originalStatistic / 5.0) * 150
         peopleHeight = CGFloat(peopleStatistic / 5.0) * 150
       }

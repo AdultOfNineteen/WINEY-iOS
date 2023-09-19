@@ -6,17 +6,26 @@
 //  Copyright © 2023 com.adultOfNineteen. All rights reserved.
 //
 
+import ComposableArchitecture
 import SwiftUI
 import WineyKit
 
 public struct WinePreferSmellView: View {
+  private let store: StoreOf<WinePreferSmell>
+  @ObservedObject var viewStore: ViewStoreOf<WinePreferSmell>
+  
+  public init(store: StoreOf<WinePreferSmell>) {
+    self.store = store
+    self.viewStore = ViewStore(self.store, observe: { $0 })
+  }
+  
   public var body: some View {
     GeometryReader { geo in
       VStack(spacing: 0) {
-        WineAnalysisTitle(title: "선호하는 향")
+        WineAnalysisTitle(title: viewStore.title)
           .padding(.top, 66)
         
-        WinePreferSmellContentView()
+        WinePreferSmellContentView(store: store)
           .padding(.top, 16)
         
         Spacer()
@@ -30,7 +39,13 @@ public struct WinePreferSmellView: View {
 }
 
 public struct WinePreferSmellContentView: View {
-  @State var opacity: CGFloat = 0.0
+  private let store: StoreOf<WinePreferSmell>
+  @ObservedObject var viewStore: ViewStoreOf<WinePreferSmell>
+  
+  public init(store: StoreOf<WinePreferSmell>) {
+    self.store = store
+    self.viewStore = ViewStore(self.store, observe: { $0 })
+  }
   
   public var body: some View {
     GeometryReader { geo in
@@ -72,12 +87,10 @@ public struct WinePreferSmellContentView: View {
           .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
           .offset(x: -geo.size.width / 2.8, y: 30)
       }
-      .opacity(opacity)
+      .opacity(viewStore.opacity)
       .frame(width: geo.size.width, height: geo.size.height)
       .onAppear {
-        withAnimation(.easeIn(duration: 1.0)) {
-          opacity = 1.0
-        }
+        viewStore.send(._onAppear, animation: .easeIn(duration: 1.0))
       }
     }
   }
@@ -94,11 +107,5 @@ public struct WinePreferCircleBackground: View {
       }
       .frame(width: geo.size.width, height: geo.size.height)
     }
-  }
-}
-
-struct WinePreferSmellView_Previews: PreviewProvider {
-  static var previews: some View {
-    WinePreferSmellView()
   }
 }
