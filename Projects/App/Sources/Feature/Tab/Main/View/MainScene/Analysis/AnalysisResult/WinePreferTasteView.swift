@@ -13,8 +13,7 @@ public struct WinePreferTasteView: View {
   public var body: some View {
     GeometryReader { geo in
       VStack(spacing: 0) {
-        Text("선호하는 맛")
-          .wineyFont(.title2)
+        WineAnalysisTitle(title: "선호하는 맛")
           .padding(.top, 66)
         
         Spacer()

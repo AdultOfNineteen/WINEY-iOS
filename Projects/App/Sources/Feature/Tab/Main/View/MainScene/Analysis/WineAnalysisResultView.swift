@@ -19,73 +19,58 @@ public struct WineAnalysisResultView: View {
     self.viewStore = ViewStore(self.store, observe: { $0 })
   }
   
-  
   public var body: some View {
-    VStack(spacing: 0) {
-      NavigationBar(
-        leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
-        leftIconButtonAction: {
-          viewStore.send(.tappedBackButton)
-        }
-      )
-      
-      VStack(spacing: 0) {
-        // Top 고정 문구
+    GeometryReader { geo in
+      ZStack {
         VStack {
-          Group {
-            Text("이런 와인은 어때요?")
-              .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-            
-            Text("\"" + viewStore.wineRecommend + "\"")
-              .foregroundColor(WineyKitAsset.main3.swiftUIColor)
-              .multilineTextAlignment(.center)
-              .padding(.top, 39)
-          }
-          .wineyFont(.title2)
+          Spacer()
+          
+          WineAnalysisCarouselContainerView()
+            .frame(width: geo.size.width, height: geo.size.height-221)
         }
-        .padding(.top, 39)
-        .padding(.horizontal, 24)
         
-        WineAnalysisResultScrollView()
+        VStack(spacing: 0) {
+          NavigationBar(
+            leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
+            leftIconButtonAction: {
+              viewStore.send(.tappedBackButton)
+            }
+          )
+          
+          VStack(spacing: 0) {
+            Group {
+              Text("이런 와인은 어때요?")
+                .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+              
+              Text("\"" + viewStore.wineRecommend + "\"")
+                .foregroundColor(WineyKitAsset.main3.swiftUIColor)
+                .frame(width: geo.size.width - 48, height: 60)
+                .multilineTextAlignment(.center)
+                .padding(.top, 39)
+            }
+            .wineyFont(.title2)
+          }
+          .padding(.top, 39)
+          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+          .background(Color(red: 31/255, green: 33/255, blue: 38/255))
+
+          Rectangle()
+            .opacity(0)
+        }
       }
     }
     .background(Color(red: 31/255, green: 33/255, blue: 38/255))
     .edgesIgnoringSafeArea(.bottom)
     .navigationBarHidden(true)
   }
-  
-  public var circleGraphView: some View {
-    VStack {
-      VStack(spacing: 0) {
-        HStack(spacing: 0) {
-          Text("지금까지")
-            .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
-          Text("\(viewStore.wineCount)개의 와인을 마셨고,")
-            .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-        }
-        
-        HStack(spacing: 0) {
-          Text("\(viewStore.wineRepurchase)개의 와인에 대해 재구매")
-            .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-          Text("의향이 있어요!")
-            .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
-        }
-      }
-      .wineyFont(.captionM1)
-      
-      Spacer()
-      
-      WineyAsset.Assets.arrowBottom.swiftUIImage
-        .padding(.bottom, 64)
-    }
-  }
 }
-
 
 public struct WineAnalysisResultScrollView: View {
   public var body: some View {
     GeometryReader { geo in
       ScrollView {
+        WineAnalysisInitView()
+          .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
         WinePreferNationView()
           .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
         WinePreferCategoryView()
@@ -100,7 +85,6 @@ public struct WineAnalysisResultScrollView: View {
     }
   }
 }
-
 
 public struct WineAnalysisResultView_Previews: PreviewProvider {
   public static var previews: some View {

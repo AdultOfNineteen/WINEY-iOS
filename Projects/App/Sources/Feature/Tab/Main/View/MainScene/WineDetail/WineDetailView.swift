@@ -55,7 +55,7 @@ public struct WineDetailView: View {
               
               Spacer()
             }
-            .padding(.top, 24)
+            .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
           }
           
           Divider()

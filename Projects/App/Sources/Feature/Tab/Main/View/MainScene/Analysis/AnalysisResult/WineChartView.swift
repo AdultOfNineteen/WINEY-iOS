@@ -20,16 +20,7 @@ public struct WineChartView: View {
           Spacer()
           
           HStack {
-            Spacer().frame(width: 24)
-            
-            WineBottle(nationName: "이탈리아", count: 3, rank: 1)
-            Spacer()
-            
-            WineBottle(nationName: "미국", count: 1, rank: 2)
-            Spacer()
-            
-            WineBottle(nationName: "이탈리아", count: 1, rank: 3)
-            Spacer().frame(width: 24)
+            Text("파이 차트 뷰")
           }
           .padding(.top, 43)
           

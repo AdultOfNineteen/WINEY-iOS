@@ -14,8 +14,7 @@ public struct WinePreferNationView: View {
   public var body: some View {
     GeometryReader { geo in
       VStack(spacing: 0) {
-        Text("선호 국가")
-          .wineyFont(.title2)
+        WineAnalysisTitle(title: "선호 국가")
           .padding(.top, 66)
         
         HStack {
@@ -88,6 +87,22 @@ public struct WineBottle: View {
       withAnimation(.easeOut(duration: 1.0)) {
         countAnimation = count
       }
+    }
+  }
+}
+
+public struct WineAnalysisTitle: View {
+  var title: String
+  
+  public var body: some View {
+    HStack(spacing: 1) {
+      Circle()
+        .frame(width: 7)
+        .foregroundColor(WineyKitAsset.main2.swiftUIColor)
+        .offset(y: -14)
+      Text(title)
+        .wineyFont(.title2)
+        .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
     }
   }
 }

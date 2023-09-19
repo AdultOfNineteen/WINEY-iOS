@@ -19,10 +19,8 @@ public struct WinePreferCategoryView: View {
   public var body: some View {
     GeometryReader { geo in
       VStack(spacing: 0) {
-        Text("선호 품종")
-          .wineyFont(.title2)
+        WineAnalysisTitle(title: "선호 품종")
           .padding(.top, 66)
-        
         WinePreferTasteCirlcePositionView(wineData: wines)
         
         Spacer()
