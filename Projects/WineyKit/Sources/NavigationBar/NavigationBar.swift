@@ -14,6 +14,7 @@ public struct NavigationBar: View {
   public var leftIconButtonAction: () -> Void = {}
   public let rightIcon: Image?
   public var rightIconButtonAction: () -> Void = {}
+  public var backgroundColor: Color
   @Binding public var isRightButtonActive: Bool
   
   public init(
@@ -22,7 +23,8 @@ public struct NavigationBar: View {
     leftIconButtonAction: @escaping () -> Void = {},
     rightIcon: Image? = nil,
     rightIconButtonAction: @escaping () -> Void = {},
-    isRightButtonActive: Binding<Bool> = .constant(false)
+    isRightButtonActive: Binding<Bool> = .constant(false),
+    backgroundColor: Color = Color.black
   ) {
     self.title = title
     self.leftIcon = leftIcon
@@ -30,6 +32,7 @@ public struct NavigationBar: View {
     self.rightIcon = rightIcon
     self.rightIconButtonAction = rightIconButtonAction
     self._isRightButtonActive = isRightButtonActive
+    self.backgroundColor = backgroundColor
   }
   
   public var body: some View {
@@ -60,13 +63,14 @@ public struct NavigationBar: View {
             
             Text(title)
               .foregroundColor(WineyKitAsset.gray100.swiftUIColor)
+              .wineyFont(.title2)
             
             Spacer()
           }
         }
     }
     .frame(height: 68, alignment: .center)
-    .background(Color.black)
+    .background(backgroundColor)
   }
 }
 

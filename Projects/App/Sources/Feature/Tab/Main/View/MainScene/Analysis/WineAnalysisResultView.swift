@@ -41,7 +41,8 @@ public struct WineAnalysisResultView: View {
             leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
             leftIconButtonAction: {
               viewStore.send(.tappedBackButton)
-            }
+            },
+            backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
           )
           
           VStack(spacing: 0) {

@@ -26,7 +26,8 @@ public struct WineAnalysisLoadingView: View {
         leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
         leftIconButtonAction: {
           viewStore.send(.tappedBackButton)
-        }
+        },
+        backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
       )
       
       ZStack(alignment: .center) {

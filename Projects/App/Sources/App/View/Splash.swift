@@ -31,7 +31,7 @@ public struct Splash: Reducer {
       return .send(._checkConnectHistory)
       
     case ._checkConnectHistory:
-      return .send(._moveToHome) // 임시
+      return .send(._moveToAuth) // 임시
 
     case ._moveToHome:
       print("_moveToHome")

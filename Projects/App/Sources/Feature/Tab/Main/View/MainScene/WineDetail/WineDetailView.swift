@@ -26,7 +26,8 @@ public struct WineDetailView: View {
         leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
         leftIconButtonAction: {
           viewStore.send(.tappedBackButton)
-        }
+        },
+        backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
       )
       
       ScrollView {
@@ -55,7 +56,7 @@ public struct WineDetailView: View {
               
               Spacer()
             }
-            .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+            .padding(.top, 16)
           }
           
           Divider()
