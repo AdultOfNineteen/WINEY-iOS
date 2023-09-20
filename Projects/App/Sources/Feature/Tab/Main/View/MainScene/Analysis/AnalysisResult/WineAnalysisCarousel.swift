@@ -17,6 +17,8 @@ public struct WineAnalysisCarousel: Reducer {
     let pageCount: Int = 6
     var pageIndex: Int = 0
     
+    var winePieChart = WineAnalysisPieChart.State.init()
+    var wineNation = WinePreferNation.State.init()
     var wineCategory = WinePreferCategory.State.init()
     var wineTaste = WinePreferTaste.State.init()
     var wineSmell = WinePreferSmell.State.init()
@@ -32,7 +34,8 @@ public struct WineAnalysisCarousel: Reducer {
     // MARK: - Inner Business Action
     
     // MARK: - Inner SetState Action
-    case winePreferNation(WinePreferNation.Action)
+    case winePieChart(WineAnalysisPieChart.Action)
+    case wineNation(WinePreferNation.Action)
     case wineCategory(WinePreferCategory.Action)
     case wineTaste(WinePreferTaste.Action)
     case wineSmell(WinePreferSmell.Action)
@@ -57,7 +60,12 @@ public struct WineAnalysisCarousel: Reducer {
         return .none
       }
     }
-    
+    Scope(state: \.winePieChart, action: /Action.winePieChart) {
+      WineAnalysisPieChart()
+    }
+    Scope(state: \.wineNation, action: /Action.wineNation) {
+      WinePreferNation()
+    }
     Scope(state: \.wineCategory, action: /Action.wineCategory) {
       WinePreferCategory()
     }

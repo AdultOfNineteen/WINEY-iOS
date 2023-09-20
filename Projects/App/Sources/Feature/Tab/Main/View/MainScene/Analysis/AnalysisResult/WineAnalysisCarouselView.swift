@@ -23,13 +23,19 @@ struct WineAnalysisCarouselView: View {
       ScrollViewReader { proxy in
         ScrollView {
           LazyVStack {
-            WineAnalysisInitView()
+            WineAnalysisPieChartView(
+              store: Store(
+                initialState: viewStore.state.winePieChart,
+                reducer: {
+                  WineAnalysisPieChart()
+                }
+              ))
               .frame(width: geometry.size.width, height: geometry.size.height)
               .id(0)
             
             WinePreferNationView(
               store: Store(
-                initialState: WinePreferNation.State.init(),
+                initialState: viewStore.state.wineNation,
                 reducer: {
                   WinePreferNation()
                 }

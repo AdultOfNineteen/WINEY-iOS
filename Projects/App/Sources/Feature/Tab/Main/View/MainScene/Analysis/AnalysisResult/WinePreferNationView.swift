@@ -32,12 +32,15 @@ public struct WinePreferNationView: View {
             WineBottle(
               nationName: wine.nationName,
               count: wine.count,
-              
               rank: wine.id
             )
-            Spacer()
-              .frame(width: wine.id == 3 ? 48 : .infinity)
+            
+            if wine.id != viewStore.winePreferNationList.count {
+              Spacer()
+            }
           }
+          
+          Spacer().frame(width: 48)
         }
         .padding(.top, 44)
         
@@ -92,6 +95,7 @@ public struct WineBottle: View {
         Text("\(nationName)(\(count)회)")
           .wineyFont(.bodyB2)
           .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+          .multilineTextAlignment(.center)
       }
       .offset(y: 26)
       .frame(height: 208)
@@ -111,8 +115,8 @@ public struct WineAnalysisTitle: View {
     HStack(spacing: 1) {
       Circle()
         .frame(width: 7)
-        .foregroundColor(WineyKitAsset.main2.swiftUIColor)
         .offset(y: -14)
+        .foregroundColor(WineyKitAsset.main2.swiftUIColor)
       Text(title)
         .wineyFont(.title2)
         .foregroundColor(WineyKitAsset.gray50.swiftUIColor)

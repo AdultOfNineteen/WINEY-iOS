@@ -60,7 +60,7 @@ public struct WineAnalysisResultView: View {
           .padding(.top, 39)
           .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
           .background(Color(red: 31/255, green: 33/255, blue: 38/255))
-          
+    
           Rectangle()
             .opacity(0)
         }

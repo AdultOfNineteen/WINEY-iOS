@@ -1,5 +1,5 @@
 //
-//  WinePrice.swift
+//  WineAnalysisPieChart.swift
 //  Winey
 //
 //  Created by 정도현 on 2023/09/20.
@@ -8,14 +8,13 @@
 
 import CombineExt
 import ComposableArchitecture
-import SwiftUI
+import Foundation
 
-public struct WinePrice: Reducer {
+
+public struct WineAnalysisPieChart: Reducer {
   public struct State: Equatable {
-    let title = "가격대"
-    let secondTitle = "평균 구매가"
-    let average: Int = 70580
-    var opacity = 0.0
+    let wineDrink: Int = 7
+    let repurchase: Int = 5
     
     public init() { }
   }
@@ -30,13 +29,11 @@ public struct WinePrice: Reducer {
     
     // MARK: - Child Action
   }
-  
+
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case ._onAppear:
-      state.opacity = 1.0
       return .none
-      
     default:
       return .none
     }
