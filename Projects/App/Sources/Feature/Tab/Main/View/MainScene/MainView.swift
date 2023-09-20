@@ -126,7 +126,7 @@ public struct MainView: View {
         viewStore.send(._viewWillAppear)
       }
     }
-    .background(Color(red: 31/255, green: 33/255, blue: 38/255))
+    .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationViewStyle(StackNavigationViewStyle())
     .navigationBarHidden(true)
   }

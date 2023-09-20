@@ -21,7 +21,7 @@ struct MainAnalysisButtonStyle: ButtonStyle {
           .stroke(WineyKitAsset.main2.swiftUIColor)
           .background(
             RoundedRectangle(cornerRadius: 45)
-              .fill(Color(red: 31/255, green: 33/255, blue: 38/255))
+              .fill(WineyKitAsset.mainBackground.swiftUIColor)
           )
       )
       .foregroundColor(WineyKitAsset.main3.swiftUIColor)

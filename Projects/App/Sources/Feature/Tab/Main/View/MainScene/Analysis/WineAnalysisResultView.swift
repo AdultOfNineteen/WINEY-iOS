@@ -59,14 +59,14 @@ public struct WineAnalysisResultView: View {
           }
           .padding(.top, 39)
           .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-          .background(Color(red: 31/255, green: 33/255, blue: 38/255))
+          .background(WineyKitAsset.mainBackground.swiftUIColor)
     
           Rectangle()
             .opacity(0)
         }
       }
     }
-    .background(Color(red: 31/255, green: 33/255, blue: 38/255))
+    .background(WineyKitAsset.mainBackground.swiftUIColor)
     .edgesIgnoringSafeArea(.bottom)
     .navigationBarHidden(true)
   }

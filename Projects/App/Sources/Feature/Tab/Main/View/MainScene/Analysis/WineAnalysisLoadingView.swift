@@ -51,7 +51,7 @@ public struct WineAnalysisLoadingView: View {
       
       Spacer()
     }
-    .background(Color(red: 31/255, green: 33/255, blue: 38/255))
+    .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationBarHidden(true)
     .onAppear {
       // loading 확인 딜레이

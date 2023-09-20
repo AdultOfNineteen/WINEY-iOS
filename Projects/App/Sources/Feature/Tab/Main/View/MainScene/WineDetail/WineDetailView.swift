@@ -86,7 +86,7 @@ public struct WineDetailView: View {
       }
     }
     .navigationBarHidden(true)
-    .background(Color(red: 31/255, green: 33/255, blue: 38/255))
+    .background(WineyKitAsset.mainBackground.swiftUIColor)
   }
 }
 

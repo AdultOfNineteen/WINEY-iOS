@@ -98,14 +98,14 @@ public struct WinePieChart: View {
           }
           
           Circle()
-            .fill((Color(red: 31/255, green: 33/255, blue: 38/255)))
+            .fill(WineyKitAsset.mainBackground.swiftUIColor)
             .frame(width: geometry.size.width / 3.4)
           
           Circle()
             .trim(from: showGauge ? 1 : 0, to: 1)
             .stroke(style: StrokeStyle(lineWidth: geometry.size.width / 4, lineJoin: .round))
             .frame(width: geometry.size.width / 4, height: geometry.size.height / 4)
-            .foregroundColor((Color(red: 31/255, green: 33/255, blue: 38/255)))
+            .foregroundColor(WineyKitAsset.mainBackground.swiftUIColor)
             .rotationEffect(.degrees(270))
         }
         .padding(.horizontal, 24)
@@ -211,7 +211,7 @@ struct PieSliceView: View {
             )
             path.closeSubpath()
           }
-            .stroke((Color(red: 31/255, green: 33/255, blue: 38/255)), lineWidth: 5)
+            .stroke(WineyKitAsset.mainBackground.swiftUIColor, lineWidth: 5)
         )
         
         ZStack {
