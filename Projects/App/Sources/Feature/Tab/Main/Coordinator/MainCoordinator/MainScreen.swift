@@ -15,11 +15,13 @@ public struct MainScreen: Reducer {
   public enum State: Equatable {
     case main(Main.State)
     case wineDetail(WineDetail.State)
+    case tipCard(TipCard.State)
   }
 
   public enum Action {
     case main(Main.Action)
     case wineDetail(WineDetail.Action)
+    case tipCard(TipCard.Action)
   }
   
   public var body: some ReducerOf<Self> {
@@ -29,6 +31,10 @@ public struct MainScreen: Reducer {
     
     Scope(state: /State.wineDetail, action: /Action.wineDetail) {
       WineDetail()
+    }
+    
+    Scope(state: /State.tipCard, action: /Action.tipCard) {
+      TipCard()
     }
   }
 }

@@ -67,6 +67,12 @@ public struct TabBar: Reducer {
       case .main(.routeAction(_, action: .main(.wineCardScroll(.wineCard(id: _, action: _))))):
         return .send(._setTabHiddenStatus(true))
         
+      case .main(.routeAction(_, action: .main(._navigateToTipCard))):
+        return .send(._setTabHiddenStatus(true))
+        
+      case .main(.routeAction(_, action: .tipCard(.tappedBackButton))):
+        return .send(._setTabHiddenStatus(false))
+        
       case .main(.routeAction(_, action: .wineDetail(.tappedBackButton))):
         return .send(._setTabHiddenStatus(false))
         

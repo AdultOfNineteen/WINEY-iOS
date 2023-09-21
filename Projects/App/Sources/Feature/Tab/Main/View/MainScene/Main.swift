@@ -13,6 +13,7 @@ import Foundation
 public struct Main: Reducer {
   public struct State: Equatable {
     var wineCardListState: WineCardScroll.State?
+    var tipCardState: TipCard.State?
     var tooltipState: Bool
     
     public init(
@@ -25,17 +26,20 @@ public struct Main: Reducer {
   public enum Action {
     // MARK: - User Action
     case tappedAnalysisButton
+    case tappedTipArrow
     case mainTabTapped
     case userScroll
     
     // MARK: - Inner Business Action
     case _viewWillAppear
     case _navigateToAnalysis
+    case _navigateToTipCard
     
     // MARK: - Inner SetState Action
     
     // MARK: - Child Action
     case wineCardScroll(WineCardScroll.Action)
+    case tipCard(TipCard.Action)
   }
   
   public var body: some ReducerOf<Self> {
@@ -43,11 +47,16 @@ public struct Main: Reducer {
       switch action {
       case ._viewWillAppear:
         state.wineCardListState = WineCardScroll.State.init()
+        state.tipCardState = TipCard.State.init()
         return .none
         
       case .tappedAnalysisButton:
         print("Go to Analysis")
         return .send(._navigateToAnalysis)
+        
+      case .tappedTipArrow:
+        print("Go to Tip View")
+        return .send(._navigateToTipCard)
         
       case .mainTabTapped:
         return .none
@@ -66,6 +75,9 @@ public struct Main: Reducer {
     }
     .ifLet(\.wineCardListState, action: /Action.wineCardScroll) {
       WineCardScroll()
+    }
+    .ifLet(\.tipCardState, action: /Action.tipCard) {
+      TipCard()
     }
   }
 }

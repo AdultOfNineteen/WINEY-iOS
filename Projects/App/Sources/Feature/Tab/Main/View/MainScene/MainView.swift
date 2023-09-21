@@ -13,6 +13,7 @@ import WineyKit
 public struct MainView: View {
   private let store: StoreOf<Main>
   @ObservedObject var viewStore: ViewStoreOf<Main>
+  let columns = [GridItem(.flexible()), GridItem(.flexible())]
   
   public init(store: StoreOf<Main>) {
     self.store = store
@@ -107,14 +108,35 @@ public struct MainView: View {
               Spacer()
               
               WineyAsset.Assets.icArrowRight.swiftUIImage
+                .onTapGesture {
+                  viewStore.send(.tappedTipArrow)
+                }
             }
             .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
             .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+            
+            IfLetStore(
+              self.store.scope(
+                state: \.tipCardState,
+                action: Main.Action.tipCard
+              )
+            ) { _ in
+                          
+              LazyVGrid(columns: columns, spacing: 20) {
+                ForEach(viewStore.tipCardState!.cardList.prefix(2)) { card in
+                  Button(action: {
+                    viewStore.send(.tipCard(.tapCard(card.id)))
+                  }, label: {
+                    card.tipCardImage
+                  })
+                }
+              }
+              .padding(.top, 25)
+              .padding(.bottom, 50)
+              .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+            }
           }
-          
-          
-          // TODO: TIP Card
-          
+          .padding(.bottom, 30)
         }
         .simultaneousGesture(
           DragGesture().onChanged({ value in
