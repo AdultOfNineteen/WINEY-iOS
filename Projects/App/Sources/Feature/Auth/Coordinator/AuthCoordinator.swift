@@ -33,9 +33,15 @@ public struct AuthCoordinator: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
-      case .routeAction(_, action: .login(._completeSocialNetworking)):
-        print("네트워킹 완료 수신")
-        state.routes.append(.push(.setPhoneSignUp(.init() )))
+      case let .routeAction(_, action: .login(._moveUserStatusPage(page))):
+        switch page {
+        case .done:
+          return .none
+        case .code:
+          state.routes.append(.push(.setPhoneSignUp(.init())))
+        case .flavor:
+          state.routes.append(.push(.setFlavorSignUp(.init())))
+        }
         return .none
 
       case .routeAction(_, action: .setPhoneSignUp(.tappedBackButton)):
