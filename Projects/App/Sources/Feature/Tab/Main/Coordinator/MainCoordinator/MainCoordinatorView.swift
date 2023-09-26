@@ -22,14 +22,29 @@ public struct MainCoordinatorView: View {
     TCARouter(store) { screen in
       SwitchStore(screen) { screen in
         switch screen {
-        default:
+        case .main:
           CaseLet(
             /MainScreen.State.main,
             action: MainScreen.Action.main,
             then: MainView.init
           )
+          
+        case .wineDetail:
+          CaseLet(
+            /MainScreen.State.wineDetail,
+            action: MainScreen.Action.wineDetail,
+            then: WineDetailView.init
+          )
+          
+        case .tipCard:
+          CaseLet(
+            /MainScreen.State.tipCard,
+            action: MainScreen.Action.tipCard,
+            then: TipCardView.init
+          )
         }
       }
+      .navigationBarHidden(true)
     }
   }
 }

@@ -39,7 +39,7 @@ public extension View {
             .bold
             .swiftUIFont(size: 32)
         )
-        .lineSpacing(3.9) // 행간
+        .lineSpacing(7) // 행간
       
     case .title1:
       return self
@@ -59,7 +59,7 @@ public extension View {
             .bold
             .swiftUIFont(size: 20)
         )
-        .lineSpacing(2.5) // 행간
+        .lineSpacing(5) // 행간
       
     case .headLine:
       return self
@@ -69,7 +69,7 @@ public extension View {
             .bold
             .swiftUIFont(size: 18)
         )
-        .lineSpacing(2.3) // 행간
+        .lineSpacing(5) // 행간
       
     case .subhead:
       return self
@@ -79,7 +79,7 @@ public extension View {
             .medium
             .swiftUIFont(size: 15)
         )
-        .lineSpacing(2.0) // 행간
+        .lineSpacing(5) // 행간
       
     case .bodyB1:
       return self
@@ -89,7 +89,7 @@ public extension View {
             .bold
             .swiftUIFont(size: 17)
         )
-        .lineSpacing(2.4) // 행간
+        .lineSpacing(7) // 행간
       
     case .bodyM1:
       return self
@@ -99,7 +99,7 @@ public extension View {
             .medium
             .swiftUIFont(size: 17)
         )
-        .lineSpacing(2.4) // 행간
+        .lineSpacing(7) // 행간
       
     case .bodyB2:
       return self
@@ -109,7 +109,7 @@ public extension View {
             .bold
             .swiftUIFont(size: 14)
         )
-        .lineSpacing(1.9) // 행간
+        .lineSpacing(5) // 행간
       
     case .bodyM2:
       return self
@@ -119,7 +119,7 @@ public extension View {
             .medium
             .swiftUIFont(size: 14)
         )
-        .lineSpacing(1.9) // 행간
+        .lineSpacing(5) // 행간
       
     case .captionB1:
       return self
@@ -129,7 +129,7 @@ public extension View {
             .bold
             .swiftUIFont(size: 13)
         )
-        .lineSpacing(1.7) // 행간
+        .lineSpacing(4) // 행간
       
     case .captionM1:
       return self
@@ -139,7 +139,7 @@ public extension View {
             .medium
             .swiftUIFont(size: 13)
         )
-        .lineSpacing(1) // 행간
+        .lineSpacing(4) // 행간
       
     case .captionM2:
       return self
@@ -149,8 +149,7 @@ public extension View {
             .medium
             .swiftUIFont(size: 11)
         )
-
-        .lineSpacing(18) // 행간
+        .lineSpacing(7) // 행간
       
     case .captionM3:
       return self
@@ -159,7 +158,7 @@ public extension View {
             .Chaviera
             .regular
             .swiftUIFont(size: 11)
-        ).lineSpacing(18)
+        ).lineSpacing(7)
       
     case .display1:
       return self
@@ -169,7 +168,7 @@ public extension View {
             .regular
             .swiftUIFont(size: 54)
         )
-        .lineSpacing(54) // 행간
+        .lineSpacing(0) // 행간
       
     case .display2:
       return self
@@ -179,7 +178,7 @@ public extension View {
             .regular
             .swiftUIFont(size: 28)
         )
-        .lineSpacing(28) // 행간
+        .lineSpacing(0) // 행간
     }
   }
 }

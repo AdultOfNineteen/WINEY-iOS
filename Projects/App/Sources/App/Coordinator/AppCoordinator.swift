@@ -29,18 +29,26 @@ public struct AppCoordinator: Reducer {
     case routeAction(Int, action: AppScreen.Action)
     case updateRoutes([Route<AppScreen.State>])
   }
-
+  
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
       case .routeAction(_, action: .splash(._moveToHome)):
         state.routes = [
           .root(
-            .tabBar(.init(main: .init(), note: .init())),
+            .tabBar(
+              .init(
+                main: .init(),
+                map: .init(),
+                note: .init(),
+                userInfo: .init(),
+                isTabHidden: false
+              )
+            ),
             embedInNavigationView: true
           )
         ]
-      return .none
+        return .none
         
       case .routeAction(_, action: .splash(._moveToAuth)):
         state.routes = [
@@ -53,14 +61,31 @@ public struct AppCoordinator: Reducer {
       case .routeAction(_, action: .auth(.routeAction(_, action: .setWelcomeSignUp(.tappedStartButton)))):
         state.routes = [
           .root(
-            .tabBar(.init(main: .init(), note: .init())),
+            .tabBar(
+              .init(
+                main: .init(),
+                map: .init(),
+                note: .init(),
+                userInfo: .init(),
+                isTabHidden: false
+              )
+            ),
             embedInNavigationView: true
           )
         ]
         return .none
         
-      default: return .none
-
+      case .routeAction(_, action: .tabBar(.main(.routeAction(_, action: .main(._navigateToAnalysis))))):
+        state.routes.append(.push(.analysis(.initialState)))
+        return .none
+        
+      case .routeAction(_, action: .analysis(.routeAction(_, action: .wineAnaylsis(.tappedBackButton)))):
+        state.routes.pop()
+        return .none
+        
+      default:
+        return .none
+        
       }
     }
     .forEachRoute {

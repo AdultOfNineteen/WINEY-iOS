@@ -10,59 +10,73 @@ import CombineExt
 import ComposableArchitecture
 import Foundation
 
+
 public struct WineCardScroll: Reducer {
   public struct State: Equatable {
-    var wineList: [WineData]
+    var previousScrollIndex: Int
+    var currentScrollIndex: Int
+    var wineCards: IdentifiedArrayOf<WineCard.State>
     
-    public init(
-      wineList: [WineData] = [
-        WineData(
-          wineType: .red,
-          wineName: "캄포 마리나 프리미이도 디 만두리아",
-          nationalAnthems: "이탈리아",
-          varities: "프리미티보",
-          purchasePrice: 8.8
+    public init() {
+      self.wineCards = [
+        WineCard.State(
+          index: 0,
+          wineCardData: WineCardData(
+            id: 0,
+            wineType: .etc,
+            wineName: "test1",
+            nationalAnthems: "test test test",
+            varities: "test", purchasePrice: 9.90
+          )
         ),
-        WineData(
-          wineType: .white,
-          wineName: "캄포 마리나 프리미이도 디 만두리아",
-          nationalAnthems: "이탈리아",
-          varities: "프리미티보",
-          purchasePrice: 8.8
+        
+        WineCard.State(
+          index: 1,
+          wineCardData: WineCardData(
+            id: 1,
+            wineType: .red,
+            wineName: "test2",
+            nationalAnthems: "test test test",
+            varities: "test", purchasePrice: 9.90
+          )
         ),
-        WineData(
-          wineType: .rose,
-          wineName: "캄포 마리나 프리미이도 디 만두리아",
-          nationalAnthems: "이탈리아",
-          varities: "프리미티보",
-          purchasePrice: 8.8
+        
+        WineCard.State(
+          index: 2,
+          wineCardData: WineCardData(
+            id: 2,
+            wineType: .rose,
+            wineName: "test3",
+            nationalAnthems: "test test test",
+            varities: "test", purchasePrice: 9.90
+          )
         ),
-        WineData(
-          wineType: .etc,
-          wineName: "캄포 마리나 프리미이도 디 만두리아",
-          nationalAnthems: "이탈리아",
-          varities: "프리미티보",
-          purchasePrice: 8.8
-        )
       ]
-    ) {
-      self.wineList = wineList
+      
+      self.previousScrollIndex = 0
+      self.currentScrollIndex = 0
     }
   }
-
+  
   public enum Action {
     // MARK: - User Action
-    case userScroll
     
     // MARK: - Inner Business Action
     
     // MARK: - Inner SetState Action
     
     // MARK: - Child Action
-    
+    case wineCard(id: Int, action: WineCard.Action)
   }
   
-  public func reduce(into state: inout State, action: Action) -> Effect<Action> {
-    return .none
+  public var body: some ReducerOf<Self> {
+    Reduce { state, action in
+      switch action {
+      default:
+        return .none
+      }
+    }.forEach(\.wineCards, action: /WineCardScroll.Action.wineCard) {
+      WineCard()
+    }
   }
 }

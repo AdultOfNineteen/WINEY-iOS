@@ -21,7 +21,10 @@ public struct NoteScreen: Reducer {
   }
   
   public var body: some ReducerOf<Self> {
-    Scope(state: /State.note, action: /Action.note) {
+    Scope(
+      state: /State.note,
+      action: /Action.note
+    ) {
       Note()
     }
   }

@@ -17,13 +17,14 @@ public struct AppScreen: Reducer {
     case splash(Splash.State)
     case auth(AuthCoordinator.State)
     case tabBar(TabBar.State)
-
+    case analysis(WineAnalysisCoordinator.State)
   }
 
   public enum Action {
     case splash(Splash.Action)
     case auth(AuthCoordinator.Action)
     case tabBar(TabBar.Action)
+    case analysis(WineAnalysisCoordinator.Action)
   }
   
   public var body: some ReducerOf<Self> {
@@ -35,6 +36,9 @@ public struct AppScreen: Reducer {
     }
     Scope(state: /State.tabBar, action: /Action.tabBar) {
       TabBar()
+    }
+    Scope(state: /State.analysis, action: /Action.analysis) {
+      WineAnalysisCoordinator()
     }
   }
 }

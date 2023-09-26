@@ -12,29 +12,31 @@ struct WineCardBackground: View {
   var wineBackgroundComponent: WineBackgroundColor
   
   var body: some View {
-    ZStack {
-      RoundedRectangle(cornerRadius: 10)
-        .frame(width: 247, height: 383)
-        .foregroundColor(wineBackgroundComponent.backgroundColor)
-      
-      Circle()
-        .fill(
-          LinearGradient(
-            gradient: Gradient(
-              colors: [wineBackgroundComponent.firstCircleStart, wineBackgroundComponent.firstCircleEnd.opacity(0)]
-            ),
-            startPoint: .top, endPoint: .bottom
-          )
-        )
-        .frame(width: 157, height: 157)
-        .offset(x: -30, y: -50)
+    GeometryReader { geo in
+      ZStack {
+        RoundedRectangle(cornerRadius: 10)
+          .frame(width: geo.size.width - 35, height: 383)
+          .foregroundColor(wineBackgroundComponent.backgroundColor)
         
-      Circle()
-        .fill(
-          wineBackgroundComponent.secondCircle
-        )
-        .frame(width: 157, height: 157)
-        .offset(x: 30, y: 50)
+        Circle()
+          .fill(
+            LinearGradient(
+              gradient: Gradient(
+                colors: [wineBackgroundComponent.firstCircleStart, wineBackgroundComponent.firstCircleEnd.opacity(0)]
+              ),
+              startPoint: .top, endPoint: .bottom
+            )
+          )
+          .frame(width: 157, height: 157)
+          .offset(x: -30, y: -50)
+          
+        Circle()
+          .fill(
+            wineBackgroundComponent.secondCircle
+          )
+          .frame(width: 157, height: 157)
+          .offset(x: 30, y: 50)
+      }
     }
   }
 }
