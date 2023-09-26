@@ -76,6 +76,7 @@ excluded:
   - Projects/App/Project.swift
   - Projects/Utils/Project.swift
   - Projects/WineyKit/Project.swift
+    - Projects/WineyNetwork/Project.swift
   - Derived
   - template
   - .tuist-bin
