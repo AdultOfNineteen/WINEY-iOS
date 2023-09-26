@@ -21,32 +21,35 @@ let infoPlist: [String: InfoPlist.Value] = [
 ]
 
 let wineyKitTargets: [Target] = [
-    .init(name: "WineyKit",
-          platform: .iOS,
-          product: .framework,
-          bundleId: "com.adultOfNineteen.wineyKit",
-          deploymentTarget: .iOS(targetVersion: "16.0", devices: [.iphone]),
-          infoPlist: .extendingDefault(with: infoPlist),
-          sources: ["Sources/**"],
-          resources: ["Resources/**"],
-          scripts: [
-            .pre(
-              script: """
+  .init(
+    name: "WineyKit",
+    platform: .iOS,
+    product: .framework,
+    bundleId: "com.adultOfNineteen.wineyKit",
+    deploymentTarget: .iOS(targetVersion: "16.0", devices: [.iphone]),
+    infoPlist: .extendingDefault(with: infoPlist),
+    sources: ["Sources/**"],
+    resources: ["Resources/**"],
+    scripts: [
+      .pre(
+        script: """
               ROOT_DIR=\(ProcessInfo.processInfo.environment["TUIST_ROOT_DIR"] ?? "")
               
               ${ROOT_DIR}/swiftlint --config ${ROOT_DIR}/.swiftlint.yml
               
               """,
-              name: "SwiftLint",
-              basedOnDependencyAnalysis: false
-            )
-          ],
-          dependencies: [
-            .project(target: "Utils", path: "../Utils")
-          ]
-         )
+        name: "SwiftLint",
+        basedOnDependencyAnalysis: false
+      )
+    ],
+    dependencies: [
+      .project(target: "Utils", path: "../Utils")
+    ]
+  )
 ]
 
-let wineyKitProject = Project.init(name: "WineyKit",
-                           organizationName: "com.adultOfNineteen",
-                           targets: wineyKitTargets)
+let wineyKitProject = Project.init(
+  name: "WineyKit",
+  organizationName: "com.adultOfNineteen",
+  targets: wineyKitTargets
+)
