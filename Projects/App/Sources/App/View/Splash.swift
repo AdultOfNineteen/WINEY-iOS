@@ -1,5 +1,5 @@
 //
-//  SplashCore.swift
+//  Splash.swift
 //  Winey
 //
 //  Created by 박혜운 on 2023/08/10.
@@ -25,10 +25,15 @@ public struct Splash: Reducer {
     case _moveToAuth
   }
   
+  @Dependency(\.continuousClock) var clock
+  
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case ._onAppear:
-      return .send(._checkConnectHistory)
+      return .run { send in
+        try await self.clock.sleep(for: .milliseconds(1500))
+        await send(._checkConnectHistory)
+      }
       
     case ._checkConnectHistory:
       return .send(._moveToAuth) // 임시
