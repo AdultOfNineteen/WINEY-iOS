@@ -2,34 +2,20 @@
 //  Project.swift
 //  ProjectDescriptionHelpers
 //
-//  Created by 박혜운 on 2023/07/31.
+//  Created by 박혜운 on 2023/09/12.
 //
 
 import Foundation
 import ProjectDescription
-import ProjectDescriptionHelpers
 
-let infoPlist: [String: InfoPlist.Value] = [
-  "CFBundleShortVersionString": "1.0",
-  "CFBundleVersion": "1",
-  "CFBundleDevelopmentRegion": "ko_KR",
-  "UIUserInterfaceStyle": "Dark",
-  "UIAppFonts": [
-    "Item 0": "Pretendard-Medium.otf",
-    "Item 1": "Pretendard-Bold.otf"
-  ]
-]
-
-let wineyKitTargets: [Target] = [
+let wineyNetworkTargets: [Target] = [
   .init(
-    name: "WineyKit",
+    name: "WineyNetwork",
     platform: .iOS,
     product: .framework,
-    bundleId: "com.adultOfNineteen.wineyKit",
+    bundleId: "com.adultOfNineteen.wineyNetwork",
     deploymentTarget: .iOS(targetVersion: "16.0", devices: [.iphone]),
-    infoPlist: .extendingDefault(with: infoPlist),
     sources: ["Sources/**"],
-    resources: ["Resources/**"],
     scripts: [
       .pre(
         script: """
@@ -48,8 +34,8 @@ let wineyKitTargets: [Target] = [
   )
 ]
 
-let wineyKitProject = Project.init(
-  name: "WineyKit",
+let wineyNetworkProject = Project.init(
+  name: "WineyNetwork",
   organizationName: "com.adultOfNineteen",
-  targets: wineyKitTargets
+  targets: wineyNetworkTargets
 )
