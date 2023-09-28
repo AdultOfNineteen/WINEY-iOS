@@ -81,4 +81,3 @@ public enum FruitFlavor: Int, FalvorInfoType {
   case sweet
   case sour
 }
-

@@ -59,8 +59,5 @@ public struct AuthCoordinatorView: View {
         }
       }
     }
-    .onAppear{
-      print("AuthCoordinatorView 생성")
-    }
   }
 }

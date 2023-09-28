@@ -23,7 +23,11 @@ struct LoginView: View {
   
   var body: some View {
     GeometryReader {_ in
-      ZStack(alignment: .center) {
+      ZStack {
+        HStack {
+          Rectangle()
+            .fill(.black)
+        }
         mainLogoSpace
         
         searchWineTextSpace
@@ -44,9 +48,7 @@ struct LoginView: View {
     VStack { // 로그인 경로 Text부터 서비스 이용약관까지
       Spacer()
       VStack(spacing: 0) {
-        if !viewStore.hasLoginHistory {
-          loginPathTextSpace
-        }
+        loginPathTextSpace
       }
       .padding(.bottom, 30)
       
@@ -71,12 +73,14 @@ struct LoginView: View {
   
   private var loginPathTextSpace: some View {
     HStack(spacing: 0) {
-      Text("최근에 ")
-      
-      Text("\(viewStore.loginPath?.rawValue ?? "")")
-        .foregroundColor(WineyKitAsset.main3.swiftUIColor)
-      
-      Text("로 로그인 했어요")
+      if let loginPath = viewStore.loginPath {
+        Text("최근에 ")
+        
+        Text("\(loginPath.title)")
+          .foregroundColor(WineyKitAsset.main3.swiftUIColor)
+        
+        Text("로 로그인 했어요")
+      }
     }
     .padding(.vertical, 7)
     .padding(.horizontal, 15)
@@ -85,7 +89,7 @@ struct LoginView: View {
       RoundedRectangle(cornerRadius: 38)  // 라운드의 각도 설정
         .stroke(style: StrokeStyle(lineWidth: 1, dash: [2, 2])) // 점선 스타일 설정
         .foregroundColor(
-          WineyKitAsset.main3.swiftUIColor
+          viewStore.loginPath != nil ? WineyKitAsset.main3.swiftUIColor : .clear
         )
     )
   }
@@ -129,19 +133,19 @@ struct LoginView: View {
     HStack(spacing: 21) {
       Button {
         print("View에서 버튼 터치 인지")
-        viewStore.send(.tappedLoginPath(.kakao))
+        viewStore.send(.tappedLogin(.kakao))
       } label: {
         Image("kakao_button")
       }
       
       Button {
-        viewStore.send(.tappedLoginPath(.apple))
+        viewStore.send(.tappedLogin(.apple))
       } label: {
         Image("apple_button")
       }
       
       Button {
-        viewStore.send(.tappedLoginPath(.gmail))
+        viewStore.send(.tappedLogin(.google))
       } label: {
         Image("google_button")
       }

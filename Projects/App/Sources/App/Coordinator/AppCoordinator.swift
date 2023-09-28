@@ -33,6 +33,23 @@ public struct AppCoordinator: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
+      
+      case let .routeAction(
+        _, action: .auth(
+          .routeAction(
+            _, action: .login(
+              ._moveUserStatusPage(path))
+          )
+        )
+      ) where path == .done:
+        state.routes = [
+          .root(
+            .tabBar(.init(main: .init(), note: .init())),
+            embedInNavigationView: true
+          )
+        ]
+        return .none
+        
       case .routeAction(_, action: .splash(._moveToHome)):
         state.routes = [
           .root(

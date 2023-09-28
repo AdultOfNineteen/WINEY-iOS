@@ -20,11 +20,9 @@ public struct SplashView: View {
   public var body: some View {
     VStack {
       mainLogoSpace
-      .onAppear {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // SplashView 확인용 강제 딜레이
+        .onAppear {
           store.send(._onAppear)
         }
-      }
     }
     .background(.black)
     .navigationViewStyle(StackNavigationViewStyle())
@@ -41,7 +39,7 @@ public struct SplashView: View {
       ZStack(alignment: .top) {
         Image("logoText_imge")
         Image("wave_imge")
-        .offset(y: 2)
+          .offset(y: 2)
       }
     }
   }

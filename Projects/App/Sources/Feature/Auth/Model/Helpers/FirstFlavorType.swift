@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct FirstFlavorModel: Equatable {
+public struct FirstFlavorType: Equatable {
   var chocolate: ChocolateFlavor?
   var coffee: CoffeeFlavor?
   var fruit: FruitFlavor?

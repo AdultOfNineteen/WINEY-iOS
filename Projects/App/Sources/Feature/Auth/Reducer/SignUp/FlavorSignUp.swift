@@ -30,7 +30,7 @@ public enum FlavorSubject: Int {
 public struct FlavorSignUp: Reducer {
   public struct State: Equatable {
     var pageState: FlavorSubject = .chocolate
-    var userCheck: FirstFlavorModel = .init()
+    var userCheck: FirstFlavorType = .init()
     var isPresentedBottomSheet: Bool = false
   }
 

@@ -28,8 +28,7 @@ public struct CodeSignUp: Reducer {
     case alreadySignUp((phone: String, path: LoginPathType))
     case codeFail
   }
-  
-  
+
   public enum CodeResponseType: Equatable {
     case completed
     case alreadySignUp
@@ -66,19 +65,7 @@ public struct CodeSignUp: Reducer {
     case _moveFlavorSignUpView
     case _backToFirstView
   }
-  
-  //  public struct SetCodeSignUpEnvironment {
-  //    let mainQueue: AnySchedulerOf<DispatchQueue>
-  //    let userDefaultsService: UserDefaultsService
-  //
-  //    public init(
-  //      mainQueue: AnySchedulerOf<DispatchQueue>,
-  //      userDefaultsService: UserDefaultsService
-  //    ) {
-  //      self.mainQueue = mainQueue
-  //      self.userDefaultsService = userDefaultsService
-  //    }
-  //  }
+
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case ._onAppear:
