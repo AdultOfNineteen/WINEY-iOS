@@ -12,11 +12,11 @@ import KakaoSDKUser
 import WineyNetwork
 
 public struct AuthService {
-  public var socialLogin: (
+  public var socialLogin: ( // Reducer에서 보내는 소셜 로그인 요청
     _ path: LoginPathType
   ) async -> String?
   
-  public var loginState: (
+  public var loginState: (  // 소셜 로그인 결과 값에 따라 서버 로그인 요청
     _ path: LoginPathType,
     _ accessToken: String
   ) async -> Result<LoginUserDTO, Error>
