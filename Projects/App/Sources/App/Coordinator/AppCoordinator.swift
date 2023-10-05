@@ -33,7 +33,7 @@ public struct AppCoordinator: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
-      
+        
       case let .routeAction(
         _, action: .auth(
           .routeAction(
@@ -44,7 +44,15 @@ public struct AppCoordinator: Reducer {
       ) where path == .done:
         state.routes = [
           .root(
-            .tabBar(.init(main: .init(), note: .init())),
+            .tabBar(
+              .init(
+                main: .init(),
+                map: .init(),
+                note: .init(),
+                userInfo: .init(),
+                isTabHidden: false
+              )
+            ),
             embedInNavigationView: true
           )
         ]
