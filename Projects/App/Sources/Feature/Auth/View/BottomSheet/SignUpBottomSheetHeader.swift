@@ -9,7 +9,7 @@
 import SwiftUI
 import WineyKit
 
-struct CodeSignUpBottomSheetHeader: View {
+struct SignUpBottomSheetHeader: View {
   var body: some View {
     HStack {
       Image("rock_image")
