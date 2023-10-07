@@ -23,9 +23,9 @@ public enum ResponseDTO {
   }
   
   public struct ErrorData: Decodable {
-    let isSuccess: Bool
-    let code: String
-    let message: String
+    public let isSuccess: Bool
+    public let code: String
+    public let message: String
   }
 }
 
