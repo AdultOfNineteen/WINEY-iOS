@@ -13,7 +13,7 @@ protocol FalvorInfoType {
   var subTitle: String { get }
 }
 
-public enum ChocolateFlavor: FalvorInfoType {
+public enum ChocolateFlavor: String, FalvorInfoType {
   var title: String {
     switch self {
     case .milk:
@@ -36,12 +36,12 @@ public enum ChocolateFlavor: FalvorInfoType {
   case dark
 }
 
-public enum CoffeeFlavor: Int, FalvorInfoType {
+public enum CoffeeFlavor: String, FalvorInfoType {
   var title: String {
     switch self {
     case .americano:
       return "아메리카노"
-    case .latte:
+    case .cafe_latte:
       return "카페 라떼"
     }
   }
@@ -50,34 +50,34 @@ public enum CoffeeFlavor: Int, FalvorInfoType {
     switch self {
     case .americano:
       return "깔끔하고 시원한"
-    case .latte:
+    case .cafe_latte:
       return "진하고 풍미가득한"
     }
   }
   
   case americano
-  case latte
+  case cafe_latte
 }
 
-public enum FruitFlavor: Int, FalvorInfoType {
+public enum FruitFlavor: String, FalvorInfoType {
   var title: String {
     switch self {
-    case .sweet:
+    case .peach:
       return "복숭아 , 자두 , 망고"
-    case .sour:
+    case .pineapple:
       return "파인애플 , 수박 , 멜론"
     }
   }
   
   var subTitle: String {
     switch self {
-    case .sweet:
+    case .peach:
       return "달콤한 과즙이 맴도는"
-    case .sour:
+    case .pineapple:
       return "상큼한 과즙으로 깔끔하게"
     }
   }
   
-  case sweet
-  case sour
+  case peach
+  case pineapple
 }

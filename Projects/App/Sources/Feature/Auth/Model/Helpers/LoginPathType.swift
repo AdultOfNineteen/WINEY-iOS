@@ -23,4 +23,18 @@ public enum LoginPathType: String, Equatable {
       return "애플"
     }
   }
+  
+  static func convert(path: String) -> Self? {
+    let name = path.uppercased()
+    switch name {
+    case "KAKAO": 
+      return .kakao
+    case "GOOGLE": 
+      return .google
+    case "APPLE": 
+      return .apple
+    default: 
+      return nil
+    }
+  }
 }
