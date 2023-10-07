@@ -109,17 +109,32 @@ struct CodeSignUpView: View {
         send: .tappedOutsideOfBottomSheet
       ),
       headerArea: {
-        CodeSignUpBottomSheetHeader()
+        SignUpBottomSheetHeader()
       },
       content: {
-        CodeSignUpBottomSheetContent(
-          store: self.store
+        SignUpBottomSheetContent(
+          bottomSheetType: viewStore.state.bottomSheetType
         )
       },
       bottomArea: {
         HStack {
-          CodeSignUpBottomSheetFooter(
-            store: store 
+          SignUpBottomSheetFotter(
+            bottomSheetType: viewStore.state.bottomSheetType,
+            tappedBackButtonNoOption: {
+              viewStore
+                .send(._presentBottomSheet(false))
+            },
+            tappedBackButtonYesOption: {
+              viewStore
+                .send(._backToFirstView)
+            },
+            tappedCodeFailConfirm: {
+              viewStore
+                .send(._presentBottomSheet(false))
+            }, tappedSendCodeConfirm: {
+              viewStore
+                .send(._presentBottomSheet(false))
+            }
           )
         }
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
@@ -149,7 +164,9 @@ struct CodeSignUpView_Previews: PreviewProvider {
   static var previews: some View {
     CodeSignUpView(
       store: Store(
-        initialState: .init(),
+        initialState: .init(
+          phoneNumber: "01012341234"
+        ),
         reducer: { CodeSignUp() }
       )
     )

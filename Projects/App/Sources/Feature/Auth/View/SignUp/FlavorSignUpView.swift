@@ -142,10 +142,10 @@ struct FlavorSignUpView: View {
       )
       
       FlavorCheckButton(
-        mainTitle: CoffeeFlavor.latte.title,
-        subTitle: CoffeeFlavor.latte.subTitle,
+        mainTitle: CoffeeFlavor.cafe_latte.title,
+        subTitle: CoffeeFlavor.cafe_latte.subTitle,
         action: {
-          viewStore.send(.tappedCoffeeButton(.latte))
+          viewStore.send(.tappedCoffeeButton(.cafe_latte))
         }
       )
     }
@@ -154,18 +154,18 @@ struct FlavorSignUpView: View {
   var fruitView: some View {
     HStack(spacing: 21) {
       FlavorCheckButton(
-        mainTitle: FruitFlavor.sweet.title,
-        subTitle: FruitFlavor.sweet.subTitle,
+        mainTitle: FruitFlavor.peach.title,
+        subTitle: FruitFlavor.peach.subTitle,
         action: {
-          viewStore.send(.tappedFruitButton(.sweet))
+          viewStore.send(.tappedFruitButton(.peach))
         }
       )
       
       FlavorCheckButton(
-        mainTitle: FruitFlavor.sour.title,
-        subTitle: FruitFlavor.sour.subTitle,
+        mainTitle: FruitFlavor.pineapple.title,
+        subTitle: FruitFlavor.pineapple.subTitle,
         action: {
-          viewStore.send(.tappedFruitButton(.sour))
+          viewStore.send(.tappedFruitButton(.pineapple))
         }
       )
     }

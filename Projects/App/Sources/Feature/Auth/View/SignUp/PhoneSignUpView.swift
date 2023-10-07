@@ -86,28 +86,25 @@ struct SignUpView: View {
         send: .tappedOutsideOfBottomSheet
       ),
       headerArea: {
-        Image("rock_image")
+        SignUpBottomSheetHeader()
       },
       content: {
-        VStack(spacing: 14) {
-          VStack(spacing: 2.4) {
-            Text("인증번호가 발송되었어요")
-            Text("3분 안에 인증번호를 입력해주세요")
-          }
-          .foregroundColor(WineyKitAsset.gray200.swiftUIColor)
-          .wineyFont(.bodyB1)
-          
-          Text("*인증번호 요청 3회 초과 시 5분 제한")
-            .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
-            .wineyFont(.captionM2)
-        }
+        SignUpBottomSheetContent(
+          bottomSheetType: viewStore.state.bottomSheetType
+        )
       },
       bottomArea: {
-        WineyConfirmButton(
-          title: "확인",
-          validBy: true,
-          action: {
-            viewStore.send(.tappedBottomCodeSendConfirmButton)
+        SignUpBottomSheetFotter(
+          bottomSheetType: viewStore.state.bottomSheetType,
+          tappedAlreadySignUpConfirm: {
+            viewStore
+              .send(._presentBottomSheet(false))
+            viewStore.send(
+              .tappedBackButton
+            )
+          }, tappedSendCodeConfirm: {
+            viewStore.send(.tappedBottomCodeSendConfirmButton
+            )
           }
         )
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
