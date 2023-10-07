@@ -41,10 +41,10 @@ extension AuthService {
         return await networking.login(platform: path)
       },
       loginState: { path, token in
-        return await Provider<AuthAPI>
+        return await Provider<UserAPI>
           .init()
           .request(
-            AuthAPI.socialLogin(
+            UserAPI.socialLogin(
               socialType: path.rawValue.uppercased(),
               accessToken: token
             ),
@@ -53,10 +53,10 @@ extension AuthService {
       },
       
       sendCode: { userId, phoneNumber in
-        return await Provider<AuthAPI>
+        return await Provider<UserAPI>
           .init()
           .request(
-            AuthAPI.sendCode(
+            UserAPI.sendCode(
               userId: userId,
               phoneNumber: phoneNumber.filter{ $0.isNumber }
             ),
@@ -65,10 +65,10 @@ extension AuthService {
       },
       
       codeConfirm: { userId, phoneNumber, code in
-        return await Provider<AuthAPI>
+        return await Provider<UserAPI>
           .init()
           .request(
-            AuthAPI.codeConfirm(
+            UserAPI.codeConfirm(
               userId: userId,
               phoneNumber: phoneNumber.filter{ $0.isNumber },
               verificationCode: code
