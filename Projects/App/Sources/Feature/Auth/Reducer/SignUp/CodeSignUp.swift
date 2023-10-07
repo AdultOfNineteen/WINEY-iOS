@@ -9,62 +9,48 @@
 import Combine
 import ComposableArchitecture
 import Foundation
+import WineyNetwork
 
 public struct CodeSignUp: Reducer {
-  public enum CodeBottomSheetType: Equatable {
-    public static func == (lhs: CodeBottomSheetType, rhs: CodeBottomSheetType) -> Bool {
-      switch (lhs, rhs) {
-      case (.back, .back), (.codeFail, .codeFail), (.resendCode, .resendCode):
-        return true
-      case let (.alreadySignUp((lhsPhone, lhsPath)), .alreadySignUp((rhsPhone, rhsPath))):
-        return lhsPhone == rhsPhone && lhsPath == rhsPath
-      default:
-        return false
-      }
-    }
-    
-    case back
-    case resendCode
-    case alreadySignUp((phone: String, path: LoginPathType))
-    case codeFail
-  }
 
   public enum CodeResponseType: Equatable {
     case completed
-    case alreadySignUp
+    case alreadySignUp(phone: String, path: LoginPathType)
     case codeFail
   }
   
   public struct State: Equatable {
-    let id = UUID()
+    let phoneNumber: String
     var inputCode: String = ""
     var validCode: Bool = false
-    var bottomSheetType: CodeBottomSheetType = .codeFail
+    var bottomSheetType: SignUpBottomSheetType = .codeFail
     var isPresentedBottomSheet: Bool = false
   }
   
   public enum Action {
     
     // MARK: - User Action
+    case edited(inputText: String)
     case tappedBackButton
+    case tappedReSendCodeButton
     case tappedCodeConfirmButton
     case tappedBottomFailConfirmButton
     case tappedBottomResendCodeButton
-    case tappedBottomAlreadySignUpButton
-    case tappedOutsideOfBottomSheet
-    case tappedReSendCodeButton
-    case edited(inputText: String)
+    case tappedOutsideOfBottomSheet // 구색 맞춤
     
     // MARK: - Inner Business Action
     case _onAppear
-    case _handleSignUpResponse(Result<CodeResponseType, Error>)
+    case _handleSignUpResponse(Result<VoidResponse, Error>)
     case _presentBottomSheet(Bool)
     
     // MARK: - Inner SetState Action
-    case _changeBottomSheet(type: CodeBottomSheetType)
+    case _changeBottomSheet(type: SignUpBottomSheetType)
     case _moveFlavorSignUpView
     case _backToFirstView
   }
+  
+  @Dependency(\.userDefaults) var userDefaultsService
+  @Dependency(\.auth) var authService
 
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
@@ -80,35 +66,26 @@ public struct CodeSignUp: Reducer {
       return .none
       
     case .tappedReSendCodeButton:
-      return .send(._changeBottomSheet(type: .resendCode))
+      return .send(._changeBottomSheet(type: .sendCode))
       
     case .tappedCodeConfirmButton:
-      // Environment 통한 통신결과 반영
-      let envResult: Result<CodeResponseType, Error> = .success(.completed)
-      return .send(._handleSignUpResponse(envResult))
+      guard let userId = userDefaultsService.loadValue(.userID) else { return .none }
+      let phone = state.phoneNumber
+      let code = state.inputCode
       
-    case .tappedBottomAlreadySignUpButton:
-      
-      return .none
-      
-    case .tappedBottomFailConfirmButton:
-      return .send(._presentBottomSheet(false))
-      
-    case .tappedBottomResendCodeButton:
-      return .send(._presentBottomSheet(false))
-      
-    case ._handleSignUpResponse(.success(let result)):
-      switch result {
-      case .completed:
-        return .send(._moveFlavorSignUpView)
-      case .alreadySignUp:
-        // 통신 결과를 통한 값 반영
-        return .send(._changeBottomSheet(type: .alreadySignUp(("010-1234-1234", .kakao)))) // 임시 값
-      case .codeFail:
-        return .send(._changeBottomSheet(type: .codeFail))
+      return .run{ send in
+        let result = await authService.codeConfirm(
+          userId,
+          phone,
+          code
+        )
+        await send(._handleSignUpResponse(result))
       }
       
-    case ._handleSignUpResponse(.failure):
+    case ._handleSignUpResponse(.success):
+      return .send(._moveFlavorSignUpView)
+      
+    case ._handleSignUpResponse(.failure): 
       return .send(._changeBottomSheet(type: .codeFail))
       
     case ._changeBottomSheet(let sheetType):

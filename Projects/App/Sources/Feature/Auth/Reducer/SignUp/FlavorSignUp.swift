@@ -9,6 +9,7 @@
 import Combine
 import ComposableArchitecture
 import Foundation
+import WineyNetwork
 
 public enum FlavorSubject: Int {
   case chocolate = 1
@@ -34,7 +35,7 @@ public struct FlavorSignUp: Reducer {
     var isPresentedBottomSheet: Bool = false
   }
 
-  public enum Action: Equatable {
+  public enum Action {
     // MARK: - User Action
     case tappedBackButton
     case tappedOutsideOfBottomSheet
@@ -46,10 +47,14 @@ public struct FlavorSignUp: Reducer {
     case _presentBottomSheet(Bool)
     case _backToFirstView
     case _moveNextSubject(FlavorSubject)
+    case _handlePreferenceSettingResponse(Result<VoidResponse, Error>)
     case _moveWelcomeSignUpView
 
     // MARK: - Inner SetState Action
   }
+  
+  @Dependency(\.userDefaults) var userDefaultsService
+  @Dependency(\.preference) var preferenceService
   
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
@@ -74,7 +79,26 @@ public struct FlavorSignUp: Reducer {
       
     case .tappedFruitButton(let choice):
       state.userCheck.fruit = choice
+      guard let userId = userDefaultsService.loadValue(.userID),
+      let chocolate = state.userCheck.chocolate?.rawValue,
+      let coffee = state.userCheck.coffee?.rawValue,
+      let fruit = state.userCheck.fruit?.rawValue else { return .none } // 추후 네트워킹 실패 처리로 수정
+      
+      return .run { send in
+        let result = await preferenceService.settingFlavor(
+          userId,
+          chocolate,
+          coffee,
+          fruit
+        )
+        await send(._handlePreferenceSettingResponse(result))
+      }
+      
+    case ._handlePreferenceSettingResponse(.success):
       return .send(._moveWelcomeSignUpView)
+      
+    case ._handlePreferenceSettingResponse(.failure):
+      return .none
       
     default:
       return .none
