@@ -26,8 +26,8 @@ public enum UserDefaultsKey {
 }
 
 public struct UserDefaultService {
-  public let saveFlag: (UserDefaultsKey.BoolValues, Bool) -> Void
-  public let saveValue: (UserDefaultsKey.StringValues, String) -> Void
+  public let saveFlag: (UserDefaultsKey.BoolValues, Bool) -> Void // Bool
+  public let saveValue: (UserDefaultsKey.StringValues, String) -> Void // String
   public let loadFalg: (UserDefaultsKey.BoolValues) -> Bool?
   public let loadValue: (UserDefaultsKey.StringValues) -> String?
   

@@ -48,8 +48,8 @@ public struct AuthCoordinator: Reducer {
         state.routes.pop()
         return .none
 
-      case .routeAction(_, action: .setPhoneSignUp(._moveCodeSignUpView)):
-        state.routes.append( .push( .setCodeSignUP(.init())))
+      case .routeAction(_, action: .setPhoneSignUp(._moveCodeSignUpView(let phone))):
+        state.routes.append( .push( .setCodeSignUP(.init(phoneNumber: phone))))
         return .none
         
       case .routeAction(_, action: .setCodeSignUp(._backToFirstView)):
@@ -59,15 +59,7 @@ public struct AuthCoordinator: Reducer {
           ]
         }
         return .none
-        
-      case .routeAction(_, action: .setCodeSignUp(.tappedBottomAlreadySignUpButton)):
-        if let firstView = state.routes.first {
-          state.routes = [
-            firstView
-          ]
-        }
-        return .none
-        
+
       case .routeAction(_, action: .setCodeSignUp(._moveFlavorSignUpView)):
         state.routes.append( .push( .setFlavorSignUp(.init())))
         return .none

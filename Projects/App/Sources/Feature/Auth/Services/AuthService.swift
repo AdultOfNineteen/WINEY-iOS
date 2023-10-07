@@ -20,6 +20,17 @@ public struct AuthService {
     _ path: LoginPathType,
     _ accessToken: String
   ) async -> Result<LoginUserDTO, Error>
+  
+  public var sendCode: (
+    _ userId: String,
+    _ phoneNumber: String
+  ) async -> Result<VoidResponse, Error>
+  
+  public var codeConfirm: (
+    _ userId: String,
+    _ phoneNumber: String,
+    _ code: String
+  ) async -> Result<VoidResponse, Error> // View가 요구하는 타입으로 변환 후 전달
 }
 
 extension AuthService {
@@ -30,14 +41,39 @@ extension AuthService {
         return await networking.login(platform: path)
       },
       loginState: { path, token in
-        return await Provider<AuthAPI>
+        return await Provider<UserAPI>
           .init()
           .request(
-            AuthAPI.socialLogin(
+            UserAPI.socialLogin(
               socialType: path.rawValue.uppercased(),
               accessToken: token
             ),
             type: LoginUserDTO.self
+          )
+      },
+      
+      sendCode: { userId, phoneNumber in
+        return await Provider<UserAPI>
+          .init()
+          .request(
+            UserAPI.sendCode(
+              userId: userId,
+              phoneNumber: phoneNumber.filter{ $0.isNumber }
+            ),
+            type: VoidResponse.self
+          )
+      },
+      
+      codeConfirm: { userId, phoneNumber, code in
+        return await Provider<UserAPI>
+          .init()
+          .request(
+            UserAPI.codeConfirm(
+              userId: userId,
+              phoneNumber: phoneNumber.filter{ $0.isNumber },
+              verificationCode: code
+            ),
+            type: VoidResponse.self
           )
       }
     )
@@ -75,7 +111,7 @@ private struct SocialNetworking {
       if UserApi.isKakaoTalkLoginAvailable() {
         Task {
           UserApi.shared.loginWithKakaoTalk { oauthToken, error in
-            if let error {
+            if error != nil {
               continuation.resume(returning: nil)
             } else {
               let accessToken = oauthToken?.accessToken

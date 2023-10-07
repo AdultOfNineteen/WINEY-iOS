@@ -59,6 +59,7 @@ public struct Login: Reducer {
       if path == .google {
         return .send(._moveUserStatusPage(.done)) // 구글버튼 홈 이동용
       }
+      
       return .run { send in
         if let token = await authService.socialLogin(path) {
           await send(._socialLogin(path: path, accessToken: token))
@@ -74,6 +75,7 @@ public struct Login: Reducer {
       
     case let ._socialLogin(path, token):
       self.userDefaultsService.saveValue(.socialLoginPath, path.rawValue)
+      
       return .run { send in
         if let token = token {
           let data = await authService.loginState(path, token)
