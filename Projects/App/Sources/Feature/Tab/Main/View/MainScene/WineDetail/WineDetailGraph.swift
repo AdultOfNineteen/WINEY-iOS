@@ -107,6 +107,10 @@ struct WineDetailGraph: View {
 
 struct WineDetailGraph_Previews: PreviewProvider {
   static var previews: some View {
-    WineDetailGraph(category: "당도", originalStatistic: 3.0, peopleStatistic: 1.0)
+    WineDetailGraph(
+      category: "당도",
+      originalStatistic: 3.0,
+      peopleStatistic: 1.0
+    )
   }
 }

@@ -121,7 +121,7 @@ public struct MainView: View {
                 action: Main.Action.tipCard
               )
             ) { _ in
-                          
+              
               LazyVGrid(columns: columns, spacing: 20) {
                 ForEach(viewStore.tipCardState!.cardList.prefix(2)) { card in
                   Button(action: {
@@ -151,5 +151,18 @@ public struct MainView: View {
     .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationViewStyle(StackNavigationViewStyle())
     .navigationBarHidden(true)
+  }
+}
+
+
+struct MainView_Previews: PreviewProvider {
+  static var previews: some View {
+    MainView(store: StoreOf<Main>(
+      initialState: .init(tooltipState: true),
+      reducer: { 
+        Main()
+          .dependency(\.wine, .mock)
+      })
+    )
   }
 }
