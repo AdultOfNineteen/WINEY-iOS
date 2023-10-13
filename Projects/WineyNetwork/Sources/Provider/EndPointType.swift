@@ -43,7 +43,8 @@ public extension EndPointType {
     }
     
     if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-      urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+//      urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+      urlRequest.setValue(accessToken, forHTTPHeaderField: "X-AUTH-TOKEN")
     }
     
     return try? addParameter(to: urlRequest)
