@@ -78,12 +78,18 @@ public struct WineDetailView: View {
             .padding(.top, 36)
           
           // MARK: Wine Graph
-          WineDetailTabView()
-          
-            .frame(height: 450)
+          if let info = viewStore.windDetailData {
+            WineDetailTabView(detail: info)
+              .frame(height: 450)
+          } else {
+            ProgressView()
+          }
         }
         .padding(.top, 14)
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+      }
+      .onAppear {
+        viewStore.send(._viewWillAppear)
       }
     }
     .navigationBarHidden(true)
@@ -182,13 +188,51 @@ public struct WineInfoMiddle: View {
 }
 
 public struct WineDetailTabView: View {
+  private let detail: WineDTO
+  
+  init(detail: WineDTO) {
+    self.detail = detail
+  }
+  
   public var body: some View {
     TabView {
-      WineDetailInfoSum()
-      WineDetailGraph(category: "당도", originalStatistic: 1.0, peopleStatistic: 3.0)
-      WineDetailGraph(category: "산도", originalStatistic: 4.0, peopleStatistic: 2.0)
-      WineDetailGraph(category: "바디", originalStatistic: 3.0, peopleStatistic: 2.0)
-      WineDetailGraph(category: "탄닌", originalStatistic: 5.0, peopleStatistic: 4.0)
+      WineDetailInfoSum(detail: detail)
+      WineDetailGraph(
+        category: "당도",
+        originalStatistic: Double(detail.sweetness),
+        peopleStatistic: Double(
+          detail
+          .wineSummary
+          .avgSweetness
+        )
+      )
+      WineDetailGraph(
+        category: "산도",
+        originalStatistic: Double(detail.acidity),
+        peopleStatistic: Double(
+          detail
+          .wineSummary
+          .avgAcidity
+        )
+      )
+      WineDetailGraph(
+        category: "바디",
+        originalStatistic: Double(detail.body),
+        peopleStatistic: Double(
+          detail
+          .wineSummary
+          .avgBody
+        )
+      )
+      WineDetailGraph(
+        category: "탄닌",
+        originalStatistic: Double(detail.tannins),
+        peopleStatistic: Double(
+          detail
+          .wineSummary
+          .avgTannins
+        )
+      )
     }
     .tabViewStyle(PageTabViewStyle())
     .onAppear {
@@ -196,7 +240,7 @@ public struct WineDetailTabView: View {
     }
   }
   
-  func setupAppearance() {
+  private func setupAppearance() {
     UIPageControl.appearance()
       .currentPageIndicatorTintColor = WineyKitAsset.point1.color
     UIPageControl.appearance()
@@ -205,6 +249,12 @@ public struct WineDetailTabView: View {
 }
 
 public struct WineDetailInfoSum: View {
+  private let detail: WineDTO
+  
+  init(detail: WineDTO) {
+    self.detail = detail
+  }
+  
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
       HStack {
@@ -230,10 +280,42 @@ public struct WineDetailInfoSum: View {
       .padding(.bottom, 35)
       
       VStack(spacing: 0) {
-        WineInfoDetailGraph(peopleStatistic: 2.0, originalStatistic: 5.0, infoCategory: "당도")
-        WineInfoDetailGraph(peopleStatistic: 4.0, originalStatistic: 1.0, infoCategory: "산도")
-        WineInfoDetailGraph(peopleStatistic: 2.8, originalStatistic: 3.0, infoCategory: "바디")
-        WineInfoDetailGraph(peopleStatistic: 5.0, originalStatistic: 4.0, infoCategory: "탄닌")
+        WineInfoDetailGraph(
+          peopleStatistic: Double(
+            detail
+            .wineSummary
+            .avgSweetness
+          ),
+          originalStatistic: Double(detail.sweetness),
+          infoCategory: "당도"
+        )
+        WineInfoDetailGraph(
+          peopleStatistic: Double(
+            detail
+            .wineSummary
+            .avgAcidity
+          ),
+          originalStatistic: Double(detail.acidity),
+          infoCategory: "산도"
+        )
+        WineInfoDetailGraph(
+          peopleStatistic: Double(
+            detail
+            .wineSummary
+            .avgBody
+          ),
+          originalStatistic: Double(detail.body),
+          infoCategory: "바디"
+        )
+        WineInfoDetailGraph(
+          peopleStatistic: Double(
+            detail
+            .wineSummary
+            .avgTannins
+          ),
+          originalStatistic: Double(detail.tannins),
+          infoCategory: "탄닌"
+        )
       }
       .padding(.bottom, 22)
     }
@@ -244,9 +326,9 @@ public struct WineDetailInfoSum: View {
 
 // MARK: WINE INFO ILLUST
 public struct WineDetailIllust: View {
-  public let illustImage: Image
-  public let circleBorderColor: Color
-  public let secondaryColor: Color
+  private  let illustImage: Image
+  private  let circleBorderColor: Color
+  private  let secondaryColor: Color
   
   public init(
     illustImage: Image,
@@ -292,6 +374,7 @@ struct WineDetailView_Previews: PreviewProvider {
     WineDetailView(
       store: Store(
         initialState: WineDetail.State(
+          windId: 1,
           wineCardData: WineCardData(
             id: 1,
             wineType: .red,
@@ -301,6 +384,7 @@ struct WineDetailView_Previews: PreviewProvider {
             purchasePrice: 1.22)
         ), reducer: {
           WineDetail()
+            .dependency(\.wine, .mock)
         }
       )
     )

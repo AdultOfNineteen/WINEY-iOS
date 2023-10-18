@@ -42,8 +42,10 @@ private extension Provider {
       return .failure(error)
     }
     
+    NetworkLogger().logResponse(response: response, data: data) // 임시 
+    
     guard let httpResponse = response as? HTTPURLResponse,
-          200..<300 ~= httpResponse.statusCode else {
+    200..<300 ~= httpResponse.statusCode else {
       let error = ProviderError(
         code: .isNotSuccessful,
         userInfo: ["endPoint" : endPoint],

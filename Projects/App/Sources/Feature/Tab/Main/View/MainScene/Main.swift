@@ -36,18 +36,44 @@ public struct Main: Reducer {
     case _navigateToTipCard
     
     // MARK: - Inner SetState Action
+    case _setTodaysWines(data: [WineCardData])
+    case _failureSocialNetworking(Error) // 후에 경고창 처리
     
     // MARK: - Child Action
     case wineCardScroll(WineCardScroll.Action)
     case tipCard(TipCard.Action)
   }
   
+  @Dependency(\.wine) var wineService
+  
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
       case ._viewWillAppear:
-        state.wineCardListState = WineCardScroll.State.init()
         state.tipCardState = TipCard.State.init()
+
+        return .run(operation: { send in
+          switch await wineService.todaysWines() {
+          case let .success(data):
+            await send(._setTodaysWines(data: data))
+          case let .failure(error):
+            await send(._failureSocialNetworking(error))
+          }
+        })
+        
+      case let ._setTodaysWines(data):
+        let wineCardState: IdentifiedArrayOf<WineCard.State> = IdentifiedArrayOf(
+          uniqueElements: data
+            .enumerated()
+            .map{
+              WineCard.State(
+                index: $0.offset,
+                wineCardData: $0.element
+              )
+            }
+        )
+        state.wineCardListState = WineCardScroll.State.init(wineCards: wineCardState)
+        
         return .none
         
       case .tappedAnalysisButton:
@@ -62,7 +88,7 @@ public struct Main: Reducer {
         return .none
         
       case .wineCardScroll:
-        state.wineCardListState = WineCardScroll.State.init()
+        // state.wineCardListState = WineCardScroll.State.init() // ✔️🤔
         return .none
         
       case .userScroll:

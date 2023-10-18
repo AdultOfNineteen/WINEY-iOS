@@ -40,11 +40,13 @@ public struct MainCoordinator: Reducer {
         _,
         action: .main(
           .wineCardScroll(
-            .wineCard(id: _, action: ._navigateToCardDetail(_, wineData))
+            .wineCard(id: _, action: ._navigateToCardDetail(id, wineData))
           )
         )
       ):
-        state.routes.append(.push(.wineDetail(.init(wineCardData: wineData))))
+        state.routes.append(.push(
+          .wineDetail(.init(windId: id, wineCardData: wineData))
+        ))
         return .none
         
       case .routeAction(_, action: .wineDetail(.tappedBackButton)):

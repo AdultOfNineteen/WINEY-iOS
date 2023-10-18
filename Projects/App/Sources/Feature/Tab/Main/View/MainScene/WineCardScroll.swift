@@ -17,42 +17,8 @@ public struct WineCardScroll: Reducer {
     var currentScrollIndex: Int
     var wineCards: IdentifiedArrayOf<WineCard.State>
     
-    public init() {
-      self.wineCards = [
-        WineCard.State(
-          index: 0,
-          wineCardData: WineCardData(
-            id: 0,
-            wineType: .etc,
-            wineName: "test1",
-            nationalAnthems: "test test test",
-            varities: "test", purchasePrice: 9.90
-          )
-        ),
-        
-        WineCard.State(
-          index: 1,
-          wineCardData: WineCardData(
-            id: 1,
-            wineType: .red,
-            wineName: "test2",
-            nationalAnthems: "test test test",
-            varities: "test", purchasePrice: 9.90
-          )
-        ),
-        
-        WineCard.State(
-          index: 2,
-          wineCardData: WineCardData(
-            id: 2,
-            wineType: .rose,
-            wineName: "test3",
-            nationalAnthems: "test test test",
-            varities: "test", purchasePrice: 9.90
-          )
-        ),
-      ]
-      
+    public init(wineCards: IdentifiedArrayOf<WineCard.State>) {
+      self.wineCards = wineCards
       self.previousScrollIndex = 0
       self.currentScrollIndex = 0
     }

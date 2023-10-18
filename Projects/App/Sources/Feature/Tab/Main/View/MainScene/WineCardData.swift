@@ -172,4 +172,24 @@ public enum WineType: String {
       return  WineyAsset.Assets.etcIllust.swiftUIImage
     }
   }
+  
+  static func changeType(at type: String) -> Self {
+    let type = type.uppercased()
+    switch type {
+    case "RED":
+      return .red
+    case "WHITE":
+      return .white
+    case "ROSE":
+      return .rose
+    case "SPARKL":
+      return .sparkl
+    case "PORT":
+      return .port
+    case "ETC":
+      fallthrough
+    default:
+      return .etc
+    }
+  }
 }

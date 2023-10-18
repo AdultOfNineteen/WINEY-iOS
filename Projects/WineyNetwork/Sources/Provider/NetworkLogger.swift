@@ -53,12 +53,12 @@ extension NetworkLogger: URLSessionTaskDelegate {
   }
   
   func urlSession(_ session: URLSession, task: URLSessionTask, didFinishCollecting metrics: URLSessionTaskMetrics) {
-    logResponse(response: task.response, data: receivedData)
+    // logResponse(response: task.response, data: receivedData)
     receivedData = nil
   }
   
   func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-    logResponse(response: task.response, data: receivedData)
+    // logResponse(response: task.response, data: receivedData) // 임시 삭제
     receivedData = nil
   }
 }
