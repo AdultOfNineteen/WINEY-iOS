@@ -73,11 +73,36 @@ public struct WineAnalysisResultView: View {
   }
 }
 
-public struct WineAnalysisResultView_Previews: PreviewProvider {
+public struct WineAnalysisResultView_Previews:
+  PreviewProvider {
+  static let data = TasteAnalysisDTO(
+    recommendCountry: "",
+    recommendVarietal: "",
+    recommendWineType: "",
+    totalWineCnt: 3,
+    buyAgainCnt: 7,
+    topThreeTypes: [],
+    topThreeCountries: [],
+    topThreeVarieties: [],
+    topSevenSmells: [],
+    taste: Taste(
+      sweetness: 0,
+      acidity: 0,
+      alcohol: 0,
+      body: 0,
+      tannin: 0,
+      finish: 0
+    ),
+    avgPrice: 30000
+  )
+  
   public static var previews: some View {
     WineAnalysisResultView(
       store: Store(
-        initialState: WineAnalysisResult.State.init(),
+        initialState: WineAnalysisResult.State
+          .init(
+            data: data
+          ),
           reducer: {
             WineAnalysisResult()
           }

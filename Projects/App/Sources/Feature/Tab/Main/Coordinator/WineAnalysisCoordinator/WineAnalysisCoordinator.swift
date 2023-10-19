@@ -45,8 +45,8 @@ public struct WineAnalysisCoordinator: Reducer {
         state.routes.pop(2)
         return .none
         
-      case .routeAction(_, action: .loading(._onAppear)):
-        state.routes.push(.result(.init()))
+      case let .routeAction(_, action: .loading(._completeAnalysis(data))):
+        state.routes.push(.result(.init(data: data)))
         return .none
         
       default:

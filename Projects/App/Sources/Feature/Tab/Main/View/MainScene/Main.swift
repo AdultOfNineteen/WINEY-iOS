@@ -88,7 +88,6 @@ public struct Main: Reducer {
         return .none
         
       case .wineCardScroll:
-        // state.wineCardListState = WineCardScroll.State.init() // ✔️🤔
         return .none
         
       case .userScroll:

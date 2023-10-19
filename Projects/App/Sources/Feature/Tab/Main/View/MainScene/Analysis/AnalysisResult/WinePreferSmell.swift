@@ -15,7 +15,6 @@ public struct WinePreferSmell: Reducer {
     
     let title = "가격대"
     let secondTitle = "평균 구매가"
-    let average: Int = 70580
     var opacity = 0.0
     
     public init() { }
