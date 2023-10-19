@@ -38,6 +38,7 @@ public struct MainScreen: Reducer {
     Scope(state: /State.tipCard, action: /Action.tipCard) {
       TipCard()
     }
+    
     Scope(state: /State.analysis, action: /Action.analysis) {
       WineAnalysisCoordinator()
     }

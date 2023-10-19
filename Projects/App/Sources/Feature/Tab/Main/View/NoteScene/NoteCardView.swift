@@ -23,12 +23,12 @@ struct NoteCardView: View {
     VStack(spacing: 0) {
       ZStack {
         WineNoteCardBackground(
-          wineBackgroundComponent: viewStore.noteCardData.wineData.wineType.backgroundColor
+          wineBackgroundComponent: viewStore.noteCardData.wineType.backgroundColor
         )
         
         VStack(spacing: 0) {
           HStack(spacing: 4) {
-            Text(viewStore.noteCardData.wineData.wineType.typeName)
+            Text(viewStore.noteCardData.wineType.typeName)
               .wineyFont(.display2)
             
             WineyAsset.Assets.star1.swiftUIImage
@@ -42,7 +42,7 @@ struct NoteCardView: View {
           
           Spacer()
           
-          viewStore.noteCardData.wineData.wineType.illustImage
+          viewStore.noteCardData.wineType.illustImage
             .resizable()
             .aspectRatio(contentMode: .fit)
         }
@@ -64,7 +64,7 @@ struct NoteCardView: View {
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                   )
-                )
+                ).opacity(0.7)
             )
         )
       }
@@ -75,7 +75,7 @@ struct NoteCardView: View {
       // MARK: Wine Description
       VStack(spacing: 2) {
         HStack {
-          Text(viewStore.noteCardData.wineData.wineName)
+          Text(viewStore.noteCardData.wineName)
             .lineLimit(1)
             .wineyFont(.captionB1)
           
@@ -84,9 +84,9 @@ struct NoteCardView: View {
         
         HStack {
           HStack(spacing: 0) {
-            Text(viewStore.noteCardData.wineData.nationalAnthems)
+            Text(viewStore.noteCardData.region)
             Text(" / ")
-            Text(viewStore.noteCardData.rating.description)
+            Text(viewStore.noteCardData.star.description)
             Text("점")
           }
           .wineyFont(.captionM2)
@@ -96,6 +96,9 @@ struct NoteCardView: View {
         }
       }
       .frame(width: UIScreen.main.bounds.width / 2 - 24 - 15)
+    }
+    .onTapGesture {
+      viewStore.send(.noteCardTapped)
     }
   }
 }
@@ -128,7 +131,7 @@ public struct WineNoteCardBackground: View {
       
       // for Blur
       RoundedRectangle(cornerRadius: 10)
-        .foregroundColor(.white.opacity(0.1))
+        .foregroundColor(Color(red: 63/255, green: 63/255, blue: 63/255).opacity(0.4))
     }
     .frame(width: UIScreen.main.bounds.width / 2 - 24 - 15, height: 163)
   }
@@ -141,31 +144,38 @@ struct NoteCardView_Previews: PreviewProvider {
       store: Store(
         initialState: NoteCard.State.init(
           index: 0,
-          noteCardData: NoteCardData(
-            id: 0,
-            vintage: 10,
-            officalAlcohol: 34.2,
-            price: 9,
-            color: "RED",
-            sweetness: 1,
-            acidity: 2,
-            alcohol: 3,
-            body: 2,
-            tannin: 4,
-            finish: 3,
-            memo: "test",
-            buyAgain: true,
-            rating: 4,
-            smellKeywordList: ["test"],
-            wineData: WineCardData(
+          noteCardData:
+            NoteCardData(
               id: 0,
-              wineType: .red,
+              noteDate: "2023.10.11",
+              wineType: WineType.red,
               wineName: "test",
-              nationalAnthems: "test",
-              varities: "test",
-              purchasePrice: 5.4
+              region: "test",
+              star: 1,
+              color: Color.blue,
+              buyAgain: true,
+              varietal: "test",
+              officialAlcohol: 24.0,
+              price: 5,
+              smellKeywordList: ["test"],
+              myWineTaste: MyWineTaste(
+                description: "testetsetse",
+                sweetness: 3.0,
+                acidity: 4.2,
+                alcohol: 1.4,
+                body: 3.0,
+                tannin: 2.4,
+                finish: 3.4
+              ),
+              defaultWineTaste: DefaultWineTaste(
+                description: "test",
+                sweetness: 2.4,
+                acidity: 4.3,
+                body: 3.3,
+                tannin: 1.4
+              ),
+              memo: "test"
             )
-          )
         ), reducer: {
           NoteCard()
         })

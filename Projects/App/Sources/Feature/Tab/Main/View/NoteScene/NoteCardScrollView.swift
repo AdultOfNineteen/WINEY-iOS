@@ -6,4 +6,36 @@
 //  Copyright © 2023 com.adultOfNineteen. All rights reserved.
 //
 
-import Foundation
+import ComposableArchitecture
+import SwiftUI
+import WineyKit
+
+public struct NoteCardScrollView: View {
+  private let store: StoreOf<NoteCardScroll>
+  @ObservedObject var viewStore: ViewStoreOf<NoteCardScroll>
+  
+  public init(store: StoreOf<NoteCardScroll>) {
+    self.store = store
+    self.viewStore = ViewStore(self.store, observe: { $0 })
+  }
+  
+  let columns = [GridItem(.flexible()), GridItem(.flexible())]
+  
+  public var body: some View {
+    // MARK: Note List
+    ScrollView {
+      LazyVGrid(columns: columns, spacing: 20) {
+        ForEach(viewStore.noteCards.indices) { index in
+          NoteCardView(
+            store: self.store.scope(
+              state: \.noteCards[index],
+              action: { .noteCard(id: index, action: $0) }
+            )
+          )
+        }
+      }
+      .padding(.top, 2)
+      .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+    }
+  }
+}

@@ -25,29 +25,29 @@ public struct MainCoordinatorView: View {
         case .analysis:
           CaseLet(
             /MainScreen.State.analysis,
-             action: MainScreen.Action.analysis,
-             then: WineAnalysisCoordinatorView.init
+            action: MainScreen.Action.analysis,
+            then: WineAnalysisCoordinatorView.init
           )
           
         case .main:
           CaseLet(
             /MainScreen.State.main,
-             action: MainScreen.Action.main,
-             then: MainView.init
+            action: MainScreen.Action.main,
+            then: MainView.init
           )
           
         case .wineDetail:
           CaseLet(
             /MainScreen.State.wineDetail,
-             action: MainScreen.Action.wineDetail,
-             then: WineDetailView.init
+            action: MainScreen.Action.wineDetail,
+            then: WineDetailView.init
           )
           
         case .tipCard:
           CaseLet(
             /MainScreen.State.tipCard,
-             action: MainScreen.Action.tipCard,
-             then: TipCardView.init
+            action: MainScreen.Action.tipCard,
+            then: TipCardView.init
           )
         }
       }

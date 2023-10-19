@@ -34,7 +34,21 @@ public struct NoteCoordinator: Reducer {
   
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
-      return .none
+      switch action {
+      case let .routeAction(_, action: .note(.noteCardScroll(.noteCard(id: _, action: ._navigateToCardDetail(id, noteCardData))))):
+        state.routes.append(.push(.noteDetail(.init(wineId: id, noteCardData: noteCardData))))
+        return .none
+        
+      case .routeAction(_, action: .noteDetail(.tappedBackButton)):
+        state.routes.pop()
+        return .none
+        
+      default:
+        return .none
+      }
+    }
+    .forEachRoute {
+      NoteScreen()
     }
   }
 }

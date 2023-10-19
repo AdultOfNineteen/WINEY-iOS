@@ -63,7 +63,7 @@ public struct WineDetailView: View {
             .overlay(WineyKitAsset.gray900.swiftUIColor)
             .padding(.top, 20)
           
-          WineInfoMiddle(
+          WineDetailInfoMiddle(
             illustImage: viewStore.wineCardData.wineType.illustImage,
             circleBorderColor: viewStore.wineCardData.wineType.cirlcleBorderColor,
             secondaryColor: viewStore.wineCardData.wineType.backgroundColor.secondCircle,
@@ -94,96 +94,6 @@ public struct WineDetailView: View {
     }
     .navigationBarHidden(true)
     .background(WineyKitAsset.mainBackground.swiftUIColor)
-  }
-}
-
-
-public struct WineInfoMiddle: View {
-  public let illustImage: Image
-  public let circleBorderColor: Color
-  public let secondaryColor: Color
-  public let nationalAnthems: String
-  public let varities: String
-  public let purchasePrice: Double
-  
-  public init(
-    illustImage: Image,
-    circleBorderColor: Color,
-    secondaryColor: Color,
-    nationalAnthems: String,
-    varities: String,
-    purchasePrice: Double
-  ) {
-    self.illustImage = illustImage
-    self.circleBorderColor = circleBorderColor
-    self.secondaryColor = secondaryColor
-    self.nationalAnthems = nationalAnthems
-    self.varities = varities
-    self.purchasePrice = purchasePrice
-  }
-  
-  public var body: some View {
-    HStack {
-      WineDetailIllust(illustImage: illustImage, circleBorderColor: circleBorderColor, secondaryColor: secondaryColor)
-      
-      Spacer()
-        .frame(minWidth: 24)
-      
-      VStack(spacing: 18) {
-        // MARK: NATIONAL ANTHEMS
-        VStack(alignment: .leading, spacing: 4) {
-          HStack {
-            Text("national an thems")
-              .wineyFont(.captionM3)
-            
-            Spacer()
-          }
-          
-          HStack {
-            Text(nationalAnthems)
-              .wineyFont(.captionB1)
-            
-            Spacer()
-          }
-        }
-        
-        // MARK: Varities
-        VStack(alignment: .leading, spacing: 4) {
-          HStack {
-            Text("Varities")
-              .wineyFont(.captionM3)
-            
-            Spacer()
-          }
-          
-          HStack {
-            Text(varities)
-              .wineyFont(.captionB1)
-            
-            Spacer()
-          }
-        }
-        
-        // MARK: Purchase Price
-        VStack(alignment: .leading, spacing: 4) {
-          HStack {
-            Text("Purchae price")
-              .wineyFont(.captionM3)
-            
-            Spacer()
-          }
-          
-          HStack {
-            Text("\(String(format: "%.2f", purchasePrice))")
-              .wineyFont(.captionB1)
-            
-            Spacer()
-          }
-        }
-      }
-      .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-      .frame(width: 148)
-    }
   }
 }
 
@@ -239,13 +149,13 @@ public struct WineDetailTabView: View {
       setupAppearance()
     }
   }
-  
-  private func setupAppearance() {
-    UIPageControl.appearance()
-      .currentPageIndicatorTintColor = WineyKitAsset.point1.color
-    UIPageControl.appearance()
-      .pageIndicatorTintColor = WineyKitAsset.gray900.color
-  }
+}
+
+public func setupAppearance() {
+  UIPageControl.appearance()
+    .currentPageIndicatorTintColor = WineyKitAsset.point1.color
+  UIPageControl.appearance()
+    .pageIndicatorTintColor = WineyKitAsset.gray900.color
 }
 
 public struct WineDetailInfoSum: View {
@@ -360,7 +270,8 @@ public struct WineDetailIllust: View {
               )
             )
         )
-        .frame(width: 148, height: 148)
+        .aspectRatio(contentMode: .fit)
+        .frame(width: UIScreen.main.bounds.width / 2.5)
       
       illustImage
     }

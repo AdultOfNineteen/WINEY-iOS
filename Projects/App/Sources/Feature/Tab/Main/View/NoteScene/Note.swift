@@ -12,22 +12,35 @@ import Foundation
 
 public struct Note: Reducer {
   public struct State: Equatable {
-    public init() { }
+    public var tooltipState: Bool = false
+    public var noteCardList: NoteCardScroll.State = NoteCardScroll.State()
+    public init() {
+      
+    }
   }
 
   public enum Action {
     // MARK: - User Action
-    case noteTapTapped
+    case tappedAnalysisButton
     
     // MARK: - Inner Business Action
     
     // MARK: - Inner SetState Action
     
     // MARK: - Child Action
-
+    case noteCardScroll(NoteCardScroll.Action)
   }
   
-  public func reduce(into state: inout State, action: Action) -> Effect<Action> {
-    return .none
+  public var body: some ReducerOf<Self> {
+    Reduce<State, Action> { state, action in
+      switch action {
+      default:
+        return .none
+      }
+    }
+    
+    Scope(state: \.noteCardList, action: /Note.Action.noteCardScroll) {
+      NoteCardScroll()
+    }
   }
 }

@@ -14,10 +14,12 @@ import TCACoordinators
 public struct NoteScreen: Reducer {
   public enum State: Equatable {
     case note(Note.State)
+    case noteDetail(NoteDetail.State)
   }
 
   public enum Action {
     case note(Note.Action)
+    case noteDetail(NoteDetail.Action)
   }
   
   public var body: some ReducerOf<Self> {
@@ -26,6 +28,13 @@ public struct NoteScreen: Reducer {
       action: /Action.note
     ) {
       Note()
+    }
+    
+    Scope(
+      state: /State.noteDetail,
+      action: /Action.noteDetail
+    ) {
+      NoteDetail()
     }
   }
 }

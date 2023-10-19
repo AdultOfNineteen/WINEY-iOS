@@ -27,7 +27,6 @@ public struct Main: Reducer {
     // MARK: - User Action
     case tappedAnalysisButton
     case tappedTipArrow
-    case mainTabTapped
     case userScroll
     
     // MARK: - Inner Business Action
@@ -83,9 +82,6 @@ public struct Main: Reducer {
       case .tappedTipArrow:
         print("Go to Tip View")
         return .send(._navigateToTipCard)
-        
-      case .mainTabTapped:
-        return .none
         
       case .wineCardScroll:
         // state.wineCardListState = WineCardScroll.State.init() // ✔️🤔
