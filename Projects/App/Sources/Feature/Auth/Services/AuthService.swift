@@ -120,7 +120,16 @@ private struct SocialNetworking {
           }
         }
       } else {
-        continuation.resume(returning: nil)
+        Task {
+          UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+            if error != nil {
+              continuation.resume(returning: nil)
+            } else {
+              let accessToken = oauthToken?.accessToken
+              continuation.resume(returning: accessToken)
+            }
+          }
+        }
       }
     }
   }

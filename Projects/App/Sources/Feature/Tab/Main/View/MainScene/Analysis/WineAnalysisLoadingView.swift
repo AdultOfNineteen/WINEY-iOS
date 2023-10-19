@@ -68,7 +68,9 @@ public struct WineAnalysisLoadingView_Previews: PreviewProvider {
   public static var previews: some View {
     WineAnalysisLoadingView(
       store: Store(
-        initialState: WineAnalysisLoading.State.init(userName: "성경"),
+        initialState: WineAnalysisLoading.State.init(
+          userName: "성경"
+        ),
         reducer: {
           WineAnalysisLoading()
         }

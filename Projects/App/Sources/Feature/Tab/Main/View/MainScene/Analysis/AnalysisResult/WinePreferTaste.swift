@@ -16,14 +16,21 @@ public struct WinePreferTaste: Reducer {
     let title = "선호하는 맛"
     var animation = 0.0
     
-    var sweet: CGFloat = 7
-    var remain: CGFloat = 2
-    var alcohol: CGFloat = 7
-    var tannin: CGFloat = 2
-    var wineBody: CGFloat = 6
-    var acid: CGFloat = 3
+    var sweet: CGFloat
+    var remain: CGFloat
+    var alcohol: CGFloat
+    var tannin: CGFloat
+    var wineBody: CGFloat
+    var acid: CGFloat
     
-    public init() { }
+    public init(preferTastes taste: Taste) {
+      self.sweet = taste.sweetness
+      self.remain = taste.finish
+      self.alcohol = taste.alcohol
+      self.tannin = taste.tannin
+      self.wineBody = taste.body
+      self.acid = taste.acidity
+    }
   }
   
   public enum Action {

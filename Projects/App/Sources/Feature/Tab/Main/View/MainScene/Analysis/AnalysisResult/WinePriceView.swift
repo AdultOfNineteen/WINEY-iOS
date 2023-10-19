@@ -1,4 +1,3 @@
-
 //
 //  WinePriceView.swift
 //  Winey
@@ -77,7 +76,9 @@ struct WinePriceView_Previews: PreviewProvider {
   static var previews: some View {
     WinePriceView(
       store: Store(
-        initialState: WinePrice.State.init(),
+        initialState: WinePrice.State.init(
+          price: 30000
+        ),
         reducer: {
           WinePrice()
         })
