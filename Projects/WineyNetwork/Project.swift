@@ -13,7 +13,7 @@ let wineyNetworkTargets: [Target] = [
     name: "WineyNetwork",
     platform: .iOS,
     product: .framework,
-    bundleId: "com.adultOfNineteen.wineyNetwork",
+    bundleId: "com.winey.wineyNetwork",
     deploymentTarget: .iOS(targetVersion: "16.0", devices: [.iphone]),
     sources: ["Sources/**"],
     scripts: [
@@ -36,6 +36,6 @@ let wineyNetworkTargets: [Target] = [
 
 let wineyNetworkProject = Project.init(
   name: "WineyNetwork",
-  organizationName: "com.adultOfNineteen",
+  organizationName: "com.winey",
   targets: wineyNetworkTargets
 )

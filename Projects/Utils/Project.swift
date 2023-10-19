@@ -7,7 +7,7 @@ let utilsTargets: [Target] = [
     .init(name: "Utils",
           platform: .iOS,
           product: .framework,
-          bundleId: "com.adultOfNineteen.utils",
+          bundleId: "com.winey.utils",
           deploymentTarget: .iOS(targetVersion: "16.0", devices: [.iphone]),
           sources: ["Sources/**"],
           scripts: [
@@ -28,5 +28,5 @@ let utilsTargets: [Target] = [
 ]
 
 let utilsProject = Project.init(name: "Utils",
-                           organizationName: "com.adultOfNineteen",
+                           organizationName: "com.winey",
                            targets: utilsTargets)
