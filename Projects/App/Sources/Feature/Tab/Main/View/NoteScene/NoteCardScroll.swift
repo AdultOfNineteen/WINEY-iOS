@@ -11,7 +11,7 @@ import SwiftUI
 
 public struct NoteCardScroll: Reducer {
   public struct State: Equatable {
-    var noteCards: IdentifiedArrayOf<NoteCard.State>
+    public var noteCards: IdentifiedArrayOf<NoteCard.State>
     
     public init() {
       self.noteCards = [

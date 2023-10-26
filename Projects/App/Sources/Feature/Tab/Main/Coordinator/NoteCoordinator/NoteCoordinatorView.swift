@@ -28,11 +28,19 @@ public struct NoteCoordinatorView: View {
              action: NoteScreen.Action.note,
              then: NoteView.init
           )
+          
         case .noteDetail:
           CaseLet(
             /NoteScreen.State.noteDetail,
              action: NoteScreen.Action.noteDetail,
              then: NoteDetailView.init
+          )
+          
+        case .filterList:
+          CaseLet(
+            /NoteScreen.State.filterList,
+             action: NoteScreen.Action.filterList,
+             then: FilterListView.init
           )
         }
       }

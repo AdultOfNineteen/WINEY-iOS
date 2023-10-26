@@ -61,6 +61,22 @@ public struct NoteView: View {
       Spacer()
         .frame(height: 14)
       
+      Divider()
+        .overlay(WineyKitAsset.gray900.swiftUIColor)
+      
+      // MARK: Filter
+      NoteFilterScrollView(
+        store: self.store.scope(
+          state: \.noteFilterScroll,
+          action: Note.Action.noteFilterScroll
+        )
+      )
+      .frame(height: 65)
+      
+      Divider()
+        .overlay(WineyKitAsset.gray900.swiftUIColor)
+        .padding(.bottom, 16)
+      
       if viewStore.noteCardList.noteCards.isEmpty {
         NoteEmptyView()
       } else {
@@ -75,6 +91,9 @@ public struct NoteView: View {
       Spacer()
     }
     .background(WineyKitAsset.mainBackground.swiftUIColor)
+    .onAppear(
+      
+    )
   }
 }
 

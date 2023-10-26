@@ -23,19 +23,22 @@ public struct NoteCardScrollView: View {
   
   public var body: some View {
     // MARK: Note List
-    ScrollView {
-      LazyVGrid(columns: columns, spacing: 20) {
-        ForEach(viewStore.noteCards.indices) { index in
-          NoteCardView(
-            store: self.store.scope(
-              state: \.noteCards[index],
-              action: { .noteCard(id: index, action: $0) }
+    VStack(spacing: 0) {
+      
+      ScrollView {
+        LazyVGrid(columns: columns, spacing: 20) {
+          ForEach(viewStore.noteCards.indices, id: \.self) { index in
+            NoteCardView(
+              store: self.store.scope(
+                state: \.noteCards[index],
+                action: { .noteCard(id: index, action: $0) }
+              )
             )
-          )
+          }
         }
+        .padding(.top, 2)
+        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
       }
-      .padding(.top, 2)
-      .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
     }
   }
 }
