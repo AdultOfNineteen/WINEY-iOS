@@ -26,7 +26,7 @@ public struct NoteCoordinator: Reducer {
       self.routes = routes
     }
   }
-
+  
   public enum Action: IndexedRouterAction {
     case updateRoutes([Route<NoteScreen.State>])
     case routeAction(Int, action: NoteScreen.Action)
@@ -39,16 +39,26 @@ public struct NoteCoordinator: Reducer {
         state.routes.append(.push(.noteDetail(.init(wineId: id, noteCardData: noteCardData))))
         return .none
         
-      case .routeAction(_, action: .note(.noteFilterScroll(._navigateFilterSetting))):
-        state.routes.append(.push(.filterList(.init())))
+      case .routeAction(_, action: .note(.noteFilterScroll(._navigateFilterSetting(let winetypeFilter, let countryFilter)))):
+        state.routes.append(
+          .push(
+            .filterList(
+              .init(
+                wineTypeFilter: winetypeFilter,
+                wineCountryFilter: countryFilter
+              )
+            )
+          )
+        )
         return .none
         
       case .routeAction(_, action: .noteDetail(.tappedBackButton)):
         state.routes.pop()
         return .none
         
-//      case .routeAction(_, action: .filterList(.tappedAdaptButton)):
-//
+      case .routeAction(_, action: .filterList(.tappedAdaptButton)):
+        state.routes.pop()
+        return .none
         
       case .routeAction(_, action: .filterList(.tappedBackButton)):
         state.routes.pop()

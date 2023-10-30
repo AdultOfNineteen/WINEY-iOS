@@ -33,18 +33,21 @@ public struct FilterListView: View {
       // MARK: 최상단 필터
       ScrollView(.horizontal, showsIndicators: false) {
         HStack(spacing: 5) {
-          ForEach(viewStore.noteFilters.filter { $0.filterInfo.isSelected }, id: \.self) { filter in
-            HStack(alignment: .center) {
-              Text(filter.filterInfo.title)
-              Text("x")
-            }
-            .foregroundColor(.white)
-            .wineyFont(.captionB1)
-            .padding(.vertical, 7.5)
-            .padding(.horizontal, 10)
-            .background(
-              Capsule()
-                .fill(WineyKitAsset.gray900.swiftUIColor)
+          ForEach(viewStore.wineTypeFilter.filter { $0.filterInfo.isSelected }, id: \.self) { filter in
+            NoteFilterDisplayView(
+              store: self.store.scope(
+                state: \.wineTypeFilter[filter.id],
+                action: { .noteFilter(id: filter.id, action: $0) }
+              )
+            )
+          }
+          
+          ForEach(viewStore.wineCountryFilter.filter { $0.filterInfo.isSelected }, id: \.self) { filter in
+            NoteFilterDisplayView(
+              store: self.store.scope(
+                state: \.wineCountryFilter[filter.id],
+                action: { .noteFilter(id: filter.id, action: $0) }
+              )
             )
           }
         }
@@ -73,7 +76,7 @@ public struct FilterListView: View {
             HStack {
               ForEachStore(
                 self.store.scope(
-                  state: \.noteFilters,
+                  state: \.wineTypeFilter,
                   action: { .noteFilter(id: $0, action: $1) }
                 )
               ) {
@@ -88,7 +91,14 @@ public struct FilterListView: View {
               .wineyFont(.bodyB1)
             
             VStack {
-              
+              ForEachStore(
+                self.store.scope(
+                  state: \.wineCountryFilter,
+                  action: { .noteFilter(id: $0, action: $1) }
+                )
+              ) {
+                NoteFilterView(store: $0)
+              }
             }
           }
         }

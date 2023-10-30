@@ -21,11 +21,55 @@ public struct NoteFilterScrollView: View {
   
   public var body: some View {
     HStack {
-      ScrollView(.horizontal) {
-        ForEach(viewStore.selectedFilter, id: \.self) { filter in
-          Text(filter.filterInfo.title)
+      ScrollView(.horizontal, showsIndicators: false) {
+        HStack(spacing: 8) {
+          // MARK: Init Button
+          if !viewStore.selectedWineTypeFilter.filter({ $0.filterInfo.isSelected }).isEmpty && viewStore.selectedWineCountryFilter.filter({ $0.filterInfo.isSelected }).isEmpty {
+            NoteFilterIndicatorView(title: "초기화") {
+              viewStore.send(.tappedInitButton)
+            }
+          }
+          
+          // MARK: Wine Type
+          if viewStore.selectedWineTypeFilter.filter({ $0.filterInfo.isSelected }).isEmpty {
+            NoteFilterIndicatorView(title: "와인종류") {
+              viewStore.send(.tappedFilterButton)
+            }
+          } else {
+            ForEach(viewStore.selectedWineTypeFilter.filter { $0.filterInfo.isSelected }, id: \.self) { filter in
+              HStack(spacing: 8) {
+                NoteFilterDisplayView(
+                  store: self.store.scope(
+                    state: \.selectedWineTypeFilter[filter.id],
+                    action: { .noteFilter(id: filter.id, action: $0) }
+                  )
+                )
+              }
+            }
+          }
+          
+          // MARK: Wine Country
+          if viewStore.selectedWineCountryFilter.filter({ $0.filterInfo.isSelected }).isEmpty {
+            NoteFilterIndicatorView(title: "생산지") {
+              viewStore.send(.tappedFilterButton)
+            }
+          } else {
+            ForEach(viewStore.selectedWineCountryFilter.filter { $0.filterInfo.isSelected }, id: \.self) { filter in
+              HStack(spacing: 8) {
+                NoteFilterDisplayView(
+                  store: self.store.scope(
+                    state: \.selectedWineCountryFilter[filter.id],
+                    action: { .noteFilter(id: filter.id, action: $0) }
+                  )
+                )
+              }
+            }
+          }
         }
       }
+      .padding(.leading, WineyGridRules.globalHorizontalPadding)
+      
+      Spacer()
       
       Divider()
         .overlay(WineyKitAsset.gray900.swiftUIColor)
@@ -44,5 +88,18 @@ public struct NoteFilterScrollView: View {
     }
     .padding(.leading, 4)
     .padding(.trailing, 20)
+    .onAppear {
+      viewStore.send(._viewWillAppear)
+    }
   }
+}
+
+#Preview {
+  NoteFilterScrollView(
+    store: Store(
+      initialState: NoteFilterScroll.State(), reducer: {
+        NoteFilterScroll()
+      }
+    )
+  )
 }

@@ -19,14 +19,6 @@ public struct FilterInfo: Equatable, Hashable {
   }
 }
 
-extension FilterInfo {
-  static var data =  [
-    NoteFilter.State(id: 0, filterInfo: FilterInfo(title: "test", isSelected: false, count: 0)),
-    NoteFilter.State(id: 1, filterInfo: FilterInfo(title: "teste", isSelected: false, count: 2)),
-    NoteFilter.State(id: 2, filterInfo: FilterInfo(title: "testdd", isSelected: false, count: 103))
-  ]
-}
-
 public struct NoteFilter: Reducer {
   public struct State: Equatable, Identifiable, Hashable {
     public var id: Int
@@ -48,7 +40,6 @@ public struct NoteFilter: Reducer {
     Reduce<State, Action> { state, action in
       switch action {
       case .tappedFilter:
-        FilterInfo.data[state.id].filterInfo.stateToggle()
         state.filterInfo.stateToggle()
         return .none
         
