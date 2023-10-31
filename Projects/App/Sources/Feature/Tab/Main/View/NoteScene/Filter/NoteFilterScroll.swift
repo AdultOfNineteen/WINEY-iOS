@@ -23,6 +23,7 @@ public struct NoteFilterScroll: Reducer {
     // MARK: - Inner Business Action
     case _navigateFilterSetting(IdentifiedArrayOf<NoteFilter.State>, IdentifiedArrayOf<NoteFilter.State>)
     case _viewWillAppear
+    case _initData
     
     // MARK: - Inner SetState Action
     
@@ -37,8 +38,23 @@ public struct NoteFilterScroll: Reducer {
         return .send(._navigateFilterSetting(state.selectedWineTypeFilter, state.selectedWineCountryFilter))
         
       case .tappedInitButton:
-        state.selectedWineTypeFilter = []
-        state.selectedWineCountryFilter = []
+        return .send(._initData)
+        
+      case ._initData:
+        for filter in FilterManager.shared.wineTypeFilter.filter({ $0.filterInfo.isSelected }) {
+          FilterManager.shared.wineTypeFilter[filter.id].filterInfo.stateToggle()
+        }
+        for filter in FilterManager.shared.wineCountryFilter.filter({ $0.filterInfo.isSelected }) {
+          FilterManager.shared.wineCountryFilter[filter.id - 6].filterInfo.stateToggle()
+        }
+        return .send(._viewWillAppear)
+        
+      case .noteFilter(id: let index, action: .tappedFilter):
+        if index < 6 {
+          FilterManager.shared.wineTypeFilter[index].filterInfo.stateToggle()
+        } else {
+          FilterManager.shared.wineCountryFilter[index].filterInfo.stateToggle()
+        }
         return .none
         
       case ._viewWillAppear:

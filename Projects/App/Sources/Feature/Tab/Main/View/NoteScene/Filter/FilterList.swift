@@ -71,6 +71,7 @@ public struct FilterList: Reducer {
     // MARK: - User Action
     case tappedBackButton
     case tappedAdaptButton
+    case tappedInitButton
     
     // MARK: - Inner Business Action
     
@@ -86,6 +87,15 @@ public struct FilterList: Reducer {
       case .tappedAdaptButton:
         FilterManager.shared.wineTypeFilter = state.wineTypeFilter.elements
         FilterManager.shared.wineCountryFilter = state.wineCountryFilter.elements
+        return .none
+        
+      case .tappedInitButton:
+        for filter in state.wineTypeFilter.filter({ $0.filterInfo.isSelected }) {
+          state.wineTypeFilter[filter.id].filterInfo.stateToggle()
+        }
+        for filter in state.wineCountryFilter.filter({ $0.filterInfo.isSelected }) {
+          state.wineCountryFilter[filter.id - 6].filterInfo.stateToggle()
+        }
         return .none
         
       default:

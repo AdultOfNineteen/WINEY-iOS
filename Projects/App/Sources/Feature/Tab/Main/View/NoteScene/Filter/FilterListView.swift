@@ -111,7 +111,7 @@ public struct FilterListView: View {
       
       HStack(spacing: 20) {
         Button(action: {
-          
+          viewStore.send(.tappedInitButton)
         }, label: {
           HStack(spacing: 2) {
             WineyAsset.Assets.reloadIcon.swiftUIImage
@@ -142,13 +142,33 @@ public struct FilterListView: View {
   }
 }
 
-//#Preview {
-//  FilterListView(
-//    store: Store(
-//      initialState: FilterList.State(noteFilterList: [NoteFilter(title: "test", isSelected: false, count: 0)]),
-//      reducer: {
-//        FilterList()
-//      }
-//    )
-//  )
-//}
+#Preview {
+  FilterListView(
+    store: Store(
+      initialState: FilterList.State(
+        wineTypeFilter: [
+          NoteFilter.State(id: 0, filterInfo: FilterInfo(title: WineType.red.korName, isSelected: false, count: 0)),
+          NoteFilter.State(id: 1, filterInfo: FilterInfo(title: WineType.white.korName, isSelected: false, count: 2)),
+          NoteFilter.State(id: 2, filterInfo: FilterInfo(title: WineType.rose.korName, isSelected: false, count: 13)),
+          NoteFilter.State(id: 3, filterInfo: FilterInfo(title: WineType.sparkl.korName, isSelected: false, count: 2)),
+          NoteFilter.State(id: 4, filterInfo: FilterInfo(title: WineType.port.korName, isSelected: false, count: 13)),
+          NoteFilter.State(id: 5, filterInfo: FilterInfo(title: WineType.etc.korName, isSelected: false, count: 2))
+        ], wineCountryFilter: [
+          NoteFilter.State(id: 6, filterInfo: FilterInfo(title: WineCountry.italy.rawValue, isSelected: false, count: 2)),
+          NoteFilter.State(id: 7, filterInfo: FilterInfo(title: WineCountry.france.rawValue, isSelected: false, count: 103)),
+          NoteFilter.State(id: 8, filterInfo: FilterInfo(title: WineCountry.chile.rawValue, isSelected: false, count: 2)),
+          NoteFilter.State(id: 9, filterInfo: FilterInfo(title: WineCountry.america.rawValue, isSelected: false, count: 10)),
+          NoteFilter.State(id: 10, filterInfo: FilterInfo(title: WineCountry.spain.rawValue, isSelected: false, count: 12)),
+          NoteFilter.State(id: 11, filterInfo: FilterInfo(title: WineCountry.germany.rawValue, isSelected: false, count: 42)),
+          NoteFilter.State(id: 12, filterInfo: FilterInfo(title: WineCountry.greece.rawValue, isSelected: false, count: 12)),
+          NoteFilter.State(id: 13, filterInfo: FilterInfo(title: WineCountry.australia.rawValue, isSelected: false, count: 12)),
+          NoteFilter.State(id: 14, filterInfo: FilterInfo(title: WineCountry.southAfrica.rawValue, isSelected: false, count: 2)),
+          NoteFilter.State(id: 15, filterInfo: FilterInfo(title: WineCountry.newZealand.rawValue, isSelected: false, count: 103)),
+          NoteFilter.State(id: 16, filterInfo: FilterInfo(title: WineCountry.portugal.rawValue, isSelected: false, count: 103))
+        ]),
+      reducer: {
+        FilterList()
+      }
+    )
+  )
+}

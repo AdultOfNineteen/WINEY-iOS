@@ -23,46 +23,46 @@ public struct NoteFilterScrollView: View {
     HStack {
       ScrollView(.horizontal, showsIndicators: false) {
         HStack(spacing: 8) {
-          // MARK: Init Button
-          if !viewStore.selectedWineTypeFilter.filter({ $0.filterInfo.isSelected }).isEmpty && viewStore.selectedWineCountryFilter.filter({ $0.filterInfo.isSelected }).isEmpty {
+          // MARK: Initial Button
+          if shouldShowInitButton {
             NoteFilterIndicatorView(title: "초기화") {
               viewStore.send(.tappedInitButton)
             }
           }
           
           // MARK: Wine Type
-          if viewStore.selectedWineTypeFilter.filter({ $0.filterInfo.isSelected }).isEmpty {
+          if selectedWineTypeFilters.isEmpty {
             NoteFilterIndicatorView(title: "와인종류") {
               viewStore.send(.tappedFilterButton)
-            }
-          } else {
-            ForEach(viewStore.selectedWineTypeFilter.filter { $0.filterInfo.isSelected }, id: \.self) { filter in
-              HStack(spacing: 8) {
-                NoteFilterDisplayView(
-                  store: self.store.scope(
-                    state: \.selectedWineTypeFilter[filter.id],
-                    action: { .noteFilter(id: filter.id, action: $0) }
-                  )
-                )
-              }
             }
           }
           
           // MARK: Wine Country
-          if viewStore.selectedWineCountryFilter.filter({ $0.filterInfo.isSelected }).isEmpty {
-            NoteFilterIndicatorView(title: "생산지") {
+          if selectedWineCountryFilters.isEmpty {
+            NoteFilterIndicatorView(title: "와인종류") {
               viewStore.send(.tappedFilterButton)
             }
-          } else {
-            ForEach(viewStore.selectedWineCountryFilter.filter { $0.filterInfo.isSelected }, id: \.self) { filter in
-              HStack(spacing: 8) {
-                NoteFilterDisplayView(
-                  store: self.store.scope(
-                    state: \.selectedWineCountryFilter[filter.id],
-                    action: { .noteFilter(id: filter.id, action: $0) }
-                  )
+          }
+          
+          if !selectedWineTypeFilters.isEmpty {
+            ForEach(selectedWineTypeFilters) { filter in
+              NoteFilterDisplayView(
+                store: self.store.scope(
+                  state: \.selectedWineTypeFilter[filter.id],
+                  action: { .noteFilter(id: filter.id, action: $0) }
                 )
-              }
+              )
+            }
+          }
+          
+          if !selectedWineCountryFilters.isEmpty {
+            ForEach(selectedWineCountryFilters) { filter in
+              NoteFilterDisplayView(
+                store: self.store.scope(
+                  state: \.selectedWineCountryFilter[filter.id],
+                  action: { .noteFilter(id: filter.id, action: $0) }
+                )
+              )
             }
           }
         }
@@ -71,8 +71,7 @@ public struct NoteFilterScrollView: View {
       
       Spacer()
       
-      Divider()
-        .overlay(WineyKitAsset.gray900.swiftUIColor)
+      Divider().overlay(WineyKitAsset.gray900.swiftUIColor)
       
       Button(action: {
         viewStore.send(.tappedFilterButton)
@@ -88,18 +87,33 @@ public struct NoteFilterScrollView: View {
     }
     .padding(.leading, 4)
     .padding(.trailing, 20)
+    .padding(.vertical, 10)
     .onAppear {
       viewStore.send(._viewWillAppear)
     }
   }
+  
+  private var shouldShowInitButton: Bool {
+    !viewStore.selectedWineTypeFilter.filter({ $0.filterInfo.isSelected }).isEmpty
+    || !viewStore.selectedWineCountryFilter.filter({ $0.filterInfo.isSelected }).isEmpty
+  }
+  
+  private var selectedWineTypeFilters: [NoteFilter.State] {
+    viewStore.selectedWineTypeFilter.filter { $0.filterInfo.isSelected }
+  }
+  
+  private var selectedWineCountryFilters: [NoteFilter.State] {
+    viewStore.selectedWineCountryFilter.filter { $0.filterInfo.isSelected }
+  }
 }
 
-#Preview {
-  NoteFilterScrollView(
-    store: Store(
-      initialState: NoteFilterScroll.State(), reducer: {
-        NoteFilterScroll()
-      }
+struct NoteFilterScrollView_Previews: PreviewProvider {
+  static var previews: some View {
+    NoteFilterScrollView(
+      store: Store(
+        initialState: NoteFilterScroll.State(),
+        reducer: { NoteFilterScroll() }
+      )
     )
-  )
+  }
 }
