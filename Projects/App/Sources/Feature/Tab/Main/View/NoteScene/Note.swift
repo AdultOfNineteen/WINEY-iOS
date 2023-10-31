@@ -24,6 +24,7 @@ public struct Note: Reducer {
   public enum Action {
     // MARK: - User Action
     case tappedAnalysisButton
+    case tappedNoteWriteButton
     
     // MARK: - Inner Business Action
     

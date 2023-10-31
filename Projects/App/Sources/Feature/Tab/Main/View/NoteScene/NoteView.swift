@@ -32,6 +32,27 @@ public struct NoteView: View {
         
         Spacer()
       }
+      
+      VStack {
+        Spacer()
+        
+        HStack {
+          Spacer()
+          
+          Button(action: {
+            viewStore.send(.tappedNoteWriteButton)
+          }, label: {
+            WineyAsset.Assets.pencilIcon.swiftUIImage
+              .background(
+                Circle()
+                  .fill(WineyKitAsset.main2.swiftUIColor)
+                  .frame(width: 60, height: 60)
+              )
+          })
+          .padding(.trailing, 44)
+        }
+        .padding(.bottom, 120)
+      }
     }
     .background(WineyKitAsset.mainBackground.swiftUIColor)
   }

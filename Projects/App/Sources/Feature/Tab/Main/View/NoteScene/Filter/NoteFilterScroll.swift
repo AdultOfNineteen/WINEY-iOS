@@ -9,21 +9,32 @@
 import ComposableArchitecture
 import SwiftUI
 
+public enum SortState: String {
+  case latest = "최신순"
+  case star = "평점순"
+}
+
 public struct NoteFilterScroll: Reducer {
   public struct State: Equatable {
     public var selectedWineTypeFilter: IdentifiedArrayOf<NoteFilter.State> = []
     public var selectedWineCountryFilter: IdentifiedArrayOf<NoteFilter.State> = []
+    public var sortState: SortState = .latest
+    public var isPresentedBottomSheet: Bool = false
   }
   
   public enum Action {
     // MARK: - User Action
     case tappedFilterButton
     case tappedInitButton
+    case tappedSortState
+    case tappedOutsideOfBottomSheet
+    case tappedSortCard(SortState)
     
     // MARK: - Inner Business Action
     case _navigateFilterSetting(IdentifiedArrayOf<NoteFilter.State>, IdentifiedArrayOf<NoteFilter.State>)
     case _viewWillAppear
     case _initData
+    case _presentBottomSheet(Bool)
     
     // MARK: - Inner SetState Action
     
@@ -41,6 +52,7 @@ public struct NoteFilterScroll: Reducer {
         return .send(._initData)
         
       case ._initData:
+        state.sortState = .latest
         for filter in FilterManager.shared.wineTypeFilter.filter({ $0.filterInfo.isSelected }) {
           FilterManager.shared.wineTypeFilter[filter.id].filterInfo.stateToggle()
         }
@@ -61,7 +73,21 @@ public struct NoteFilterScroll: Reducer {
         state.selectedWineTypeFilter = IdentifiedArrayOf(uniqueElements: FilterManager.shared.wineTypeFilter)
         state.selectedWineCountryFilter = IdentifiedArrayOf(uniqueElements: FilterManager.shared.wineCountryFilter)
         return .none
-      
+        
+      case .tappedSortCard(let option):
+        state.sortState = option
+        return .none
+        
+      case .tappedSortState:
+        return .send(._presentBottomSheet(true))
+        
+      case .tappedOutsideOfBottomSheet:
+        return .send(._presentBottomSheet(false))
+        
+      case ._presentBottomSheet(let bool):
+        state.isPresentedBottomSheet = bool
+        return .none
+        
       default:
         return .none
       }

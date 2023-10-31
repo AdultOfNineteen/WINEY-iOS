@@ -30,6 +30,10 @@ public struct NoteFilterScrollView: View {
             }
           }
           
+          NoteFilterIndicatorView(title: viewStore.sortState.rawValue) {
+            viewStore.send(.tappedSortState)
+          }
+          
           // MARK: Wine Type
           if selectedWineTypeFilters.isEmpty {
             NoteFilterIndicatorView(title: "와인종류") {
@@ -91,6 +95,19 @@ public struct NoteFilterScrollView: View {
     .onAppear {
       viewStore.send(._viewWillAppear)
     }
+    .sheet(
+      isPresented: viewStore.binding(
+        get: \.isPresentedBottomSheet,
+        send: .tappedOutsideOfBottomSheet
+      ), content: {
+        ZStack {
+          WineyKitAsset.gray950.swiftUIColor.ignoresSafeArea(edges: .all)
+          selectSortOptionView()
+        }
+        .presentationDetents([.height(187)])
+        .presentationDragIndicator(.visible)
+      }
+    )
   }
   
   private var shouldShowInitButton: Bool {
@@ -104,6 +121,42 @@ public struct NoteFilterScrollView: View {
   
   private var selectedWineCountryFilters: [NoteFilter.State] {
     viewStore.selectedWineCountryFilter.filter { $0.filterInfo.isSelected }
+  }
+}
+
+extension NoteFilterScrollView {
+  
+  @ViewBuilder
+  private func selectSortOptionView() -> some View {
+    VStack(spacing: 0) {
+      sortOptionListCard(sortOption: .latest)
+      Divider()
+        .overlay(
+          WineyKitAsset.gray900.swiftUIColor
+        )
+      sortOptionListCard(sortOption: .star)
+    }
+  }
+  
+  @ViewBuilder
+  private func sortOptionListCard(sortOption: SortState) -> some View {
+    HStack {
+      Text(sortOption.rawValue)
+        .wineyFont(.bodyB1)
+        .foregroundStyle(.white)
+      
+      Spacer()
+      
+      if viewStore.sortState == sortOption {
+        WineyAsset.Assets.checkIcon.swiftUIImage
+      }
+    }
+    .padding(.vertical, 20)
+    .frame(height: 64)
+    .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+    .onTapGesture {
+      viewStore.send(.tappedSortCard(sortOption))
+    }
   }
 }
 
