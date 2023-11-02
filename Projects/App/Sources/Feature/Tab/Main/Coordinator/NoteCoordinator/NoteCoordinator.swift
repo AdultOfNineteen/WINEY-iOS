@@ -39,13 +39,12 @@ public struct NoteCoordinator: Reducer {
         state.routes.append(.push(.noteDetail(.init(wineId: id, noteCardData: noteCardData))))
         return .none
         
-      case .routeAction(_, action: .note(.noteFilterScroll(._navigateFilterSetting(let winetypeFilter, let countryFilter)))):
+      case .routeAction(_, action: .note(.noteFilterScroll(._navigateFilterSetting(let filterList)))):
         state.routes.append(
           .push(
             .filterList(
               .init(
-                wineTypeFilter: winetypeFilter,
-                wineCountryFilter: countryFilter
+                filterList: filterList
               )
             )
           )

@@ -30,29 +30,39 @@ public struct NoteFilterScrollView: View {
             }
           }
           
+          // MARK: 정렬 기준
           NoteFilterIndicatorView(title: viewStore.sortState.rawValue) {
             viewStore.send(.tappedSortState)
-          }
+          }       
           
           // MARK: Wine Type
-          if selectedWineTypeFilters.isEmpty {
+          if !shouldShowInitButton {
             NoteFilterIndicatorView(title: "와인종류") {
               viewStore.send(.tappedFilterButton)
             }
           }
           
           // MARK: Wine Country
-          if selectedWineCountryFilters.isEmpty {
+          if !shouldShowInitButton {
             NoteFilterIndicatorView(title: "와인종류") {
               viewStore.send(.tappedFilterButton)
             }
+          }
+          
+          if !rebuyFilters.isEmpty {
+            NoteFilterDisplayView(
+              store: self.store.scope(
+                state: \.filterList[0],
+                action: { .noteFilter(id: 0, action: $0) }
+              )
+            )
           }
           
           if !selectedWineTypeFilters.isEmpty {
             ForEach(selectedWineTypeFilters) { filter in
               NoteFilterDisplayView(
                 store: self.store.scope(
-                  state: \.selectedWineTypeFilter[filter.id],
+                  state: \.filterList[filter.id],
                   action: { .noteFilter(id: filter.id, action: $0) }
                 )
               )
@@ -63,7 +73,7 @@ public struct NoteFilterScrollView: View {
             ForEach(selectedWineCountryFilters) { filter in
               NoteFilterDisplayView(
                 store: self.store.scope(
-                  state: \.selectedWineCountryFilter[filter.id],
+                  state: \.filterList[filter.id],
                   action: { .noteFilter(id: filter.id, action: $0) }
                 )
               )
@@ -110,17 +120,24 @@ public struct NoteFilterScrollView: View {
     )
   }
   
+  
+}
+
+extension NoteFilterScrollView {
   private var shouldShowInitButton: Bool {
-    !viewStore.selectedWineTypeFilter.filter({ $0.filterInfo.isSelected }).isEmpty
-    || !viewStore.selectedWineCountryFilter.filter({ $0.filterInfo.isSelected }).isEmpty
+    !viewStore.filterList.filter({ $0.filterInfo.isSelected }).isEmpty
+  }
+  
+  private var rebuyFilters: [NoteFilter.State] {
+    viewStore.filterList.filter { $0.filterInfo.isSelected && $0.id == 0 }
   }
   
   private var selectedWineTypeFilters: [NoteFilter.State] {
-    viewStore.selectedWineTypeFilter.filter { $0.filterInfo.isSelected }
+    viewStore.filterList.filter { $0.filterInfo.isSelected && $0.id >= 1 && $0.id < 7 }
   }
   
   private var selectedWineCountryFilters: [NoteFilter.State] {
-    viewStore.selectedWineCountryFilter.filter { $0.filterInfo.isSelected }
+    viewStore.filterList.filter { $0.filterInfo.isSelected && $0.id >= 7}
   }
 }
 

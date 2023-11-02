@@ -16,8 +16,8 @@ public enum SortState: String {
 
 public struct NoteFilterScroll: Reducer {
   public struct State: Equatable {
-    public var selectedWineTypeFilter: IdentifiedArrayOf<NoteFilter.State> = []
-    public var selectedWineCountryFilter: IdentifiedArrayOf<NoteFilter.State> = []
+    public var filterList: IdentifiedArrayOf<NoteFilter.State> = []
+    
     public var sortState: SortState = .latest
     public var isPresentedBottomSheet: Bool = false
   }
@@ -31,7 +31,7 @@ public struct NoteFilterScroll: Reducer {
     case tappedSortCard(SortState)
     
     // MARK: - Inner Business Action
-    case _navigateFilterSetting(IdentifiedArrayOf<NoteFilter.State>, IdentifiedArrayOf<NoteFilter.State>)
+    case _navigateFilterSetting(IdentifiedArrayOf<NoteFilter.State>)
     case _viewWillAppear
     case _initData
     case _presentBottomSheet(Bool)
@@ -46,32 +46,24 @@ public struct NoteFilterScroll: Reducer {
     Reduce<State, Action> { state, action in
       switch action {
       case .tappedFilterButton:
-        return .send(._navigateFilterSetting(state.selectedWineTypeFilter, state.selectedWineCountryFilter))
+        return .send(._navigateFilterSetting(state.filterList))
         
       case .tappedInitButton:
         return .send(._initData)
         
       case ._initData:
         state.sortState = .latest
-        for filter in FilterManager.shared.wineTypeFilter.filter({ $0.filterInfo.isSelected }) {
-          FilterManager.shared.wineTypeFilter[filter.id].filterInfo.stateToggle()
-        }
-        for filter in FilterManager.shared.wineCountryFilter.filter({ $0.filterInfo.isSelected }) {
-          FilterManager.shared.wineCountryFilter[filter.id - 6].filterInfo.stateToggle()
+        for filter in FilterManager.shared.filterList.filter({ $0.filterInfo.isSelected }) {
+          FilterManager.shared.filterList[filter.id].filterInfo.stateToggle()
         }
         return .send(._viewWillAppear)
         
       case .noteFilter(id: let index, action: .tappedFilter):
-        if index < 6 {
-          FilterManager.shared.wineTypeFilter[index].filterInfo.stateToggle()
-        } else {
-          FilterManager.shared.wineCountryFilter[index].filterInfo.stateToggle()
-        }
+        FilterManager.shared.filterList[index].filterInfo.stateToggle()
         return .none
         
       case ._viewWillAppear:
-        state.selectedWineTypeFilter = IdentifiedArrayOf(uniqueElements: FilterManager.shared.wineTypeFilter)
-        state.selectedWineCountryFilter = IdentifiedArrayOf(uniqueElements: FilterManager.shared.wineCountryFilter)
+        state.filterList = IdentifiedArrayOf(uniqueElements: FilterManager.shared.filterList)
         return .none
         
       case .tappedSortCard(let option):
@@ -92,10 +84,7 @@ public struct NoteFilterScroll: Reducer {
         return .none
       }
     }
-    .forEach(\.selectedWineTypeFilter, action: /NoteFilterScroll.Action.noteFilter) {
-      NoteFilter()
-    }
-    .forEach(\.selectedWineCountryFilter, action: /NoteFilterScroll.Action.noteFilter) {
+    .forEach(\.filterList, action: /NoteFilterScroll.Action.noteFilter) {
       NoteFilter()
     }
   }
