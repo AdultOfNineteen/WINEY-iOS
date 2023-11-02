@@ -65,6 +65,10 @@ extension FilterListView {
   private var wineCountryFilters: [NoteFilter.State] {
     viewStore.filterList.filter({ $0.id >= 7 })
   }
+  
+  private var selectedFilterCount: Int {
+    viewStore.filterList.filter { $0.filterInfo.isSelected }.count
+  }
 }
 
 
@@ -178,7 +182,7 @@ extension FilterListView {
       })
       
       WineyConfirmButton(
-        title: "개 옵션 적용하기",
+        title: "\(selectedFilterCount)개 옵션 적용하기",
         validBy: true,
         action: {
           viewStore.send(.tappedAdaptButton)
