@@ -16,12 +16,14 @@ public struct MainScreen: Reducer {
     case main(Main.State)
     case wineDetail(WineDetail.State)
     case tipCard(TipCard.State)
+    case analysis(WineAnalysisCoordinator.State)
   }
 
   public enum Action {
     case main(Main.Action)
     case wineDetail(WineDetail.Action)
     case tipCard(TipCard.Action)
+    case analysis(WineAnalysisCoordinator.Action)
   }
   
   public var body: some ReducerOf<Self> {
@@ -35,6 +37,10 @@ public struct MainScreen: Reducer {
     
     Scope(state: /State.tipCard, action: /Action.tipCard) {
       TipCard()
+    }
+    
+    Scope(state: /State.analysis, action: /Action.analysis) {
+      WineAnalysisCoordinator()
     }
   }
 }

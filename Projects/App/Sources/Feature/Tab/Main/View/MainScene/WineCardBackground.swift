@@ -37,6 +37,7 @@ struct WineCardBackground: View {
           .frame(width: 157, height: 157)
           .offset(x: 30, y: 50)
       }
+      .frame(width: geo.size.width - 35, height: 383)
     }
   }
 }

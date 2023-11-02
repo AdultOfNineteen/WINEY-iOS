@@ -31,6 +31,8 @@ public struct TwoOptionSelectorButtonView: View {
       Rectangle()
       .frame(height: 1)
       .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
+      .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+      
       ZStack {
         Rectangle()
           .frame(width: 1, height: 25)

@@ -43,7 +43,7 @@ struct WineBackgroundColor {
 }
 
 // MARK: WINE TYPE
-public enum WineType: String {
+public enum WineType: String, CaseIterable {
   case red
   case white
   case rose
@@ -65,6 +65,23 @@ public enum WineType: String {
       return "PORT"
     case .etc:
       return "ETC"
+    }
+  }
+  
+  var korName: String {
+    switch self {
+    case .red:
+      return "레드"
+    case .white:
+      return "화이트"
+    case .rose:
+      return "로제"
+    case .sparkl:
+      return "스파클링"
+    case .port:
+      return "포르투"
+    case .etc:
+      return "기타"
     }
   }
   

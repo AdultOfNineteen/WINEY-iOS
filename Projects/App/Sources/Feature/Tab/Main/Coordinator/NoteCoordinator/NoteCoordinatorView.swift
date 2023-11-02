@@ -22,11 +22,25 @@ public struct NoteCoordinatorView: View {
     TCARouter(store) { screen in
       SwitchStore(screen) { screen in
         switch screen {
-        default:
+        case .note:
           CaseLet(
             /NoteScreen.State.note,
-            action: NoteScreen.Action.note,
-            then: NoteView.init
+             action: NoteScreen.Action.note,
+             then: NoteView.init
+          )
+          
+        case .noteDetail:
+          CaseLet(
+            /NoteScreen.State.noteDetail,
+             action: NoteScreen.Action.noteDetail,
+             then: NoteDetailView.init
+          )
+          
+        case .filterList:
+          CaseLet(
+            /NoteScreen.State.filterList,
+             action: NoteScreen.Action.filterList,
+             then: FilterListView.init
           )
         }
       }
