@@ -45,6 +45,7 @@ public struct NoteDetailSmellFeatureView: View {
                 )
             }
           }
+          .padding(.leading, 2)
           .padding(.vertical, 4)
         }
       }

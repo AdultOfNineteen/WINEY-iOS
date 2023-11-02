@@ -91,6 +91,9 @@ public struct TabBar: Reducer {
       case .note(.routeAction(_, action: .filterList(.tappedBackButton))):
         return .send(._setTabHiddenStatus(false))
         
+      case .note(.routeAction(_, action: .filterList(.tappedAdaptButton))):
+        return .send(._setTabHiddenStatus(false))
+        
       case .map:
         return .none
         

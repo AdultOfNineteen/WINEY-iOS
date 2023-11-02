@@ -73,7 +73,9 @@ public struct FilterListView: View {
             Text("와인종류")
               .wineyFont(.bodyB1)
             
-            HStack {
+            LazyVGrid(columns: [
+              GridItem(.adaptive(minimum: 70, maximum: .infinity), spacing: 0)
+            ], spacing: 10) {
               ForEachStore(
                 self.store.scope(
                   state: \.wineTypeFilter,
@@ -83,6 +85,34 @@ public struct FilterListView: View {
                 NoteFilterView(store: $0)
               }
             }
+            
+            //            LazyVGrid(columns: [
+            //              GridItem(.adaptive(minimum: 50, maximum: .infinity)),
+            //              GridItem(.adaptive(minimum: 54, maximum: .infinity)),
+            //              GridItem(.adaptive(minimum: 50, maximum: .infinity))
+            //            ], spacing: 10) {
+            //              ForEachStore(
+            //                self.store.scope(
+            //                  state: \.wineTypeFilter,
+            //                  action: { .noteFilter(id: $0, action: $1) }
+            //                )
+            //              ) {
+            //                NoteFilterView(store: $0)
+            //                  .border(.red)
+            //              }
+            //            }
+            
+            //            LazyHGrid(rows: [GridItem(.adaptive(minimum: 12, maximum: .infinity))]) {
+            //              ForEachStore(
+            //                self.store.scope(
+            //                  state: \.wineTypeFilter,
+            //                  action: { .noteFilter(id: $0, action: $1) }
+            //                )
+            //              ) {
+            //                NoteFilterView(store: $0)
+            //                  .border(.red)
+            //              }
+            //            }
           }
           
           // MARK: 생산지
@@ -90,7 +120,9 @@ public struct FilterListView: View {
             Text("생산지")
               .wineyFont(.bodyB1)
             
-            VStack {
+            LazyVGrid(columns: [
+              GridItem(.adaptive(minimum: 100, maximum: .infinity), spacing: 0)
+            ], spacing: 10) {
               ForEachStore(
                 self.store.scope(
                   state: \.wineCountryFilter,

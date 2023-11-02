@@ -76,7 +76,7 @@ public struct NoteFilterScroll: Reducer {
         
       case .tappedSortCard(let option):
         state.sortState = option
-        return .none
+        return .send(._presentBottomSheet(false))
         
       case .tappedSortState:
         return .send(._presentBottomSheet(true))

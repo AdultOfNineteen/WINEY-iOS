@@ -42,6 +42,8 @@ public struct NoteFilterView: View {
           RoundedRectangle(cornerRadius: 42)
             .stroke(viewStore.filterInfo.isSelected ? WineyKitAsset.main2.swiftUIColor : WineyKitAsset.gray900.swiftUIColor)
         )
+        
+        Spacer()
       }
     )
   }
