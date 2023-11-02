@@ -13,10 +13,19 @@ import Foundation
 
 public struct WineAnalysisPieChart: Reducer {
   public struct State: Equatable {
-    let wineDrink: Int = 7
-    let repurchase: Int = 5
+    var wineDrink: Int
+    var repurchase: Int
+    var preferWineTypes: [TopType]
     
-    public init() { }
+    public init(
+      wineDrink: Int,
+      repurchase: Int,
+      preferWineTypes: [TopType]
+    ) {
+      self.wineDrink = wineDrink
+      self.repurchase = repurchase
+      self.preferWineTypes = preferWineTypes
+    }
   }
   
   public enum Action {
@@ -24,6 +33,7 @@ public struct WineAnalysisPieChart: Reducer {
     
     // MARK: - Inner Business Action
     case _onAppear
+    case _setPieChartData(TasteAnalysisDTO)
     
     // MARK: - Inner SetState Action
     
@@ -34,7 +44,9 @@ public struct WineAnalysisPieChart: Reducer {
     switch action {
     case ._onAppear:
       return .none
-    default:
+    case let ._setPieChartData(analysisData):
+      state.wineDrink = analysisData.totalWineCnt
+      state.repurchase = analysisData.buyAgainCnt
       return .none
     }
   }

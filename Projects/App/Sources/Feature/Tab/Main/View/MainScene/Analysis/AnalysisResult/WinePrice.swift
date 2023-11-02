@@ -14,10 +14,12 @@ public struct WinePrice: Reducer {
   public struct State: Equatable {
     let title = "가격대"
     let secondTitle = "평균 구매가"
-    let average: Int = 70580
+    let average: Int
     var opacity = 0.0
     
-    public init() { }
+    public init(price: Int) {
+      self.average = price
+    }
   }
   
   public enum Action {

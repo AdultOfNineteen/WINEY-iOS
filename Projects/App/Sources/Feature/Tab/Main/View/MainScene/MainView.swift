@@ -158,8 +158,10 @@ public struct MainView: View {
 struct MainView_Previews: PreviewProvider {
   static var previews: some View {
     MainView(store: StoreOf<Main>(
-      initialState: .init(tooltipState: true),
-      reducer: { 
+      initialState: .init(
+        tooltipState: true
+      ),
+      reducer: {
         Main()
           .dependency(\.wine, .mock)
       })

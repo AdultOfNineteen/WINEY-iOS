@@ -30,8 +30,8 @@ struct WineAnalysisCarouselView: View {
                   WineAnalysisPieChart()
                 }
               ))
-              .frame(width: geometry.size.width, height: geometry.size.height)
-              .id(0)
+            .frame(width: geometry.size.width, height: geometry.size.height)
+            .id(0)
             
             WinePreferNationView(
               store: Store(
@@ -94,16 +94,41 @@ struct WineAnalysisCarouselView: View {
             }
         )
       }
+      .onAppear {
+        viewStore.send(._viewWillAppear)
+      }
     }
   }
 }
 
 
 public struct PreView: PreviewProvider {
+  static let data = TasteAnalysisDTO(
+    recommendCountry: "",
+    recommendVarietal: "",
+    recommendWineType: "",
+    totalWineCnt: 3,
+    buyAgainCnt: 7,
+    topThreeTypes: [],
+    topThreeCountries: [],
+    topThreeVarieties: [],
+    topSevenSmells: [],
+    taste: Taste(
+      sweetness: 0,
+      acidity: 0,
+      alcohol: 0,
+      body: 0,
+      tannin: 0,
+      finish: 0
+    ),
+    avgPrice: 30000
+  )
   public static var previews: some View {
     WineAnalysisCarouselView(
       store: Store(
-        initialState: WineAnalysisCarousel.State.init(),
+        initialState: WineAnalysisCarousel.State.init(
+          data: self.data
+        ),
         reducer: {
           WineAnalysisCarousel()
         }

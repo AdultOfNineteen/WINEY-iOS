@@ -20,13 +20,20 @@ public struct WinePreferNation: Reducer {
   
   public struct State: Equatable {
     let titleName = "선호 국가"
-    let winePreferNationList: IdentifiedArrayOf<WinePreferNationData> = [
-      WinePreferNationData(id: 1, nationName: "이탈리아", count: 3),
-      WinePreferNationData(id: 2, nationName: "미국", count: 1),
-      WinePreferNationData(id: 3, nationName: "칠레", count: 1)
-    ]
+    let winePreferNationList: IdentifiedArrayOf<WinePreferNationData>
     
-    public init() { }
+    public init(preferNationList: [TopCountry]) {
+      winePreferNationList = IdentifiedArrayOf(
+        uniqueElements:
+          (preferNationList.indices).map {
+            WinePreferNationData(
+              id: $0,
+              nationName: preferNationList[$0].country,
+              count: preferNationList[$0].count
+            )
+          }
+      )
+    }
   }
   
   public enum Action {
@@ -39,7 +46,7 @@ public struct WinePreferNation: Reducer {
     
     // MARK: - Child Action
   }
-
+  
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case ._onAppear:

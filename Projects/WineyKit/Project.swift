@@ -25,7 +25,7 @@ let wineyKitTargets: [Target] = [
     name: "WineyKit",
     platform: .iOS,
     product: .framework,
-    bundleId: "com.adultOfNineteen.wineyKit",
+    bundleId: "com.winey.wineyKit",
     deploymentTarget: .iOS(targetVersion: "16.0", devices: [.iphone]),
     infoPlist: .extendingDefault(with: infoPlist),
     sources: ["Sources/**"],
@@ -50,6 +50,6 @@ let wineyKitTargets: [Target] = [
 
 let wineyKitProject = Project.init(
   name: "WineyKit",
-  organizationName: "com.adultOfNineteen",
+  organizationName: "com.winey",
   targets: wineyKitTargets
 )

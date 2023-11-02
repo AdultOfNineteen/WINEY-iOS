@@ -27,18 +27,31 @@ public struct WineAnalysisLoading: Reducer {
     
     // MARK: - Inner Business Action
     case _onAppear
+    case _completeAnalysis(TasteAnalysisDTO)
+    case _failureNetworking(Error) // 후에 경고창 처리
     
     // MARK: - Inner SetState Action
     
     // MARK: - Child Action
   }
+  
+  @Dependency(\.analysis) var analysisService
 
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case .tappedBackButton:
       return .none
     case ._onAppear:
-      return .none
+      return .run { send in
+        let result = await analysisService.myTasteAnalysis()
+        switch result {
+        case let .success(data):
+          await send(._completeAnalysis(data))
+        case let .failure(error):
+          await send(._failureNetworking(error))
+        }
+      }
+      
     default:
       return .none
     }

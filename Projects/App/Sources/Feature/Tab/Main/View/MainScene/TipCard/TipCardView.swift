@@ -58,4 +58,3 @@ public struct TipCardView_Previews: PreviewProvider {
     }))
   }
 }
-

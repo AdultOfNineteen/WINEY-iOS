@@ -38,7 +38,7 @@ let appTargets: [Target] = [
   .init(name: "Winey",
         platform: .iOS,
         product: .app,
-        bundleId: "com.adultOfNineteen.app",
+        bundleId: "com.winey.app",
         deploymentTarget: .iOS(targetVersion: "16.0", devices: [.iphone]),
         infoPlist: .extendingDefault(with: infoPlist),
         sources: ["Sources/**"],
@@ -66,5 +66,5 @@ let appTargets: [Target] = [
 ]
 
 let appproject = Project.init(name: "Winey",
-                              organizationName: "com.adultOfNineteen",
+                              organizationName: "com.winey",
                               targets: appTargets)

@@ -84,7 +84,6 @@ public struct Main: Reducer {
         return .send(._navigateToTipCard)
         
       case .wineCardScroll:
-        // state.wineCardListState = WineCardScroll.State.init() // ✔️🤔
         return .none
         
       case .userScroll:

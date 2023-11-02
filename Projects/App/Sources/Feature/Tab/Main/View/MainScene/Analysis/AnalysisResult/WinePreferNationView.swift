@@ -126,8 +126,15 @@ public struct WineAnalysisTitle: View {
 
 public struct WinePreferNationView_Previews: PreviewProvider {
   public static var previews: some View {
-    WinePreferNationView(store: Store(initialState: WinePreferNation.State.init(), reducer: {
-      WinePreferNation()
-    }))
+    WinePreferNationView(
+      store: Store(
+        initialState:
+          WinePreferNation.State.init(
+            preferNationList: []),
+        reducer: {
+          WinePreferNation()
+        }
+      )
+    )
   }
 }

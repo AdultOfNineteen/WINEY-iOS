@@ -13,21 +13,40 @@ import SwiftUI
 
 public struct WineAnalysisCarousel: Reducer {
   public struct State: Equatable {
-    
     let pageCount: Int = 6
     var pageIndex: Int = 0
     
-    var winePieChart = WineAnalysisPieChart.State.init()
-    var wineNation = WinePreferNation.State.init()
-    var wineCategory = WinePreferCategory.State.init()
-    var wineTaste = WinePreferTaste.State.init()
-    var wineSmell = WinePreferSmell.State.init()
-    var winePrice = WinePrice.State.init()
+    var winePieChart: WineAnalysisPieChart.State
+    var wineNation: WinePreferNation.State
+    var wineCategory: WinePreferCategory.State
+    var wineTaste: WinePreferTaste.State
+    var wineSmell: WinePreferSmell.State
+    var winePrice: WinePrice.State
     
-    public init() { }
+    public init(data: TasteAnalysisDTO) {
+      self.winePieChart = WineAnalysisPieChart.State.init(
+        wineDrink: data.totalWineCnt,
+        repurchase: data.buyAgainCnt, 
+        preferWineTypes: data.topThreeTypes
+      )
+      self.wineNation = WinePreferNation.State.init(
+        preferNationList: data.topThreeCountries
+      )
+      self.wineCategory = WinePreferCategory.State.init(
+        preferVarieties: data.topThreeVarieties
+      )
+      self.wineTaste = WinePreferTaste.State.init(
+        preferTastes: data.taste
+      )
+      self.wineSmell = WinePreferSmell.State.init()
+      self.winePrice = WinePrice.State.init(
+        price: data.avgPrice
+      )
+    }
   }
   
   public enum Action {
+    case _viewWillAppear
     // MARK: - User Action
     case dragGesture(DragGesture.Value)
     
@@ -47,6 +66,9 @@ public struct WineAnalysisCarousel: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
+      case ._viewWillAppear:
+        return .none
+        
       case let .dragGesture(gesture):
         let dragThreshold: CGFloat = 50.0
         if gesture.translation.height > dragThreshold {
