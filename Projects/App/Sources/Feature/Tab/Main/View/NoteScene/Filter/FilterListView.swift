@@ -127,7 +127,7 @@ extension FilterListView {
             .wineyFont(.bodyB1)
           
           LazyVGrid(columns: [
-            GridItem(.adaptive(minimum: 70, maximum: .infinity), spacing: 0)
+            GridItem(.adaptive(minimum: 90, maximum: .infinity), spacing: 0)
           ], spacing: 10) {
             ForEach(wineTypeFilters) { filter in
               NoteFilterView(
@@ -145,7 +145,7 @@ extension FilterListView {
             .wineyFont(.bodyB1)
           
           LazyVGrid(columns: [
-            GridItem(.adaptive(minimum: 70, maximum: .infinity), spacing: 0)
+            GridItem(.adaptive(minimum: 90, maximum: .infinity), spacing: 0)
           ], spacing: 10) {
             ForEach(wineCountryFilters) { filter in
               NoteFilterView(
