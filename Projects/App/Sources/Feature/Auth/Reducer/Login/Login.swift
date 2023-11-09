@@ -30,6 +30,8 @@ public struct Login: Reducer {
     case _setLoginPath(LoginPathType)
     case _completeSocialNetworking(Result<LoginUserDTO, Error>)
     case _moveUserStatusPage(LoginProcessType)
+    
+    case _gotoMain // 편의를 위한 임시
   }
   
   @Dependency(\.userDefaults) var userDefaultsService
@@ -56,9 +58,6 @@ public struct Login: Reducer {
       return .none
       
     case .tappedLogin(let path):
-      if path == .google {
-        return .send(._moveUserStatusPage(.done)) // 구글버튼 홈 이동용
-      }
       
       return .run { send in
         if let token = await authService.socialLogin(path) {
@@ -94,6 +93,9 @@ public struct Login: Reducer {
           self.routeBasedOnLoginStatus(data: data)
         )
       )
+      
+    case ._gotoMain:
+      return .send(._moveUserStatusPage(.done)) 
       
     default: return .none
     }

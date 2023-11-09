@@ -6,17 +6,20 @@
 //  Copyright © 2023 com.adultOfNineteen. All rights reserved.
 //
 
+import AuthenticationServices
 import Dependencies
 import Foundation
+import GoogleSignIn
 import KakaoSDKUser
 import WineyNetwork
 
 public struct AuthService {
-  public var socialLogin: ( // Reducer에서 보내는 소셜 로그인 요청
+  
+  public var socialLogin: (
     _ path: LoginPathType
   ) async -> String?
   
-  public var loginState: (  // 소셜 로그인 결과 값에 따라 서버 로그인 요청
+  public var loginState: ( 
     _ path: LoginPathType,
     _ accessToken: String
   ) async -> Result<LoginUserDTO, Error>
@@ -94,22 +97,23 @@ extension DependencyValues {
 }
 
 private struct SocialNetworking {
+  private let appleLoginAuthService = SignInWithAppleCoordinator()
+  
   func login(platform: LoginPathType) async -> String? {
     switch platform {
     case .kakao:
       return await kakaoLogin()
     case .google:
-      return "Google AccessToken" // 가상의 토큰
+      return await googleLogin()
     case .apple:
-      return "Apple AccessToken" // 가상의 토큰
+      return await appleLogin()
     }
   }
   
-  @MainActor
   private func kakaoLogin() async -> String? {
     return await withUnsafeContinuation { continuation in
       if UserApi.isKakaoTalkLoginAvailable() {
-        Task {
+        Task { @MainActor in
           UserApi.shared.loginWithKakaoTalk { oauthToken, error in
             if error != nil {
               continuation.resume(returning: nil)
@@ -120,7 +124,7 @@ private struct SocialNetworking {
           }
         }
       } else {
-        Task {
+        Task { @MainActor in
           UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
             if error != nil {
               continuation.resume(returning: nil)
@@ -134,11 +138,68 @@ private struct SocialNetworking {
     }
   }
   
+  @MainActor
   private func googleLogin() async -> String? {
-    return nil
+    guard let rootVC =
+      UIApplication
+      .shared
+      .delegate?
+      .window??
+      .rootViewController else { return nil }
+    
+    return try? await withCheckedThrowingContinuation { continuation in
+      GIDSignIn
+        .sharedInstance
+        .signIn(
+          withPresenting: rootVC
+        ) { signInResult, error in
+          if let error = error {
+            continuation.resume(throwing: error)
+          } else {
+            let idToken = signInResult?.user.idToken?.tokenString
+            continuation.resume(returning: idToken)
+          }
+        }
+    }
   }
   
   private func appleLogin() async -> String? {
-    return nil
+    return await self.appleLoginAuthService.startSignInWithAppleFlow()
+  }
+}
+
+class SignInWithAppleCoordinator: NSObject, ASAuthorizationControllerDelegate {
+  
+  private var tokenContinuation: CheckedContinuation<String?, Never>?
+  
+  func startSignInWithAppleFlow() async -> String? {
+    return await withCheckedContinuation { continuation in
+      let appleIDProvider = ASAuthorizationAppleIDProvider()
+      let request = appleIDProvider.createRequest()
+      request.requestedScopes = []
+      
+      let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+      authorizationController.delegate = self
+      
+      tokenContinuation = continuation
+      authorizationController.performRequests()
+    }
+  }
+  
+  func authorizationController(
+    controller: ASAuthorizationController,
+    didCompleteWithAuthorization authorization: ASAuthorization
+  ) {
+    if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
+       let token = appleIDCredential.identityToken,
+       let tokenString = String(data: token, encoding: .utf8) {
+      tokenContinuation?.resume(returning: tokenString)
+    } else {
+      tokenContinuation?.resume(returning: nil)
+    }
+  }
+  
+  func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    tokenContinuation?.resume(returning: nil)
   }
 }
