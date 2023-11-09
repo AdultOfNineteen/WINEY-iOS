@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import GoogleSignIn
 import KakaoSDKAuth
 import KakaoSDKCommon
 import SwiftUI
@@ -26,6 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     if AuthApi.isKakaoTalkLoginUrl(url) {
       return AuthController.handleOpenUrl(url: url)
     }
+    
+    if GIDSignIn.sharedInstance.handle(url) {
+      return true
+    }
+    
     return false
   }
   
