@@ -1,7 +1,7 @@
 import Foundation
 import ProjectDescription
 import ProjectDescriptionHelpers
-//import MyPlugin
+import MyPlugin
 
 // MARK: - Project
 
@@ -9,7 +9,7 @@ import ProjectDescriptionHelpers
 //let localHelper = LocalHelper(name: "MyPlugin") //플러그인 미사용
 
 
-let infoPlist: [String: InfoPlist.Value] = [
+let infoPlist: [String: Plist.Value] = [
   "NSAppTransportSecurity": [
     "NSAllowsArbitraryLoads": true,
     "NSExceptionDomains": [
@@ -31,6 +31,26 @@ let infoPlist: [String: InfoPlist.Value] = [
   "LSApplicationQueriesSchemes": [
     "kakaokompassauth",
     "kakaolink"
+  ],
+  "GIDClientID":
+      .string(APIKeys.GOOGLE_API_KEY)
+  ,
+  "com.apple.developer.applesignin": [
+    "Default"
+  ],
+  "CFBundleURLTypes": [
+    [
+      "CFBundleTypeRole": "Editor",
+      "CFBundleURLSchemes": [
+        .string(APIKeys.KAKAO_URL_KEY)
+      ]
+    ],
+    [
+      "CFBundleTypeRole": "Editor",
+      "CFBundleURLSchemes": [
+        .string(APIKeys.GOOGLE_URL_KEY)
+      ]
+    ]
   ]
 ]
 
@@ -43,6 +63,7 @@ let appTargets: [Target] = [
         infoPlist: .extendingDefault(with: infoPlist),
         sources: ["Sources/**"],
         resources: ["Resources/**"],
+        entitlements: "../../Tuist/Winey.entitlements",
         scripts: [
           .pre(
             script: """
@@ -61,10 +82,18 @@ let appTargets: [Target] = [
           .external(name: "ComposableArchitecture"),
           .external(name: "TCACoordinators"),
           .external(name: "CombineExt"),
-          .external(name: "KakaoSDK")
-        ])
+          .external(name: "KakaoSDK"),
+          .package(product: "GoogleSignIn") 
+        ]
+        )
 ]
 
 let appproject = Project.init(name: "Winey",
                               organizationName: "com.winey",
+                              packages: [
+                                .remote(
+                                  url: "https://github.com/google/GoogleSignIn-iOS",
+                                  requirement: .branch("main")
+                                )
+                              ],
                               targets: appTargets)
