@@ -65,6 +65,10 @@ DerivedData/
 *.xcodeproj
 *.xcworkspace
 
+
+### Privacy ###
+APIKeys*.swift
+
 ### Tuist derived files ###
 graph.dot
 Derived/
@@ -72,3 +76,4 @@ Derived/
 ### Tuist managed dependencies ###
 Tuist/Dependencies
 Tuist/Signing
+Tuist/master.key
