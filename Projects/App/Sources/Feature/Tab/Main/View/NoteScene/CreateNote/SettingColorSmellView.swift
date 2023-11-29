@@ -210,43 +210,20 @@ extension SettingColorSmellView {
       ScrollView(.horizontal, showsIndicators: false) {
         HStack(spacing: 7) {
           ForEach(category.list, id: \.self) { category in
-            smellButton(title: category)
+            CapsuleButton(
+              title: category,
+              validation: viewStore.selectedSmell.contains { $0 == category },
+              action: {
+                viewStore.send(.tappedSmellButton(category))
+              }
+            )
           }
         }
         .padding(1)
       }
     }
   }
-  
-  
-  @ViewBuilder
-  private func smellButton(title: String) -> some View {
-    Button(
-      action: {
-        viewStore.send(.tappedSmellButton(title))
-      }, label: {
-        Text(title)
-          .wineyFont(.captionB1)
-          .foregroundStyle(viewStore.selectedSmell.contains { $0 == title } ? .white : WineyKitAsset.gray700.swiftUIColor)
-          .padding(.vertical, 9)
-          .padding(.horizontal, 12)
-          .background(
-            Capsule()
-              .fill(
-                viewStore.selectedSmell.contains { $0 == title } ? WineyKitAsset.main2.swiftUIColor : .clear
-              )
-              .overlay(
-                Capsule()
-                  .stroke(
-                    viewStore.selectedSmell.contains { $0 == title } ? WineyKitAsset.main2.swiftUIColor : WineyKitAsset.gray700.swiftUIColor
-                  )
-              )
-          )
-      }
-    )
-  }
 }
-
 
 #Preview {
   SettingColorSmellView(

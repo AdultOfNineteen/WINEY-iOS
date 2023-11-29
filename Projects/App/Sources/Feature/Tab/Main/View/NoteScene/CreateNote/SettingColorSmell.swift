@@ -19,7 +19,6 @@ public struct SettingColorSmell: Reducer {
     public var scaleFactor: CGFloat = 0
     public var sliderValue: CGFloat = 0
     public var lastCoordinateValue: CGFloat = 0.0
-    public var sliderRange: ClosedRange<Double> = 0...255
     
     public var buttonState: Bool = false
   }
