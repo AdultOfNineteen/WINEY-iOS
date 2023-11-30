@@ -25,6 +25,7 @@ public struct SettingColorSmellView: View {
       NavigationBar(
         title: "와인 정보 입력",
         leftIcon: Image("navigationBack_button"),
+        leftIconButtonAction: { viewStore.send(.tappedBackButton) },
         backgroundColor: .clear
       )
       
@@ -51,6 +52,7 @@ public struct SettingColorSmellView: View {
     .background(
       WineyKitAsset.mainBackground.swiftUIColor
     )
+    .navigationBarHidden(true)
   }
 }
 

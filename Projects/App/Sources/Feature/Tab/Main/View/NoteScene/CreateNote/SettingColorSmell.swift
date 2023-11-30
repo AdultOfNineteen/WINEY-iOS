@@ -25,6 +25,7 @@ public struct SettingColorSmell: Reducer {
   
   public enum Action {
     // MARK: - User Action
+    case tappedBackButton
     case tappedSmellButton(String)
     case dragSlider(DragGesture.Value)
     case tappedNextButton
