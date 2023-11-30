@@ -51,6 +51,14 @@ public struct NoteCoordinator: Reducer {
         )
         return .none
         
+      case .routeAction(_, action: .note(.tappedNoteWriteButton)):
+        state.routes.append(.push(.creatNote(.initialState)))
+        return .none
+        
+      case .routeAction(_, action: .createNote(.routeAction(_, action: .wineSearch(.tappedBackButton)))):
+        state.routes.pop()
+        return .none
+        
       case .routeAction(_, action: .noteDetail(.tappedBackButton)):
         state.routes.pop()
         return .none
@@ -60,6 +68,14 @@ public struct NoteCoordinator: Reducer {
         return .none
         
       case .routeAction(_, action: .filterList(.tappedBackButton)):
+        state.routes.pop()
+        return .none
+        
+      case .routeAction(_, action: .note(._navigateToAnalysis)):
+        state.routes.append(.push(.analysis(.initialState)))
+        return .none
+        
+      case .routeAction(_, action: .analysis(.routeAction(_, action: .wineAnaylsis(.tappedBackButton)))):
         state.routes.pop()
         return .none
         
