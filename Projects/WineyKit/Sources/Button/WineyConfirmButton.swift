@@ -28,6 +28,7 @@ public struct WineyConfirmButton: View {
     .buttonStyle(
       WineyConfirmButtonStyle(validBy: validState)
     )
+    .disabled(!validState)
   }
 }
 
