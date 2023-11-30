@@ -76,6 +76,12 @@ public struct TabBar: Reducer {
       case .note(.routeAction(_, action: .note(.noteFilterScroll(._navigateFilterSetting)))):
         return .send(._setTabHiddenStatus(true))
         
+      case .note(.routeAction(_, action: .note(.tappedNoteWriteButton))):
+        return .send(._setTabHiddenStatus(true))
+        
+      case .note(.routeAction(_, action: .createNote(.routeAction(_, action: .wineSearch(.tappedBackButton))))):
+        return .send(._setTabHiddenStatus(false))
+        
       case .main(.routeAction(_, action: .tipCard(.tappedBackButton))):
         return .send(._setTabHiddenStatus(false))
         
@@ -92,6 +98,12 @@ public struct TabBar: Reducer {
         return .send(._setTabHiddenStatus(false))
         
       case .note(.routeAction(_, action: .filterList(.tappedAdaptButton))):
+        return .send(._setTabHiddenStatus(false))
+        
+      case .note(.routeAction(_, action: .note(._navigateToAnalysis))):
+        return .send(._setTabHiddenStatus(true))
+        
+      case .note(.routeAction(_, action: .analysis(.routeAction(_, action: .wineAnaylsis(.tappedBackButton))))):
         return .send(._setTabHiddenStatus(false))
         
       case .map:
