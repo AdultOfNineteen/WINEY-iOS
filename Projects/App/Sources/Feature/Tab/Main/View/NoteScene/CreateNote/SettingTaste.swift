@@ -18,17 +18,11 @@ public struct SettingTaste: Reducer {
     public var tannin: Int = 0
     public var alcohol: Int = 0
     public var finish: Int = 0
-    
-    public var originSweetness: Int = 2
-    public var originAcidity: Int = 3
-    public var originBody: Int = 1
-    public var originTannin: Int = 0
   }
   
   public enum Action {
     // MARK: - User Action
-    case tapPicker
-    case selectAlcoholValue(Int)
+    case tappedBackButton
     case tappedNextButton
     case tappedHelpButton
   

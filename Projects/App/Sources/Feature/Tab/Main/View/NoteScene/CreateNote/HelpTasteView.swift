@@ -11,11 +11,11 @@ import SwiftUI
 import WineyKit
 
 public struct HelpTasteView: View {
-  @State private var point: Int = 0
-  private let store: StoreOf<SettingTaste>
-  @ObservedObject var viewStore: ViewStoreOf<SettingTaste>
   
-  public init(store: StoreOf<SettingTaste>) {
+  private let store: StoreOf<HelpTaste>
+  @ObservedObject var viewStore: ViewStoreOf<HelpTaste>
+  
+  public init(store: StoreOf<HelpTaste>) {
     self.store = store
     self.viewStore = ViewStore(self.store, observe: { $0 })
   }
@@ -24,6 +24,9 @@ public struct HelpTasteView: View {
     VStack(alignment: .leading, spacing: 0) {
       NavigationBar(
         leftIcon: Image("navigationBack_button"),
+        leftIconButtonAction: {
+          viewStore.send(.tappedBackButton)
+        },
         backgroundColor: .clear
       )
       
@@ -35,6 +38,7 @@ public struct HelpTasteView: View {
     .background(
       WineyKitAsset.mainBackground.swiftUIColor
     )
+    .navigationBarHidden(true)
   }
 }
 
@@ -153,7 +157,7 @@ extension HelpTasteView {
         
         Rectangle()
           .frame(height: 1)
-          .frame(width: CGFloat(point - 1) * ((UIScreen.main.bounds.width - 48) / 4))
+          .frame(width: CGFloat(value - 1) * ((UIScreen.main.bounds.width - 48) / 4))
           .foregroundStyle(WineyKitAsset.gray500.swiftUIColor)
       }
     }
@@ -164,9 +168,9 @@ extension HelpTasteView {
 #Preview {
   HelpTasteView(
     store: Store(
-      initialState: SettingTaste.State(),
+      initialState: HelpTaste.State(),
       reducer: {
-        SettingTaste()
+        HelpTaste()
       }
     )
   )

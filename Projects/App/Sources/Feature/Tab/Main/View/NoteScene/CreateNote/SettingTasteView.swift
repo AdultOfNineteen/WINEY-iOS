@@ -24,6 +24,9 @@ public struct SettingTasteView: View {
       NavigationBar(
         title: "와인 정보 입력",
         leftIcon: Image("navigationBack_button"),
+        leftIconButtonAction: {
+          viewStore.send(.tappedBackButton)
+        },
         backgroundColor: .clear
       )
       
@@ -44,6 +47,7 @@ public struct SettingTasteView: View {
     .background(
       WineyKitAsset.mainBackground.swiftUIColor
     )
+    .navigationBarHidden(true)
   }
 }
 
