@@ -11,7 +11,6 @@ import SwiftUI
 
 public struct SettingTaste: Reducer {
   public struct State: Equatable {
-    public var buttonState: Bool = false
     public var sweetness: Int = 0
     public var acidity: Int = 0
     public var body: Int = 0
@@ -36,7 +35,6 @@ public struct SettingTaste: Reducer {
     case _setTannin(Int)
     case _setAlcohol(Int)
     case _setFinish(Int)
-    case _setButtonState
 
     
     // MARK: - Child Action
@@ -45,10 +43,6 @@ public struct SettingTaste: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
-        
-      case ._setButtonState:
-        state.buttonState = true
-        return .none
      
       case ._setSweetness(let value):
         state.sweetness = value

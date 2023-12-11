@@ -34,14 +34,16 @@ public struct SettingAlcoholView: View {
       Spacer()
       
       BottomOptionButton(
-        validation: viewStore.buttonState
+        validation: viewStore.buttonState,
+        tooltipVisible: viewStore.tooltipVisible
       ) {
-        viewStore.send(.tapNextButton)
+        viewStore.send(.tappedNextButton)
       }
     }
     .background(
       WineyKitAsset.mainBackground.swiftUIColor
     )
+    .navigationBarHidden(true)
   }
 }
 
@@ -57,6 +59,7 @@ extension SettingAlcoholView {
         NavigationBar(
           title: "와인 정보 입력",
           leftIcon: Image("navigationBack_button"),
+          leftIconButtonAction: { viewStore.send(.tappedBackButton) },
           backgroundColor: .clear
         )
         .padding(.top, 50)

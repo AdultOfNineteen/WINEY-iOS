@@ -27,6 +27,7 @@ public struct Note: Reducer {
     case tappedNoteWriteButton
     
     // MARK: - Inner Business Action
+    case _navigateToAnalysis
     
     // MARK: - Inner SetState Action
     
@@ -46,6 +47,9 @@ public struct Note: Reducer {
     
     Reduce<State, Action> { state, action in
       switch action {
+      
+      case .tappedAnalysisButton:
+        return .send(._navigateToAnalysis)
         
       default:
         return .none

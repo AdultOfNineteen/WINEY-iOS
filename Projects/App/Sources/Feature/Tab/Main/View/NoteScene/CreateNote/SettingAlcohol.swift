@@ -18,17 +18,21 @@ public struct SettingAlcohol: Reducer {
     public var viewHeight: CGFloat = 362
     
     public var buttonState: Bool = false
+    
+    public var tooltipVisible: Bool = true
   }
   
   public enum Action {
     // MARK: - User Action
+    case tappedBackButton
     case tapPicker
     case selectAlcoholValue(Int)
-    case tapNextButton
+    case tappedNextButton
   
     // MARK: - Inner Business Action
     case _setAlcoholValue(Int)
     case _setButtonState
+    case _tooltipHide
     
     // MARK: - Inner SetState Action
     
@@ -36,12 +40,14 @@ public struct SettingAlcohol: Reducer {
   }
   
   public var body: some ReducerOf<Self> {
+    
     Reduce { state, action in
       switch action {
       case .selectAlcoholValue(let value):
         return .send(._setAlcoholValue(value))
         
       case ._setAlcoholValue(let value):
+        state.tooltipVisible = false
         state.alcoholValue = value
         return .send(._setButtonState)
         
@@ -49,7 +55,14 @@ public struct SettingAlcohol: Reducer {
         state.buttonState = true
         return .none
         
-      case .tapNextButton:
+      case .tappedNextButton:
+        return .none
+        
+      case .tapPicker:
+        return .send(._tooltipHide)
+        
+      case ._tooltipHide:
+        state.tooltipVisible = false
         return .none
         
       default:
