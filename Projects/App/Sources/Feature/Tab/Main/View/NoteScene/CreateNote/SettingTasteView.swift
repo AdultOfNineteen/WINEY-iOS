@@ -36,7 +36,7 @@ public struct SettingTasteView: View {
       
       Spacer()
       
-      WineyConfirmButton(title: "다음", validBy: viewStore.buttonState) {
+      WineyConfirmButton(title: "다음", validBy: viewStore.finish > 0) {
         viewStore.send(.tappedNextButton)
       }
       .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
@@ -91,7 +91,7 @@ extension SettingTasteView {
       case .tannin:
         return "떫고 씁쓸함의 정도"
       case .alcohol:
-        return "단맛의 정도"
+        return "알코올 향과 맛의 정도"
       case .finish:
         return "마신 후 맛과 향이 지속되는 정도"
       }
@@ -178,7 +178,6 @@ extension SettingTasteView {
             .onChange(of: viewStore.alcohol, perform: { [finish = viewStore.finish] value in
               if finish == 0 && value > 0 {
                 proxy.scrollTo(5, anchor: .bottom)
-                viewStore.send(._setButtonState)
               }
             })
             .padding(.bottom, 17)
