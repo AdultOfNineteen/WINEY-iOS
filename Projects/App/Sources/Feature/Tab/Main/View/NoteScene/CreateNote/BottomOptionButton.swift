@@ -11,6 +11,7 @@ import WineyKit
 
 public struct BottomOptionButton: View {
   public var validation: Bool
+  public var tooltipVisible: Bool
   public var action: () -> Void
   
   public var body: some View {
@@ -36,6 +37,7 @@ public struct BottomOptionButton: View {
     .overlay(
       ReverseToolTip(content: "건너뛰기를 누르면 내용이 저장되지 않아요.")
         .offset(x: -50, y: -60)
+        .opacity(tooltipVisible ? 1.0 : 0.0)
     )
     .padding(.bottom, 20)
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
