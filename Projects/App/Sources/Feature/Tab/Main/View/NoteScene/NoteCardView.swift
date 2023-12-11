@@ -125,7 +125,7 @@ public struct WineNoteCardBackground: View {
         .fill(
           wineBackgroundComponent.secondCircle
         )
-        .frame(width: 100, height: 100)
+        .frame(width: 90, height: 90)
         .offset(x: 10, y: 20)
         .blur(radius: 20)
       
@@ -140,45 +140,47 @@ public struct WineNoteCardBackground: View {
 
 struct NoteCardView_Previews: PreviewProvider {
   static var previews: some View {
-    NoteCardView(
-      store: Store(
-        initialState: NoteCard.State.init(
-          index: 0,
-          noteCardData:
-            NoteCardData(
-              id: 0,
-              noteDate: "2023.10.11",
-              wineType: WineType.red,
-              wineName: "test",
-              region: "test",
-              star: 1,
-              color: Color.blue,
-              buyAgain: true,
-              varietal: "test",
-              officialAlcohol: 24.0,
-              price: 5,
-              smellKeywordList: ["test"],
-              myWineTaste: MyWineTaste(
-                description: "testetsetse",
-                sweetness: 3.0,
-                acidity: 4.2,
-                alcohol: 1.4,
-                body: 3.0,
-                tannin: 2.4,
-                finish: 3.4
-              ),
-              defaultWineTaste: DefaultWineTaste(
-                description: "test",
-                sweetness: 2.4,
-                acidity: 4.3,
-                body: 3.3,
-                tannin: 1.4
-              ),
-              memo: "test"
-            )
-        ), reducer: {
-          NoteCard()
-        })
-    )
+    ZStack {
+      Color.black
+      
+      NoteCardView(
+        store: Store(
+          initialState: NoteCard.State.init(
+            index: 0,
+            noteCardData:
+              NoteCardData(
+                id: 0,
+                noteDate: "2023.10.11",
+                wineType: WineType.red,
+                wineName: "test",
+                region: "test",
+                star: 1,
+                color: Color.blue,
+                buyAgain: true,
+                varietal: "test",
+                officialAlcohol: 24.0,
+                price: 5,
+                smellKeywordList: ["test"],
+                myWineTaste: MyWineTaste(
+                  sweetness: 3.0,
+                  acidity: 4.2,
+                  alcohol: 1.4,
+                  body: 3.0,
+                  tannin: 2.4,
+                  finish: 3.4
+                ),
+                defaultWineTaste: DefaultWineTaste(
+                  sweetness: 2.4,
+                  acidity: 4.3,
+                  body: 3.3,
+                  tannin: 1.4
+                ),
+                memo: "test"
+              )
+          ), reducer: {
+            NoteCard()
+          })
+      )
+    }
   }
 }

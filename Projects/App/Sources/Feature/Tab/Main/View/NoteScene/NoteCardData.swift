@@ -27,7 +27,6 @@ public struct NoteCardData: Identifiable, Equatable {
 }
 
 public struct MyWineTaste: Hashable {
-  public let description: String
   public let sweetness: Double
   public let acidity: Double
   public let alcohol: Double
@@ -37,7 +36,6 @@ public struct MyWineTaste: Hashable {
 }
 
 public struct DefaultWineTaste: Hashable {
-  public let description: String
   public let sweetness: Double
   public let acidity: Double
   public let body: Double

@@ -263,7 +263,6 @@ extension NoteDetailView {
           price: 5.0,
           smellKeywordList: ["레몬", "배", "제비꽃", "제비꽃", "제비꽃", "제비꽃"],
           myWineTaste: MyWineTaste(
-            description: "testetsetse",
             sweetness: 3.0,
             acidity: 4.2,
             alcohol: 1.4,
@@ -272,7 +271,6 @@ extension NoteDetailView {
             finish: 3.4
           ),
           defaultWineTaste: DefaultWineTaste(
-            description: "test",
             sweetness: 2.4,
             acidity: 4.3,
             body: 3.3,
