@@ -23,6 +23,8 @@ public struct SettingMemo: Reducer {
     
     public var maxCommentLength: Int = 200
     public var starRange: ClosedRange<Int> = 1...5
+    
+    public var isPresentedBottomSheet: Bool = false
   }
   
   public enum Action {
@@ -34,7 +36,8 @@ public struct SettingMemo: Reducer {
     case tappedBuyAgain(Bool)
     case writingMemo(String)
     case tappedDelImage(Int)
-  
+    case tappedOutsideOfBottomSheet
+    
     // MARK: - Inner Business Action
 
     // MARK: - Inner SetState Action
@@ -45,6 +48,8 @@ public struct SettingMemo: Reducer {
     case _delDisplayPhoto
     case _delPickPhoto
     case _addPhoto(Image)
+    case _backToFirstView
+    case _presentBottomSheet(Bool)
     
     // MARK: - Child Action
   }
@@ -60,6 +65,9 @@ public struct SettingMemo: Reducer {
       case .writingMemo(let value):
         state.memo = value
         return .none
+        
+      case .tappedBackButton:
+        return .send(._presentBottomSheet(true))
         
       case .tappedAttachPictureButton:
         return .none
@@ -107,6 +115,10 @@ public struct SettingMemo: Reducer {
         
       case ._addPhoto(let image):
         state.displayPhoto.append(image)
+        return .none
+        
+      case ._presentBottomSheet(let bool):
+        state.isPresentedBottomSheet = bool
         return .none
         
       default:
