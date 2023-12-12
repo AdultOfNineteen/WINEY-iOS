@@ -70,6 +70,13 @@ public struct WritingNoteCoordinatorView: View {
              action: WritingNoteScreen.Action.setMemo,
              then: SettingMemoView.init
           )
+          
+        case .noteDone:
+          CaseLet(
+            /WritingNoteScreen.State.noteDone,
+             action: WritingNoteScreen.Action.noteDone,
+             then: NoteDoneView.init
+          )
         }
       }
     }

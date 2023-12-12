@@ -59,6 +59,10 @@ public struct NoteCoordinator: Reducer {
         state.routes.pop()
         return .none
         
+      case .routeAction(_, action: .createNote(.routeAction(_, action: .noteDone(.tappedButton)))):
+        state.routes.pop()
+        return .none
+        
       case .routeAction(_, action: .noteDetail(.tappedBackButton)):
         state.routes.pop()
         return .none

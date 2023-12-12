@@ -20,6 +20,7 @@ public struct WritingNoteScreen: Reducer {
     case setTaste(SettingTaste.State)
     case helpTaste(HelpTaste.State)
     case setMemo(SettingMemo.State)
+    case noteDone(NoteDone.State)
   }
 
   public enum Action {
@@ -30,6 +31,7 @@ public struct WritingNoteScreen: Reducer {
     case setTaste(SettingTaste.Action)
     case helpTaste(HelpTaste.Action)
     case setMemo(SettingMemo.Action)
+    case noteDone(NoteDone.Action)
   }
   
   public var body: some ReducerOf<Self> {
@@ -59,6 +61,10 @@ public struct WritingNoteScreen: Reducer {
     
     Scope(state: /State.setMemo, action: /Action.setMemo) {
       SettingMemo()
+    }
+    
+    Scope(state: /State.noteDone, action: /Action.noteDone) {
+      NoteDone()
     }
   }
 }

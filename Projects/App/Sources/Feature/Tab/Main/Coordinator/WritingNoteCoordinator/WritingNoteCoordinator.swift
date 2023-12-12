@@ -58,6 +58,10 @@ public struct WritingNoteCoordinator: Reducer {
         state.routes.append(.push(.helpTaste(.init())))
         return .none
         
+      case .routeAction(_, action: .setMemo(.tappedDoneButton)):
+        state.routes.append(.push(.noteDone(.init())))
+        return .none
+        
       case .routeAction(_, action: .setAlcohol(.tappedBackButton)):
         state.routes.pop()
         return .none
