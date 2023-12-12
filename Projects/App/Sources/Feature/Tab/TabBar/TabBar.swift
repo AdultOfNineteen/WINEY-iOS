@@ -106,6 +106,9 @@ public struct TabBar: Reducer {
       case .note(.routeAction(_, action: .analysis(.routeAction(_, action: .wineAnaylsis(.tappedBackButton))))):
         return .send(._setTabHiddenStatus(false))
         
+      case .note(.routeAction(_, action: .createNote(.routeAction(_, action: .noteDone(.tappedButton))))):
+        return .send(._setTabHiddenStatus(false))
+        
       case .map:
         return .none
         
