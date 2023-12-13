@@ -72,7 +72,7 @@ extension WineConfirmView {
     VStack(spacing: 0) {
       VStack(spacing: -10) {
         HStack(spacing: 3) {
-          Text(viewStore.wineData.type)
+          Text(viewStore.wineData.wineType.typeName)
             .wineyFont(.cardTitle)
           
           WineyAsset.Assets.star1.swiftUIImage
@@ -86,12 +86,12 @@ extension WineConfirmView {
         .padding(.leading, 19)
         .padding(.top, 14)
         
-        WineType.changeType(at: viewStore.wineData.type).illustImage
+        viewStore.wineData.wineType.illustImage
           .resizable()
           .aspectRatio(contentMode: .fit)
           .padding(.bottom, 4)
       }
-      .frame(width: 156, height: 163)
+      .frame(width: UIScreen.main.bounds.width / 2 - 24 - 15, height: 163)
       .background(
         RoundedRectangle(cornerRadius: 10)
           .fill(Color(red: 63/255, green: 63/255, blue: 63/255).opacity(0.4))
@@ -101,10 +101,8 @@ extension WineConfirmView {
                 .fill(
                   LinearGradient(
                     colors: [
-                      WineType.changeType(at: viewStore.wineData.type)
-                          .backgroundColor.firstCircleStart,
-                      WineType.changeType(at: viewStore.wineData.type)
-                          .backgroundColor.firstCircleEnd.opacity(0.3)
+                      viewStore.wineData.wineType.backgroundColor.firstCircleStart,
+                      viewStore.wineData.wineType.backgroundColor.firstCircleEnd.opacity(0.25)
                     ],
                     startPoint: .top,
                     endPoint: .bottom
@@ -117,19 +115,18 @@ extension WineConfirmView {
               
               RadialGradient(
                 colors: [
-                  WineType.changeType(at: viewStore.wineData.type)
-                    .backgroundColor.secondCircle,
+                  viewStore.wineData.wineType.backgroundColor.secondCircle,
                   .clear
                 ],
                 center: .center,
-                startRadius: 10,
-                endRadius: 80
+                startRadius: 5,
+                endRadius: 75
               )
               .padding(.leading, 30)
               .padding(.top, 40)
             }
           )
-          .blur(radius: 10)
+          .blur(radius: 5)
           .overlay(
             RoundedRectangle(cornerRadius: 10)
               .stroke(
@@ -180,9 +177,9 @@ extension WineConfirmView {
   WineConfirmView(
     store: Store(
       initialState: WineConfirm.State.init(
-        wineData: WineDTO(
-          wineId: 1,
-          type: "RED",
+        wineData: WineCardData(
+          id: 0,
+          wineType: .red,
           name: "mock1",
           country: "mock1",
           varietal: "프리미티보",
