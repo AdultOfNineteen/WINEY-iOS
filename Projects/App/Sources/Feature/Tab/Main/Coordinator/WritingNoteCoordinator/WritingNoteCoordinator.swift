@@ -35,6 +35,35 @@ public struct WritingNoteCoordinator: Reducer {
       switch action {
         
       case .routeAction(_, action: .wineSearch(.noteCard(id: _, action: ._navigateToCardDetail(_, _)))):
+        state.routes.append(
+          .push(
+            .wineConfirm(
+              .init(
+                wineData: WineDTO(
+                  wineId: 1,
+                  type: "PORT",
+                  name: "mock1",
+                  country: "mock1",
+                  varietal: "랄라라",
+                  sweetness: 3,
+                  acidity: 2,
+                  body: 3,
+                  tannins: 4,
+                  wineSummary: WineSummary(
+                    avgPrice: 1.0,
+                    avgSweetness: 2,
+                    avgAcidity: 3,
+                    avgBody: 2,
+                    avgTannins: 1
+                  )
+                )
+              )
+            )
+          )
+        )
+        return .none
+        
+      case .routeAction(_, action: .wineConfirm(.tappedWritingButton)):
         state.routes.append(.push(.setAlcohol(.init())))
         return .none
         
@@ -62,6 +91,10 @@ public struct WritingNoteCoordinator: Reducer {
         state.routes.append(.push(.noteDone(.init())))
         return .none
         
+      case .routeAction(_, action: .wineConfirm(.tappedBackButton)):
+        state.routes.pop()
+        return .none
+        
       case .routeAction(_, action: .setAlcohol(.tappedBackButton)):
         state.routes.pop()
         return .none
@@ -81,7 +114,7 @@ public struct WritingNoteCoordinator: Reducer {
       case .routeAction(_, action: .helpTaste(.tappedBackButton)):
         state.routes.pop()
         return .none
-
+        
       default:
         return .none
       }

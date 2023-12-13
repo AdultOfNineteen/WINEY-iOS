@@ -14,6 +14,7 @@ import TCACoordinators
 public struct WritingNoteScreen: Reducer {
   public enum State: Equatable {
     case wineSearch(WineSearch.State)
+    case wineConfirm(WineConfirm.State)
     case setAlcohol(SettingAlcohol.State)
     case setVintage(SettingVintage.State)
     case setColorSmell(SettingColorSmell.State)
@@ -25,6 +26,7 @@ public struct WritingNoteScreen: Reducer {
 
   public enum Action {
     case wineSearch(WineSearch.Action)
+    case wineConfirm(WineConfirm.Action)
     case setAlcohol(SettingAlcohol.Action)
     case setVintage(SettingVintage.Action)
     case setColorSmell(SettingColorSmell.Action)
@@ -37,6 +39,10 @@ public struct WritingNoteScreen: Reducer {
   public var body: some ReducerOf<Self> {
     Scope(state: /State.wineSearch, action: /Action.wineSearch) {
       WineSearch()
+    }
+    
+    Scope(state: /State.wineConfirm, action: /Action.wineConfirm) {
+      WineConfirm()
     }
     
     Scope(state: /State.setAlcohol, action: /Action.setAlcohol) {

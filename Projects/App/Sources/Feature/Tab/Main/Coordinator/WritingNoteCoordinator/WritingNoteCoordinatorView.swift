@@ -29,6 +29,13 @@ public struct WritingNoteCoordinatorView: View {
              then: WineSearchView.init
           )
           
+        case .wineConfirm:
+          CaseLet(
+            /WritingNoteScreen.State.wineConfirm,
+             action: WritingNoteScreen.Action.wineConfirm,
+             then: WineConfirmView.init
+          )
+          
         case .setAlcohol:
           CaseLet(
             /WritingNoteScreen.State.setAlcohol,
