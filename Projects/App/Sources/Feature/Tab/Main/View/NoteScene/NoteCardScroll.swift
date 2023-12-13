@@ -31,7 +31,6 @@ public struct NoteCardScroll: Reducer {
             price: 5,
             smellKeywordList: ["test"],
             myWineTaste: MyWineTaste(
-              description: "testetsetse",
               sweetness: 3.0,
               acidity: 4.2,
               alcohol: 1.4,
@@ -40,7 +39,6 @@ public struct NoteCardScroll: Reducer {
               finish: 3.4
             ),
             defaultWineTaste: DefaultWineTaste(
-              description: "test",
               sweetness: 2.4,
               acidity: 4.3,
               body: 3.3,
@@ -65,7 +63,6 @@ public struct NoteCardScroll: Reducer {
             price: 5,
             smellKeywordList: ["test"],
             myWineTaste: MyWineTaste(
-              description: "testetsetse",
               sweetness: 3.0,
               acidity: 4.2,
               alcohol: 1.4,
@@ -74,7 +71,6 @@ public struct NoteCardScroll: Reducer {
               finish: 3.4
             ),
             defaultWineTaste: DefaultWineTaste(
-              description: "test",
               sweetness: 2.4,
               acidity: 4.3,
               body: 3.3,

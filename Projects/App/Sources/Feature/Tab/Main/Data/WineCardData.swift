@@ -11,27 +11,43 @@ import WineyKit
 
 // MARK: WINEDATA
 public struct WineCardData: Hashable, Identifiable {
+  public static func == (lhs: WineCardData, rhs: WineCardData) -> Bool {
+    return true
+  }
+  
   public let id: Int
   public let wineType: WineType
-  public let wineName: String
-  public let nationalAnthems: String
-  public let varities: String
-  public let purchasePrice: Double
+  public let name: String
+  public let country: String
+  public let varietal: String
+  public let sweetness: Int
+  public let acidity: Int
+  public let body: Int
+  public let tannins: Int
+  public let wineSummary: WineSummary
   
-  public init (
+  public init(
     id: Int,
     wineType: WineType,
-    wineName: String,
-    nationalAnthems: String,
-    varities: String,
-    purchasePrice: Double
+    name: String,
+    country: String,
+    varietal: String,
+    sweetness: Int,
+    acidity: Int,
+    body: Int,
+    tannins: Int,
+    wineSummary: WineSummary
   ) {
     self.id = id
     self.wineType = wineType
-    self.wineName = wineName
-    self.nationalAnthems = nationalAnthems
-    self.varities = varities
-    self.purchasePrice = purchasePrice
+    self.name = name
+    self.country = country
+    self.varietal = varietal
+    self.sweetness = sweetness
+    self.acidity = acidity
+    self.body = body
+    self.tannins = tannins
+    self.wineSummary = wineSummary
   }
 }
 

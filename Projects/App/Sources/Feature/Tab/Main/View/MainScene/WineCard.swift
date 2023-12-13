@@ -13,7 +13,7 @@ import Foundation
 public struct WineCard: Reducer {
   public struct State: Equatable, Identifiable {
     var index: Int
-    var wineCardData: WineCardData
+    var recommendWineData: RecommendWineData
     public var id: Int { self.index }
   }
   
@@ -22,7 +22,7 @@ public struct WineCard: Reducer {
     case wineCardTapped
     
     // MARK: - Inner Business Action
-    case _navigateToCardDetail(Int, WineCardData)
+    case _navigateToCardDetail(Int, RecommendWineData)
     
     // MARK: - Inner SetState Action
     
@@ -33,7 +33,7 @@ public struct WineCard: Reducer {
     switch action {
     case .wineCardTapped:
       print("GO TO WINE DETAIL")
-      return .send(._navigateToCardDetail(state.wineCardData.id, state.wineCardData))
+      return .send(._navigateToCardDetail(state.recommendWineData.id, state.recommendWineData))
     case ._navigateToCardDetail:
       return .none
     default:

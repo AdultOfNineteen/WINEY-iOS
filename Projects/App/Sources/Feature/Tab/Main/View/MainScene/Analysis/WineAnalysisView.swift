@@ -60,21 +60,16 @@ public struct WineAnalysisView: View {
           Button {
             viewStore.send(.tappedAnalysis)
           } label: {
-            RoundedRectangle(cornerRadius: 45)
-              .fill(WineyKitAsset.main1.swiftUIColor)
-              .frame(width: 195, height: 51)
-              .shadow(color: WineyKitAsset.main1.swiftUIColor, radius: 8)
-              .overlay(
-                Text("분석하기")
-                  .wineyFont(.bodyB2)
-                  .foregroundColor(.white)
-                  .padding(.horizontal, 73)
-                  .padding(.vertical, 16)
-                  .background {
-                    RoundedRectangle(cornerRadius: 46)
-                      .fill(WineyKitAsset.main1.swiftUIColor)
-                  }
-              )
+            Text("분석하기")
+              .wineyFont(.bodyB2)
+              .foregroundColor(.white)
+              .padding(.horizontal, 73)
+              .padding(.vertical, 16)
+              .background {
+                RoundedRectangle(cornerRadius: 46)
+                  .fill(WineyKitAsset.main1.swiftUIColor)
+                  .shadow(color: WineyKitAsset.main1.swiftUIColor, radius: 8)
+              }
           }
           .padding(.bottom, 109)
         }

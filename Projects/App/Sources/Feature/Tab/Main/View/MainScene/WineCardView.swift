@@ -25,7 +25,7 @@ public struct WineCardView: View {
       let cardWidth: CGFloat = geo.size.width
       
       ZStack {
-        WineCardBackground(wineBackgroundComponent: viewStore.wineCardData.wineType.backgroundColor)
+        WineCardBackground(wineBackgroundComponent: viewStore.recommendWineData.wineType.backgroundColor)
           .offset(x: 17.5, y: 21)
         
         // Wine Card Border
@@ -155,7 +155,7 @@ public struct WineCardView: View {
           path.move(to: lineTopLeft)
           path.addLine(to: lineTopRight)
         }
-        .stroke(viewStore.wineCardData.wineType.lineColor, lineWidth: 1)
+        .stroke(viewStore.recommendWineData.wineType.lineColor, lineWidth: 1)
         
         Path { path in
           let lineVerticalStart = CGPoint(
@@ -166,7 +166,7 @@ public struct WineCardView: View {
           path.move(to: lineVerticalStart)
           path.addLine(to: lineVerticalEnd)
         }
-        .stroke(viewStore.wineCardData.wineType.lineColor, lineWidth: 1)
+        .stroke(viewStore.recommendWineData.wineType.lineColor, lineWidth: 1)
         
         Path { path in
           let lineSecondLeft = CGPoint(x: 107, y: 203)
@@ -174,7 +174,7 @@ public struct WineCardView: View {
           path.move(to: lineSecondLeft)
           path.addLine(to: lineSecondRight)
         }
-        .stroke(viewStore.wineCardData.wineType.lineColor, lineWidth: 1)
+        .stroke(viewStore.recommendWineData.wineType.lineColor, lineWidth: 1)
         
         Path { path in
           let lineThirdLeft = CGPoint(x: 107, y: 261)
@@ -182,15 +182,15 @@ public struct WineCardView: View {
           path.move(to: lineThirdLeft)
           path.addLine(to: lineThirdRight)
         }
-        .stroke(viewStore.wineCardData.wineType.lineColor, lineWidth: 1)
+        .stroke(viewStore.recommendWineData.wineType.lineColor, lineWidth: 1)
         
-        viewStore.wineCardData.wineType.illustImage
+        viewStore.recommendWineData.wineType.illustImage
           .position(x: 30 + 33, y: 181 + 59)
         
         VStack(spacing: 0) {
           // MARK: WINE TYPE
           HStack {
-            Text(viewStore.wineCardData.wineType.typeName)
+            Text(viewStore.recommendWineData.wineType.typeName)
               .wineyFont(.display1)
               .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
               .frame(height: 54, alignment: .topLeading)
@@ -209,7 +209,7 @@ public struct WineCardView: View {
           
           // MARK: WINE NAME45
           HStack {
-            Text(viewStore.wineCardData.wineName.useNonBreakingSpace())
+            Text(viewStore.recommendWineData.name.useNonBreakingSpace())
               .wineyFont(.captionM1)
               .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
               .lineLimit(2)
@@ -234,7 +234,7 @@ public struct WineCardView: View {
             .padding(.leading, 120)
             
             HStack {
-              Text(viewStore.wineCardData.nationalAnthems)
+              Text(viewStore.recommendWineData.country)
                 .wineyFont(.captionB1)
                 .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
               
@@ -257,7 +257,7 @@ public struct WineCardView: View {
             .padding(.leading, 120)
             
             HStack {
-              Text(viewStore.wineCardData.varities)
+              Text(viewStore.recommendWineData.varietal)
                 .wineyFont(.captionB1)
                 .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
               
@@ -280,7 +280,7 @@ public struct WineCardView: View {
             .padding(.leading, 120)
             
             HStack {
-              Text("\(String(format: "%.2f", viewStore.wineCardData.purchasePrice))")
+              Text("\(String(format: "%.2f", viewStore.recommendWineData.price))")
                 .wineyFont(.captionB1)
                 .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
               
