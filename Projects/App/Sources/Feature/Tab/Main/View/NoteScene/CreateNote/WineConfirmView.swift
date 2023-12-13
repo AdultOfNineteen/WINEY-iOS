@@ -86,7 +86,7 @@ extension WineConfirmView {
         .padding(.leading, 19)
         .padding(.top, 14)
         
-        WineyAsset.Assets.redIllust.swiftUIImage
+        WineType.changeType(at: viewStore.wineData.type).illustImage
           .resizable()
           .aspectRatio(contentMode: .fit)
           .padding(.bottom, 4)
