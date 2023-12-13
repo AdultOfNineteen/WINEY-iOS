@@ -95,6 +95,41 @@ extension WineConfirmView {
       .background(
         RoundedRectangle(cornerRadius: 10)
           .fill(Color(red: 63/255, green: 63/255, blue: 63/255).opacity(0.4))
+          .background(
+            ZStack {
+              Circle()
+                .fill(
+                  LinearGradient(
+                    colors: [
+                      WineType.changeType(at: viewStore.wineData.type)
+                          .backgroundColor.firstCircleStart,
+                      WineType.changeType(at: viewStore.wineData.type)
+                          .backgroundColor.firstCircleEnd.opacity(0.3)
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
+                  )
+                )
+                .frame(height: 70)
+                .padding(.trailing, 55)
+                .padding(.bottom, 70)
+                .blur(radius: 10)
+              
+              RadialGradient(
+                colors: [
+                  WineType.changeType(at: viewStore.wineData.type)
+                    .backgroundColor.secondCircle,
+                  .clear
+                ],
+                center: .center,
+                startRadius: 10,
+                endRadius: 80
+              )
+              .padding(.leading, 30)
+              .padding(.top, 40)
+            }
+          )
+          .blur(radius: 10)
           .overlay(
             RoundedRectangle(cornerRadius: 10)
               .stroke(
@@ -147,7 +182,7 @@ extension WineConfirmView {
       initialState: WineConfirm.State.init(
         wineData: WineDTO(
           wineId: 1,
-          type: "PORT",
+          type: "RED",
           name: "mock1",
           country: "mock1",
           varietal: "프리미티보",
