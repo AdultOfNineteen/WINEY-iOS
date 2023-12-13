@@ -26,7 +26,7 @@ public struct WineDTO: Codable, Equatable {
 }
 
 // MARK: - WineSummary
-public struct WineSummary: Codable {
+public struct WineSummary: Codable, Hashable {
   let avgPrice: Double
   let avgSweetness: Int
   let avgAcidity: Int

@@ -49,7 +49,7 @@ public struct WineDetailView: View {
             .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
             
             HStack {
-              Text(viewStore.wineCardData.wineName.useNonBreakingSpace())
+              Text(viewStore.wineCardData.name.useNonBreakingSpace())
                 .wineyFont(.bodyB2)
                 .foregroundColor(WineyKitAsset.gray500.swiftUIColor)
                 .frame(width: 271, height: 64, alignment: .topLeading)
@@ -63,14 +63,14 @@ public struct WineDetailView: View {
             .overlay(WineyKitAsset.gray900.swiftUIColor)
             .padding(.top, 20)
           
-          WineDetailInfoMiddle(
-            illustImage: viewStore.wineCardData.wineType.illustImage,
-            circleBorderColor: viewStore.wineCardData.wineType.cirlcleBorderColor,
-            secondaryColor: viewStore.wineCardData.wineType.backgroundColor.secondCircle,
-            nationalAnthems: viewStore.wineCardData.nationalAnthems,
-            varities: viewStore.wineCardData.varities,
-            purchasePrice: viewStore.wineCardData.purchasePrice
-          )
+//          WineDetailInfoMiddle(
+//            illustImage: viewStore.windDetailData.wineType.illustImage,
+//            circleBorderColor: viewStore.windDetailData.wineType.cirlcleBorderColor,
+//            secondaryColor: viewStore.windDetailData.wineType.backgroundColor.secondCircle,
+//            nationalAnthems: viewStore.windDetailData.country,
+//            varities: viewStore.windDetailData?.varietal,
+//            purchasePrice: viewStore.windDetailData?.wineSummary.avgPrice
+//          )
           .padding(.top, 42)
           
           Divider()
@@ -280,24 +280,24 @@ public struct WineDetailIllust: View {
 
 
 // MARK: PREVIEW
-struct WineDetailView_Previews: PreviewProvider {
-  static var previews: some View {
-    WineDetailView(
-      store: Store(
-        initialState: WineDetail.State(
-          windId: 1,
-          wineCardData: WineCardData(
-            id: 1,
-            wineType: .red,
-            wineName: "test",
-            nationalAnthems: "test",
-            varities: "test",
-            purchasePrice: 1.22)
-        ), reducer: {
-          WineDetail()
-            .dependency(\.wine, .mock)
-        }
-      )
-    )
-  }
-}
+//struct WineDetailView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    WineDetailView(
+//      store: Store(
+//        initialState: WineDetail.State(
+//          windId: 1,
+//          wineCardData: WineCardData(
+//            id: 1,
+//            wineType: .red,
+//            wineName: "test",
+//            nationalAnthems: "test",
+//            varities: "test",
+//            purchasePrice: 1.22)
+//        ), reducer: {
+//          WineDetail()
+//            .dependency(\.wine, .mock)
+//        }
+//      )
+//    )
+//  }
+//}

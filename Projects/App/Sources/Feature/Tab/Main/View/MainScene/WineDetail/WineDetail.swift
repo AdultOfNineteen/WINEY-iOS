@@ -13,12 +13,12 @@ import SwiftUI
 public struct WineDetail: Reducer {
   public struct State: Equatable {
     let wineId: Int
-    let wineCardData: WineCardData
+    let wineCardData: RecommendWineData
     var windDetailData: WineDTO?
     
     public init(
       windId: Int,
-      wineCardData: WineCardData
+      wineCardData: RecommendWineData
     ) {
       self.wineId = windId
       self.wineCardData = wineCardData

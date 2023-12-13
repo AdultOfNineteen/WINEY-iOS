@@ -11,7 +11,7 @@ import Foundation
 import WineyNetwork
 
 public struct WineService {
-  public var todaysWines: () async -> Result<[WineCardData], Error>
+  public var todaysWines: () async -> Result<[RecommendWineData], Error>
   public var winesDetail: (_ wineId: String) async -> Result<WineDTO, Error>
 }
 
@@ -31,13 +31,13 @@ extension WineService {
           return .success(
             dto
               .map {
-                WineCardData(
+                RecommendWineData(
                   id: $0.wineId,
                   wineType: WineType.changeType(at: $0.type),
-                  wineName: $0.name,
-                  nationalAnthems: $0.country,
-                  varities: $0.varietal.first ?? "", // ... 요기는 잠시 생각
-                  purchasePrice: Double($0.price)
+                  name: $0.name,
+                  country: $0.country,
+                  varietal: $0.varietal.first ?? "", // ... 요기는 잠시 생각
+                  price: $0.price
                 )
               }
           )
@@ -60,25 +60,26 @@ extension WineService {
     return Self(
       todaysWines: {
         return .success(
-          [ WineCardData(
-            id: 0,
-            wineType: .port,
-            wineName: "mock1",
-            nationalAnthems: "랄라라",
-            varities: "훔훔훔",
-            purchasePrice: 0.0
-          ),
-            WineCardData(
+          [
+            RecommendWineData(
               id: 1,
-              wineType: .rose,
-              wineName: "mock2",
-              nationalAnthems: "랄ㄹ라라",
-              varities: "용ㅇ요요",
-              purchasePrice: 0.0
+              wineType: .red,
+              name: "mock1",
+              country: "test",
+              varietal: "test",
+              price: 4
+            ),
+            RecommendWineData(
+              id: 1,
+              wineType: .red,
+              name: "mock1",
+              country: "test",
+              varietal: "test",
+              price: 4
             )
           ]
         )
-      }, 
+      },
       winesDetail: { wineId in
         return .success(
           WineDTO(
@@ -103,7 +104,7 @@ extension WineService {
       }
     )
   }()
-//  static let unimplemented = Self(…)
+  //  static let unimplemented = Self(…)
 }
 
 extension WineService: DependencyKey {

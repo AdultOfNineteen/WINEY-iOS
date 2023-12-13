@@ -35,7 +35,7 @@ public struct Main: Reducer {
     case _navigateToTipCard
     
     // MARK: - Inner SetState Action
-    case _setTodaysWines(data: [WineCardData])
+    case _setTodaysWines(data: [RecommendWineData])
     case _failureSocialNetworking(Error) // 후에 경고창 처리
     
     // MARK: - Child Action
@@ -67,7 +67,7 @@ public struct Main: Reducer {
             .map{
               WineCard.State(
                 index: $0.offset,
-                wineCardData: $0.element
+                recommendWineData: $0.element
               )
             }
         )
