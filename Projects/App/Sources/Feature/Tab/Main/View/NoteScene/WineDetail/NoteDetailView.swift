@@ -248,7 +248,6 @@ extension NoteDetailView {
   NoteDetailView(
     store: Store(
       initialState: NoteDetail.State.init(
-        wineId: 4,
         noteCardData: NoteCardData(
           id: 4,
           noteDate: "2023.10.11",
