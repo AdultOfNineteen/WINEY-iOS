@@ -24,6 +24,7 @@ public enum WineyFontType {
   case captionM3
   case display1
   case display2
+  case cardTitle
 }
 
 // 깔끔하게 정리하기 보류
@@ -179,6 +180,16 @@ public extension View {
             .swiftUIFont(size: 28)
         )
         .lineSpacing(0) // 행간
+      
+    case .cardTitle:
+      return self
+        .font(
+          WineyKitFontFamily
+            .Chaviera
+            .regular
+            .swiftUIFont(size: 25)
+        )
+        .lineSpacing(29) // 행간
     }
   }
 }
