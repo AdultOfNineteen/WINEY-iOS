@@ -136,12 +136,6 @@ extension NoteView {
       )
     }
   }
-
-//  func filteredData() -> [NoteCard.State] {
-//    return viewStore.noteCardList.noteCards.elements.filter({ note in
-//      let filter = FilterManager.shared.wineTypeFilter.filter { $0.filterInfo.isSelected }
-//    })
-//  }
 }
 
 struct NoteView_Previews: PreviewProvider {

@@ -102,6 +102,18 @@ extension SettingAlcoholView {
       }
       .pickerStyle(WheelPickerStyle())
       .frame(height: viewStore.pickerHeight)
+      .overlay(
+        Circle()
+          .fill(WineyKitAsset.gray500.swiftUIColor)
+          .frame(width: 7)
+          .overlay(
+            Circle()
+              .fill(WineyKitAsset.mainBackground.swiftUIColor)
+              .frame(width: 3)
+          )
+          .padding(.leading, 50)
+          .padding(.bottom, 12)
+      )
     }
     .padding(.top, 49)
   }
