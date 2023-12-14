@@ -10,7 +10,7 @@ import ComposableArchitecture
 import SwiftUI
 import WineyKit
 
-struct UserInfoView: View {
+public struct UserInfoView: View {
   private let store: StoreOf<UserInfo>
   @ObservedObject var viewStore: ViewStoreOf<UserInfo>
   
@@ -19,7 +19,7 @@ struct UserInfoView: View {
     self.viewStore = ViewStore(self.store, observe: { $0 })
   }
   
-  var body: some View {
+  public var body: some View {
     Text("UserInfo View")
   }
 }

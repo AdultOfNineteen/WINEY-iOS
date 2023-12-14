@@ -9,6 +9,7 @@
 import Combine
 import ComposableArchitecture
 import Foundation
+import MyPageFeature // Interface 만 import 할 수 있어야 함
 
 public struct TabBar: Reducer {
   public struct State: Equatable {

@@ -9,7 +9,6 @@
 import Combine
 import ComposableArchitecture
 import Foundation
-import TCACoordinators
 
 public struct AuthScreen: Reducer {
   public enum State: Equatable {

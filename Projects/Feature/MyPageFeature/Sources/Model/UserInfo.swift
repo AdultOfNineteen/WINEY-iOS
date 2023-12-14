@@ -1,12 +1,10 @@
 //
-//  Map.swift
-//  Winey
+//  UserInfo.swift
+//  MyPageFeature
 //
-//  Created by 정도현 on 2023/09/13.
-//  Copyright © 2023 com.adultOfNineteen. All rights reserved.
+//  Created by 박혜운 on 2023/12/07.
 //
 
-import CombineExt
 import ComposableArchitecture
 import Foundation
 
