@@ -16,14 +16,13 @@ public enum NoteDetailOption: String {
 
 public struct NoteDetail: Reducer {
   public struct State: Equatable {
-    let wineId: Int
     let noteCardData: NoteCardData
+    
     public var selectOption: NoteDetailOption? = nil
     public var isPresentedBottomSheet: Bool = false
     public var isPresentedRemoveSheet: Bool = false
     
-    public init(wineId: Int, noteCardData: NoteCardData) {
-      self.wineId = wineId
+    public init(noteCardData: NoteCardData) {
       self.noteCardData = noteCardData
     }
   }

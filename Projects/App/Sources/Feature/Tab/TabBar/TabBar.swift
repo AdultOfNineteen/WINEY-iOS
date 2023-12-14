@@ -70,7 +70,7 @@ public struct TabBar: Reducer {
       case .main(.routeAction(_, action: .main(._navigateToTipCard))):
         return .send(._setTabHiddenStatus(true))
         
-      case .note(.routeAction(_, action: .note(.noteCardScroll(.noteCard(id: _, action: _))))):
+      case .note(.routeAction(_, action: .note(.noteCardScroll(.tappedNoteCard)))):
         return .send(._setTabHiddenStatus(true))
         
       case .note(.routeAction(_, action: .note(.noteFilterScroll(._navigateFilterSetting)))):

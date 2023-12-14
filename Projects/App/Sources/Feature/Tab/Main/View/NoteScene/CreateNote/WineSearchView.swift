@@ -86,11 +86,12 @@ extension WineSearchView {
   @ViewBuilder
   private func countingSearch() -> some View {
     VStack(alignment: .leading, spacing: 0) {
-      HStack(spacing: 0) {
+      HStack(spacing: 4) {
         Text("검색 결과")
           .wineyFont(.bodyM1)
           .foregroundStyle(WineyKitAsset.gray400.swiftUIColor)
-        Text(" \(viewStore.searchResult.count)개")
+        
+        Text("\(viewStore.wineCards.filter({ viewStore.userSearch.isEmpty ? true : $0.name.lowercased().contains(viewStore.userSearch.lowercased())}).count)개")
           .wineyFont(.bodyB1)
           .foregroundStyle(WineyKitAsset.main3.swiftUIColor)
       }
@@ -106,7 +107,11 @@ extension WineSearchView {
   
   @ViewBuilder
   private func noteCards() -> some View {
-    if viewStore.searchResult.isEmpty {
+    if viewStore.wineCards.filter({
+      viewStore.userSearch.isEmpty ?
+      true : $0.name.lowercased().contains(viewStore.userSearch.lowercased()
+      )}
+    ).isEmpty {
       VStack {
         WineyAsset.Assets.noSearch.swiftUIImage
           .padding(.top, 151)
@@ -123,13 +128,11 @@ extension WineSearchView {
     } else {
       ScrollView {
         LazyVGrid(columns: columns, spacing: 20) {
-          ForEach(viewStore.searchResult, id: \.id) { note in
-            NoteCardView(
-              store: self.store.scope(
-                state: \.noteCards[note.id],
-                action: { .noteCard(id: note.id, action: $0) }
-              )
-            )
+          ForEach(viewStore.wineCards, id: \.id) { wine in
+            wineCard(wineData: wine)
+              .onTapGesture {
+                viewStore.send(.tappedWineCard(wine))
+              }
           }
         }
         .padding(.top, 1)
@@ -138,10 +141,35 @@ extension WineSearchView {
       .padding(.top, 26)
     }
   }
+  
+  @ViewBuilder
+  private func wineCard(wineData: WineCardData) -> some View {
+    VStack(alignment: .leading, spacing: 0) {
+      SmallWineCard(
+        wineData: wineData,
+        borderColor: Color(red: 150/255, green: 113/255, blue: 1)
+      )
+      
+      VStack(alignment: .leading, spacing: 4) {
+        Text(wineData.name)
+          .wineyFont(.captionB1)
+          .foregroundStyle(WineyKitAsset.gray50.swiftUIColor)
+        Text("\(wineData.country) / \(wineData.wineType.korName)")
+          .wineyFont(.captionM2)
+          .foregroundStyle(WineyKitAsset.gray700.swiftUIColor)
+      }
+      .padding(.top, 10)
+    }
+  }
 }
 
 #Preview {
-  WineSearchView(store: Store(initialState: WineSearch.State.init(), reducer: {
-    WineSearch()
-  }))
+  WineSearchView(
+    store: Store(
+      initialState: WineSearch.State.init(),
+      reducer: {
+        WineSearch()
+      }
+    )
+  )
 }

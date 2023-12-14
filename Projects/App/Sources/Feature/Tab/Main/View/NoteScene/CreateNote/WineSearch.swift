@@ -11,14 +11,70 @@ import SwiftUI
 
 public struct WineSearch: Reducer {
   public struct State: Equatable {
-    public var userSearch = ""
-    public var noteCards: IdentifiedArrayOf<NoteCard.State> = NoteCardScroll.State().noteCards
-    public var searchResult: IdentifiedArrayOf<NoteCard.State> = NoteCardScroll.State().noteCards
+    public var userSearch: String = ""
+    
+    public var wineCards: IdentifiedArrayOf<WineCardData> = [
+      WineCardData(
+        id: 0,
+        wineType: .red,
+        name: "캄포마리나",
+        country: "이탈리아",
+        varietal: "test",
+        sweetness: 1,
+        acidity: 2,
+        body: 3,
+        tannins: 4,
+        wineSummary: WineSummary(
+          avgPrice: 1,
+          avgSweetness: 2,
+          avgAcidity: 3,
+          avgBody: 4,
+          avgTannins: 5
+        )
+      ),
+      WineCardData(
+        id: 1,
+        wineType: .rose,
+        name: "캄포마리나",
+        country: "이탈리아",
+        varietal: "test",
+        sweetness: 1,
+        acidity: 2,
+        body: 3,
+        tannins: 4,
+        wineSummary: WineSummary(
+          avgPrice: 1,
+          avgSweetness: 2,
+          avgAcidity: 3,
+          avgBody: 4,
+          avgTannins: 5
+        )
+      ),
+      WineCardData(
+        id: 2,
+        wineType: .etc,
+        name: "캄포마리나",
+        country: "이탈리아",
+        varietal: "test",
+        sweetness: 1,
+        acidity: 2,
+        body: 3,
+        tannins: 4,
+        wineSummary: WineSummary(
+          avgPrice: 1,
+          avgSweetness: 2,
+          avgAcidity: 3,
+          avgBody: 4,
+          avgTannins: 5
+        )
+      )
+    ]
   }
   
   public enum Action {
     // MARK: - User Action
     case tappedBackButton
+    case tappedWineCard(WineCardData)
     
     // MARK: - Inner Business Action
     case _settingSearchString(String)
@@ -29,7 +85,6 @@ public struct WineSearch: Reducer {
     // MARK: - Inner SetState Action
     
     // MARK: - Child Action
-    case noteCard(id: Int, action: NoteCard.Action)
   }
   
   public var body: some ReducerOf<Self> {
@@ -40,17 +95,9 @@ public struct WineSearch: Reducer {
         state.userSearch = text
         return .send(._updateList(text))
         
-      case let ._updateList(text):
-        state.searchResult = state.noteCards.filter { 
-          text.isEmpty ? true : $0.noteCardData.wineName.lowercased().contains(text.lowercased())
-        }
-        return .none
-        
       default:
         return .none
       }
-    }.forEach(\.noteCards, action: /WineSearch.Action.noteCard) {
-      NoteCard()
     }
   }
 }

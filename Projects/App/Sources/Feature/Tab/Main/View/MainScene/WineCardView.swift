@@ -258,6 +258,7 @@ public struct WineCardView: View {
             
             HStack {
               Text(viewStore.recommendWineData.varietal)
+                .lineLimit(1)
                 .wineyFont(.captionB1)
                 .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
               
@@ -266,6 +267,7 @@ public struct WineCardView: View {
             .padding(.leading, 120)
             .padding(.top, 4)
           }
+          .padding(.trailing, 26)
           .padding(.top, 24)
           
           // MARK: Purchase Price

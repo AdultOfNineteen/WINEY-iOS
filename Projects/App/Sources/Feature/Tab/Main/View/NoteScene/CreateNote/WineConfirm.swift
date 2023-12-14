@@ -11,7 +11,7 @@ import SwiftUI
 
 public struct WineConfirm: Reducer {
   public struct State: Equatable {
-    public var wineData: WineDTO
+    public var wineData: WineCardData
   }
   
   public enum Action {

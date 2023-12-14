@@ -34,29 +34,12 @@ public struct WritingNoteCoordinator: Reducer {
     Reduce { state, action in
       switch action {
         
-      case .routeAction(_, action: .wineSearch(.noteCard(id: _, action: ._navigateToCardDetail(_, _)))):
+      case .routeAction(_, action: .wineSearch(.tappedWineCard(let wineCard))):
         state.routes.append(
           .push(
             .wineConfirm(
               .init(
-                wineData: WineDTO(
-                  wineId: 1,
-                  type: "PORT",
-                  name: "mock1",
-                  country: "mock1",
-                  varietal: "랄라라",
-                  sweetness: 3,
-                  acidity: 2,
-                  body: 3,
-                  tannins: 4,
-                  wineSummary: WineSummary(
-                    avgPrice: 1.0,
-                    avgSweetness: 2,
-                    avgAcidity: 3,
-                    avgBody: 2,
-                    avgTannins: 1
-                  )
-                )
+                wineData: wineCard
               )
             )
           )

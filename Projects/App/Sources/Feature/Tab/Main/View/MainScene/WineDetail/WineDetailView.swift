@@ -52,7 +52,7 @@ public struct WineDetailView: View {
               Text(viewStore.wineCardData.name.useNonBreakingSpace())
                 .wineyFont(.bodyB2)
                 .foregroundColor(WineyKitAsset.gray500.swiftUIColor)
-                .frame(width: 271, height: 64, alignment: .topLeading)
+                .frame(alignment: .topLeading)
               
               Spacer()
             }
@@ -63,14 +63,14 @@ public struct WineDetailView: View {
             .overlay(WineyKitAsset.gray900.swiftUIColor)
             .padding(.top, 20)
           
-//          WineDetailInfoMiddle(
-//            illustImage: viewStore.windDetailData.wineType.illustImage,
-//            circleBorderColor: viewStore.windDetailData.wineType.cirlcleBorderColor,
-//            secondaryColor: viewStore.windDetailData.wineType.backgroundColor.secondCircle,
-//            nationalAnthems: viewStore.windDetailData.country,
-//            varities: viewStore.windDetailData?.varietal,
-//            purchasePrice: viewStore.windDetailData?.wineSummary.avgPrice
-//          )
+          WineDetailInfoMiddle(
+            illustImage: WineType.changeType(at: viewStore.windDetailData?.type ?? "test").illustImage,
+            circleBorderColor: WineType.changeType(at: viewStore.windDetailData?.type ?? "test").cirlcleBorderColor,
+            secondaryColor: WineType.changeType(at: viewStore.windDetailData?.type ?? "test").backgroundColor.secondCircle,
+            nationalAnthems: viewStore.windDetailData?.country ?? "error",
+            varities: viewStore.windDetailData?.varietal ?? "error",
+            purchasePrice: viewStore.windDetailData?.wineSummary.avgPrice ?? 0
+          )
           .padding(.top, 42)
           
           Divider()
