@@ -20,6 +20,8 @@ public struct UserInfoScreen: Reducer {
     case userInfo(UserInfo.Action)
   }
   
+  public init() { }
+  
   public var body: some ReducerOf<Self> {
     Scope(
       state: /State.userInfo,

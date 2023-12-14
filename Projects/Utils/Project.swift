@@ -3,30 +3,18 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 
 
-let utilsTargets: [Target] = [
-    .init(name: "Utils",
-          platform: .iOS,
-          product: .framework,
-          bundleId: "com.winey.utils",
-          deploymentTarget: .iOS(targetVersion: "16.0", devices: [.iphone]),
-          sources: ["Sources/**"],
-          scripts: [
-            .pre(
-              script: """
-              ROOT_DIR=\(ProcessInfo.processInfo.environment["TUIST_ROOT_DIR"] ?? "")
-              
-              ${ROOT_DIR}/swiftlint --config ${ROOT_DIR}/.swiftlint.yml
-              
-              """,
-              name: "SwiftLint",
-              basedOnDependencyAnalysis: false
-            )
-          ],
-          dependencies: [
-          ]
-         )
-]
-
-let utilsProject = Project.init(name: "Utils",
-                           organizationName: "com.winey",
-                           targets: utilsTargets)
+let project = Project.make(
+  name: "Utils",
+  targets: [
+    .make(
+      name: "Utils",
+      product: .framework,
+      bundleId: "com.winey.utils",
+      deploymentTarget: .iOS(targetVersion: "16.0", devices: [.iphone]),
+      sources: ["Sources/**"],
+      dependencies: [
+        .project(target: "ThirdPartyLibs", path: "../ThirdPartyLibs")
+      ]
+    )
+  ]
+)

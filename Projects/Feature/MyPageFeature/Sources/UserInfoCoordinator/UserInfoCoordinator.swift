@@ -11,7 +11,18 @@ import ComposableArchitecture
 import Foundation
 import TCACoordinators
 
-public struct UserInfoCoordinator: Reducer {
+protocol UserInfoCoordinatorr: Reducer {
+}
+
+protocol UserInfoCoordinatorrState {
+  
+}
+
+protocol UserInfoCoordinatorrAction {
+  
+}
+
+public struct UserInfoCoordinator: UserInfoCoordinatorr, Reducer {
   public struct State: Equatable, IndexedRouterState {
     public var routes: [Route<UserInfoScreen.State>]
     
@@ -26,6 +37,8 @@ public struct UserInfoCoordinator: Reducer {
       self.routes = routes
     }
   }
+  
+  public init() {}
 
   public enum Action: IndexedRouterAction {
     case updateRoutes([Route<UserInfoScreen.State>])
