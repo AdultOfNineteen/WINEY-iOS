@@ -11,13 +11,15 @@ import Foundation
 import WineyNetwork
 
 public struct NoteService {
-  public var notes: () async -> Result<[NoteData], Error>
+  public var notes: (_ page: Int, _ size: Int, _ order: Int, _ countries: [String], _ wineTypes: [String], _  buyAgain: Int) async -> Result<[NoteData], Error>
+  
+  public var wineSearch: (_ page: Int, _ size: Int, _ content: String) async -> Result<WineSearchDTO, Error>
 }
 
 extension NoteService {
   static let live = {
     return Self(
-      notes: {
+      notes: { page, size, order, countries, wineTypes, buyAgain in
         let dtoResult = await Provider<NoteAPI>
           .init()
           .request(
@@ -43,13 +45,28 @@ extension NoteService {
         case let .failure(error):
           return .failure(error)
         }
+      },
+      wineSearch: { page, size, content in
+        let dtoResult = await Provider<NoteAPI>
+          .init()
+          .request(
+            NoteAPI.wineSearch(page: page, size: size, content: content),
+            type: WineSearchDTO.self
+          )
+        
+        switch dtoResult {
+        case let .success(dto):
+          return .success(dto)
+        case let .failure(error):
+          return .failure(error)
+        }
       }
     )
   }()
   
   static let mock = {
     return Self(
-      notes: {
+      notes: { page, size, order, countries, wineTypes, buyAgain in
         return .success(
           [
             NoteData(
@@ -77,6 +94,23 @@ extension NoteService {
               wineType: .red
             )
           ]
+        )
+      },
+      wineSearch: { page, size, content in
+        return .success(
+          WineSearchDTO(
+            isLast: false,
+            totalCnt: 1,
+            contents: [
+              WineSearchContent(
+                wineId: 1,
+                type: "red",
+                country: "test",
+                name: "test",
+                varietal: "test"
+              )
+            ]
+          )
         )
       }
     )

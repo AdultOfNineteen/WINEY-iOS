@@ -8,8 +8,7 @@
 
 import Foundation
 
-public struct NoteDTO: Codable, Equatable {
-
+public struct NoteDTO: Codable {
   let noteId: Int
   let wineName: String
   let country: String
