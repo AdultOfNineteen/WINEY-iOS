@@ -11,37 +11,24 @@ import Foundation
 import WineyNetwork
 
 public struct NoteService {
-  public var notes: (_ page: Int, _ size: Int, _ order: Int, _ countries: [String], _ wineTypes: [String], _  buyAgain: Int) async -> Result<[NoteData], Error>
-  
+  public var notes: (_ page: Int, _ size: Int, _ order: Int, _ country: [String], _ wineType: [String], _  buyAgain: Int) async -> Result<NoteDTO, Error>
   public var wineSearch: (_ page: Int, _ size: Int, _ content: String) async -> Result<WineSearchDTO, Error>
 }
 
 extension NoteService {
   static let live = {
     return Self(
-      notes: { page, size, order, countries, wineTypes, buyAgain in
+      notes: { page, size, order, country, wineType, buyAgain in
         let dtoResult = await Provider<NoteAPI>
           .init()
           .request(
-            NoteAPI.tastingNotes,
-            type: [NoteDTO].self
+            NoteAPI.tastingNotes(page: page, size: size, order: order, country: country, wineType: wineType, buyAgain: buyAgain),
+            type: NoteDTO.self
           )
         
         switch dtoResult {
         case let .success(dto):
-          return .success(
-            dto
-              .map {
-                NoteData(
-                  id: $0.noteId,
-                  wineName: $0.wineName,
-                  country: $0.country,
-                  starRating: $0.starRating,
-                  buyAgain: $0.buyAgain,
-                  wineType: WineType.changeType(at: $0.wineType)
-                )
-              }
-          )
+          return .success(dto)
         case let .failure(error):
           return .failure(error)
         }
@@ -68,32 +55,20 @@ extension NoteService {
     return Self(
       notes: { page, size, order, countries, wineTypes, buyAgain in
         return .success(
-          [
-            NoteData(
-              id: 1,
-              wineName: "test",
-              country: "test",
-              starRating: 3,
-              buyAgain: false,
-              wineType: .red
-            ),
-            NoteData(
-              id: 2,
-              wineName: "test",
-              country: "test",
-              starRating: 3,
-              buyAgain: false,
-              wineType: .etc
-            ),
-            NoteData(
-              id: 3,
-              wineName: "test",
-              country: "test",
-              starRating: 3,
-              buyAgain: true,
-              wineType: .red
-            )
-          ]
+          NoteDTO(
+            isLast: false,
+            totalCnt: 1,
+            contents: [
+              NoteContent(
+                noteId: 3,
+                wineName: "test",
+                country: "test",
+                starRating: 3,
+                buyAgain: true,
+                wineType: "RED"
+              )
+            ]
+          )
         )
       },
       wineSearch: { page, size, content in

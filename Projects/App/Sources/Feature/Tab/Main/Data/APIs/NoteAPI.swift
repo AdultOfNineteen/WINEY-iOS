@@ -10,9 +10,9 @@ import Foundation
 import WineyNetwork
 
 public enum NoteAPI {
-  case tastingNotes
   case wineSearch(page: Int, size: Int, content: String)
   case noteDeatilInfo(noteId: Int)
+  case tastingNotes(page: Int, size: Int, order: Int, country: [String], wineType: [String], buyAgain: Int)
 }
 
 extension NoteAPI: EndPointType {
@@ -47,9 +47,15 @@ extension NoteAPI: EndPointType {
     case .noteDeatilInfo:
       return .requestPlain
     case let .wineSearch(page, size, content):
-      return .requestParameters(parameters: ["page": page, "size": size, "content": content], encoding: .queryString)
-    case .tastingNotes:
-      return .requestPlain
+      return .requestParameters(
+        parameters: ["page": page, "size": size, "content": content],
+        encoding: .queryString
+      )
+    case let .tastingNotes(page, size, order, country, wineType, buyAgain):
+      return .requestParameters(
+        parameters: ["page": page, "size": size, "order": order, "country": country, "wineType": wineType, "buyAgain": buyAgain],
+        encoding: .queryString
+      )
     }
   }
 }
