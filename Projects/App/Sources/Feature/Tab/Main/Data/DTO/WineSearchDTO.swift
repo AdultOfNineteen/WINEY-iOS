@@ -13,9 +13,9 @@ public struct WineSearchDTO: Codable, Equatable {
     return lhs.isLast == rhs.isLast && lhs.totalCnt == rhs.totalCnt && lhs.contents == rhs.contents
   }
   
-  let isLast: Bool
-  let totalCnt: Int
-  let contents: [WineSearchContent]
+  var isLast: Bool
+  var totalCnt: Int
+  var contents: [WineSearchContent]
 }
 
 public struct WineSearchContent: Codable, Equatable {

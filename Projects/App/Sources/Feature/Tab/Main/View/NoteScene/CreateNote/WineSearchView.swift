@@ -127,6 +127,12 @@ extension WineSearchView {
       LazyVGrid(columns: columns, spacing: 20) {
         ForEach(wineCards.contents, id: \.wineId) { wine in
           wineCard(wineData: wine)
+            .onAppear {
+              // Fetch Next Page
+              if wine.wineId == (viewStore.wineSearchPage + 1) * viewStore.wineSearchSize && !wineCards.isLast {
+                viewStore.send(._fetchNextWinePage)
+              }
+            }
             .onTapGesture {
               viewStore.send(.tappedWineCard(wine))
             }
