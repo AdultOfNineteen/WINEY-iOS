@@ -25,7 +25,8 @@ struct TipCardView: View {
     GeometryReader { geometry in
       VStack {
         NavigationBar(
-          title: "와인 초보를 위한 TIP",
+          title: "와인 초보를 위한",
+          coloredTitle: "TIP",
           leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
           leftIconButtonAction: {
             viewStore.send(.tappedBackButton)
@@ -35,12 +36,8 @@ struct TipCardView: View {
         
         ScrollView {
           LazyVGrid(columns: columns, spacing: 20) {
-            ForEach(viewStore.cardList) { card in
-              Button(action: {
-                viewStore.send(.tapCard(card.id))
-              }, label: {
-                card.tipCardImage
-              })
+            ForEach(viewStore.cardList.contents, id: \.wineTipId) { tipCard in
+              TipCardImage(tipCardInfo: tipCard)
             }
           }
         }
@@ -53,8 +50,26 @@ struct TipCardView: View {
 
 public struct TipCardView_Previews: PreviewProvider {
   public static var previews: some View {
-    TipCardView(store: Store(initialState: TipCard.State.init(), reducer: {
-      TipCard()
-    }))
+    TipCardView(
+      store: Store(
+        initialState: TipCard.State(
+          cardList: WineTipDTO(
+            isLast: false,
+            totalCnt: 1,
+            contents: [
+              WineTipContent(
+                wineTipId: 1,
+                thumbNail: "https://winey-image.s3.ap-northeast-2.amazonaws.com/wine-tip/11/99f6f17f-7091-4bf8-8640-429002298b13.jpg",
+                title: "test",
+                url: "test"
+              )
+            ]
+          )
+        ),
+        reducer: {
+          TipCard()
+        }
+      )
+    )
   }
 }

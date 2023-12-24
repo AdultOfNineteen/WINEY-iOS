@@ -12,27 +12,12 @@ import Foundation
 import SwiftUI
 import WineyKit
 
-public struct CardInfo: Identifiable, Equatable {
-  public let id: Int
-  public let tipCardImage: Image
-  
-  public init(id: Int, tipCardImage: Image) {
-    self.id = id
-    self.tipCardImage = tipCardImage
-  }
-}
-
-
 public struct TipCard: Reducer {
   public struct State: Equatable {
-    var cardList: IdentifiedArrayOf<CardInfo>
+    public var cardList: WineTipDTO
     
-    public init() {
-      self.cardList = [
-        CardInfo(id: 0, tipCardImage: WineyAsset.Assets.tipCard.swiftUIImage),
-        CardInfo(id: 1, tipCardImage: WineyAsset.Assets.tipCard.swiftUIImage),
-        CardInfo(id: 2, tipCardImage: WineyAsset.Assets.tipCard.swiftUIImage)
-      ]
+    public init(cardList: WineTipDTO) {
+      self.cardList = cardList
     }
   }
   

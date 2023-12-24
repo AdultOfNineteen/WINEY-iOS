@@ -115,25 +115,17 @@ public struct MainView: View {
             .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
             .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
             
-            IfLetStore(
-              self.store.scope(
-                state: \.tipCardState,
-                action: Main.Action.tipCard
-              )
-            ) { _ in
-              
+            if let tipCards = viewStore.tipCards {
               LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(viewStore.tipCardState!.cardList.prefix(2)) { card in
-                  Button(action: {
-                    viewStore.send(.tipCard(.tapCard(card.id)))
-                  }, label: {
-                    card.tipCardImage
-                  })
+                ForEach(tipCards.contents, id: \.wineTipId) { tipCard in
+                  TipCardImage(tipCardInfo: tipCard)
                 }
               }
               .padding(.top, 25)
               .padding(.bottom, 50)
               .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+            } else {
+              ProgressView()
             }
           }
           .padding(.bottom, 30)
@@ -146,6 +138,7 @@ public struct MainView: View {
       }
       .onAppear {
         viewStore.send(._viewWillAppear)
+        viewStore.send(._tipCardWillAppear)
       }
     }
     .background(WineyKitAsset.mainBackground.swiftUIColor)

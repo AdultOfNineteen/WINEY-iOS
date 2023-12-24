@@ -13,6 +13,7 @@ import WineyNetwork
 public struct WineService {
   public var todaysWines: () async -> Result<[RecommendWineData], Error>
   public var winesDetail: (_ wineId: String) async -> Result<WineDTO, Error>
+  public var wineTips: (_ page: Int, _ size: Int) async -> Result<WineTipDTO, Error>
 }
 
 extension WineService {
@@ -52,6 +53,20 @@ extension WineService {
             WineAPI.wineDetailInfo(windId: windId),
             type: WineDTO.self
           )
+      },
+      wineTips: { page, size in
+        let dtoResult = await Provider<WineAPI>
+          .init()
+          .request(
+            WineAPI.wineTip(page: page, size: size),
+            type: WineTipDTO.self
+          )
+        switch dtoResult {
+        case let .success(dto):
+          return .success(dto)
+        case let .failure(error):
+          return .failure(error)
+        }
       }
     )
   }()
@@ -99,6 +114,22 @@ extension WineService {
               avgBody: 2,
               avgTannins: 1
             )
+          )
+        )
+      },
+      wineTips: { page, size in
+        return .success(
+          WineTipDTO(
+            isLast: false,
+            totalCnt: 1,
+            contents: [
+              WineTipContent(
+                wineTipId: 1,
+                thumbNail: "test",
+                title: "test",
+                url: "test"
+              )
+            ]
           )
         )
       }

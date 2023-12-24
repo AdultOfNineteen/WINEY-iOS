@@ -10,6 +10,7 @@ import SwiftUI
 
 public struct NavigationBar: View {
   public let title: String?
+  public let coloredTitle: String?
   public let leftIcon: Image?
   public var leftIconButtonAction: () -> Void = {}
   public let rightIcon: Image?
@@ -19,6 +20,7 @@ public struct NavigationBar: View {
   
   public init(
     title: String? = nil,
+    coloredTitle: String? = nil,
     leftIcon: Image? = nil,
     leftIconButtonAction: @escaping () -> Void = {},
     rightIcon: Image? = nil,
@@ -27,6 +29,7 @@ public struct NavigationBar: View {
     backgroundColor: Color = Color.black
   ) {
     self.title = title
+    self.coloredTitle = coloredTitle
     self.leftIcon = leftIcon
     self.leftIconButtonAction = leftIconButtonAction
     self.rightIcon = rightIcon
@@ -61,9 +64,16 @@ public struct NavigationBar: View {
           HStack {
             Spacer()
             
-            Text(title)
-              .foregroundColor(WineyKitAsset.gray100.swiftUIColor)
-              .wineyFont(.title2)
+            HStack(spacing: 0) {
+              Text(title)
+                .foregroundColor(WineyKitAsset.gray100.swiftUIColor)
+              
+              if let coloredTitle = coloredTitle {
+                Text(" \(coloredTitle)")
+                  .foregroundColor(WineyKitAsset.main2.swiftUIColor)
+              }
+            }
+            .wineyFont(.title2)
             
             Spacer()
           }
