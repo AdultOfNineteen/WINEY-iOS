@@ -101,8 +101,17 @@ public struct TabBar: Reducer {
       case .note:
         return .none
         
-      case .userInfo:
-        return .none
+      case .userInfo(.routeAction(_, action: .userBadge(._viewWillAppear))):
+        return .send(._setTabHiddenStatus(true))
+        
+      case .userInfo(.routeAction(_, action: .userBadge(.tappedBackButton))):
+        return .send(._setTabHiddenStatus(false))
+        
+      case .userInfo(.routeAction(_, action: .userInfo(.userSettingTapped))):
+        return .send(._setTabHiddenStatus(true))
+        
+      case .userInfo(.routeAction(_, action: .userSetting(.tappedBackButton))):
+        return .send(._setTabHiddenStatus(false))
         
       case ._setTabHiddenStatus(let status):
         state.isTabHidden = status
