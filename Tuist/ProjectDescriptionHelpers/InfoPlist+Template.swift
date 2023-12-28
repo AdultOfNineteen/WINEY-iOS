@@ -70,10 +70,10 @@ public extension InfoPlist {
   }
   
   static func appWiney() -> Self {
-    return .extendingDefault(with: Self.app)
+    return .extendingBasicWiney(info: Self.app)
   }
   
-  func extendingBasicWiney(info PList: [String: Plist.Value]) -> Self {
+  static func extendingBasicWiney(info PList: [String: Plist.Value]) -> Self {
     let infoPlist = Self.basic.merging(PList) { (_, new) in
       return new
     }

@@ -87,7 +87,7 @@ public struct TargetFactory {
     productName: String? = nil,
     bundleId: String? = nil,
     deploymentTarget: DeploymentTarget? = nil,
-    infoPlist: InfoPlist? = .default,
+    infoPlist: InfoPlist? = InfoPlist.basicWiney(),
     sources: SourceFilesList? = .sources,
     resources: ResourceFileElements? = nil,
     copyFiles: [CopyFilesAction]? = nil,

@@ -22,7 +22,7 @@ struct LoginView: View {
   }
   
   var body: some View {
-    GeometryReader {_ in
+    GeometryReader { _ in
       ZStack {
         HStack {
           Rectangle()

@@ -10,14 +10,20 @@ import Foundation
 
 public struct UserInfo: Reducer {
   public struct State: Equatable {
-    public init() { }
+    var isPresentedBottomSheet: Bool = false
+    
+    public init() {}
   }
   
   public enum Action {
     // MARK: - User Action
-    case userInfoTapTapped
+    case userBadgeButtonTapped
+    case wineyRatingButtonTapped
+    case wineyRatingClosedTapped
+    case userSettingTapped
     
     // MARK: - Inner Business Action
+    case _presentBottomSheet(Bool)
     
     // MARK: - Inner SetState Action
     
@@ -27,6 +33,16 @@ public struct UserInfo: Reducer {
   
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
+    case .wineyRatingButtonTapped:
+      return .send(._presentBottomSheet(true))
+      
+    case .wineyRatingClosedTapped:
+      return .send(._presentBottomSheet(false))
+      
+    case let ._presentBottomSheet(value):
+      state.isPresentedBottomSheet = value
+      return .none
+      
     default:
       return .none
     }

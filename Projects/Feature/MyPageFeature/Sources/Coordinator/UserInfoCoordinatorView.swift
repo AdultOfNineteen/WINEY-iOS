@@ -22,11 +22,32 @@ public struct UserInfoCoordinatorView: View {
     TCARouter(store) { screen in
       SwitchStore(screen) { screen in
         switch screen {
-        default:
+        case .userInfo:
           CaseLet(
             /UserInfoScreen.State.userInfo,
             action: UserInfoScreen.Action.userInfo,
             then: UserInfoView.init
+          )
+          
+        case .userBadge:
+          CaseLet(
+            /UserInfoScreen.State.userBadge,
+            action: UserInfoScreen.Action.userBadge,
+            then: UserBadgeView.init
+          )
+          
+        case .userSetting:
+          CaseLet(
+            /UserInfoScreen.State.userSetting,
+            action: UserInfoScreen.Action.userSetting,
+            then: UserSettingView.init
+          )
+          
+        case .signOut:
+          CaseLet(
+            /UserInfoScreen.State.signOut,
+            action: UserInfoScreen.Action.signOut,
+            then: SignOutView.init
           )
         }
       }
