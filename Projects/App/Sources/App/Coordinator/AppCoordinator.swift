@@ -100,6 +100,15 @@ public struct AppCoordinator: Reducer {
         ]
         return .none
         
+      case .routeAction(_, action:
+          .tabBar(
+            .userInfo(
+              .routeAction(_, action: .userSetting(.tappedBottomSheetYesOption))
+            )
+          )):
+        state.routes = [.root(.splash(.init()))]
+        return .none
+        
       default:
         return .none
         
