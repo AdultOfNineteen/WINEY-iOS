@@ -108,12 +108,12 @@ public struct MainView: View {
               Spacer()
               
               WineyAsset.Assets.icArrowRight.swiftUIImage
-                .onTapGesture {
-                  viewStore.send(.tappedTipArrow)
-                }
             }
             .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
             .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+            .onTapGesture {
+              viewStore.send(.tappedTipArrow)
+            }
             
             if let tipCards = viewStore.tipCards {
               LazyVGrid(columns: columns, spacing: 20) {

@@ -10,7 +10,7 @@ import ComposableArchitecture
 import SwiftUI
 import WineyKit
 
-struct TipCardView: View {
+public struct TipCardView: View {
   private let store: StoreOf<TipCard>
   @ObservedObject var viewStore: ViewStoreOf<TipCard>
   
@@ -21,9 +21,9 @@ struct TipCardView: View {
   
   let columns = [GridItem(.flexible()), GridItem(.flexible())]
   
-  var body: some View {
+  public var body: some View {
     GeometryReader { geometry in
-      VStack {
+      VStack(spacing: 0) {
         NavigationBar(
           title: "와인 초보를 위한",
           coloredTitle: "TIP",
@@ -34,16 +34,23 @@ struct TipCardView: View {
           backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
         )
         
-        ScrollView {
-          LazyVGrid(columns: columns, spacing: 20) {
-            ForEach(viewStore.cardList.contents, id: \.wineTipId) { tipCard in
-              TipCardImage(tipCardInfo: tipCard)
+        if let tipCards = viewStore.tipCards {
+          ScrollView {
+            LazyVGrid(columns: columns, spacing: 20) {
+              ForEach(tipCards.contents, id: \.wineTipId) { tipCard in
+                TipCardImage(tipCardInfo: tipCard)
+              }
             }
           }
+          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+        } else {
+          ProgressView()  // TODO: 에러처리.
         }
-        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
       }
       .background(WineyKitAsset.mainBackground.swiftUIColor)
+    }
+    .onAppear {
+      viewStore.send(._viewWillAppear)
     }
   }
 }
@@ -53,7 +60,7 @@ public struct TipCardView_Previews: PreviewProvider {
     TipCardView(
       store: Store(
         initialState: TipCard.State(
-          cardList: WineTipDTO(
+          tipCards: WineTipDTO(
             isLast: false,
             totalCnt: 1,
             contents: [

@@ -32,7 +32,7 @@ public struct Main: Reducer {
     // MARK: - Inner Business Action
     case _viewWillAppear
     case _navigateToAnalysis
-    case _navigateToTipCard(data: WineTipDTO)
+    case _navigateToTipCard
     case _tipCardWillAppear
     
     // MARK: - Inner SetState Action
@@ -94,10 +94,7 @@ public struct Main: Reducer {
         return .send(._navigateToAnalysis)
         
       case .tappedTipArrow:
-        if let data = state.tipCards {
-          return .send(._navigateToTipCard(data: data))
-        }
-        return .none  // TODO: Error 처리
+        return .send(._navigateToTipCard)
         
       case .wineCardScroll:
         return .none
