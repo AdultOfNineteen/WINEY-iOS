@@ -122,7 +122,9 @@ extension SettingAlcoholView {
 #Preview {
   SettingAlcoholView(
     store: Store(
-      initialState: SettingAlcohol.State(),
+      initialState: SettingAlcohol.State(
+        wineId: 0
+      ),
       reducer: { SettingAlcohol() }
     )
   )

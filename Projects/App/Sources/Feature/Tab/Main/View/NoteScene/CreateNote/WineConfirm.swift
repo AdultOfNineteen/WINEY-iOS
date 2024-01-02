@@ -20,6 +20,7 @@ public struct WineConfirm: Reducer {
     case tappedWritingButton
     
     // MARK: - Inner Business Action
+    case _moveNextPage(wineId: Int)
     
     // MARK: - Inner SetState Action
     
@@ -29,6 +30,8 @@ public struct WineConfirm: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
+      case .tappedWritingButton:
+        return .send(._moveNextPage(wineId: state.wineData.wineId))
         
       default:
         return .none

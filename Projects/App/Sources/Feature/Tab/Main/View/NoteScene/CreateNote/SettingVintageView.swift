@@ -52,8 +52,8 @@ public struct SettingVintageView: View {
       Spacer()
       
       BottomOptionButton(
-        validation: viewStore.buttonState, 
-        tooltipVisible: viewStore.settingAlcohol.tooltipVisible
+        validation: viewStore.buttonState,
+        tooltipVisible: false
       ) {
         viewStore.send(.tappedNextButton)
       }
@@ -156,7 +156,10 @@ extension SettingVintageView {
 #Preview {
   SettingVintageView(
     store: Store(
-      initialState: SettingVintage.State(),
+      initialState: SettingVintage.State(
+        wineId: 0,
+        officialAlcohol: 1
+      ),
       reducer: {
         SettingVintage()
       }

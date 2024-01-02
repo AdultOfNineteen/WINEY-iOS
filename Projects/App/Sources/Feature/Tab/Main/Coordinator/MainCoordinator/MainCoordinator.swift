@@ -53,8 +53,8 @@ public struct MainCoordinator: Reducer {
         state.routes.pop()
         return .none
         
-      case let .routeAction(_, action: .main(._navigateToTipCard(tipCards))):
-        state.routes.append(.push(.tipCard(.init(cardList: tipCards))))
+      case .routeAction(_, action: .main(._navigateToTipCard)):
+        state.routes.append(.push(.tipCard(.init())))
         return .none
         
       case .routeAction(_, action: .tipCard(.tappedBackButton)):

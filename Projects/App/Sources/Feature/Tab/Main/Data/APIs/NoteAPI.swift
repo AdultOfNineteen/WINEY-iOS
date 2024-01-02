@@ -8,11 +8,14 @@
 
 import Foundation
 import WineyNetwork
+import UIKit
 
 public enum NoteAPI {
   case wineSearch(page: Int, size: Int, content: String)
   case noteDeatilInfo(noteId: Int)
   case tastingNotes(page: Int, size: Int, order: Int, country: [String], wineType: [String], buyAgain: Int)
+  case createNote(wineId: Int, vintage: Int, officialAlcohol: Int, price: Int, color: String, sweetness: Int, acidity: Int,
+                  alcohol: Int, body: Int, tannin: Int, finish: Int, memo: String, buyAgain: Bool, rating: Int, smellKeywordList: [String], images: [UIImage])
 }
 
 extension NoteAPI: EndPointType {
@@ -28,6 +31,8 @@ extension NoteAPI: EndPointType {
       return "/wines/search"
     case .tastingNotes:
       return "/tasting-notes"
+    case .createNote:
+      return "/tasting-notes"
     }
   }
   
@@ -39,6 +44,8 @@ extension NoteAPI: EndPointType {
       return .get
     case .tastingNotes:
       return .get
+    case .createNote:
+      return .post
     }
   }
   
@@ -46,15 +53,66 @@ extension NoteAPI: EndPointType {
     switch self {
     case .noteDeatilInfo:
       return .requestPlain
+      
     case let .wineSearch(page, size, content):
       return .requestParameters(
         parameters: ["page": page, "size": size, "content": content],
         encoding: .queryString
       )
+      
     case let .tastingNotes(page, size, order, country, wineType, buyAgain):
       return .requestParameters(
-        parameters: ["page": page, "size": size, "order": order, "country": country, "wineType": wineType, "buyAgain": buyAgain],
+        
+        parameters: [
+          "page": page,
+          "size": size,
+          "order": order,
+          "country": country,
+          "wineType": wineType,
+          "buyAgain": buyAgain
+        ],
         encoding: .queryString
+      )
+    
+    // MARK: MultiPart 추가
+    case let .createNote(
+      wineId,
+      vintage,
+      officialAlcohol,
+      price,
+      color,
+      sweetness,
+      acidity,
+      alcohol,
+      body,
+      tannin,
+      finish,
+      memo,
+      buyAgain,
+      rating,
+      smellKeywordList,
+      images
+    ):
+      return .requestMultipartData(
+        parameters: [
+          "wineId": wineId,
+          "vintage": vintage,
+          "officialAlcohol": officialAlcohol,
+          "price": price,
+          "color": color,
+          "sweetness": sweetness,
+          "acidity": acidity,
+          "alcohol": alcohol,
+          "body": body,
+          "tannin": tannin,
+          "finish": finish,
+          "memo": memo,
+          "buyAgain": buyAgain,
+          "rating": rating,
+          "smellKeywordList": smellKeywordList
+        ],
+        images: images,
+        encoding: .multiPart
       )
     }
   }

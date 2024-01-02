@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 public enum HTTPTask {
   /// 추가 데이터 없는 요청.
@@ -18,4 +19,7 @@ public enum HTTPTask {
   case requestParameters(parameters: [String: Any], encoding: EncodingType)
   /// URL 파라미터와 함께 조합된 인코딩된 파라미터로 설정된 요청 바디.
   case requestCompositeParameters(urlParameters: [String: Any], bodyParameters: [String: Any])
+  // MARK: MultiPart 추가
+  /// Multipart 요청 시.
+  case requestMultipartData(parameters: [String: Any], images: [UIImage], encoding: EncodingType)
 }

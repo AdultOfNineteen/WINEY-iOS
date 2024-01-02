@@ -11,16 +11,27 @@ import SwiftUI
 
 public struct SettingColorSmell: Reducer {
   public struct State: Equatable {
+    public var wineId: Int
+    public var officialAlcohol: Int
+    public var vintage: Int
+    public var price: Int
     
     public var selectedSmell: [String] = []
-    
     public var colorValue: Double = 0.0
+    
     public var maxValue: CGFloat = 0
     public var scaleFactor: CGFloat = 0
     public var sliderValue: CGFloat = 0
     public var lastCoordinateValue: CGFloat = 0.0
     
     public var buttonState: Bool = false
+    
+    public init(wineId: Int, officialAlcohol: Int, vintage: Int, price: Int) {
+      self.wineId = wineId
+      self.officialAlcohol = officialAlcohol
+      self.vintage = vintage
+      self.price = price
+    }
   }
   
   public enum Action {
@@ -34,6 +45,7 @@ public struct SettingColorSmell: Reducer {
     case _addSmell(String)
     case _removeSmell(String)
     case _viewWillAppear(GeometryProxy)
+    case _moveNextPage(wineId: Int, officialAlcohol: Int, vintage: Int, price: Int, color: String, smellKeywordList: [String])
     
     // MARK: - Inner SetState Action
     case _setMaxValue(CGFloat)
@@ -50,7 +62,7 @@ public struct SettingColorSmell: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
-      
+        
       case .tappedSmellButton(let smell):
         if state.selectedSmell.contains(where: { $0 == smell }) {
           return .send(._removeSmell(smell))
@@ -103,6 +115,18 @@ public struct SettingColorSmell: Reducer {
         state.colorValue = value
         state.sliderValue = value * state.scaleFactor
         return .none
+        
+      case .tappedNextButton:
+        return .send(
+          ._moveNextPage(
+            wineId: state.wineId,
+            officialAlcohol: state.officialAlcohol,
+            vintage: state.vintage,
+            price: state.price,
+            color: state.colorValue.description,  // 수정 필요
+            smellKeywordList: state.selectedSmell
+          )
+        )
         
       default:
         return .none

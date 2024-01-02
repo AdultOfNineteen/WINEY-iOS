@@ -184,14 +184,14 @@ extension WineSearchView {
   }
 }
 
-#Preview {
-  WineSearchView(
-    store: Store(
-      initialState: WineSearch.State.init(),
-      reducer: {
-        WineSearch()
-          .dependency(\.note, .mock)
-      }
-    )
-  )
-}
+//#Preview {
+//  WineSearchView(
+//    store: Store(
+//      initialState: WineSearch.State.init(),
+//      reducer: {
+//        WineSearch()
+//          .dependency(\.note, .mock)
+//      }
+//    )
+//  )
+//}

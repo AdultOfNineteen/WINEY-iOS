@@ -119,43 +119,45 @@ extension SettingMemoView {
   private func attachPhotoButton() -> some View {
     VStack(spacing: 15) {
       LazyVGrid(columns: columns) {
-          ForEach(0..<viewStore.displayPhoto.count, id: \.self) { idx in
-            ZStack {
-              viewStore.displayPhoto[idx]
-                .resizable()
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .frame(height: 100)
-             
-              VStack(alignment: .trailing) {
-                HStack {
-                  Spacer()
-                  
-                  Button(action: {
-                    viewStore.send(.tappedDelImage(idx))
-                  }, label: {
-                    Image("imageX")
-                  })
-                }
-                .padding(.trailing, 9)
-                .padding(.top, 7)
-                
+        ForEach(0..<viewStore.displayPhoto.count, id: \.self) { idx in
+          ZStack {
+            Image(uiImage: viewStore.displayPhoto[idx])
+              .resizable()
+              .clipShape(RoundedRectangle(cornerRadius: 10))
+              .frame(height: 100)
+            
+            VStack(alignment: .trailing) {
+              HStack {
                 Spacer()
+                
+                Button(action: {
+                  viewStore.send(.tappedDelImage(idx))
+                }, label: {
+                  Image("imageX")
+                })
               }
+              .padding(.trailing, 9)
+              .padding(.top, 7)
               
+              Spacer()
             }
+            
           }
         }
-        .onChange(of: viewStore.selectedPhoto, perform: { value in
-          Task {
-            viewStore.send(._delDisplayPhoto)
-            
-            for item in viewStore.selectedPhoto {
-              if let image = try? await item.loadTransferable(type: Image.self) {
+      }
+      .onChange(of: viewStore.selectedPhoto, perform: { value in
+        Task {
+          viewStore.send(._delDisplayPhoto)
+          
+          for item in viewStore.selectedPhoto {
+            if let data = try? await item.loadTransferable(type: Data.self) {
+              if let image = UIImage(data: data) {
                 viewStore.send(._addPhoto(image))
               }
             }
           }
-        })
+        }
+      })
       
       PhotosPicker(
         selection: viewStore.binding(
@@ -312,7 +314,20 @@ extension SettingMemoView {
 #Preview {
   SettingMemoView(
     store: Store(
-      initialState: SettingMemo.State(),
+      initialState: SettingMemo.State(
+        wineId: 0,
+        officialAlcohol: 0, 
+        vintage: 0,
+        price: 0,
+        color: "test", 
+        smellKeywordList: [""],
+        sweetness: 1,
+        acidity: 1,
+        alcohol: 1,
+        body: 1,
+        tannin: 1,
+        finish: 1
+      ),
       reducer: {
         SettingMemo()
       }
