@@ -116,7 +116,7 @@ extension SettingTasteView {
         .wineyFont(.captionM3)
         .offset(y: 2)
         .onTapGesture {
-          viewStore.send(.tappedHelpButton)
+          viewStore.send(.tappedHelpButton(wineId: viewStore.wineId))
         }
     }
     .padding(.bottom, 15)
@@ -266,7 +266,14 @@ extension SettingTasteView {
 #Preview {
   SettingTasteView(
     store: Store(
-      initialState: SettingTaste.State(), 
+      initialState: SettingTaste.State(
+        wineId: 0,
+        officialAlcohol: 0,
+        vintage: 0,
+        price: 0,
+        color: "test",
+        smellKeywordList: [""]
+      ),
       reducer: {
         SettingTaste()
       }

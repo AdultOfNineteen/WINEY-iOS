@@ -31,6 +31,9 @@ public struct WineSearchView: View {
       
       noteCards()
     }
+    .onAppear {
+      viewStore.send(._viewWillAppear)
+    }
     .background(WineyKitAsset.mainBackground.swiftUIColor)
     .onTapGesture {
       focusedField = false
@@ -91,7 +94,7 @@ extension WineSearchView {
           .wineyFont(.bodyM1)
           .foregroundStyle(WineyKitAsset.gray400.swiftUIColor)
         
-        Text("\(viewStore.wineCards.filter({ viewStore.userSearch.isEmpty ? true : $0.name.lowercased().contains(viewStore.userSearch.lowercased())}).count)개")
+        Text("\(viewStore.wineCards?.totalCnt ?? 0)개")
           .wineyFont(.bodyB1)
           .foregroundStyle(WineyKitAsset.main3.swiftUIColor)
       }
@@ -107,46 +110,62 @@ extension WineSearchView {
   
   @ViewBuilder
   private func noteCards() -> some View {
-    if viewStore.wineCards.filter({
-      viewStore.userSearch.isEmpty ?
-      true : $0.name.lowercased().contains(viewStore.userSearch.lowercased()
-      )}
-    ).isEmpty {
-      VStack {
-        WineyAsset.Assets.noSearch.swiftUIImage
-          .padding(.top, 151)
-        
-        VStack {
-          Text("검색결과가 없어요!")
-          Text("비슷한 와인명으로 입력해보세요")
-        }
-        .wineyFont(.headLine)
-        .foregroundStyle(WineyKitAsset.gray800.swiftUIColor)
-        
-        Spacer()
+    if let wineCards = viewStore.wineCards {
+      if wineCards.totalCnt > 0 {
+        wineCardList(wineCards: wineCards)
+      } else {
+        noCardView()
       }
     } else {
-      ScrollView {
-        LazyVGrid(columns: columns, spacing: 20) {
-          ForEach(viewStore.wineCards, id: \.id) { wine in
-            wineCard(wineData: wine)
-              .onTapGesture {
-                viewStore.send(.tappedWineCard(wine))
-              }
-          }
-        }
-        .padding(.top, 1)
-        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-      }
-      .padding(.top, 26)
+      noCardView()
     }
   }
   
   @ViewBuilder
-  private func wineCard(wineData: WineCardData) -> some View {
+  private func wineCardList(wineCards: WineSearchDTO) -> some View {
+    ScrollView {
+      LazyVGrid(columns: columns, spacing: 20) {
+        ForEach(wineCards.contents, id: \.wineId) { wine in
+          wineCard(wineData: wine)
+            .onAppear {
+              // Fetch Next Page
+              if wine.wineId == (viewStore.wineSearchPage + 1) * viewStore.wineSearchSize && !wineCards.isLast {
+                viewStore.send(._fetchNextWinePage)
+              }
+            }
+            .onTapGesture {
+              viewStore.send(.tappedWineCard(wine))
+            }
+        }
+      }
+      .padding(.top, 1)
+      .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+    }
+    .padding(.top, 26)
+  }
+  
+  @ViewBuilder 
+  private func noCardView() -> some View {
+    VStack(spacing: 0) {
+      WineyAsset.Assets.noSearch.swiftUIImage
+        .padding(.top, 151)
+
+      VStack(spacing: 2) {
+        Text("검색결과가 없어요!")
+        Text("비슷한 와인명으로 입력해보세요")
+      }
+      .wineyFont(.headLine)
+      .foregroundStyle(WineyKitAsset.gray800.swiftUIColor)
+
+      Spacer()
+    }
+  }
+  
+  @ViewBuilder
+  private func wineCard(wineData: WineSearchContent) -> some View {
     VStack(alignment: .leading, spacing: 0) {
       SmallWineCard(
-        wineData: wineData,
+        wineType: WineType.changeType(at: wineData.type),
         borderColor: Color(red: 150/255, green: 113/255, blue: 1)
       )
       
@@ -154,22 +173,25 @@ extension WineSearchView {
         Text(wineData.name)
           .wineyFont(.captionB1)
           .foregroundStyle(WineyKitAsset.gray50.swiftUIColor)
-        Text("\(wineData.country) / \(wineData.wineType.korName)")
+          .lineLimit(1)
+        Text("\(wineData.country) / \(WineType.changeType(at: wineData.type).korName)")
           .wineyFont(.captionM2)
           .foregroundStyle(WineyKitAsset.gray700.swiftUIColor)
+          .lineLimit(1)
       }
       .padding(.top, 10)
     }
   }
 }
 
-#Preview {
-  WineSearchView(
-    store: Store(
-      initialState: WineSearch.State.init(),
-      reducer: {
-        WineSearch()
-      }
-    )
-  )
-}
+//#Preview {
+//  WineSearchView(
+//    store: Store(
+//      initialState: WineSearch.State.init(),
+//      reducer: {
+//        WineSearch()
+//          .dependency(\.note, .mock)
+//      }
+//    )
+//  )
+//}

@@ -39,6 +39,9 @@ public struct HelpTasteView: View {
       WineyKitAsset.mainBackground.swiftUIColor
     )
     .navigationBarHidden(true)
+    .onAppear {
+      viewStore.send(._viewWillAppear)
+    }
   }
 }
 
@@ -96,16 +99,19 @@ extension HelpTasteView {
   
   @ViewBuilder
   private func contentList() -> some View {
-    VStack(spacing: 37) {
-      content(category: .sweetness, value: viewStore.originSweetness)
-      content(category: .acidity, value: viewStore.originAcidity)
-      content(category: .body, value: viewStore.originBody)
-      content(category: .tannin, value: viewStore.originTannin)
-      
-      Spacer()
+    if let wineDetailData = viewStore.wineDetailData {
+      VStack(spacing: 37) {
+        content(category: .sweetness, value: wineDetailData.sweetness)
+        content(category: .acidity, value: wineDetailData.acidity)
+        content(category: .body, value: wineDetailData.body)
+        content(category: .tannin, value: wineDetailData.tannins)
+        
+        Spacer()
+      }
+      .padding(.top, 30)
+    } else {
+      ProgressView()
     }
-    .padding(.top, 30)
-    
   }
   
   @ViewBuilder
@@ -168,7 +174,7 @@ extension HelpTasteView {
 #Preview {
   HelpTasteView(
     store: Store(
-      initialState: HelpTaste.State(),
+      initialState: HelpTaste.State(wineId: 1),
       reducer: {
         HelpTaste()
       }

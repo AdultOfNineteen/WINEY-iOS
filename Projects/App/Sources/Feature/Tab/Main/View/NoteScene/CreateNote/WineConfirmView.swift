@@ -71,7 +71,7 @@ extension WineConfirmView {
   private func wineCard() -> some View {
     VStack(spacing: 0) {
       SmallWineCard(
-        wineData: viewStore.wineData,
+        wineType: WineType.changeType(at: viewStore.wineData.type),
         borderColor: .white
       )
       
@@ -112,23 +112,12 @@ extension WineConfirmView {
   WineConfirmView(
     store: Store(
       initialState: WineConfirm.State.init(
-        wineData: WineCardData(
-          id: 0,
-          wineType: .red,
-          name: "mock1",
-          country: "mock1",
-          varietal: "프리미티보",
-          sweetness: 3,
-          acidity: 2,
-          body: 3,
-          tannins: 4,
-          wineSummary: WineSummary(
-            avgPrice: 1.0,
-            avgSweetness: 2,
-            avgAcidity: 3,
-            avgBody: 2,
-            avgTannins: 1
-          )
+        wineData: WineSearchContent(
+          wineId: 1,
+          type: "red",
+          country: "test",
+          name: "test",
+          varietal: "test"
         )
       ),
       reducer: {

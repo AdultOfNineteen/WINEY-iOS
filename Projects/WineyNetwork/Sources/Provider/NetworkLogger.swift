@@ -15,6 +15,7 @@ final class NetworkLogger: NSObject {
     debugPrint("  📮 [URL] : \(request.url?.absoluteString ?? "")")
     debugPrint("  📮 [Method] : \(request.httpMethod ?? "")")
     debugPrint("  📮 [Headers] : \(request.allHTTPHeaderFields ?? [:])")
+    
     if let body = request.httpBody?.toPrettyPrintedString {
       debugPrint("  📮 [Body]: \(body)")
     } else {
@@ -58,7 +59,7 @@ extension NetworkLogger: URLSessionTaskDelegate {
   }
   
   func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-    // logResponse(response: task.response, data: receivedData) // 임시 삭제
+    // logResponse(response: task.response, data: receivedData)
     receivedData = nil
   }
 }

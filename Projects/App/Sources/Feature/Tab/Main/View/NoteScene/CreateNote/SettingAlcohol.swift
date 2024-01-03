@@ -11,15 +11,19 @@ import SwiftUI
 
 public struct SettingAlcohol: Reducer {
   public struct State: Equatable {
+    public var wineId: Int
+    
     public var alcoholValue: Int = 12
     public var alcoholValueRange: ClosedRange<Int> = 1...20
     
     public var pickerHeight: CGFloat = 150
     public var viewHeight: CGFloat = 362
-    
     public var buttonState: Bool = false
-    
     public var tooltipVisible: Bool = true
+    
+    public init(wineId: Int) {
+      self.wineId = wineId
+    }
   }
   
   public enum Action {
@@ -28,11 +32,12 @@ public struct SettingAlcohol: Reducer {
     case tapPicker
     case selectAlcoholValue(Int)
     case tappedNextButton
-  
+    
     // MARK: - Inner Business Action
     case _setAlcoholValue(Int)
     case _setButtonState
     case _tooltipHide
+    case _moveNextPage(wineId: Int, officialAlcohol: Int)
     
     // MARK: - Inner SetState Action
     
@@ -56,7 +61,12 @@ public struct SettingAlcohol: Reducer {
         return .none
         
       case .tappedNextButton:
-        return .none
+        return .send(
+          ._moveNextPage(
+            wineId: state.wineId,
+            officialAlcohol: state.alcoholValue
+          )
+        )
         
       case .tapPicker:
         return .send(._tooltipHide)

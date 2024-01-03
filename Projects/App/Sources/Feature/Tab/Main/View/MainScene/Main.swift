@@ -12,9 +12,9 @@ import Foundation
 
 public struct Main: Reducer {
   public struct State: Equatable {
-    var wineCardListState: WineCardScroll.State?
-    var tipCardState: TipCard.State?
-    var tooltipState: Bool
+    public var wineCardListState: WineCardScroll.State?
+    public var tipCards: WineTipDTO?
+    public var tooltipState: Bool
     
     public init(
       tooltipState: Bool
@@ -33,14 +33,15 @@ public struct Main: Reducer {
     case _viewWillAppear
     case _navigateToAnalysis
     case _navigateToTipCard
+    case _tipCardWillAppear
     
     // MARK: - Inner SetState Action
     case _setTodaysWines(data: [RecommendWineData])
     case _failureSocialNetworking(Error) // 후에 경고창 처리
+    case _setTipCards(data: WineTipDTO)
     
     // MARK: - Child Action
     case wineCardScroll(WineCardScroll.Action)
-    case tipCard(TipCard.Action)
   }
   
   @Dependency(\.wine) var wineService
@@ -49,8 +50,6 @@ public struct Main: Reducer {
     Reduce<State, Action> { state, action in
       switch action {
       case ._viewWillAppear:
-        state.tipCardState = TipCard.State.init()
-
         return .run(operation: { send in
           switch await wineService.todaysWines() {
           case let .success(data):
@@ -75,12 +74,26 @@ public struct Main: Reducer {
         
         return .none
         
+      case ._tipCardWillAppear:
+        return .run(operation: { send in
+          switch await wineService.wineTips(0, 2) {
+          case let .success(data):
+            await send(._setTipCards(data: data))
+          case let .failure(error):
+            await send(._failureSocialNetworking(error))
+          }
+        })
+        
+      case let ._setTipCards(data: data):
+        state.tipCards = data
+        return .none
+        
+        
       case .tappedAnalysisButton:
         print("Go to Analysis")
         return .send(._navigateToAnalysis)
         
       case .tappedTipArrow:
-        print("Go to Tip View")
         return .send(._navigateToTipCard)
         
       case .wineCardScroll:
@@ -96,9 +109,6 @@ public struct Main: Reducer {
     }
     .ifLet(\.wineCardListState, action: /Action.wineCardScroll) {
       WineCardScroll()
-    }
-    .ifLet(\.tipCardState, action: /Action.tipCard) {
-      TipCard()
     }
   }
 }

@@ -150,7 +150,7 @@ extension SettingColorSmellView {
               endPoint: .trailing)
           )
           .frame(height: 10)
-       
+        
         HStack {
           Circle()
             .foregroundColor(.white)
@@ -230,7 +230,12 @@ extension SettingColorSmellView {
 #Preview {
   SettingColorSmellView(
     store: Store(
-      initialState: SettingColorSmell.State(),
+      initialState: SettingColorSmell.State(
+        wineId: 0,
+        officialAlcohol: 0, 
+        vintage: 0,
+        price: 0
+      ),
       reducer: {
         SettingColorSmell()
       }

@@ -46,28 +46,79 @@ public struct WritingNoteCoordinator: Reducer {
         )
         return .none
         
-      case .routeAction(_, action: .wineConfirm(.tappedWritingButton)):
-        state.routes.append(.push(.setAlcohol(.init())))
+      case let .routeAction(_, action: .wineConfirm(._moveNextPage(wineId))):
+        state.routes.append(.push(.setAlcohol(.init(wineId: wineId))))
         return .none
         
-      case .routeAction(_, action: .setAlcohol(.tappedNextButton)):
-        state.routes.append(.push(.setVintage(.init())))
+      case let .routeAction(_, action: .setAlcohol(._moveNextPage(wineId, officialAlcohol))):
+        state.routes.append(.push(.setVintage(.init(wineId: wineId, officialAlcohol: officialAlcohol))))
         return .none
         
-      case .routeAction(_, action: .setVintage(.tappedNextButton)):
-        state.routes.append(.push(.setColorSmell(.init())))
+      case let .routeAction(_, action: .setVintage(._moveNextPage(wineId, officialAlcohol, vintage, price))):
+        state.routes.append(.push(.setColorSmell(.init(wineId: wineId, officialAlcohol: officialAlcohol, vintage: vintage, price: price))))
         return .none
         
-      case .routeAction(_, action: .setColorSmell(.tappedNextButton)):
-        state.routes.append(.push(.setTaste(.init())))
+      case let .routeAction(_, action: .setColorSmell(._moveNextPage(wineId, officialAlcohol, vintage, price, color, smellKeywordList))):
+        state.routes.append(
+          .push(
+            .setTaste(
+              .init(
+                wineId: wineId,
+                officialAlcohol: officialAlcohol,
+                vintage: vintage,
+                price: price,
+                color: color,
+                smellKeywordList: smellKeywordList
+              )
+            )
+          )
+        )
         return .none
         
-      case .routeAction(_, action: .setTaste(.tappedNextButton)):
-        state.routes.append(.push(.setMemo(.init())))
+      case let .routeAction(
+        _,
+        action:
+            .setTaste(
+              ._moveNextPage(
+                wineId,
+                officialAlcohol,
+                vintage,
+                price,
+                color,
+                smellKeywordList,
+                sweetness,
+                acidity,
+                alcohol,
+                body,
+                tannin,
+                finish
+              )
+            )
+      ):
+        state.routes.append(
+          .push(
+            .setMemo(
+              .init(
+                wineId: wineId,
+                officialAlcohol: officialAlcohol,
+                vintage: vintage,
+                price: price,
+                color: color,
+                smellKeywordList: smellKeywordList,
+                sweetness: sweetness,
+                acidity: acidity,
+                alcohol: alcohol,
+                body: body,
+                tannin: tannin,
+                finish: finish
+              )
+            )
+          )
+        )
         return .none
         
-      case .routeAction(_, action: .setTaste(.tappedHelpButton)):
-        state.routes.append(.push(.helpTaste(.init())))
+      case .routeAction(_, action: .setTaste(.tappedHelpButton(let wineId))):
+        state.routes.append(.push(.helpTaste(.init(wineId: wineId))))
         return .none
         
       case .routeAction(_, action: .setMemo(.tappedDoneButton)):

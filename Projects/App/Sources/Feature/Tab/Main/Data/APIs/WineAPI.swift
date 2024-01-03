@@ -12,6 +12,7 @@ import WineyNetwork
 public enum WineAPI {
   case todaysRecommendations
   case wineDetailInfo(windId: String)
+  case wineTip(page: Int, size: Int)
 }
 
 extension WineAPI: EndPointType {
@@ -25,6 +26,8 @@ extension WineAPI: EndPointType {
       return "/wines/recommend"
     case let .wineDetailInfo(windId):
       return "/wines/\(windId)"
+    case let .wineTip(page: page, size: size):
+      return "/wine-tip"
     }
   }
   
@@ -33,6 +36,8 @@ extension WineAPI: EndPointType {
     case .todaysRecommendations:
       return .get
     case .wineDetailInfo:
+      return .get
+    case .wineTip:
       return .get
     }
   }
@@ -43,6 +48,8 @@ extension WineAPI: EndPointType {
       return .requestPlain
     case .wineDetailInfo:
       return .requestPlain
+    case let .wineTip(page, size):
+      return .requestParameters(parameters: ["page": page, "size": size], encoding: .queryString)
     }
   }
 }

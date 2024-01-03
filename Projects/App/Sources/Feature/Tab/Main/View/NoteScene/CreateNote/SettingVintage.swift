@@ -11,12 +11,18 @@ import SwiftUI
 
 public struct SettingVintage: Reducer {
   public struct State: Equatable {
+    public var wineId: Int
+    public var officialAlcohol: Int
+    
     public var vintage: String = ""
     public var price: String = ""
     
     public var buttonState: Bool = false
     
-    public var settingAlcohol = SettingAlcohol.State()
+    public init(wineId: Int, officialAlcohol: Int) {
+      self.wineId = wineId
+      self.officialAlcohol = officialAlcohol
+    }
   }
   
   public enum Action {
@@ -25,35 +31,31 @@ public struct SettingVintage: Reducer {
     case editVintage(String)
     case editPrice(String)
     case tappedNextButton
-  
+    
     // MARK: - Inner Business Action
     case _checkVintageValue(String)
     case _checkPriceValue(String)
+    case _moveNextPage(wineId: Int, officialAlcohol: Int, vintage: Int, price: Int)
     
     // MARK: - Inner SetState Action
     case _setButtonState
     
     // MARK: - Child Action
-    case settingAlcohol(SettingAlcohol.Action)
   }
   
   public var body: some ReducerOf<Self> {
-    
-    Scope(state: \.settingAlcohol, action: /SettingVintage.Action.settingAlcohol) {
-      SettingAlcohol()
-    }
     
     Reduce { state, action in
       switch action {
         
       case .editVintage(let value):
         state.vintage = value
-        state.settingAlcohol.tooltipVisible = false
+        // state.settingAlcohol.tooltipVisible = false
         return .none
         
       case .editPrice(let value):
         state.price = value
-        state.settingAlcohol.tooltipVisible = false
+        // state.settingAlcohol.tooltipVisible = false
         return .none
         
       case ._checkVintageValue(let value):
@@ -69,7 +71,14 @@ public struct SettingVintage: Reducer {
         return .none
         
       case .tappedNextButton:
-        return .none
+        return .send(
+          ._moveNextPage(
+            wineId: state.wineId,
+            officialAlcohol: state.officialAlcohol,
+            vintage: Int(state.vintage) ?? 0,
+            price: Int(state.price) ?? 0
+          )
+        )
         
       default:
         return .none

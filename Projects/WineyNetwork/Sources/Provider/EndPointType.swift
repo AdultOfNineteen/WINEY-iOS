@@ -65,12 +65,16 @@ public extension EndPointType {
       request.httpBody = try encoder.encode(parameters)
       
     case let .requestParameters(parameters, encoding):
-      request = try encoding.encode(request, with: parameters)
+      request = try encoding.encode(request, with: parameters, images: [])
       
     case let .requestCompositeParameters(query, body):
-      request = try EncodingType.queryString.encode(request, with: query)
-      request = try EncodingType.jsonBody.encode(request, with: body)
+      request = try EncodingType.queryString.encode(request, with: query, images: [])
+      request = try EncodingType.jsonBody.encode(request, with: body, images: [])
+      
+    case let .requestMultipartData(parameters, images):
+      request = try EncodingType.multiPart.encode(request, with: parameters, images: images)
     }
+    
     return request
   }
 }

@@ -24,17 +24,21 @@ public struct NoteCardScrollView: View {
   public var body: some View {
     // MARK: Note List
     VStack(spacing: 0) {
-      ScrollView {
-        LazyVGrid(columns: columns, spacing: 20) {
-          ForEach(viewStore.noteCards, id: \.id) { note in
-            noteCard(noteCard: note)
-              .onTapGesture {
-                viewStore.send(.tappedNoteCard(note))
-              }
+      if viewStore.noteCards.totalCnt > 0 {
+        ScrollView {
+          LazyVGrid(columns: columns, spacing: 20) {
+            ForEach(viewStore.noteCards.contents, id: \.noteId) { note in
+              noteCard(noteData: note)
+                .onTapGesture {
+                  viewStore.send(.tappedNoteCard(note))
+                }
+            }
           }
+          .padding(.top, 2)
+          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
         }
-        .padding(.top, 2)
-        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+      } else {
+        noteEmptyView()
       }
     }
   }
@@ -43,34 +47,46 @@ public struct NoteCardScrollView: View {
 extension NoteCardScrollView {
   
   @ViewBuilder
-  private func noteCard(noteCard: NoteCardData) -> some View {
+  private func noteCard(noteData: NoteContent) -> some View {
     VStack(alignment: .leading, spacing: 0) {
       SmallWineCard(
-        wineData: WineCardData(
-          id: noteCard.id,
-          wineType: noteCard.wineType,
-          name: noteCard.wineName,
-          country: noteCard.region,
-          varietal: noteCard.varietal,
-          sweetness: Int(noteCard.myWineTaste.sweetness) ?? 0,  // 데이터 추후 수정
-          acidity: Int(noteCard.myWineTaste.acidity) ?? 0,
-          body: Int(noteCard.myWineTaste.body) ?? 0,
-          tannins: Int(noteCard.myWineTaste.tannin) ?? 0,
-          wineSummary: WineSummary(avgPrice: 0, avgSweetness: 0, avgAcidity: 0, avgBody: 0, avgTannins: 0)
-        ),
+        wineType: WineType.changeType(at: noteData.wineType),
         borderColor: Color(red: 150/255, green: 113/255, blue: 1)
       )
       
       VStack(alignment: .leading, spacing: 2) {
-        Text(noteCard.wineName)
+        Text(noteData.wineName)
           .lineLimit(1)
           .wineyFont(.captionB1)
         
-        Text("\(noteCard.region) / \(noteCard.star.description)점")
+        Text("\(noteData.country) / \(noteData.starRating.description)점")
           .wineyFont(.captionM2)
           .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
       }
       .padding(.top, 10)
     }
+  }
+  
+  @ViewBuilder
+  private func noteEmptyView() -> some View {
+    VStack(spacing: 0) {
+      Spacer()
+        .frame(height: 72)
+      
+      WineyAsset.Assets.emptyNoteIcon.swiftUIImage
+      
+      Spacer()
+        .frame(height: 13)
+      
+      VStack(spacing: 2) {
+        Text("아직 노트가 없어요!")
+        Text("노트를 작성해주세요 :)")
+      }
+      
+      Spacer()
+    }
+    .frame(maxWidth: .infinity)
+    .wineyFont(.headLine)
+    .foregroundColor(WineyKitAsset.gray800.swiftUIColor)
   }
 }

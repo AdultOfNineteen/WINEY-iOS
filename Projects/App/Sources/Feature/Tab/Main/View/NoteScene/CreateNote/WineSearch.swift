@@ -11,89 +11,115 @@ import SwiftUI
 
 public struct WineSearch: Reducer {
   public struct State: Equatable {
-    public var userSearch: String = ""
+    public var wineCards: WineSearchDTO?
     
-    public var wineCards: IdentifiedArrayOf<WineCardData> = [
-      WineCardData(
-        id: 0,
-        wineType: .red,
-        name: "캄포마리나",
-        country: "이탈리아",
-        varietal: "test",
-        sweetness: 1,
-        acidity: 2,
-        body: 3,
-        tannins: 4,
-        wineSummary: WineSummary(
-          avgPrice: 1,
-          avgSweetness: 2,
-          avgAcidity: 3,
-          avgBody: 4,
-          avgTannins: 5
-        )
-      ),
-      WineCardData(
-        id: 1,
-        wineType: .rose,
-        name: "캄포마리나",
-        country: "이탈리아",
-        varietal: "test",
-        sweetness: 1,
-        acidity: 2,
-        body: 3,
-        tannins: 4,
-        wineSummary: WineSummary(
-          avgPrice: 1,
-          avgSweetness: 2,
-          avgAcidity: 3,
-          avgBody: 4,
-          avgTannins: 5
-        )
-      ),
-      WineCardData(
-        id: 2,
-        wineType: .etc,
-        name: "캄포마리나",
-        country: "이탈리아",
-        varietal: "test",
-        sweetness: 1,
-        acidity: 2,
-        body: 3,
-        tannins: 4,
-        wineSummary: WineSummary(
-          avgPrice: 1,
-          avgSweetness: 2,
-          avgAcidity: 3,
-          avgBody: 4,
-          avgTannins: 5
-        )
-      )
-    ]
+    public var wineSearchPage: Int = 0
+    public var wineSearchSize: Int = 10
+    public var userSearch: String = ""
   }
   
   public enum Action {
     // MARK: - User Action
     case tappedBackButton
-    case tappedWineCard(WineCardData)
+    case tappedWineCard(WineSearchContent)
     
     // MARK: - Inner Business Action
+    case _viewWillAppear
     case _settingSearchString(String)
-    case _updateList(String)
     case _focusing
     case _unfocusing
+    case _fetchNextWinePage
+    case _appendNextWineData(WineSearchDTO)
     
     // MARK: - Inner SetState Action
+    case _setWines(data: WineSearchDTO)
+    case _appendWines(WineSearchDTO, data: WineSearchDTO)
+    case _failureSocialNetworking(Error)
     
     // MARK: - Child Action
   }
   
+  @Dependency(\.note) var noteService
+  
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
+      case ._viewWillAppear:
+        let userInput = state.userSearch
+        let searchPage = state.wineSearchPage
+        let searchSize = state.wineSearchSize
+        
+        if searchPage == 0 {
+          return .run { send in
+            switch await noteService.wineSearch(searchPage, searchSize, userInput) {
+            case let .success(data):
+              await send(._setWines(data: data))
+            case let .failure(error):
+              await send(._failureSocialNetworking(error))
+            }
+          }
+        } else {
+          return .none
+        }
+        
+      case let ._setWines(data):
+        state.wineCards = data
+        return .none
+        
+      case let ._appendWines(wineData, data):
+        var originWineData = wineData
+        originWineData.contents.append(contentsOf: data.contents)
+        originWineData.isLast = data.isLast
+        originWineData.totalCnt = data.totalCnt
+        
+        state.wineCards = originWineData
+        
+        return .none
         
       case let ._settingSearchString(text):
         state.userSearch = text
-        return .send(._updateList(text))
+        
+        let userInput = state.userSearch
+        
+        state.wineSearchPage = 0
+        let searchPage = state.wineSearchPage
+        let searchSize = state.wineSearchSize
+        
+        return .run { send in
+          switch await noteService.wineSearch(searchPage, searchSize, userInput) {
+          case let .success(data):
+            await send(._setWines(data: data))
+          case let .failure(error):
+            await send(._failureSocialNetworking(error))
+          }
+        }
+        
+      case ._fetchNextWinePage:
+        guard let wineData = state.wineCards else {
+          return .none
+        }
+        
+        if wineData.isLast {
+          return .none
+        } else {
+          return .send(._appendNextWineData(wineData))
+        }
+        
+      case let ._appendNextWineData(wineData):
+        let userInput = state.userSearch
+        
+        state.wineSearchPage += 1
+        let searchPage = state.wineSearchPage
+        let searchSize = state.wineSearchSize
+        
+        return .run { send in
+          switch await noteService.wineSearch(searchPage, searchSize, userInput) {
+          case let .success(data):
+            await send(._appendWines(wineData, data: data))
+          case let .failure(error):
+            await send(._failureSocialNetworking(error))
+          }
+        }
         
       default:
         return .none

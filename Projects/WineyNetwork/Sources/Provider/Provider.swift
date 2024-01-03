@@ -11,11 +11,16 @@ public struct Provider<Target: EndPointType> {
   private let session: URLSessionProtocol
   private let responseLogger = NetworkLogger()
   
-  public init(session: URLSessionProtocol = Session.shared.session) {
+  public init(
+    session: URLSessionProtocol = Session.shared.session
+  ) {
     self.session = session
   }
   
-  public func request<T: Decodable>(_ endPoint: EndPointType, type: T.Type) async -> Result<T, Error> {
+  public func request<T: Decodable>(
+    _ endPoint: EndPointType,
+    type: T.Type
+  ) async -> Result<T, Error> {
     return await requestObject(endPoint, type: type)
   }
 }
@@ -42,7 +47,8 @@ private extension Provider {
       return .failure(error)
     }
     
-    NetworkLogger().logResponse(response: response, data: data) // 임시 
+    // 임시
+    responseLogger.logResponse(response: response, data: data)
     
     guard let httpResponse = response as? HTTPURLResponse,
     200..<300 ~= httpResponse.statusCode else {
