@@ -71,8 +71,8 @@ public extension EndPointType {
       request = try EncodingType.queryString.encode(request, with: query, images: [])
       request = try EncodingType.jsonBody.encode(request, with: body, images: [])
       
-    case let .requestMultipartData(parameters, images, encoding):
-      request = try encoding.encode(request, with: parameters, images: images)
+    case let .requestMultipartData(parameters, images):
+      request = try EncodingType.multiPart.encode(request, with: parameters, images: images)
     }
     
     return request
