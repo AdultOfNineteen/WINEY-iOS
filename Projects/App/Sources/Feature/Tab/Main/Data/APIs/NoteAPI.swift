@@ -62,7 +62,6 @@ extension NoteAPI: EndPointType {
       
     case let .tastingNotes(page, size, order, country, wineType, buyAgain):
       return .requestParameters(
-        
         parameters: [
           "page": page,
           "size": size,
@@ -111,8 +110,7 @@ extension NoteAPI: EndPointType {
           "rating": rating,
           "smellKeywordList": smellKeywordList
         ],
-        images: images,
-        encoding: .multiPart
+        images: images
       )
     }
   }
