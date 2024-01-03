@@ -19,7 +19,6 @@ extension EncodingType {
     var urlRequest = urlRequest
     switch self {
     case .jsonBody:
-      // JSON으로 본문 인코딩
       if let parameters = parameters {
         let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: [])
         urlRequest.httpBody = jsonData
@@ -35,76 +34,95 @@ extension EncodingType {
           urlRequest.url = urlComponents.url
         }
       }
-    
-    // MARK: MultiPart 추가
+      
     case .multiPart:
       if let parameters = parameters {
         let boundary = generateBoundaryString()
-        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         
-        var body = NSMutableData()
-        body.appendString("--\(boundary)\r\n")
-        body.appendString("Content-Disposition: form-data; name=\"request\"\r\n\r\n")
-        let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: [])
-        body.append(jsonData)
-        body.appendString("\r\n")
+        let body = try createMultipartBody(
+          parameters: parameters,
+          boundary: boundary,
+          images: images
+        )
         
-        if let images = images {
-          for image in images {
-            if let imageData = image.jpegData(compressionQuality: 0.1) {
-              body.append(convertFileData(fieldName: "file", fileName: "\(Date.now)_photo.jpg", mimeType: "multipart/form-data", fileData: imageData, using: boundary))
-            }
-          }
-        }
-        
-        body.appendString("--\(boundary)--")
-        
-        urlRequest.httpBody = body as Data
+        urlRequest.setValue(
+          "multipart/form-data; boundary=\(boundary)",
+          forHTTPHeaderField: "Content-Type"
+        )
+        urlRequest.httpBody = body
       }
     }
     return urlRequest
   }
 }
 
-// MARK: MultiPart 추가
-extension EncodingType {
-  private func convertFormField(named name: String,
-                                value: String,
-                                using boundary: String) -> String {
-    let mimeType = "application/json"
-    var fieldString = "--\(boundary)\r\n"
-    fieldString += "Content-Disposition: form-data; name=\"\(name)\"\r\n"
-    fieldString += "Content-Type: \(mimeType)\r\n\r\n"
-    fieldString += "\r\n"
-    fieldString += "\(value)\r\n"
+
+fileprivate extension EncodingType {
+  private func createMultipartBody(
+    parameters: [String: Any],
+    boundary: String,
+    images: [UIImage]?
+  ) throws -> Data {
+    var body = Data()
+
+    body.append("--\(boundary)\r\n")
+    body.append("Content-Disposition: form-data; name=\"request\"\r\n")
+    body.append("Content-Type: application/json\r\n\r\n")
     
-    return fieldString
+    let jsonData = try JSONSerialization.data(
+      withJSONObject: parameters,
+      options: []
+    )
+    
+    body.append(jsonData)
+    body.append("\r\n")
+    
+    if let images = images {
+      for image in images {
+        if let imageData = image.jpegData(compressionQuality: 0.7) {
+          body.append(
+            convertFileData(
+              fieldName: "multipartFiles",
+              fileName: "\(Date.now)_photo.jpg",
+              mimeType: "image/jpeg",
+              fileData: imageData,
+              using: boundary
+            )
+          )
+        }
+      }
+    }
+    
+    body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+    
+    return body
   }
   
-  private func convertFileData(fieldName: String,
-                               fileName: String,
-                               mimeType: String,
-                               fileData: Data,
-                               using boundary: String) -> Data {
-    let data = NSMutableData()
+  private func convertFileData(
+    fieldName: String,
+    fileName: String,
+    mimeType: String,
+    fileData: Data,
+    using boundary: String) -> Data {
+
+    var data = Data()
     
-    data.appendString("--\(boundary)\r\n")
-    data.appendString("Content-Disposition: form-data; name=\"\(fieldName)\"; filename=\"\(fileName)\"\r\n")
-    data.appendString("Content-Type: \(mimeType)\r\n\r\n")
+    data.append("--\(boundary)\r\n")
+    data.append("Content-Disposition: form-data; name=\"\(fieldName)\";  filename=\"\(fileName)\"\r\n")
+    data.append("Content-Type: \(mimeType)\r\n\r\n")
     data.append(fileData)
-    data.appendString("\r\n")
+    data.append("\r\n")
     
-    return data as Data
+    return data
   }
   
   private func generateBoundaryString() -> String {
-    return "Boundary-\(UUID().uuidString)"
+    return UUID().uuidString
   }
 }
 
-// MARK: MultiPart 추가
-extension NSMutableData {
-  func appendString(_ string: String) {
+fileprivate extension Data {
+  mutating func append(_ string: String) {
     if let data = string.data(using: .utf8) {
       self.append(data)
     }
