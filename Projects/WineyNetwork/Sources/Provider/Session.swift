@@ -15,6 +15,10 @@ public final class Session {
   private init() {
     let configuration = URLSessionConfiguration.default
     let logger = NetworkLogger()
-    session = URLSession(configuration: configuration, delegate: logger, delegateQueue: nil)
+    session = URLSession(
+      configuration: configuration,
+      delegate: logger,
+      delegateQueue: nil
+    )
   }
 }

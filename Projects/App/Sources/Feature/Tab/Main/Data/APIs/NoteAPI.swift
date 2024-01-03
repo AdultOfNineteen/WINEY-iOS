@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import WineyNetwork
 import UIKit
+import WineyNetwork
 
 public enum NoteAPI {
   case wineSearch(page: Int, size: Int, content: String)
