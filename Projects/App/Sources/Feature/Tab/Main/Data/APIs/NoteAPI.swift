@@ -16,6 +16,7 @@ public enum NoteAPI {
   case tastingNotes(page: Int, size: Int, order: Int, country: [String], wineType: [String], buyAgain: Int)
   case createNote(wineId: Int, vintage: Int, officialAlcohol: Int, price: Int, color: String, sweetness: Int,
                   acidity: Int, alcohol: Int, body: Int, tannin: Int, finish: Int, memo: String, buyAgain: Bool, rating: Int, smellKeywordList: [String], images: [UIImage])
+  case deleteNote(noteId: Int)
 }
 
 extension NoteAPI: EndPointType {
@@ -33,6 +34,8 @@ extension NoteAPI: EndPointType {
       return "/tasting-notes"
     case .createNote:
       return "/tasting-notes"
+    case let .deleteNote(noteId):
+      return "/tasting-notes/\(noteId)"
     }
   }
   
@@ -46,6 +49,8 @@ extension NoteAPI: EndPointType {
       return .get
     case .createNote:
       return .post
+    case .deleteNote:
+      return .delete
     }
   }
   
@@ -114,6 +119,13 @@ extension NoteAPI: EndPointType {
           "smellKeywordList": smellKeywordList
         ],
         images: images
+      )
+    case let .deleteNote(noteId: noteId):
+      return .requestParameters(
+        parameters: [
+          "noteId": noteId
+        ],
+        encoding: .queryString
       )
     }
   }

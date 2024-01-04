@@ -35,6 +35,7 @@ public struct NoteDetail: Reducer {
     case tappedSettingButton
     case tappedOption(NoteDetailOption)
     case tappedOutsideOfBottomSheet
+    case tappedNoteDelete(Int)
     
     // MARK: - Inner Business Action
     case _navigateToCardDetail(Int, NoteCardData)
@@ -90,6 +91,18 @@ public struct NoteDetail: Reducer {
     case ._presentRemoveSheet(let bool):
       state.isPresentedRemoveSheet = bool
       return .send(._presentBottomSheet(false))
+      
+    case .tappedNoteDelete(let noteId):
+      return .run { send in
+        switch await noteService.deleteNote(noteId) {
+        case let .success(data):
+          await send(.tappedBackButton)
+          print("success")
+        case let .failure(error):
+          await send(._failureSocialNetworking(error))
+          print("fail")
+        }
+      }
       
     default:
       return .none

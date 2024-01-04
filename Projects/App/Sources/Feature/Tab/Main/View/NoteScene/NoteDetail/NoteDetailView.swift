@@ -249,8 +249,7 @@ extension NoteDetailView {
       ,
       rightTitle: "네, 지울래요",
       rightAction: {
-        // TODO: Note 삭제 로직
-        viewStore.send(._presentRemoveSheet(false))
+        viewStore.send(.tappedNoteDelete(viewStore.noteId))
       }
     )
   }

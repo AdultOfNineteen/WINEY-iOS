@@ -18,6 +18,7 @@ public struct NoteService {
   public var createNote: (_ wineId: Int, _ vintage: Int, _ officialAlcohol: Int, _ price: Int, _ color: String, _
                           sweetness: Int, _ acidity: Int, _ alcohol: Int, _ body: Int, _ tannin: Int, _ finish: Int, _ memo: String, _ buyAgain: Bool,
                           _ rating: Int, _ smellKeywordList: [String], _ images: [UIImage]) async -> Result<VoidResponse, Error>
+  public var deleteNote: (_ noteId: Int) async -> Result<VoidResponse, Error>
 }
 
 extension NoteService {
@@ -100,6 +101,21 @@ extension NoteService {
               smellKeywordList: smellKeywordList,
               images: images
             ),
+            type: VoidResponse.self
+          )
+        
+        switch dtoResult {
+        case let .success(dto):
+          return .success(dto)
+        case let .failure(error):
+          return .failure(error)
+        }
+      },
+      deleteNote: { noteId in
+        let dtoResult = await Provider<NoteAPI>
+          .init()
+          .request(
+            NoteAPI.deleteNote(noteId: noteId),
             type: VoidResponse.self
           )
         
