@@ -30,7 +30,7 @@ public struct NoteCardScrollView: View {
             ForEach(viewStore.noteCards.contents, id: \.noteId) { note in
               noteCard(noteData: note)
                 .onTapGesture {
-                  viewStore.send(.tappedNoteCard(note))
+                  viewStore.send(.tappedNoteCard(noteId: note.noteId))
                 }
             }
           }

@@ -25,7 +25,7 @@ public enum GraphCase {
 }
 
 public struct NoteDetailGraphTabView: View {
-  public let noteCardData: NoteCardData
+  public let noteCardData: NoteDetailDTO
   
   public var body: some View {
     TabView {
@@ -178,14 +178,14 @@ public struct WineDetailGraphMyWineDefaultView: View {
 
 #Preview {
   NoteDetailGraphTabView(
-    noteCardData: NoteCardData(
-      id: 1,
+    noteCardData: NoteDetailDTO(
+      noteId: 1,
       noteDate: "2023.10.11",
-      wineType: WineType.red,
+      wineType: "RED",
       wineName: "test",
       region: "test",
-      star: 4.0,
-      color: Color.blue,
+      star: 4,
+      color: "red",
       buyAgain: true,
       varietal: "test",
       officialAlcohol: 24.0,
@@ -205,6 +205,7 @@ public struct WineDetailGraphMyWineDefaultView: View {
         body: 3.3,
         tannin: 1.4
       ),
+      tastingNoteImage: [],
       memo: "test"
     )
   )

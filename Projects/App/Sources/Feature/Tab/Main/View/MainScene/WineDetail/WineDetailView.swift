@@ -69,7 +69,7 @@ public struct WineDetailView: View {
             secondaryColor: WineType.changeType(at: viewStore.windDetailData?.type ?? "test").backgroundColor.secondCircle,
             nationalAnthems: viewStore.windDetailData?.country ?? "error",
             varities: viewStore.windDetailData?.varietal ?? "error",
-            purchasePrice: viewStore.windDetailData?.wineSummary.avgPrice ?? 0
+            purchasePrice: Int(viewStore.windDetailData?.wineSummary.avgPrice ?? 0)
           )
           .padding(.top, 42)
           

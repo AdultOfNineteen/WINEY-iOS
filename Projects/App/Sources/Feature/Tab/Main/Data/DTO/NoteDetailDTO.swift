@@ -1,32 +1,33 @@
 //
-//  TastingNoteData.swift
+//  NoteDetailDTO.swift
 //  Winey
 //
-//  Created by 정도현 on 2023/09/19.
-//  Copyright © 2023 com.adultOfNineteen. All rights reserved.
+//  Created by 정도현 on 1/4/24.
+//  Copyright © 2024 Winey. All rights reserved.
 //
 
-import SwiftUI
+import Foundation
 
-public struct NoteCardData: Identifiable, Equatable {
-  public let id: Int
+public struct NoteDetailDTO: Codable, Equatable {
+  public let noteId: Int
   public let noteDate: String
-  public let wineType: WineType
+  public let wineType: String
   public let wineName: String
   public let region: String
-  public let star: Double
-  public let color: Color
+  public let star: Int
+  public let color: String
   public let buyAgain: Bool
   public let varietal: String
   public let officialAlcohol: Double
-  public let price: Double
+  public let price: Int
   public let smellKeywordList: [String]
   public let myWineTaste: MyWineTaste
   public let defaultWineTaste: DefaultWineTaste
+  public let tastingNoteImage: [TastingNoteImage]
   public let memo: String
 }
 
-public struct MyWineTaster: Hashable {
+public struct MyWineTaste: Hashable, Codable {
   public let sweetness: Double
   public let acidity: Double
   public let alcohol: Double
@@ -35,9 +36,14 @@ public struct MyWineTaster: Hashable {
   public let finish: Double
 }
 
-public struct DefaultWineTaster: Hashable {
+public struct DefaultWineTaste: Hashable, Codable {
   public let sweetness: Double
   public let acidity: Double
   public let body: Double
   public let tannin: Double
+}
+
+public struct TastingNoteImage: Hashable, Codable {
+  public let imgId: Int
+  public let imgUrl: String
 }

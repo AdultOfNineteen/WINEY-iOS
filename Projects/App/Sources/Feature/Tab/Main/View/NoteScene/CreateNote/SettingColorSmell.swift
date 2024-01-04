@@ -123,7 +123,7 @@ public struct SettingColorSmell: Reducer {
             officialAlcohol: state.officialAlcohol,
             vintage: state.vintage,
             price: state.price,
-            color: state.colorValue.description,  // 수정 필요
+            color: "#"+(Color(red: 255/255, green: state.colorValue/255, blue: state.colorValue/255).toHex() ?? "FFFFFF"),
             smellKeywordList: state.selectedSmell
           )
         )
