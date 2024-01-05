@@ -75,6 +75,9 @@ public struct NoteDetail: Reducer {
     case .tappedSettingButton:
       return .send(._presentBottomSheet(true))
       
+    case .tappedOutsideOfBottomSheet:
+      return .send(._presentBottomSheet(false))
+      
     case .tappedOption(let option):
       state.selectOption = option
       if option == .remove {

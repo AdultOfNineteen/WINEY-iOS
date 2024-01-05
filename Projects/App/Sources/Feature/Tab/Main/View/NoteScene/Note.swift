@@ -51,7 +51,7 @@ public struct Note: Reducer {
       
       case ._viewWillAppear:
         return .run { send in
-          switch await noteService.notes(0, 10, 0, [], [], 1) {
+          switch await noteService.notes(0, 10, 0, [], [], 0) {
           case let .success(data):
             await send(._setNotes(data: data))
           case let .failure(error):

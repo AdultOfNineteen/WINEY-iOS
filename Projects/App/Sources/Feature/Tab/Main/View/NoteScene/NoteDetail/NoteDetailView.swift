@@ -37,7 +37,11 @@ public struct NoteDetailView: View {
       if let noteData = viewStore.noteCardData {
         noteDetail(noteData: noteData)
       } else {
-        Text("네트워크 오류")
+        VStack {
+          Spacer()
+          Text("네트워크 오류")
+          Spacer()
+        }
       }
     }
     .onAppear {
@@ -84,47 +88,10 @@ extension NoteDetailView {
     ScrollView {
       VStack(spacing: 0) {
         // MARK: Note Number & Date
-        HStack(spacing: 0) {
-          Text("No.")
-          Text(noteData.noteId < 10 ? "0" + noteData.noteId.description : noteData.noteId.description)
-            .foregroundColor(WineyKitAsset.main3.swiftUIColor)
-          
-          Spacer()
-          
-          Text(noteData.noteDate)
-        }
-        .wineyFont(.bodyB1)
-        .padding(.top, 20)
-        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+        noteHeader(noteData: noteData)
         
         // MARK: WINE TYPE, NAME
-        VStack(spacing: 0) {
-          HStack {
-            Text(WineType.changeType(at: noteData.wineType).typeName)
-              .wineyFont(.display1)
-              .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-              .frame(height: 54, alignment: .topLeading)
-            
-            WineyAsset.Assets.star1.swiftUIImage
-              .padding(.top, 14)
-              .padding(.leading, 6)
-            
-            Spacer()
-          }
-          .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-          
-          HStack {
-            Text(noteData.wineName.useNonBreakingSpace())
-              .wineyFont(.bodyB2)
-              .foregroundColor(WineyKitAsset.gray500.swiftUIColor)
-              .frame(width: 271, alignment: .topLeading)
-            
-            Spacer()
-          }
-          .padding(.top, 16)
-        }
-        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-        .padding(.top, 30)
+        noteWineType(noteData: noteData)
         
         Divider()
           .overlay(WineyKitAsset.gray900.swiftUIColor)
@@ -174,28 +141,98 @@ extension NoteDetailView {
           .padding(.bottom, 30)
         
         // MARK: Image, memo
-        VStack(spacing: 0) {
-          HStack {
-            Text("Feature")
-              .wineyFont(.display2)
-            
-            Spacer()
-          }
-            
-          Text(noteData.memo)
-            .wineyFont(.captionM1)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 15)
-            .padding(.vertical, 14)
-            .background(
-              RoundedRectangle(cornerRadius: 10)
-                .stroke(WineyKitAsset.main3.swiftUIColor)
-            )
-            .padding(.top, 36)
-        }
-        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+        noteImageMemo(noteData: noteData)
       }
     }
+  }
+  
+  @ViewBuilder
+  private func noteHeader(noteData: NoteDetailDTO) -> some View {
+    HStack(spacing: 0) {
+      Text("No.")
+      Text(noteData.noteId < 10 ? "0" + noteData.noteId.description : noteData.noteId.description)
+        .foregroundColor(WineyKitAsset.main3.swiftUIColor)
+      
+      Spacer()
+      
+      Text(noteData.noteDate)
+    }
+    .wineyFont(.bodyB1)
+    .padding(.top, 20)
+    .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+  }
+  
+  @ViewBuilder
+  private func noteWineType(noteData: NoteDetailDTO) -> some View {
+    VStack(spacing: 0) {
+      HStack {
+        Text(WineType.changeType(at: noteData.wineType).typeName)
+          .wineyFont(.display1)
+          .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+          .frame(height: 54, alignment: .topLeading)
+        
+        WineyAsset.Assets.star1.swiftUIImage
+          .padding(.top, 14)
+          .padding(.leading, 6)
+        
+        Spacer()
+      }
+      .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+      
+      HStack {
+        Text(noteData.wineName.useNonBreakingSpace())
+          .wineyFont(.bodyB2)
+          .foregroundColor(WineyKitAsset.gray500.swiftUIColor)
+          .frame(width: 271, alignment: .topLeading)
+        
+        Spacer()
+      }
+      .padding(.top, 16)
+    }
+    .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+    .padding(.top, 30)
+  }
+  
+  @ViewBuilder
+  private func noteImageMemo(noteData: NoteDetailDTO) -> some View {
+    VStack(spacing: 0) {
+      HStack {
+        Text("Feature")
+          .wineyFont(.display2)
+        
+        Spacer()
+      }
+      
+      if !noteData.tastingNoteImage.isEmpty {
+        ScrollView(.horizontal) {
+          HStack(spacing: 10) {
+            ForEach(noteData.tastingNoteImage, id: \.self) { imageData in
+              AsyncImage(url: URL(string: imageData.imgUrl)) { image in
+                image.resizable()
+              } placeholder: {
+                ProgressView()
+              }
+              .clipShape(
+                RoundedRectangle(cornerRadius: 10)
+              )
+              .frame(width: 120, height: 120)
+            }
+          }
+        }
+      }
+      
+      Text(noteData.memo)
+        .wineyFont(.captionM1)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 15)
+        .padding(.vertical, 14)
+        .background(
+          RoundedRectangle(cornerRadius: 10)
+            .stroke(WineyKitAsset.main3.swiftUIColor)
+        )
+        .padding(.top, 36)
+    }
+    .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
   }
   
   @ViewBuilder
