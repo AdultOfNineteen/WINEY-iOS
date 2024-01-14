@@ -53,10 +53,13 @@ public struct SettingVintageView: View {
       
       BottomOptionButton(
         validation: viewStore.buttonState,
-        tooltipVisible: false
+        tooltipVisible: viewStore.tooltipVisible
       ) {
         viewStore.send(.tappedNextButton)
       }
+    }
+    .onAppear {
+      viewStore.send(._viewWillAppear)
     }
     .onChange(of: viewStore.vintage, perform: { newValue in
       viewStore.send(._checkVintageValue(newValue))
