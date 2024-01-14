@@ -13,10 +13,11 @@ import WineyNetwork
 public enum NoteAPI {
   case wineSearch(page: Int, size: Int, content: String)
   case noteDetailInfo(noteId: Int)
-  case tastingNotes(page: Int, size: Int, order: Int, country: [String], wineType: [String], buyAgain: Int)
+  case tastingNotes(page: Int, size: Int, order: Int, country: [String], wineType: [String], buyAgain: Int?)
   case createNote(wineId: Int, vintage: Int, officialAlcohol: Int, price: Int, color: String, sweetness: Int,
                   acidity: Int, alcohol: Int, body: Int, tannin: Int, finish: Int, memo: String, buyAgain: Bool, rating: Int, smellKeywordList: [String], images: [UIImage])
   case deleteNote(noteId: Int)
+  case noteFilter
 }
 
 extension NoteAPI: EndPointType {
@@ -36,6 +37,8 @@ extension NoteAPI: EndPointType {
       return "/tasting-notes"
     case let .deleteNote(noteId):
       return "/tasting-notes/\(noteId)"
+    case .noteFilter:
+      return "/tasting-notes/filter"
     }
   }
   
@@ -51,6 +54,8 @@ extension NoteAPI: EndPointType {
       return .post
     case .deleteNote:
       return .delete
+    case .noteFilter:
+      return .get
     }
   }
   
@@ -74,9 +79,9 @@ extension NoteAPI: EndPointType {
           "page": page,
           "size": size,
           "order": order,
-          "country": country,
-          "wineType": wineType,
-          "buyAgain": buyAgain
+          country.isEmpty ? "c" : "countries" : country.joined(separator: ", "),
+          wineType.isEmpty ? "w" : "wineTypes" : wineType.joined(separator: ", "),
+          "buyAgain": buyAgain ?? ""
         ],
         encoding: .queryString
       )
@@ -127,6 +132,8 @@ extension NoteAPI: EndPointType {
         ],
         encoding: .queryString
       )
+    case .noteFilter:
+      return .requestPlain
     }
   }
 }

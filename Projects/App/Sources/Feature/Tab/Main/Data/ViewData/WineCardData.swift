@@ -60,12 +60,12 @@ struct WineBackgroundColor {
 
 // MARK: WINE TYPE
 public enum WineType: String, CaseIterable {
-  case red
-  case white
-  case rose
-  case sparkl
-  case port
-  case etc
+  case red = "RED"
+  case white = "WHITE"
+  case rose = "ROSE"
+  case sparkl = "SPARKLING"
+  case port = "FORTIFIED"
+  case etc = "OTHER"
   
   var typeName: String {
     switch self {
@@ -134,7 +134,7 @@ public enum WineType: String, CaseIterable {
       return Color(red: 145/255, green: 177/255, blue: 126/255)
     }
   }
-
+  
   
   var backgroundColor: WineBackgroundColor {
     switch self {
@@ -153,7 +153,7 @@ public enum WineType: String, CaseIterable {
         firstCircleEnd: Color(red: 117/255, green: 74/255, blue: 9/255),
         secondCircle: Color(red: 137/255, green: 132/255, blue: 114/255)
       )
-  
+      
     case .rose:
       return WineBackgroundColor(
         backgroundColor: Color(red: 143/255, green: 108/255, blue: 100/255),
@@ -225,4 +225,19 @@ public enum WineType: String, CaseIterable {
       return .etc
     }
   }
+}
+
+public func filterRequestString(forValue value: String) -> String {
+  return filterTranslate[value] ?? value
+}
+
+public var filterTranslate: [String: String] {
+  return [
+    "레드": "RED",
+    "화이트": "WHITE",
+    "로제": "ROSE",
+    "스파클링": "SPARKLING",
+    "포르투": "FORTIFIED",
+    "기타": "OTHER"
+  ]
 }

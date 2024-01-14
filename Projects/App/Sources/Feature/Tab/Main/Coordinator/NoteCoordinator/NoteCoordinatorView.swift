@@ -43,11 +43,11 @@ public struct NoteCoordinatorView: View {
              then: NoteDetailView.init
           )
           
-        case .filterList:
+        case .filterDetail:
           CaseLet(
-            /NoteScreen.State.filterList,
-             action: NoteScreen.Action.filterList,
-             then: FilterListView.init
+            /NoteScreen.State.filterDetail,
+             action: NoteScreen.Action.filterDetail,
+             then: FilterDetailView.init
           )
           
         case .creatNote:
