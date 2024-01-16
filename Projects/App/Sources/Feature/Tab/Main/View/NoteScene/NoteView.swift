@@ -24,13 +24,7 @@ public struct NoteView: View {
       VStack(alignment: .leading, spacing: 0) {
         header()
         
-        noteCounter()
-        
-        filterScroll()
-        
-        noteList()
-        
-        Spacer()
+        filteredNote()
       }
       
       VStack {
@@ -53,9 +47,6 @@ public struct NoteView: View {
         }
         .padding(.bottom, 120)
       }
-    }
-    .onAppear {
-      viewStore.send(._viewWillAppear)
     }
     .background(WineyKitAsset.mainBackground.swiftUIColor)
   }
@@ -95,7 +86,7 @@ extension NoteView {
   @ViewBuilder
   private func noteCounter() -> some View {
     HStack(spacing: 0) {
-      Text("\(viewStore.noteCardList?.noteCards.totalCnt ?? 0)개")
+      Text("\(5)개")
         .foregroundColor(WineyKitAsset.main3.swiftUIColor)
       Text("의 노트를 작성했어요!")
         .foregroundColor(.white)
@@ -107,63 +98,15 @@ extension NoteView {
   
   // MARK: Filter
   @ViewBuilder
-  private func filterScroll() -> some View {
-    Divider()
-      .overlay(WineyKitAsset.gray900.swiftUIColor)
-      .padding(.top, 14)
-    
-    NoteFilterScrollView(
+  private func filteredNote() -> some View {
+    FilteredNoteView(
       store: self.store.scope(
-        state: \.noteFilterScroll,
-        action: Note.Action.noteFilterScroll
+        state: \.filteredNote,
+        action: Note.Action.filteredNote
       )
     )
-    .frame(height: 65)
-    
-    Divider()
-      .overlay(WineyKitAsset.gray900.swiftUIColor)
-      .padding(.bottom, 16)
-  }
-  
-  // MARK: Note List
-  @ViewBuilder
-  private func noteList() -> some View {
-    IfLetStore(
-      self.store.scope(
-        state: \.noteCardList,
-        action: Note.Action.noteCardScroll
-      )
-    ) {
-      NoteCardScrollView(store: $0)
-    } else: {
-      noteEmptyView()
-    }
-  }
-  
-  @ViewBuilder
-  private func noteEmptyView() -> some View {
-    VStack(spacing: 0) {
-      Spacer()
-        .frame(height: 72)
-      
-      WineyAsset.Assets.emptyNoteIcon.swiftUIImage
-      
-      Spacer()
-        .frame(height: 13)
-      
-      VStack(spacing: 2) {
-        Text("아직 노트가 없어요!")
-        Text("노트를 작성해주세요 :)")
-      }
-      
-      Spacer()
-    }
-    .frame(maxWidth: .infinity)
-    .wineyFont(.headLine)
-    .foregroundColor(WineyKitAsset.gray800.swiftUIColor)
   }
 }
-
 
 
 struct NoteView_Previews: PreviewProvider {

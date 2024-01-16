@@ -20,7 +20,7 @@ public struct NoteCardScroll: Reducer {
   
   public enum Action {
     // MARK: - User Action
-    case tappedNoteCard(NoteContent)
+    case tappedNoteCard(noteId: Int)
     
     // MARK: - Inner Business Action
     

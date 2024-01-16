@@ -16,9 +16,9 @@ public struct WineDetailInfoMiddle: View {
   public let nationalAnthems: String
   public let varities: String
   public let abv: Double?
-  public let purchasePrice: Double
+  public let purchasePrice: Int
   public let vintage: String?
-  public let star: Double?
+  public let star: Int?
   public let buyAgain: Bool?
   
   public init(
@@ -28,9 +28,9 @@ public struct WineDetailInfoMiddle: View {
     nationalAnthems: String,
     varities: String,
     abv: Double? = nil,
-    purchasePrice: Double,
+    purchasePrice: Int,
     vintage: String? = nil,
-    star: Double? = nil,
+    star: Int? = nil,
     buyAgain: Bool? = nil
   ) {
     self.illustImage = illustImage
@@ -64,12 +64,15 @@ public struct WineDetailInfoMiddle: View {
               .foregroundColor(WineyKitAsset.main3.swiftUIColor)
               .padding(.trailing, 4)
             
-            Text(star.description)
+            Text(Double(star).description)
               .foregroundColor(WineyKitAsset.main3.swiftUIColor)
-            Text("/")
-            Text(buyAgain ? "재구매" : "")
+              .wineyFont(.title2)
+            
+            if buyAgain {
+              Text("・ 재구매")
+                .wineyFont(.captionB1)
+            }
           }
-          .wineyFont(.captionB1)
         }
       }
       
@@ -165,7 +168,7 @@ public struct WineDetailInfoMiddle: View {
             }
           }
         }
-
+        
       }
       .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
       .frame(width: 148)
@@ -179,8 +182,8 @@ public struct WineDetailInfoMiddle: View {
     secondaryColor: .red,
     nationalAnthems: "test",
     varities: "test",
-    purchasePrice: 9.90,
-    star: 4.0,
+    purchasePrice: 9,
+    star: 4,
     buyAgain: true
   )
 }

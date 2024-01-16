@@ -12,10 +12,12 @@ import WineyNetwork
 
 public enum NoteAPI {
   case wineSearch(page: Int, size: Int, content: String)
-  case noteDeatilInfo(noteId: Int)
-  case tastingNotes(page: Int, size: Int, order: Int, country: [String], wineType: [String], buyAgain: Int)
-  case createNote(wineId: Int, vintage: Int, officialAlcohol: Int, price: Int, color: String, sweetness: Int, acidity: Int,
-                  alcohol: Int, body: Int, tannin: Int, finish: Int, memo: String, buyAgain: Bool, rating: Int, smellKeywordList: [String], images: [UIImage])
+  case noteDetailInfo(noteId: Int)
+  case tastingNotes(page: Int, size: Int, order: Int, country: [String], wineType: [String], buyAgain: Int?)
+  case createNote(wineId: Int, vintage: Int, officialAlcohol: Int, price: Int, color: String, sweetness: Int,
+                  acidity: Int, alcohol: Int, body: Int, tannin: Int, finish: Int, memo: String, buyAgain: Bool, rating: Int, smellKeywordList: [String], images: [UIImage])
+  case deleteNote(noteId: Int)
+  case noteFilter
 }
 
 extension NoteAPI: EndPointType {
@@ -25,7 +27,7 @@ extension NoteAPI: EndPointType {
   
   public var path: String {
     switch self {
-    case let .noteDeatilInfo(noteId):
+    case let .noteDetailInfo(noteId):
       return "/tasting-notes/\(noteId)"
     case .wineSearch:
       return "/wines/search"
@@ -33,12 +35,16 @@ extension NoteAPI: EndPointType {
       return "/tasting-notes"
     case .createNote:
       return "/tasting-notes"
+    case let .deleteNote(noteId):
+      return "/tasting-notes/\(noteId)"
+    case .noteFilter:
+      return "/tasting-notes/filter"
     }
   }
   
   public var method: WineyNetwork.HTTPMethod {
     switch self {
-    case .noteDeatilInfo:
+    case .noteDetailInfo:
       return .get
     case .wineSearch:
       return .get
@@ -46,13 +52,20 @@ extension NoteAPI: EndPointType {
       return .get
     case .createNote:
       return .post
+    case .deleteNote:
+      return .delete
+    case .noteFilter:
+      return .get
     }
   }
   
   public var task: WineyNetwork.HTTPTask {
     switch self {
-    case .noteDeatilInfo:
-      return .requestPlain
+    case let .noteDetailInfo(noteId):
+      return .requestParameters(
+        parameters: ["noteId": noteId],
+        encoding: .queryString
+      )
       
     case let .wineSearch(page, size, content):
       return .requestParameters(
@@ -66,9 +79,9 @@ extension NoteAPI: EndPointType {
           "page": page,
           "size": size,
           "order": order,
-          "country": country,
-          "wineType": wineType,
-          "buyAgain": buyAgain
+          country.isEmpty ? "c" : "countries" : country.joined(separator: ", "),
+          wineType.isEmpty ? "w" : "wineTypes" : wineType.joined(separator: ", "),
+          "buyAgain": buyAgain ?? ""
         ],
         encoding: .queryString
       )
@@ -112,6 +125,15 @@ extension NoteAPI: EndPointType {
         ],
         images: images
       )
+    case let .deleteNote(noteId: noteId):
+      return .requestParameters(
+        parameters: [
+          "noteId": noteId
+        ],
+        encoding: .queryString
+      )
+    case .noteFilter:
+      return .requestPlain
     }
   }
 }

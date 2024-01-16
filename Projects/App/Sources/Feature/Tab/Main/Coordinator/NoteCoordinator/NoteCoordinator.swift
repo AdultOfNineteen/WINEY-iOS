@@ -35,20 +35,12 @@ public struct NoteCoordinator: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
-      case .routeAction(_, action: .note(.noteCardScroll(.tappedNoteCard(let noteData)))):
-        // state.routes.append(.push(.noteDetail(.init(noteCardData: noteData))))
+      case .routeAction(_, action: .note(.filteredNote(.noteCardScroll(.tappedNoteCard(let noteId))))):
+        state.routes.append(.push(.noteDetail(.init(noteId: noteId))))
         return .none
         
-      case .routeAction(_, action: .note(.noteFilterScroll(._navigateFilterSetting(let filterList)))):
-        state.routes.append(
-          .push(
-            .filterList(
-              .init(
-                filterList: filterList
-              )
-            )
-          )
-        )
+      case .routeAction(_, action: .note(.filteredNote(.tappedFilterButton))):
+        state.routes.append(.push(.filterDetail(.init())))
         return .none
         
       case .routeAction(_, action: .note(.tappedNoteWriteButton)):
@@ -71,11 +63,7 @@ public struct NoteCoordinator: Reducer {
         state.routes.pop()
         return .none
         
-      case .routeAction(_, action: .filterList(.tappedAdaptButton)):
-        state.routes.pop()
-        return .none
-        
-      case .routeAction(_, action: .filterList(.tappedBackButton)):
+      case .routeAction(_, action: .filterDetail(.tappedBackButton)):
         state.routes.pop()
         return .none
         

@@ -72,7 +72,9 @@ public struct SettingAlcohol: Reducer {
         return .send(._tooltipHide)
         
       case ._tooltipHide:
-        state.tooltipVisible = false
+        withAnimation {
+          state.tooltipVisible = false
+        }
         return .none
         
       default:

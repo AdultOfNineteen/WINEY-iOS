@@ -18,6 +18,7 @@ public struct SettingVintage: Reducer {
     public var price: String = ""
     
     public var buttonState: Bool = false
+    public var tooltipVisible: Bool = true
     
     public init(wineId: Int, officialAlcohol: Int) {
       self.wineId = wineId
@@ -36,26 +37,41 @@ public struct SettingVintage: Reducer {
     case _checkVintageValue(String)
     case _checkPriceValue(String)
     case _moveNextPage(wineId: Int, officialAlcohol: Int, vintage: Int, price: Int)
+    case _viewWillAppear
     
     // MARK: - Inner SetState Action
     case _setButtonState
+    case _setTooltipVisible(Bool)
     
     // MARK: - Child Action
   }
+  
+  @Dependency(\.continuousClock) var clock
   
   public var body: some ReducerOf<Self> {
     
     Reduce { state, action in
       switch action {
         
+      case ._viewWillAppear:
+        return .run { send in
+          for await _ in self.clock.timer(interval: .seconds(5)) {
+            await send(._setTooltipVisible(false))
+          }
+        }
+        
+      case ._setTooltipVisible(let bool):
+        withAnimation {
+          state.tooltipVisible = bool
+        }
+        return .none
+        
       case .editVintage(let value):
         state.vintage = value
-        // state.settingAlcohol.tooltipVisible = false
         return .none
         
       case .editPrice(let value):
         state.price = value
-        // state.settingAlcohol.tooltipVisible = false
         return .none
         
       case ._checkVintageValue(let value):
