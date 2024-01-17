@@ -18,6 +18,7 @@ public enum NoteAPI {
                   acidity: Int, alcohol: Int, body: Int, tannin: Int, finish: Int, memo: String, buyAgain: Bool, rating: Int, smellKeywordList: [String], images: [UIImage])
   case deleteNote(noteId: Int)
   case noteFilter
+  case noteCheck
 }
 
 extension NoteAPI: EndPointType {
@@ -39,6 +40,8 @@ extension NoteAPI: EndPointType {
       return "/tasting-notes/\(noteId)"
     case .noteFilter:
       return "/tasting-notes/filter"
+    case .noteCheck:
+      return "/tasting-notes/check"
     }
   }
   
@@ -55,6 +58,8 @@ extension NoteAPI: EndPointType {
     case .deleteNote:
       return .delete
     case .noteFilter:
+      return .get
+    case .noteCheck:
       return .get
     }
   }
@@ -133,6 +138,9 @@ extension NoteAPI: EndPointType {
         encoding: .queryString
       )
     case .noteFilter:
+      return .requestPlain
+      
+    case .noteCheck:
       return .requestPlain
     }
   }

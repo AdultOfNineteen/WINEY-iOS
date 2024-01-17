@@ -12,7 +12,7 @@ import Foundation
 
 public struct WineAnalysis: Reducer {
   public struct State: Equatable {
-    var isPresentedBottomSheet: Bool = false
+    public var isPresentedBottomSheet: Bool = false
     
     public init(
       isPresentedBottomSheet: Bool
@@ -34,31 +34,46 @@ public struct WineAnalysis: Reducer {
     case _onAppear
     
     // MARK: - Inner SetState Action
+    case _setNoteCheck(data: NoteCheckDTO)
+    case _failureSocialNetworking(Error)
     
     // MARK: - Child Action
   }
+  
+  @Dependency(\.note) var noteService
 
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
+    case ._onAppear:
+      return .run { send in
+        switch await noteService.noteCheck() {
+        case let .success(data):
+          await send(._setNoteCheck(data: data))
+        case let .failure(error):
+          await send(._failureSocialNetworking(error))
+        }
+      }
+      
+    case let ._setNoteCheck(data: data):
+      if data.tastingNoteExists {
+        return .none
+      } else {
+        return .send(._presentBottomSheet(true))
+      }
+      
     case .tappedBackButton:
-      print("Tapped Back Button")
       return .none
       
     case .tappedConfirmButton:
-      print("Tapped Confirm Button")
-      return .send(._navigateLoading)
+      return .send(.tappedBackButton)
       
     case .tappedAnalysis:
-      print("Tapped Analysis Button")
-      return .send(._presentBottomSheet(true))
+      return .send(._navigateLoading)
       
     case ._presentBottomSheet(let bool):
       state.isPresentedBottomSheet = bool
       return .none
       
-    case ._onAppear:
-      state.isPresentedBottomSheet = false
-      return .none
     default:
       return .none
     }
