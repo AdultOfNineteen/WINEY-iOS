@@ -86,7 +86,10 @@ public struct WineAnalysisView: View {
           WineyAsset.Assets.analysisNoteIcon.swiftUIImage
         },
         content: {
-          CustomVStack(text1: "재구매 의사가 담긴", text2: "테이스팅 노트가 있는 경우에 볼 수 있어요!")
+          CustomVStack(
+            text1: "재구매 의사가 담긴",
+            text2: "테이스팅 노트가 있는 경우에 볼 수 있어요!"
+          )
         },
         bottomArea: {
           HStack {

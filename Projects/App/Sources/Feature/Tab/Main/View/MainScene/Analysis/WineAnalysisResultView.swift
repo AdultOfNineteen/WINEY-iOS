@@ -46,18 +46,19 @@ public struct WineAnalysisResultView: View {
           )
           
           VStack(spacing: 0) {
-            Group {
-              Text("이런 와인은 어때요?")
-                .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-              
-              Text("\"" + viewStore.wineRecommend + "\"")
-                .foregroundColor(WineyKitAsset.main3.swiftUIColor)
-                .frame(width: geo.size.width - 48, height: 60)
+            Text("이런 와인은 어때요?")
+              .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+            
+            if let country = viewStore.recommendCountry, 
+                let varietal = viewStore.recommendVarietal,
+               let type = viewStore.recommendWineType {
+              Text("\"" + "\(country)의 \(varietal) 품종으로 만든\n\(WineType.changeType(at: type).korName) 와인" + "\"")
                 .multilineTextAlignment(.center)
                 .padding(.top, 39)
+                .foregroundStyle(WineyKitAsset.main3.swiftUIColor)
             }
-            .wineyFont(.title2)
           }
+          .wineyFont(.title2)
           .padding(.top, 39)
           .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
           .background(WineyKitAsset.mainBackground.swiftUIColor)

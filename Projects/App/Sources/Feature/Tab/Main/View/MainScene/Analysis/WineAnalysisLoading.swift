@@ -35,6 +35,7 @@ public struct WineAnalysisLoading: Reducer {
     switch action {
     case .tappedBackButton:
       return .none
+      
     case ._onAppear:
       return .run { send in
         let result = await analysisService.myTasteAnalysis()

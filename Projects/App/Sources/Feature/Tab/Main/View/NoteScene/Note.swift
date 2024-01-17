@@ -33,8 +33,6 @@ public struct Note: Reducer {
     case filteredNote(FilteredNote.Action)
   }
   
-  @Dependency(\.note) var noteService
-  
   public var body: some ReducerOf<Self> {
     
     Scope(state: \.filteredNote, action: /Note.Action.filteredNote) {
@@ -45,6 +43,7 @@ public struct Note: Reducer {
       switch action {
       case .tappedAnalysisButton:
         return .send(._navigateToAnalysis)
+        
       default:
         return .none
       }

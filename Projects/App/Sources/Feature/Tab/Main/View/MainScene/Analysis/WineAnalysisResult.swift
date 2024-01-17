@@ -14,14 +14,18 @@ import Foundation
 
 public struct WineAnalysisResult: Reducer {
   public struct State: Equatable {
-    let wineRecommend: String // "이탈리아의 프리미티보 품종으로 만든 레드 와인"
+    let recommendCountry: String? // "이탈리아의 프리미티보 품종으로 만든 레드 와인"
+    let recommendVarietal: String?
+    let recommendWineType: String?
     let wineCount: Int
     let wineRepurchase: Int
     
     var carouselList: WineAnalysisCarousel.State
     
     public init(data: TasteAnalysisDTO) {
-      self.wineRecommend = data.recommendWineType ?? ""
+      self.recommendCountry = data.recommendCountry
+      self.recommendVarietal = data.recommendVarietal
+      self.recommendWineType = data.recommendWineType
       self.wineCount = data.totalWineCnt
       self.wineRepurchase = data.buyAgainCnt
       self.carouselList = WineAnalysisCarousel.State.init(data: data)

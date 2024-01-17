@@ -12,12 +12,14 @@ import SwiftUI
 
 public struct WinePreferSmell: Reducer {
   public struct State: Equatable {
-    
-    let title = "가격대"
+    let title = "선호하는 향"
     let secondTitle = "평균 구매가"
+    var topSevenSmells: [TopSmell] = []
     var opacity = 0.0
     
-    public init() { }
+    public init(topSevenSmells: [TopSmell]) {
+      self.topSevenSmells = topSevenSmells
+    }
   }
   
   public enum Action {

@@ -26,8 +26,7 @@ struct WinePriceView: View {
           .wineyFont(.title2)
           .padding(.top, 66)
         
-        WinePriceContentView(store: store)
-          .padding(.top, 16)
+        contents()
         
         Spacer()
         
@@ -39,19 +38,13 @@ struct WinePriceView: View {
   }
 }
 
-struct WinePriceContentView: View {
-  private let store: StoreOf<WinePrice>
-  @ObservedObject var viewStore: ViewStoreOf<WinePrice>
+extension WinePriceView {
   
-  public init(store: StoreOf<WinePrice>) {
-    self.store = store
-    self.viewStore = ViewStore(self.store, observe: { $0 })
-  }
-  
-  public var body: some View {
+  @ViewBuilder
+  private func contents() -> some View {
     GeometryReader { geo in
       ZStack {
-        WinePreferCircleBackground()
+        background()
         
         VStack(spacing: 0) {
           Text(viewStore.secondTitle)
@@ -65,12 +58,24 @@ struct WinePriceContentView: View {
       }
       .opacity(viewStore.opacity)
       .frame(width: geo.size.width, height: geo.size.height)
+      .padding(.top, 10)
     }
     .onAppear {
       viewStore.send(._onAppear, animation: .easeIn(duration: 1.0))
     }
   }
+  
+  @ViewBuilder
+  private func background() -> some View {
+    ZStack {
+      Circle()
+        .fill(Color(red: 81/225, green: 35/225, blue: 223/225).opacity(0.5))
+        .frame(width: UIScreen.main.bounds.width / 3)
+        .blur(radius: 40)
+    }
+  }
 }
+
 
 struct WinePriceView_Previews: PreviewProvider {
   static var previews: some View {
