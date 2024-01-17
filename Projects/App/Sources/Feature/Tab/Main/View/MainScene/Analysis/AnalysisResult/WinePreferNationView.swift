@@ -26,7 +26,7 @@ public struct WinePreferNationView: View {
           .padding(.top, 66)
         
         HStack {
-          Spacer().frame(width: 48)
+          Spacer()
           
           ForEach(viewStore.winePreferNationList) { wine in
             WineBottle(
@@ -35,12 +35,12 @@ public struct WinePreferNationView: View {
               rank: wine.id
             )
             
-            if wine.id != viewStore.winePreferNationList.count {
+            if wine.id < viewStore.winePreferNationList.count - 1 {
               Spacer()
             }
           }
           
-          Spacer().frame(width: 48)
+          Spacer()
         }
         .padding(.top, 44)
         

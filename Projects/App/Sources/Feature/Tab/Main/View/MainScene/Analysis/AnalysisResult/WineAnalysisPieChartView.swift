@@ -27,37 +27,36 @@ public struct WineAnalysisPieChartView: View {
   }
   
   public var body: some View {
-    GeometryReader { geo in
-      VStack(spacing: 0) {
-        VStack(spacing: 0) {
-          HStack(spacing: 0) {
-            Text("지금까지")
-              .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
-            Text("\(viewStore.wineDrink)개의 와인을 마셨고,")
-              .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-          }
-          HStack(spacing: 0) {
-            Text("\(viewStore.repurchase)개의 와인에 대해 재구매")
-              .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-            Text("의향이 있어요!")
-              .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
-          }
+    VStack(spacing: 0) {
+      VStack(spacing: 2) {
+        HStack(spacing: 3) {
+          Text("지금까지")
+            .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
+          Text("\(viewStore.wineDrink)개의 와인을 마셨고,")
+            .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
         }
-        .wineyFont(.captionM1)
-        .padding(.top, 22)
-        
-        WinePieChart(
-          values: viewStore.preferWineTypes.map{ $0.percent },
-          names: viewStore.preferWineTypes.map{ $0.type }
-        )
-        .padding(.top, 50)
-        
-        Spacer()
-        
-        WineyAsset.Assets.arrowBottom.swiftUIImage
-          .padding(.bottom, 64)
+        HStack(spacing: 3) {
+          Text("\(viewStore.repurchase)개의 와인에 대해 재구매")
+            .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+          Text("의향이 있어요!")
+            .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
+        }
       }
+      .wineyFont(.captionM1)
+      .padding(.top, 22)
+      
+      WinePieChart(
+        values: viewStore.preferWineTypes.map{ $0.percent },
+        names: viewStore.preferWineTypes.map{ $0.type }
+      )
+      .padding(.top, -20)
+      
+      Spacer()
+      
+      WineyAsset.Assets.arrowBottom.swiftUIImage
+        .padding(.bottom, 64)
     }
+    
   }
 }
 
@@ -87,10 +86,9 @@ public struct WinePieChart: View {
   }
   
   public var body: some View {
-    VStack {
+    VStack(spacing: 0) {
       GeometryReader { geometry in
         ZStack(alignment: .center) {
-          
           ForEach(0..<self.values.count) { idx in
             PieSliceView(pieSliceData: self.slices[idx], rank: idx)
               .scaleEffect(idx == 0 ? 1.1 : 1.0)
@@ -220,7 +218,8 @@ struct PieSliceView: View {
                 .frame(width: 7)
                 .offset(y: -14)
                 .foregroundColor(gaugeColor)
-              Text(pieSliceData.categoryText)
+              
+              Text(WineType.changeType(at: pieSliceData.categoryText).korName)
             }
             
             if rank == 0 {
@@ -246,7 +245,7 @@ public struct WineAnalysisPieChartView_Previews: PreviewProvider {
       store: Store(
         initialState: WineAnalysisPieChart.State.init(
           wineDrink: 3,
-          repurchase: 3, 
+          repurchase: 3,
           preferWineTypes: []
         ),
         reducer: {

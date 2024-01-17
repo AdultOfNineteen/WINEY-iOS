@@ -34,7 +34,7 @@ public struct WineAnalysisCoordinator: Reducer {
     Reduce { state, action in
       switch action {
       case .routeAction(_, action: .wineAnaylsis(._navigateLoading)):
-        state.routes.append(.push(.loading(.init(userName: "성경"))))
+        state.routes.append(.push(.loading(.init())))
         return .none
       
       case .routeAction(_, action: .loading(.tappedBackButton)):

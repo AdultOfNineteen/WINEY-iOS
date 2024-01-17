@@ -34,12 +34,8 @@ public struct WineAnalysisLoadingView: View {
         WineyAsset.Assets.analysisLoading.swiftUIImage
         
         VStack(spacing: 5) {
-          HStack(spacing: 0) {
-            Text(viewStore.userName + "님")
-              .foregroundColor(WineyKitAsset.main3.swiftUIColor)
-            Text("의 테이스팅 노트를")
-              .foregroundColor(.white)
-          }
+          Text("나의 테이스팅 노트를")
+            .foregroundColor(.white)
           Text("분석중이에요!")
             .foregroundColor(.white)
           
@@ -68,9 +64,7 @@ public struct WineAnalysisLoadingView_Previews: PreviewProvider {
   public static var previews: some View {
     WineAnalysisLoadingView(
       store: Store(
-        initialState: WineAnalysisLoading.State.init(
-          userName: "성경"
-        ),
+        initialState: WineAnalysisLoading.State(),
         reducer: {
           WineAnalysisLoading()
         }

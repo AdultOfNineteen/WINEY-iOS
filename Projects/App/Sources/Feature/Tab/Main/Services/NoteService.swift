@@ -20,6 +20,7 @@ public struct NoteService {
                           _ rating: Int, _ smellKeywordList: [String], _ images: [UIImage]) async -> Result<VoidResponse, Error>
   public var deleteNote: (_ noteId: Int) async -> Result<VoidResponse, Error>
   public var noteFilter: () async -> Result<NoteFilterDTO, Error>
+  public var noteCheck: () async -> Result<NoteCheckDTO, Error>
 }
 
 extension NoteService {
@@ -132,6 +133,21 @@ extension NoteService {
           .request(
             NoteAPI.noteFilter,
             type: NoteFilterDTO.self
+          )
+        
+        switch dtoResult {
+        case let .success(dto):
+          return .success(dto)
+        case let .failure(error):
+          return .failure(error)
+        }
+      },
+      noteCheck: {
+        let dtoResult = await Provider<NoteAPI>
+          .init()
+          .request(
+            NoteAPI.noteCheck,
+            type: NoteCheckDTO.self
           )
         
         switch dtoResult {

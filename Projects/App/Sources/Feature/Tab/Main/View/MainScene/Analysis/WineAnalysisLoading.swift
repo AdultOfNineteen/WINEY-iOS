@@ -12,13 +12,7 @@ import Foundation
 
 public struct WineAnalysisLoading: Reducer {
   public struct State: Equatable {
-    let userName: String
-    
-    public init(
-      userName: String
-    ) {
-      self.userName = userName
-    }
+   
   }
   
   public enum Action {
@@ -41,6 +35,7 @@ public struct WineAnalysisLoading: Reducer {
     switch action {
     case .tappedBackButton:
       return .none
+      
     case ._onAppear:
       return .run { send in
         let result = await analysisService.myTasteAnalysis()

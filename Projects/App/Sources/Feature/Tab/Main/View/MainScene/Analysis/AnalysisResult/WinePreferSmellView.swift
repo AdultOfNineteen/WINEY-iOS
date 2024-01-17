@@ -25,8 +25,7 @@ public struct WinePreferSmellView: View {
         WineAnalysisTitle(title: viewStore.title)
           .padding(.top, 66)
         
-        WinePreferSmellContentView(store: store)
-          .padding(.top, 16)
+        smellContents()
         
         Spacer()
         
@@ -38,74 +37,65 @@ public struct WinePreferSmellView: View {
   }
 }
 
-public struct WinePreferSmellContentView: View {
-  private let store: StoreOf<WinePreferSmell>
-  @ObservedObject var viewStore: ViewStoreOf<WinePreferSmell>
+extension WinePreferSmellView {
   
-  public init(store: StoreOf<WinePreferSmell>) {
-    self.store = store
-    self.viewStore = ViewStore(self.store, observe: { $0 })
-  }
-  
-  public var body: some View {
+  @ViewBuilder
+  private func smellContents() -> some View {
     GeometryReader { geo in
       ZStack {
-        WinePreferCircleBackground()
+        background()
         
-        Text("유칼립투스")
-          .wineyFont(.title2)
-          .foregroundColor(WineyKitAsset.main3.swiftUIColor)
-          .offset(x: 0, y: 0)
-        
-        Text("꽃")
-          .wineyFont(.bodyB1)
-          .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
-          .offset(x: geo.size.width / 6, y: -60)
-        
-        Text("사과")
-          .wineyFont(.bodyB1)
-          .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-          .offset(x: geo.size.width / 7, y: 50)
-        
-        Text("가죽")
-          .wineyFont(.bodyB1)
-          .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
-          .offset(x: -geo.size.width / 7, y: 60)
-        
-        Text("꿀")
-          .wineyFont(.bodyB1)
-          .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
-          .offset(x: -geo.size.width / 4, y: -30)
-        
-        Text("바닐라")
-          .wineyFont(.bodyB1)
-          .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
-          .offset(x: geo.size.width / 3.2, y: -20)
-        
-        Text("흙")
-          .wineyFont(.bodyB1)
-          .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
-          .offset(x: -geo.size.width / 2.8, y: 30)
+        ForEach(viewStore.topSevenSmells.indices, id: \.self) { index in
+          Text(viewStore.topSevenSmells[index].smell)
+            .wineyFont(index == 0 ? .title2 : .bodyB1)
+            .foregroundColor(index == 0 ? WineyKitAsset.main3.swiftUIColor : index == 2 ? WineyKitAsset.gray300.swiftUIColor : WineyKitAsset.gray600.swiftUIColor)
+            .offset(x: getGrid(index: index, geo: geo).xGrid, y: getGrid(index: index, geo: geo).yGrid)
+        }
       }
       .opacity(viewStore.opacity)
       .frame(width: geo.size.width, height: geo.size.height)
       .onAppear {
         viewStore.send(._onAppear, animation: .easeIn(duration: 1.0))
       }
+      .padding(.top, 10)
     }
   }
 }
 
-public struct WinePreferCircleBackground: View {
-  public var body: some View {
-    GeometryReader { geo in
-      ZStack {
-        Circle()
-          .fill(Color(red: 81/225, green: 35/225, blue: 223/225).opacity(0.5))
-          .frame(width: geo.size.width / 3)
-          .blur(radius: 40)
-      }
-      .frame(width: geo.size.width, height: geo.size.height)
+extension WinePreferSmellView {
+  public struct SmellGrid {
+    public var xGrid: CGFloat
+    public var yGrid: CGFloat
+  }
+  
+  public func getGrid(index: Int, geo: GeometryProxy) -> SmellGrid {
+    switch index {
+    case 0:
+      return SmellGrid(xGrid: 0, yGrid: 0)
+    case 1:
+      return SmellGrid(xGrid: geo.size.width / 6, yGrid: -60)
+    case 2:
+      return SmellGrid(xGrid: geo.size.width / 7, yGrid: 50)
+    case 3:
+      return SmellGrid(xGrid: -geo.size.width / 7, yGrid: 60)
+    case 4:
+      return SmellGrid(xGrid: -geo.size.width / 4, yGrid: -30)
+    case 5:
+      return SmellGrid(xGrid: geo.size.width / 3.2, yGrid: -20)
+    case 6:
+      return SmellGrid(xGrid: -geo.size.width / 2.8, yGrid: 30)
+    default:
+      return SmellGrid(xGrid: 0, yGrid: 0)
+    }
+  }
+  
+  @ViewBuilder
+  private func background() -> some View {
+    ZStack {
+      Circle()
+        .fill(Color(red: 81/225, green: 35/225, blue: 223/225).opacity(0.5))
+        .frame(width: UIScreen.main.bounds.width / 3)
+        .blur(radius: 40)
     }
   }
 }

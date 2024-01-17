@@ -117,6 +117,7 @@ public struct SettingColorSmell: Reducer {
         return .none
         
       case .tappedNextButton:
+        print(state.selectedSmell)
         return .send(
           ._moveNextPage(
             wineId: state.wineId,

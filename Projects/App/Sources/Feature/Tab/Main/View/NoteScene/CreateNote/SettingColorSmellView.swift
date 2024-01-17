@@ -77,20 +77,47 @@ extension SettingColorSmellView {
       }
     }
     
-    public var list: [String] {
+    public var list: [WineSmell] {
       switch self {
         
       case .fruit:
-        return ["과일향", "베리류", "레몬/라임", "사과/배", "복숭아/자두"]
+        return [
+          WineSmell(korName: "과일향", codeName: "FRUIT"),
+          WineSmell(korName: "베리류", codeName: "BERRY"),
+          WineSmell(korName: "레몬/라임", codeName: "LEMONANDLIME"),
+          WineSmell(korName: "사과/배", codeName: "APPLEPEAR"),
+          WineSmell(korName: "복숭아/자두", codeName: "PEACHPLUM")
+        ]
       case .natural:
-        return ["꽃향", "풀/나무", "허브향"]
+        return [
+          WineSmell(korName: "꽃향", codeName: "NATURAL"),
+          WineSmell(korName: "풀/나무", codeName: "GRASSWOOD"),
+          WineSmell(korName: "허브향", codeName: "HERB")
+        ]
       case .oak:
-        return ["오크향", "향신료", "견과류", "바닐라", "초콜릿"]
+        return [
+          WineSmell(korName: "오크향", codeName: "OAK"),
+          WineSmell(korName: "향신료", codeName: "SPICE"),
+          WineSmell(korName: "견과류", codeName: "NUTS"),
+          WineSmell(korName: "바닐라", codeName: "VANILLA"),
+          WineSmell(korName: "초콜릿", codeName: "CHOCOLATE")
+        ]
       case .etc:
-        return ["부싯돌", "빵", "고무", "흙/재", "약품"]
+        return [
+          WineSmell(korName: "부싯돌", codeName: "FLINT"),
+          WineSmell(korName: "빵", codeName: "BREAD"),
+          WineSmell(korName: "고무", codeName: "RUBBER"),
+          WineSmell(korName: "흙/재", codeName: "EARTASH"),
+          WineSmell(korName: "약품", codeName: "MEDICNE")
+        ]
       }
     }
   }
+}
+
+public struct WineSmell {
+  public var korName: String
+  public var codeName: String
 }
 
 extension SettingColorSmellView {
@@ -204,19 +231,19 @@ extension SettingColorSmellView {
   
   @ViewBuilder
   private func smellCategoryInfo(category: SmellCategory) -> some View {
-    VStack(alignment: .leading, spacing: 23) {
+    VStack(alignment: .leading, spacing: 14) {
       Text(category.title)
         .wineyFont(.bodyB2)
         .foregroundStyle(WineyKitAsset.gray500.swiftUIColor)
       
       ScrollView(.horizontal, showsIndicators: false) {
         HStack(spacing: 7) {
-          ForEach(category.list, id: \.self) { category in
+          ForEach(category.list, id: \.codeName) { category in
             CapsuleButton(
-              title: category,
-              validation: viewStore.selectedSmell.contains { $0 == category },
+              title: category.korName,
+              validation: viewStore.selectedSmell.contains { $0 == category.codeName },
               action: {
-                viewStore.send(.tappedSmellButton(category))
+                viewStore.send(.tappedSmellButton(category.codeName))
               }
             )
           }

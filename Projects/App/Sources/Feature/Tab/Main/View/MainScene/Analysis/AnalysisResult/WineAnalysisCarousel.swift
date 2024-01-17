@@ -38,7 +38,9 @@ public struct WineAnalysisCarousel: Reducer {
       self.wineTaste = WinePreferTaste.State.init(
         preferTastes: data.taste
       )
-      self.wineSmell = WinePreferSmell.State.init()
+      self.wineSmell = WinePreferSmell.State.init(
+        topSevenSmells: data.topSevenSmells
+      )
       self.winePrice = WinePrice.State.init(
         price: data.avgPrice
       )
