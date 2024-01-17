@@ -120,7 +120,7 @@ extension NoteDetailView {
         
         // MARK: FEATURE
         NoteDetailSmellFeatureView(
-          circleColor: noteData.color,  // TODO: Color
+          circleColor: noteData.color,
           smellKeywordList: noteData.smellKeywordList
         )
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
@@ -228,7 +228,7 @@ extension NoteDetailView {
         .padding(.vertical, 14)
         .background(
           RoundedRectangle(cornerRadius: 10)
-            .stroke(WineyKitAsset.main3.swiftUIColor)
+            .stroke(WineyKitAsset.main2.swiftUIColor)
         )
         .padding(.top, 36)
     }
