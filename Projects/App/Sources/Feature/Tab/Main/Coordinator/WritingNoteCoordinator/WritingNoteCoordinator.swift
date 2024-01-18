@@ -117,6 +117,10 @@ public struct WritingNoteCoordinator: Reducer {
         )
         return .none
         
+      case .routeAction(_, action: .setColorSmell(.tappedHelpSmellButton)):
+        state.routes.append(.push(.helpSmell(.init())))
+        return .none
+        
       case .routeAction(_, action: .setTaste(.tappedHelpButton(let wineId))):
         state.routes.append(.push(.helpTaste(.init(wineId: wineId))))
         return .none
@@ -138,6 +142,10 @@ public struct WritingNoteCoordinator: Reducer {
         return .none
         
       case .routeAction(_, action: .setColorSmell(.tappedBackButton)):
+        state.routes.pop()
+        return .none
+        
+      case .routeAction(_, action: .helpSmell(.tappedBackButton)):
         state.routes.pop()
         return .none
         

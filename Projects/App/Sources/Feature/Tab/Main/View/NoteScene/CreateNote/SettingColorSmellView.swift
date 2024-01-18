@@ -218,6 +218,9 @@ extension SettingColorSmellView {
           .foregroundStyle(WineyKitAsset.gray500.swiftUIColor)
           .wineyFont(.captionM3)
           .offset(y: 2)
+          .onTapGesture {
+            viewStore.send(.tappedHelpSmellButton)
+          }
       }
       
       VStack(spacing: 25) {

@@ -19,6 +19,7 @@ public enum NoteAPI {
   case deleteNote(noteId: Int)
   case noteFilter
   case noteCheck
+  case smellKeywords
 }
 
 extension NoteAPI: EndPointType {
@@ -42,6 +43,8 @@ extension NoteAPI: EndPointType {
       return "/tasting-notes/filter"
     case .noteCheck:
       return "/tasting-notes/check"
+    case .smellKeywords:
+      return "/tasting-notes/smell-keywords"
     }
   }
   
@@ -60,6 +63,8 @@ extension NoteAPI: EndPointType {
     case .noteFilter:
       return .get
     case .noteCheck:
+      return .get
+    case .smellKeywords:
       return .get
     }
   }
@@ -141,6 +146,9 @@ extension NoteAPI: EndPointType {
       return .requestPlain
       
     case .noteCheck:
+      return .requestPlain
+      
+    case .smellKeywords:
       return .requestPlain
     }
   }
