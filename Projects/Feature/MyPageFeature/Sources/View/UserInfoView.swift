@@ -26,57 +26,58 @@ public struct UserInfoView: View {
   }
   
   public var body: some View {
-    GeometryReader { _ in
-      ZStack {
-        VStack(alignment: .leading, spacing: 0) {
-          
-          navigationTitleSpace
-            .padding(.top, 17)
-            .padding(.bottom, 38)
-          
-          userInfoSpace
-            .padding(.bottom, 22)
-          
-          degreeGraphSpace
-            .padding(.horizontal, 20)
-            .padding(.bottom, 20)
-          
-          badgeSpace
-            .padding(.bottom, 15)
-          
-          VStack(spacing: 0) {
-            infoListSpace
-            
-            Divider()
-              .background(Color.gray)
-              .padding(.top, 21)
-              .padding(.bottom, 7)
-              .padding(
-                .horizontal,
-                -WineyGridRules.globalHorizontalPadding
-              )
-            
-            questionListSpace
-          }
-          .padding(.bottom, 13)
-          
-          appVersionSpace
-        }
-        .padding(
-          .horizontal,
-          WineyGridRules
-            .globalHorizontalPadding
-        )
+    ZStack {
+      WineyKitAsset.mainBackground.swiftUIColor.ignoresSafeArea()
+      
+      VStack(alignment: .leading, spacing: 0) {
         
-        if viewStore.state.isPresentedBottomSheet {
-          WineyRatingView(
-            isPresented: viewStore.binding(
-              get: \.isPresentedBottomSheet,
-              send: .wineyRatingClosedTapped
-            ))
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.black.opacity(0.6))
+        navigationTitleSpace
+          .padding(.top, 17)
+          .padding(.bottom, 38)
+        
+        userInfoSpace
+          .padding(.bottom, 22)
+        
+        degreeGraphSpace
+          .padding(.horizontal, 20)
+          .padding(.bottom, 20)
+        
+        badgeSpace
+          .padding(.bottom, 15)
+        
+        VStack(spacing: 0) {
+          infoListSpace
+          
+          Divider()
+            .background(Color.gray)
+            .padding(.top, 21)
+            .padding(.bottom, 7)
+            .padding(
+              .horizontal,
+              -WineyGridRules.globalHorizontalPadding
+            )
+          
+          questionListSpace
         }
+        .padding(.bottom, 13)
+        
+        appVersionSpace
+        
+        Spacer()
+      }
+      .padding(
+        .horizontal,
+        WineyGridRules
+          .globalHorizontalPadding
+      )
+      
+      if viewStore.state.isPresentedBottomSheet {
+        WineyRatingView(
+          isPresented: viewStore.binding(
+            get: \.isPresentedBottomSheet,
+            send: .wineyRatingClosedTapped
+          )
+        )
       }
     }
   }
@@ -109,7 +110,7 @@ public struct UserInfoView: View {
             action: { viewStore.send(.userSettingTapped) },
             label: {
               Image(systemName: "chevron.right")
-                .foregroundColor(.gray)
+                .foregroundColor(.white)
             }
           )
           // Asset 생성 전 이미지 대신 임시
@@ -195,7 +196,7 @@ public struct UserInfoView: View {
       Button(
         action: {
           viewStore.send(.wineyRatingButtonTapped)
-//          isPresentedRatingView = true
+          //          isPresentedRatingView = true
         },
         label: {
           ZStack {
@@ -233,7 +234,8 @@ public struct UserInfoView: View {
           .foregroundColor(WineyKitAsset.gray400.swiftUIColor)
         Spacer()
         Image(systemName: "chevron.right")
-          .foregroundColor(.gray)
+          .foregroundColor(WineyKitAsset.gray400.swiftUIColor)
+          .wineyFont(.title2)
       }
       .padding(.vertical, 12)
     }
@@ -247,7 +249,8 @@ public struct UserInfoView: View {
           .foregroundColor(WineyKitAsset.gray400.swiftUIColor)
         Spacer()
         Image(systemName: "chevron.right")
-          .foregroundColor(.gray)
+          .foregroundColor(WineyKitAsset.gray400.swiftUIColor)
+          .wineyFont(.title2)
       }
       .padding(.vertical, 12)
     }

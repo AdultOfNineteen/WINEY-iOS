@@ -17,7 +17,7 @@ struct WineyRatingView: View {
   
   var body: some View {
     ZStack {
-      WineyKitAsset.mainBackground.swiftUIColor.opacity(0.85)
+      WineyKitAsset.mainBackground.swiftUIColor.opacity(0.85).ignoresSafeArea()
       
       VStack(alignment: .center, spacing: 0) {
         HStack {
