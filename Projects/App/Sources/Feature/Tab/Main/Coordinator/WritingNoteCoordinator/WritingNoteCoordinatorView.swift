@@ -57,6 +57,13 @@ public struct WritingNoteCoordinatorView: View {
              then: SettingColorSmellView.init
           )
           
+        case .helpSmell:
+          CaseLet(
+            /WritingNoteScreen.State.helpSmell,
+             action: WritingNoteScreen.Action.helpSmell,
+             then: HelpSmellView.init
+          )
+          
         case .setTaste:
           CaseLet(
             /WritingNoteScreen.State.setTaste,

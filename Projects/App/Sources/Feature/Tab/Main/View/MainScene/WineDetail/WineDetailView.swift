@@ -75,7 +75,7 @@ public struct WineDetailView: View {
           
           Divider()
             .overlay(WineyKitAsset.gray900.swiftUIColor)
-            .padding(.top, 36)
+            .padding(.top, 20)
           
           // MARK: Wine Graph
           if let info = viewStore.windDetailData {

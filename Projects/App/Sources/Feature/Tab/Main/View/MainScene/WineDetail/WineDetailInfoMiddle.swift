@@ -143,7 +143,7 @@ public struct WineDetailInfoMiddle: View {
           }
           
           HStack {
-            Text("\(String(format: "%.2f", purchasePrice))")
+            Text(purchasePrice == 0 ? "구매가를 알 수 없어요 :(" : purchasePrice.description)
               .wineyFont(.captionB1)
             
             Spacer()
@@ -168,7 +168,6 @@ public struct WineDetailInfoMiddle: View {
             }
           }
         }
-        
       }
       .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
       .frame(width: 148)

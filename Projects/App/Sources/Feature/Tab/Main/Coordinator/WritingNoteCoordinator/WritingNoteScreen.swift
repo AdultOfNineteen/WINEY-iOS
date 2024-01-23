@@ -18,6 +18,7 @@ public struct WritingNoteScreen: Reducer {
     case setAlcohol(SettingAlcohol.State)
     case setVintage(SettingVintage.State)
     case setColorSmell(SettingColorSmell.State)
+    case helpSmell(HelpSmell.State)
     case setTaste(SettingTaste.State)
     case helpTaste(HelpTaste.State)
     case setMemo(SettingMemo.State)
@@ -30,6 +31,7 @@ public struct WritingNoteScreen: Reducer {
     case setAlcohol(SettingAlcohol.Action)
     case setVintage(SettingVintage.Action)
     case setColorSmell(SettingColorSmell.Action)
+    case helpSmell(HelpSmell.Action)
     case setTaste(SettingTaste.Action)
     case helpTaste(HelpTaste.Action)
     case setMemo(SettingMemo.Action)
@@ -55,6 +57,10 @@ public struct WritingNoteScreen: Reducer {
     
     Scope(state: /State.setColorSmell, action: /Action.setColorSmell) {
       SettingColorSmell()
+    }
+    
+    Scope(state: /State.helpSmell, action: /Action.helpSmell) {
+      HelpSmell()
     }
     
     Scope(state: /State.setTaste, action: /Action.setTaste) {

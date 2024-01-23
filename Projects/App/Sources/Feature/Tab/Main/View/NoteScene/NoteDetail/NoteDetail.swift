@@ -61,10 +61,8 @@ public struct NoteDetail: Reducer {
         switch await noteService.noteDetail(id) {
         case let .success(data):
           await send(._setDetailNotes(data: data))
-          print("success")
         case let .failure(error):          
           await send(._failureSocialNetworking(error))
-          print("fail")
         }
       }
       
