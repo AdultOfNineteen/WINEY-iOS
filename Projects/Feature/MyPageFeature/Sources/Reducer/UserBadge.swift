@@ -10,11 +10,9 @@ import Foundation
 
 public struct UserBadge: Reducer {
   public struct State: Equatable {
-    var sommelierBadgeList: IdentifiedArrayOf<BadgeInfoModel> = []
-    var activityBadgeList: IdentifiedArrayOf<BadgeInfoModel> = []
-    var clickedBadgeInfo: BadgeInfoModel = .init(id: "", title: "", date: "", description: "")
-    //      .init(title: "배지 이름", date: "취득일", description: "노트를 작성할 때 와인의 향을 신경쓰시네요.\n역시 와인을 진정으로 즐기고 음미할 줄 아시는군요!"),
-    //      .init(title: "배지 이름", date: "취득일", description: "노트를 작성할 때 와인의 향을 신경쓰시네요.\n역시 와인을 진정으로 즐기고 음미할 줄 아시는군요!")
+    var sommelierBadgeList: [Badge] = []
+    var activityBadgeList: [Badge] = []
+    var clickedBadgeInfo: Badge? = nil
     var isTappedBadge: Bool = false
     
     public init() { }
@@ -23,32 +21,40 @@ public struct UserBadge: Reducer {
   public enum Action {
     // MARK: - User Action
     case tappedBackButton
-    case tappedBadge(BadgeInfoModel)
+    case tappedBadge(Badge)
     case tappedBadgeClosed
     
     // MARK: - Inner Business Action
     case _viewWillAppear
     
     // MARK: - Inner SetState Action
+    case _failureSocialNetworking(Error)  // 추후 경고 처리
+    case _setBadgeList(BadgeListDTO)
     
     // MARK: - Child Action
     
   }
   
+  @Dependency(\.badge) var badgeService
   @Dependency(\.uuid) var uuid
   
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case ._viewWillAppear:
-      // 네트워킹 코드 추가
-      state.sommelierBadgeList = IdentifiedArrayOf(uniqueElements: [.init(id: uuid().uuidString, title: "배지 이름", date: "취득일", description: "노트를 작성할 때 와인의 향을 신경쓰시네요.\n역시 와인을 진정으로 즐기고 음미할 줄 아시는군요!")])
+      return .run { send in
+        switch await badgeService.badgeList(22) {
+        case let .success(data):
+          print("success!!")
+          await send(._setBadgeList(data))
+        case let .failure(error):
+          print("fail")
+          await send(._failureSocialNetworking(error))
+        }
+      }
       
-      state.activityBadgeList = IdentifiedArrayOf(uniqueElements: [
-        .init(id: uuid().uuidString, title: "배지 이름", date: "취득일", description: "노트를 작성할 때 와인의 향을 신경쓰시네요.\n역시 와인을 진정으로 즐기고 음미할 줄 아시는군요!"),
-        .init(id: uuid().uuidString, title: "배지 이름", date: "취득일", description: "노트를 작성할 때 와인의 향을 신경쓰시네요.\n역시 와인을 진정으로 즐기고 음미할 줄 아시는군요!"),
-        .init(id: uuid().uuidString, title: "배지 이름", date: "취득일", description: "노트를 작성할 때 와인의 향을 신경쓰시네요.\n역시 와인을 진정으로 즐기고 음미할 줄 아시는군요!")
-      ])
-      
+    case ._setBadgeList(let data):
+      state.sommelierBadgeList = data.sommelierBadgeList
+      state.activityBadgeList = data.activityBadgeList
       return .none
       
     case .tappedBadge(let badge):

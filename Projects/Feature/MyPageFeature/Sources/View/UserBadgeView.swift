@@ -26,7 +26,7 @@ public struct UserBadgeView: View {
     GeometryReader { _ in
       VStack(spacing: 0) {
         NavigationBar(
-          title: "WINYE 뱃지",
+          title: "WINEY 뱃지",
           leftIcon: /*WineyAsset.Assets.navigationBackButton.swiftUIImage,*/ // Asset 적용 후 활성화
           Image(systemName: "chevron.backward"),
           leftIconButtonAction: {
@@ -37,15 +37,18 @@ public struct UserBadgeView: View {
         .padding(.bottom, 10)
         
         Group {
-          BadgeSectionTitle(title: .sommelier, count: "0")
-            .padding(.bottom, 20)
+          BadgeSectionTitle(
+            title: .sommelier,
+            count: viewStore.sommelierBadgeList.filter({ $0.acquiredAt != nil }).count
+          )
+          .padding(.bottom, 20)
           
           ScrollView(.horizontal) {
             LazyHGrid(rows: [.init(.flexible())], spacing: 14) {
-              ForEach(viewStore.state.sommelierBadgeList) { badge in
+              ForEach(viewStore.state.sommelierBadgeList, id: \.badgeId) { badge in
                 BadgeBlock(
-                  title: badge.title,
-                  date: badge.date
+                  title: badge.name,
+                  date: extractDate(badge.acquiredAt) ?? "미취득 뱃지"
                 )
                 .onTapGesture {
                   viewStore.send(.tappedBadge(badge))
@@ -66,15 +69,18 @@ public struct UserBadgeView: View {
           .padding(.bottom, 20)
         
         Group {
-          BadgeSectionTitle(title: .activity, count: "0")
-            .padding(.bottom, 20)
+          BadgeSectionTitle(
+            title: .activity,
+            count: viewStore.activityBadgeList.filter({ $0.acquiredAt != nil }).count
+          )
+          .padding(.bottom, 20)
           
           ScrollView(.horizontal) {
             LazyHGrid(rows: rows, spacing: 14) {
-              ForEach(viewStore.state.activityBadgeList) { badge in
+              ForEach(viewStore.state.activityBadgeList, id: \.badgeId) { badge in
                 BadgeBlock(
-                  title: badge.title,
-                  date: badge.date
+                  title: badge.name,
+                  date: extractDate(badge.acquiredAt) ?? "미취득 뱃지"
                 )
                 .onTapGesture {
                   viewStore.send(.tappedBadge(badge))
@@ -82,8 +88,8 @@ public struct UserBadgeView: View {
               }
             }
             .frame(height: 340)
+            .padding(.bottom, 20)
           }
-          .padding(.bottom, 10)
         }
         .padding(
           .horizontal,
@@ -120,6 +126,24 @@ public struct UserBadgeView: View {
     .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationBarHidden(true)
   }
+  
+  private func extractDate(_ dateString: String?) -> String? {
+    if let dateString = dateString {
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+      dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+      
+      if let date = dateFormatter.date(from: dateString) {
+        let outputDateFormatter = DateFormatter()
+        outputDateFormatter.dateFormat = "yyyy-MM-dd"
+        return outputDateFormatter.string(from: date)
+      } else {
+        return nil
+      }
+    } else {
+      return nil
+    }
+  }
 }
 
 struct BadgeSectionTitle: View {
@@ -129,9 +153,9 @@ struct BadgeSectionTitle: View {
   }
   
   let title: String
-  let count: String
+  let count: Int
   
-  init(title: SectionType, count: String) {
+  init(title: SectionType, count: Int) {
     self.title = title.rawValue
     self.count = count
   }
@@ -143,7 +167,7 @@ struct BadgeSectionTitle: View {
       Text(title)
         .foregroundColor(WineyKitAsset.main3.swiftUIColor)
       Spacer()
-      Text(count)
+      Text(count.description)
         .foregroundColor(WineyKitAsset.main3.swiftUIColor)
       Text("개")
         .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
@@ -155,34 +179,40 @@ struct BadgeSectionTitle: View {
 struct BadgeBlock: View {
   let title: String
   let date: String
-  let isNew: Bool
+  let isRead: Bool
   
   init(
     title: String = "배지 이름",
     date: String = "취득일",
-    isNew: Bool = true
+    isRead: Bool = true
   ) {
     self.title = title
     self.date = date
-    self.isNew = isNew
+    self.isRead = isRead
   }
   
   var body: some View {
     VStack(alignment: .center, spacing: 0) {
-      HStack {
+      if !isRead {
+        HStack {
+          Spacer()
+          
+          Circle()
+            .fill(WineyKitAsset.main2.swiftUIColor)
+            .frame(width: 8)
+        }
+        .padding(.bottom, 6)
+      } else {
         Spacer()
-        Circle()
-          .fill(WineyKitAsset.main2.swiftUIColor)
-          .frame(width: 8)
+          .frame(height: 14)
       }
-      .padding(.bottom, 6)
       
       ZStack(alignment: .center) {
-        // Badge 이미지 들어갈 자리
+        // TODO: Badge 이미지 들어갈 자리
         
         RoundedRectangle(cornerRadius: 4.85)
           .fill(WineyKitAsset.gray950.swiftUIColor)
-          .frame(width: 99, height: 99)
+          .frame(width: 100, height: 100)
           .overlay(
             RoundedRectangle(cornerRadius: 4.85)
               .stroke(
@@ -205,14 +235,16 @@ struct BadgeBlock: View {
       VStack(alignment: .center, spacing: 3) {
         Text(title)
           .wineyFont(.bodyB2)
-          .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+          .foregroundColor(date == "미취득 뱃지" ? WineyKitAsset.gray600.swiftUIColor : WineyKitAsset.gray50.swiftUIColor)
+          .lineLimit(1)
         
         Text(date)
           .wineyFont(.captionM2)
           .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
+          .lineLimit(1)
       }
     }
-    .frame(width: 100, height: 160)
+    .frame(width: 100)
   }
 }
 
@@ -232,5 +264,5 @@ struct BadgeBlock: View {
 }
 
 #Preview {
-  BadgeSectionTitle(title: .sommelier, count: "0")
+  BadgeSectionTitle(title: .sommelier, count: 0)
 }
