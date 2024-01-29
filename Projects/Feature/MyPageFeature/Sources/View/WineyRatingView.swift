@@ -28,6 +28,7 @@ struct WineyRatingView: View {
             },
             label: {
               Image(systemName: "xmark")
+                .wineyFont(.title2)
                 .foregroundColor(.white)
                 .frame(
                   width: 40,
@@ -55,8 +56,16 @@ struct WineyRatingView: View {
           ForEach(WineyRating.allCases, id: \.self) { item in
             HStack(spacing: 37) {
               Circle()
-                .stroke(lineWidth: 1)
+                .stroke(
+                  LinearGradient(
+                    colors: [WineyKitAsset.main3.swiftUIColor, WineyKitAsset.main3.swiftUIColor.opacity(0.0)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                  ),
+                  lineWidth: 1
+                )
                 .frame(width: 46, height: 46)
+              
               VStack(alignment: .leading, spacing: 10) {
                 Text(item.title)
                   .wineyFont(.captionB1)
