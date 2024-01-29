@@ -37,8 +37,8 @@ public struct UserInfoCoordinator: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
-      case .routeAction(_, action: .userInfo(.userBadgeButtonTapped)):
-        state.routes.append(.push( .userBadge(.init()) ))
+      case .routeAction(_, action: .userInfo(._moveToBadgeTap(let userId))):
+        state.routes.append(.push( .userBadge(.init(userId: userId) )))
         return .none
         
       case .routeAction(_, action: .userInfo(.userSettingTapped)):

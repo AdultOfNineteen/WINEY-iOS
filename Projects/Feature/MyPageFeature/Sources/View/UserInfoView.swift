@@ -80,6 +80,9 @@ public struct UserInfoView: View {
         )
       }
     }
+    .onAppear {
+      viewStore.send(._viewWillAppear)
+    }
   }
   
   private var navigationTitleSpace: some View {
@@ -121,7 +124,7 @@ public struct UserInfoView: View {
         
         Button(
           action: {
-            viewStore.send(.userBadgeButtonTapped)
+            viewStore.send(.userBadgeButtonTapped(viewStore.userId))
           },
           label: {
             RoundedRectangle(cornerRadius: 24) //

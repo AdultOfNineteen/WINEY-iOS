@@ -10,12 +10,16 @@ import Foundation
 
 public struct UserBadge: Reducer {
   public struct State: Equatable {
+    var userId: Int
+    
     var sommelierBadgeList: [Badge] = []
     var activityBadgeList: [Badge] = []
     var clickedBadgeInfo: Badge? = nil
     var isTappedBadge: Bool = false
     
-    public init() { }
+    public init(userId: Int) {
+      self.userId = userId
+    }
   }
   
   public enum Action {
@@ -36,18 +40,17 @@ public struct UserBadge: Reducer {
   }
   
   @Dependency(\.badge) var badgeService
-  @Dependency(\.uuid) var uuid
   
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case ._viewWillAppear:
+      let userId = state.userId
+      
       return .run { send in
-        switch await badgeService.badgeList(22) {
+        switch await badgeService.badgeList(userId) {
         case let .success(data):
-          print("success!!")
           await send(._setBadgeList(data))
         case let .failure(error):
-          print("fail")
           await send(._failureSocialNetworking(error))
         }
       }

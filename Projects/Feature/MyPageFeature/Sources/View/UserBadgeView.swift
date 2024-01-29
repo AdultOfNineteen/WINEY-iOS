@@ -251,7 +251,7 @@ struct BadgeBlock: View {
 #Preview {
   UserBadgeView(
     store: .init(
-      initialState: .init(),
+      initialState: .init(userId: 1),
       reducer: {
         UserBadge()
       }
