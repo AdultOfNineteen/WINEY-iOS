@@ -11,6 +11,7 @@ import WineyNetwork
 
 public struct BadgeService {
   public var badgeList: (_ userId: Int) async -> Result<BadgeListDTO, Error>
+  public var badgeDetail: (_ userId: Int, _ wineBadgeId: Int) async -> Result<Badge, Error>
 }
 
 extension BadgeService {
@@ -22,6 +23,21 @@ extension BadgeService {
           .request(
             BadgeAPI.badgeList(userId: userId),
             type: BadgeListDTO.self
+          )
+        
+        switch dtoResult {
+        case let .success(dto):
+          return .success(dto)
+        case let .failure(error):
+          return .failure(error)
+        }
+      },
+      badgeDetail: { userId, wineBadgeId in
+        let dtoResult = await Provider<BadgeAPI>
+          .init()
+          .request(
+            BadgeAPI.badgeDetail(userId: userId, badgeId: wineBadgeId),
+            type: Badge.self
           )
         
         switch dtoResult {
@@ -63,6 +79,20 @@ extension BadgeService {
                 badgeImage: ""
               )
             ]
+          )
+        )
+      },
+      badgeDetail: { userId, wineBadgeId in
+        return .success(
+          Badge(
+            badgeId: 2,
+            badgeType: "ACTIVITY",
+            name: "Test",
+            acquisitionMethod: "Test",
+            description: "Test",
+            acquiredAt: "Test",
+            isRead: false,
+            badgeImage: ""
           )
         )
       }

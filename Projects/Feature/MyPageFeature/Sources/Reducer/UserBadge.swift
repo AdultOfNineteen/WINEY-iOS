@@ -34,6 +34,7 @@ public struct UserBadge: Reducer {
     // MARK: - Inner SetState Action
     case _failureSocialNetworking(Error)  // 추후 경고 처리
     case _setBadgeList(BadgeListDTO)
+    case _setBadgeDetail(Badge)
     
     // MARK: - Child Action
     
@@ -61,13 +62,36 @@ public struct UserBadge: Reducer {
       return .none
       
     case .tappedBadge(let badge):
-      state.clickedBadgeInfo = badge
+      let userId = state.userId
+      let badgeId = badge.badgeId
+      
+      return .run { send in
+        switch await badgeService.badgeDetail(userId, badgeId) {
+        case let .success(data):
+          await send(._setBadgeDetail(data))
+        case let .failure(error):
+          await send(._failureSocialNetworking(error))
+        }
+      }
+      
+    case ._setBadgeDetail(let data):
+      state.clickedBadgeInfo = data
       state.isTappedBadge = true
       return .none
       
     case .tappedBadgeClosed:
       state.isTappedBadge = false
-      return .none
+      
+      let userId = state.userId
+      
+      return .run { send in
+        switch await badgeService.badgeList(userId) {
+        case let .success(data):
+          await send(._setBadgeList(data))
+        case let .failure(error):
+          await send(._failureSocialNetworking(error))
+        }
+      }
       
     default:
       return .none
