@@ -10,6 +10,7 @@ import Combine
 import ComposableArchitecture
 import Foundation
 import Utils
+import UserDomain
 import WineyNetwork
 
 public  struct PhoneSignUp: Reducer {

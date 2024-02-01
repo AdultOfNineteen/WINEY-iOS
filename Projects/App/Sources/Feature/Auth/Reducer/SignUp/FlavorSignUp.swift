@@ -9,6 +9,7 @@
 import Combine
 import ComposableArchitecture
 import Foundation
+import UserDomain
 import WineyNetwork
 
 public enum FlavorSubject: Int {

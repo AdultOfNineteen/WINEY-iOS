@@ -103,7 +103,16 @@ public struct AppCoordinator: Reducer {
       case .routeAction(_, action:
           .tabBar(
             .userInfo(
-              .routeAction(_, action: .userSetting(.tappedBottomSheetYesOption))
+              .routeAction(_, action: .userSetting(._moveToHome))
+            )
+          )):
+        state.routes = [.root(.splash(.init()))]
+        return .none
+        
+      case .routeAction(_, action:
+          .tabBar(
+            .userInfo(
+              .routeAction(_, action: .signOutConfirm(.tappedConfirmButton))
             )
           )):
         state.routes = [.root(.splash(.init()))]
