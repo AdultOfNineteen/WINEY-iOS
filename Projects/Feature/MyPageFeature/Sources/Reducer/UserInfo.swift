@@ -21,12 +21,15 @@ public struct UserInfo: Reducer {
     case userBadgeButtonTapped(Int?)
     case wineyRatingButtonTapped
     case wineyRatingClosedTapped
-    case userSettingTapped
+    case userSettingTapped(Int?)
+    case tappedTermsPolicy
+    case tappedPersonalInfoPolicy
     
     // MARK: - Inner Business Action
     case _viewWillAppear
     case _presentBottomSheet(Bool)
     case _moveToBadgeTap(Int)
+    case _moveToUserInfo(Int)
     
     // MARK: - Inner SetState Action
     case _failureSocialNetworking(Error)  // 추후 경고 처리
@@ -69,6 +72,13 @@ public struct UserInfo: Reducer {
     case .userBadgeButtonTapped(let userId):
       if let userId = userId {
         return .send(._moveToBadgeTap(userId))
+      } else {
+        return .none  // TODO: 에러 분기처리
+      }
+      
+    case .userSettingTapped(let userId):
+      if let userId = userId {
+        return .send(._moveToUserInfo(userId))
       } else {
         return .none  // TODO: 에러 분기처리
       }

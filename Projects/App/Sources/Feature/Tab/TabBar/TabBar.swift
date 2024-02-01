@@ -122,6 +122,18 @@ public struct TabBar: Reducer {
       case .userInfo(.routeAction(_, action: .userBadge(.tappedBackButton))):
         return .send(._setTabHiddenStatus(false))
         
+      case .userInfo(.routeAction(_, action: .userInfo(.tappedTermsPolicy))):
+        return .send(._setTabHiddenStatus(true))
+        
+      case .userInfo(.routeAction(_, action: .termsPolicy(.tappedBackButton))):
+        return .send(._setTabHiddenStatus(false))
+        
+      case .userInfo(.routeAction(_, action: .userInfo(.tappedPersonalInfoPolicy))):
+        return .send(._setTabHiddenStatus(true))
+        
+      case .userInfo(.routeAction(_, action: .personalPolicy(.tappedBackButton))):
+        return .send(._setTabHiddenStatus(false))
+        
       case .userInfo(.routeAction(_, action: .userInfo(.userSettingTapped))):
         return .send(._setTabHiddenStatus(true))
         
