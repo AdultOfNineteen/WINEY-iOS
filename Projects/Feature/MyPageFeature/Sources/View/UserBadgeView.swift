@@ -48,7 +48,8 @@ public struct UserBadgeView: View {
               ForEach(viewStore.state.sommelierBadgeList, id: \.badgeId) { badge in
                 BadgeBlock(
                   title: badge.name,
-                  date: extractDate(badge.acquiredAt) ?? "미취득 뱃지"
+                  date: extractDate(badge.acquiredAt) ?? "미취득 뱃지",
+                  isRead: badge.isRead ?? true
                 )
                 .onTapGesture {
                   viewStore.send(.tappedBadge(badge))
@@ -80,7 +81,8 @@ public struct UserBadgeView: View {
               ForEach(viewStore.state.activityBadgeList, id: \.badgeId) { badge in
                 BadgeBlock(
                   title: badge.name,
-                  date: extractDate(badge.acquiredAt) ?? "미취득 뱃지"
+                  date: extractDate(badge.acquiredAt) ?? "미취득 뱃지",
+                  isRead: badge.isRead ?? true
                 )
                 .onTapGesture {
                   viewStore.send(.tappedBadge(badge))

@@ -110,7 +110,7 @@ public struct UserInfoView: View {
             .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
           Spacer()
           Button(
-            action: { viewStore.send(.userSettingTapped) },
+            action: { viewStore.send(.userSettingTapped(viewStore.userId)) },
             label: {
               Image(systemName: "chevron.right")
                 .foregroundColor(.white)
@@ -240,7 +240,15 @@ public struct UserInfoView: View {
           .foregroundColor(WineyKitAsset.gray400.swiftUIColor)
           .wineyFont(.title2)
       }
+      .background(WineyKitAsset.mainBackground.swiftUIColor)
       .padding(.vertical, 12)
+      .onTapGesture {
+        if title == "서비스 이용약관" {
+          viewStore.send(.tappedTermsPolicy)
+        } else if title == "개인정보 처리방침" {
+          viewStore.send(.tappedPersonalInfoPolicy)
+        }
+      }
     }
   }
   
@@ -250,12 +258,20 @@ public struct UserInfoView: View {
         Text(title)
           .wineyFont(.bodyM1)
           .foregroundColor(WineyKitAsset.gray400.swiftUIColor)
+        
         Spacer()
+        
         Image(systemName: "chevron.right")
           .foregroundColor(WineyKitAsset.gray400.swiftUIColor)
           .wineyFont(.title2)
       }
+      .background(WineyKitAsset.mainBackground.swiftUIColor)
       .padding(.vertical, 12)
+      .onTapGesture {
+        if title == "FAQ" {
+          UIApplication.shared.open( URL(string: "https://holy-wax-3be.notion.site/FAQ-1671bf54033440d2aef23189c4754a45")!)
+        }
+      }
     }
   }
   

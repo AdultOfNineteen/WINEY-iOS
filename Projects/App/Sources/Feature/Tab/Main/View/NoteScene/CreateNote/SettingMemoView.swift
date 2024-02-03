@@ -14,13 +14,13 @@ import WineyKit
 public struct SettingMemoView: View {
   private let store: StoreOf<SettingMemo>
   @ObservedObject var viewStore: ViewStoreOf<SettingMemo>
+  @FocusState private var isFocused: Bool
   
   public init(store: StoreOf<SettingMemo>) {
     self.store = store
     self.viewStore = ViewStore(self.store, observe: { $0 })
   }
-  
-  @FocusState private var isFocused: Bool
+
   public var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
   
   public var body: some View {
@@ -252,7 +252,6 @@ extension SettingMemoView {
                 viewStore.send(.tappedWineStar(index))
               }
           }
-          
         }
       }
       

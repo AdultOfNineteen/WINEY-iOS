@@ -25,29 +25,50 @@ public struct UserInfoCoordinatorView: View {
         case .userInfo:
           CaseLet(
             /UserInfoScreen.State.userInfo,
-            action: UserInfoScreen.Action.userInfo,
-            then: UserInfoView.init
+             action: UserInfoScreen.Action.userInfo,
+             then: UserInfoView.init
           )
           
         case .userBadge:
           CaseLet(
             /UserInfoScreen.State.userBadge,
-            action: UserInfoScreen.Action.userBadge,
-            then: UserBadgeView.init
+             action: UserInfoScreen.Action.userBadge,
+             then: UserBadgeView.init
           )
           
         case .userSetting:
           CaseLet(
             /UserInfoScreen.State.userSetting,
-            action: UserInfoScreen.Action.userSetting,
-            then: UserSettingView.init
+             action: UserInfoScreen.Action.userSetting,
+             then: UserSettingView.init
+          )
+          
+        case .termsPolicy:
+          CaseLet(
+            /UserInfoScreen.State.termsPolicy,
+             action: UserInfoScreen.Action.termsPolicy,
+             then: TermsPolicyView.init
+          )
+          
+        case .personalPolicy:
+          CaseLet(
+            /UserInfoScreen.State.personalPolicy,
+             action: UserInfoScreen.Action.personalPolicy,
+             then: PersonalInfoPolicyView.init
           )
           
         case .signOut:
           CaseLet(
             /UserInfoScreen.State.signOut,
-            action: UserInfoScreen.Action.signOut,
-            then: SignOutView.init
+             action: UserInfoScreen.Action.signOut,
+             then: SignOutView.init
+          )
+          
+        case .signOutConfirm:
+          CaseLet(
+            /UserInfoScreen.State.signOutConfirm,
+             action: UserInfoScreen.Action.signOutConfirm,
+             then: SignOutConfirmView.init
           )
         }
       }

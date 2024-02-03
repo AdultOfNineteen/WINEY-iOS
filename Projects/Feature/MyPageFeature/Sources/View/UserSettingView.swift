@@ -56,7 +56,7 @@ public struct UserSettingView: View {
           )
         
         Button("회원탈퇴") {
-          viewStore.send(.tappedSignOut)
+          viewStore.send(.tappedSignOut(userId: viewStore.userId))
         }
         .wineyFont(.captionM1)
         .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
@@ -108,7 +108,7 @@ public struct UserSettingView: View {
 #Preview {
   UserSettingView(
     store: .init(
-      initialState: .init(),
+      initialState: .init(userId: 22),
       reducer: {
         UserSetting()
       }

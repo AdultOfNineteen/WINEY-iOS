@@ -11,6 +11,7 @@ import WineyNetwork
 
 public struct UserService {
   public var info: () async -> Result<UserInfoDTO, Error>
+  public var signOut: (_ userId: Int, _ reason: String) async -> Result<SignOutDTO, Error>
 }
 
 extension UserService {
@@ -30,6 +31,22 @@ extension UserService {
         case let .failure(error):
           return .failure(error)
         }
+      },
+      
+      signOut: { userId, reason in
+        let dtoResult = await Provider<UserAPI>
+          .init()
+          .request(
+            UserAPI.signOut(userId: userId, reason: reason),
+            type: SignOutDTO.self
+          )
+        
+        switch dtoResult {
+        case let .success(dto):
+          return .success(dto)
+        case let .failure(error):
+          return .failure(error)
+        }
       }
     )
   }()
@@ -39,6 +56,11 @@ extension UserService {
       info: {
         return .success(
           UserInfoDTO(userId: 22, status: "ACTIVATE")
+        )
+      },
+      signOut: { userId, reason in
+        return .success(
+          SignOutDTO(userId: 22, deletedAt: "2024-01-30T15:13:22.505Z")
         )
       }
     )
