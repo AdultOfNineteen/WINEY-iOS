@@ -17,6 +17,8 @@ public struct UserBadge: Reducer {
     var clickedBadgeInfo: Badge? = nil
     var isTappedBadge: Bool = false
     
+    var errorMsg: String = ""
+    
     public init(userId: Int) {
       self.userId = userId
     }
@@ -59,6 +61,10 @@ public struct UserBadge: Reducer {
     case ._setBadgeList(let data):
       state.sommelierBadgeList = data.sommelierBadgeList
       state.activityBadgeList = data.activityBadgeList
+      return .none
+      
+    case ._failureSocialNetworking(let error):
+      state.errorMsg = error.toProviderError()?.errorBody?.message ?? "서버 에러, 관리자에게 문의 바랍니다."
       return .none
       
     case .tappedBadge(let badge):
