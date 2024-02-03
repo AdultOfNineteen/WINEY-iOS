@@ -16,6 +16,7 @@ public enum ModulePath {
 // MARK: FeatureModule
 public extension ModulePath {
   enum Feature: String, CaseIterable {
+    case Map
     case MyPage
     case SignIn
     
