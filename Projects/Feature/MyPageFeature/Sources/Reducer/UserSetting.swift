@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import Foundation
+import UIKit
 import UserDomain
 
 public struct UserSetting: Reducer {
@@ -32,11 +33,14 @@ public struct UserSetting: Reducer {
     case _moveToHome
     
     // MARK: - Inner SetState Action
+    case _removeUserInfo
+    case _failureSocialNetworking(Error)
     
     // MARK: - Child Action
     
   }
   
+  @Dependency(\.user) var userService
   @Dependency(\.userDefaults) var userDefaultsService
   
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
@@ -45,6 +49,16 @@ public struct UserSetting: Reducer {
       return .send(._presentBottomSheet(true))
       
     case .tappedBottomSheetYesOption:
+      return .run { send in
+        switch await userService.logout(UIDevice.current.identifierForVendor!.uuidString) {
+        case let .success(data):
+          await send(._removeUserInfo)
+        case let .failure(error):
+          await send(._failureSocialNetworking(error))
+        }
+      }
+      
+    case ._removeUserInfo:
       userDefaultsService.deleteValue(.accessToken)
       userDefaultsService.deleteValue(.refreshToken)
       userDefaultsService.deleteValue(.userID)

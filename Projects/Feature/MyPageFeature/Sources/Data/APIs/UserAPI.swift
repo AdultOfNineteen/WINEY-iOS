@@ -12,6 +12,7 @@ import WineyNetwork
 public enum UserAPI {
   case userInfo
   case signOut(userId: Int, reason: String)
+  case logout(deviceId: String)
 }
 
 extension UserAPI: EndPointType {
@@ -25,6 +26,8 @@ extension UserAPI: EndPointType {
       return "/info"
     case let .signOut(userId: userId, reason: reason):
       return "/users/\(userId)"
+    case let .logout(deviceId: deviceId):
+      return "/users/logout"
     }
   }
   
@@ -34,6 +37,8 @@ extension UserAPI: EndPointType {
       return .get
     case .signOut:
       return .delete
+    case .logout:
+      return .get
     }
   }
   
@@ -46,6 +51,13 @@ extension UserAPI: EndPointType {
         parameters: [
           "userId": userId,
           "reason": reason
+        ],
+        encoding: .queryString
+      )
+    case let .logout(deviceId: deviceId):
+      return .requestParameters(
+        parameters: [
+          "deviceId": deviceId
         ],
         encoding: .queryString
       )
