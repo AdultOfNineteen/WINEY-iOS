@@ -23,7 +23,9 @@ public struct UserBadgeView: View {
   }
   
   public var body: some View {
-    GeometryReader { _ in
+    ZStack {
+      WineyKitAsset.mainBackground.swiftUIColor.ignoresSafeArea()
+      
       VStack(spacing: 0) {
         NavigationBar(
           title: "WINEY 뱃지",
@@ -36,68 +38,77 @@ public struct UserBadgeView: View {
         )
         .padding(.bottom, 10)
         
-        Group {
-          BadgeSectionTitle(
-            title: .sommelier,
-            count: viewStore.sommelierBadgeList.filter({ $0.acquiredAt != nil }).count
-          )
-          .padding(.bottom, 20)
+        
+        if !viewStore.errorMsg.isEmpty {
+          Text(viewStore.errorMsg)
+            .wineyFont(.bodyB1)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .offset(y: -68)
+        } else {
           
-          ScrollView(.horizontal) {
-            LazyHGrid(rows: [.init(.flexible())], spacing: 14) {
-              ForEach(viewStore.state.sommelierBadgeList, id: \.badgeId) { badge in
-                BadgeBlock(
-                  title: badge.name,
-                  date: extractDate(badge.acquiredAt) ?? "미취득 뱃지",
-                  isRead: badge.isRead ?? true
-                )
-                .onTapGesture {
-                  viewStore.send(.tappedBadge(badge))
+          Group {
+            BadgeSectionTitle(
+              title: .sommelier,
+              count: viewStore.sommelierBadgeList.filter({ $0.acquiredAt != nil }).count
+            )
+            .padding(.bottom, 20)
+            
+            ScrollView(.horizontal) {
+              LazyHGrid(rows: [.init(.flexible())], spacing: 14) {
+                ForEach(viewStore.state.sommelierBadgeList, id: \.badgeId) { badge in
+                  BadgeBlock(
+                    title: badge.name,
+                    date: extractDate(badge.acquiredAt) ?? "미취득 뱃지",
+                    isRead: badge.isRead ?? true
+                  )
+                  .onTapGesture {
+                    viewStore.send(.tappedBadge(badge))
+                  }
                 }
               }
+              .padding(.bottom, 20)
             }
-            .frame(height: 160)
-            .padding(.bottom, 20)
           }
-        }
-        .padding(
-          .horizontal,
-          WineyGridRules
-            .globalHorizontalPadding
-        )
-        
-        Divider()
-          .padding(.bottom, 20)
-        
-        Group {
-          BadgeSectionTitle(
-            title: .activity,
-            count: viewStore.activityBadgeList.filter({ $0.acquiredAt != nil }).count
+          .padding(
+            .horizontal,
+            WineyGridRules
+              .globalHorizontalPadding
           )
-          .padding(.bottom, 20)
           
-          ScrollView(.horizontal) {
-            LazyHGrid(rows: rows, spacing: 14) {
-              ForEach(viewStore.state.activityBadgeList, id: \.badgeId) { badge in
-                BadgeBlock(
-                  title: badge.name,
-                  date: extractDate(badge.acquiredAt) ?? "미취득 뱃지",
-                  isRead: badge.isRead ?? true
-                )
-                .onTapGesture {
-                  viewStore.send(.tappedBadge(badge))
+          Divider()
+            .padding(.bottom, 20)
+          
+          Group {
+            BadgeSectionTitle(
+              title: .activity,
+              count: viewStore.activityBadgeList.filter({ $0.acquiredAt != nil }).count
+            )
+            .padding(.bottom, 20)
+            
+            ScrollView(.horizontal) {
+              LazyHGrid(rows: rows, spacing: 14) {
+                ForEach(viewStore.state.activityBadgeList, id: \.badgeId) { badge in
+                  BadgeBlock(
+                    title: badge.name,
+                    date: extractDate(badge.acquiredAt) ?? "미취득 뱃지",
+                    isRead: badge.isRead ?? true
+                  )
+                  .onTapGesture {
+                    viewStore.send(.tappedBadge(badge))
+                  }
                 }
               }
+              .padding(.bottom, 20)
             }
-            .frame(height: 340)
-            .padding(.bottom, 20)
           }
+          .padding(
+            .horizontal,
+            WineyGridRules
+              .globalHorizontalPadding
+          )
+          
+          Spacer()
         }
-        .padding(
-          .horizontal,
-          WineyGridRules
-            .globalHorizontalPadding
-        )
       }
     }
     .bottomSheet(
@@ -125,7 +136,6 @@ public struct UserBadgeView: View {
     .onAppear {
       viewStore.send(._viewWillAppear)
     }
-    .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationBarHidden(true)
   }
   

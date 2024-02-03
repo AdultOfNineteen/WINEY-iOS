@@ -27,60 +27,20 @@ public struct SignOutView: View {
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
       navigationBarSpacer
-        .padding(.bottom, 20)
-        .padding(
-          .horizontal,
-          -WineyGridRules
-            .globalHorizontalPadding
-        )
       
-      Group {
-        Text("정말 탈퇴하시겠어요?")
-          .padding(.bottom, 5)
-        Text("이별하기 너무 아쉬워요.")
-          .padding(.bottom, 20)
-      }
-      .wineyFont(.title2)
-      .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-      
-      Text("계정을 삭제하면 희연님의 모든 리뷰 게시글 , 이용 하신 정보들이 삭제됩니다.계정 삭제 후 7일간 다시 가입할 수 없어요.")
-        .wineyFont(.bodyB2)
-        .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
-        .padding(.bottom, 30)
-        .padding(.trailing, 50)
-      
-      Group {
-        Text("계정을 삭제하려는")
-          .padding(.bottom, 5)
-        Text("이유를 알려주세요.")
-          .padding(.bottom, 45)
-      }
-      .wineyFont(.title2)
-      .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-      
-      signOutReason
-        .padding(.bottom, 30)
-      
-      if viewStore.selectedSignOutOption == .etc {
-        etcReasonField
+      VStack(alignment: .leading, spacing: 0) {
+        signOutDescription
+        
+        signOutReason
+        
+        if viewStore.selectedSignOutOption == .etc {
+          etcReasonField
+        }
       }
       
       Spacer()
       
-      WineyConfirmButton(
-        title: "다음",
-        validBy: viewStore.selectedSignOutOption != nil && (viewStore.selectedSignOutOption != .etc || !viewStore.userReason.isEmpty),
-        action: {
-          viewStore.send(
-            .tappedNextButton(
-              userId: viewStore.userId,
-              selectedOption: viewStore.selectedSignOutOption!,
-              userReason: viewStore.userReason
-            )
-          )
-        }
-      )
-      .padding(.bottom, 54)
+      bottomButton
     }
     .padding(
       .horizontal,
@@ -120,30 +80,67 @@ public struct SignOutView: View {
       },
       backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
     )
+    .padding(.bottom, 20)
+    .padding(
+      .horizontal,
+      -WineyGridRules
+        .globalHorizontalPadding
+    )
+  }
+  
+  var signOutDescription: some View {
+    VStack(alignment: .leading, spacing: 0) {
+      Group {
+        Text("정말 탈퇴하시겠어요?")
+          .padding(.bottom, 5)
+        Text("이별하기 너무 아쉬워요.")
+          .padding(.bottom, 20)
+      }
+      .wineyFont(.title2)
+      .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+      
+      Text("계정을 삭제하면 희연님의 모든 리뷰 게시글 , 이용 하신 정보들이 삭제됩니다.계정 삭제 후 7일간 다시 가입할 수 없어요.")
+        .wineyFont(.bodyB2)
+        .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
+        .padding(.bottom, 30)
+        .padding(.trailing, 50)
+    }
   }
   
   var signOutReason: some View {
-    VStack(spacing: 13) {
-      HStack(alignment: .center, spacing: 0) {
-        Text(viewStore.selectedSignOutOption?.rawValue ?? "이유를 선택해주세요.")
-        
-        Spacer()
-        
-        Image(systemName: "chevron.down")
-          .padding(.trailing, 12)
+    VStack(alignment: .leading, spacing: 0) {
+      Group {
+        Text("계정을 삭제하려는")
+          .padding(.bottom, 5)
+        Text("이유를 알려주세요.")
+          .padding(.bottom, 45)
       }
-      .wineyFont(.bodyB2)
+      .wineyFont(.title2)
+      .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
       
-      Divider()
-        .frame(height: 1)
-        .overlay(.white)
-    }
-    .background(
-      WineyKitAsset.mainBackground.swiftUIColor
-    )
-    .foregroundStyle(.white)
-    .onTapGesture {
-      viewStore.send(.tappedSignOutReason)
+      VStack(spacing: 13) {
+        HStack(alignment: .center, spacing: 0) {
+          Text(viewStore.selectedSignOutOption?.rawValue ?? "이유를 선택해주세요.")
+          
+          Spacer()
+          
+          Image(systemName: "chevron.down")
+            .padding(.trailing, 12)
+        }
+        .wineyFont(.bodyB2)
+        
+        Divider()
+          .frame(height: 1)
+          .overlay(.white)
+      }
+      .background(
+        WineyKitAsset.mainBackground.swiftUIColor
+      )
+      .foregroundStyle(.white)
+      .onTapGesture {
+        viewStore.send(.tappedSignOutReason)
+      }
+      .padding(.bottom, 30)
     }
   }
   
@@ -206,6 +203,23 @@ public struct SignOutView: View {
           .foregroundStyle(WineyKitAsset.gray500.swiftUIColor)
       }
     }
+  }
+  
+  var bottomButton: some View {
+    WineyConfirmButton(
+      title: "다음",
+      validBy: viewStore.selectedSignOutOption != nil && (viewStore.selectedSignOutOption != .etc || !viewStore.userReason.isEmpty),
+      action: {
+        viewStore.send(
+          .tappedNextButton(
+            userId: viewStore.userId,
+            selectedOption: viewStore.selectedSignOutOption!,
+            userReason: viewStore.userReason
+          )
+        )
+      }
+    )
+    .padding(.bottom, 54)
   }
 }
 
