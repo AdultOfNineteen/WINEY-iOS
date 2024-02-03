@@ -24,6 +24,7 @@ let project = Project.make(
       dependencies: [
         .project(target: "MyPageFeatureInterface", path: "../Feature/MyPageFeature"),
         .project(target: "MyPageFeature", path: "../Feature/MyPageFeature"),
+//        .project(target: "MapFeature", path: "../Feature/MapFeature"),
         
         .package(product: "GoogleSignIn")
       ]
