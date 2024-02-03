@@ -8,6 +8,51 @@
 
 import SwiftUI
 
+public extension View {
+  func bottomSheet<
+    BackgroundColor: View,
+    HeaderArea: View,
+    Content: View,
+    BottomArea: View
+  >(
+    backgroundColor: BackgroundColor = Color.black,
+    isPresented: Binding<Bool>,
+    activeOutsideTouch: Bool = false,
+    @ViewBuilder headerArea: () -> HeaderArea,
+    @ViewBuilder content: () -> Content,
+    @ViewBuilder bottomArea: () -> BottomArea
+  ) -> some View {
+    ZStack {
+      self
+      ZStack(alignment: .bottom) {
+        if isPresented.wrappedValue {
+          WineyKitAsset.background1.swiftUIColor.opacity(0.85)
+            .ignoresSafeArea(.container, edges: .all)
+            .zIndex(1)
+            .onTapGesture {
+              if activeOutsideTouch {
+                isPresented.wrappedValue = false
+              }
+            }
+            .transition(.opacity)
+          
+          BottomSheet(
+            backgroundColor: backgroundColor,
+            isPresented: isPresented,
+            headerArea: headerArea,
+            content: content,
+            bottomArea: bottomArea
+          )
+          .zIndex(2)
+          .transition(.move(edge: .bottom))
+        }
+      }
+      .ignoresSafeArea()
+      .animation(.easeInOut(duration: 0.3), value: isPresented.wrappedValue)
+    }
+  }
+}
+
 public struct BottomSheet<
   BackgroundColor: View,
   HeaderArea: View,
@@ -67,51 +112,6 @@ public struct BottomSheet<
     .background(backgroundColor)
     .cornerRadius(12, corners: .topLeft)
     .cornerRadius(12, corners: .topRight)
-  }
-}
-
-public extension View {
-  func bottomSheet<
-    BackgroundColor: View,
-    HeaderArea: View,
-    Content: View,
-    BottomArea: View
-  >(
-    backgroundColor: BackgroundColor = Color.black,
-    isPresented: Binding<Bool>,
-    activeOutsideTouch: Bool = false,
-    @ViewBuilder headerArea: () -> HeaderArea,
-    @ViewBuilder content: () -> Content,
-    @ViewBuilder bottomArea: () -> BottomArea
-  ) -> some View {
-    ZStack {
-      self
-      ZStack(alignment: .bottom) {
-        if isPresented.wrappedValue {
-          WineyKitAsset.background1.swiftUIColor.opacity(0.85)
-            .ignoresSafeArea(.container, edges: .all)
-            .zIndex(1)
-            .onTapGesture {
-              if activeOutsideTouch {
-                isPresented.wrappedValue = false
-              }
-            }
-            .transition(.opacity)
-          
-          BottomSheet(
-            backgroundColor: backgroundColor,
-            isPresented: isPresented,
-            headerArea: headerArea,
-            content: content,
-            bottomArea: bottomArea
-          )
-          .zIndex(2)
-          .transition(.move(edge: .bottom))
-        }
-      }
-      .ignoresSafeArea()
-      .animation(.easeInOut(duration: 0.3), value: isPresented.wrappedValue)
-    }
   }
 }
 

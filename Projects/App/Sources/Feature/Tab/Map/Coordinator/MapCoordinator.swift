@@ -36,5 +36,8 @@ public struct MapCoordinator: Reducer {
     Reduce<State, Action> { state, action in
       return .none
     }
+    .forEachRoute { // 🔥 없으면 연결 안됌
+      MapScreen()
+    }
   }
 }
