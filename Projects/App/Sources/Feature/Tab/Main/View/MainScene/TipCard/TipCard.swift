@@ -6,7 +6,6 @@
 //  Copyright © 2023 com.adultOfNineteen. All rights reserved.
 //
 
-import CombineExt
 import ComposableArchitecture
 import Foundation
 import SwiftUI
@@ -20,6 +19,7 @@ public struct TipCard: Reducer {
   public enum Action {
     // MARK: - User Action
     case tappedBackButton
+    case tappedTipCard(url: String)
     
     // MARK: - Inner Business Action
     case _viewWillAppear

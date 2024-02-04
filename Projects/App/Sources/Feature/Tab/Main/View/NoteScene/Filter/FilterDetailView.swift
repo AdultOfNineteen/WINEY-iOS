@@ -117,7 +117,8 @@ extension FilterDetailView {
     .padding(.horizontal, 10)
     .background(
       Capsule()
-        .stroke(buffer.contains(where: { $0 == filterInfo.title }) ? WineyKitAsset.main2.swiftUIColor : WineyKitAsset.gray900.swiftUIColor)
+        .stroke(buffer.contains(where: { $0 == filterInfo.title }) ? WineyKitAsset.main2.swiftUIColor : WineyKitAsset.gray900.swiftUIColor
+               )
     )
     .padding(1)
     .onTapGesture {

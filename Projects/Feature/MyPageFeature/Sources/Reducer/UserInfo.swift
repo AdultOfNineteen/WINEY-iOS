@@ -12,6 +12,7 @@ public struct UserInfo: Reducer {
   public struct State: Equatable {
     var isPresentedBottomSheet: Bool = false
     var userId: Int? = nil
+    var userWineGrade: MyWineGradeDTO? = nil
     
     public init() {}
   }
@@ -27,6 +28,7 @@ public struct UserInfo: Reducer {
     
     // MARK: - Inner Business Action
     case _viewWillAppear
+    case _getUserWineGrade(Int)
     case _presentBottomSheet(Bool)
     case _moveToBadgeTap(Int)
     case _moveToUserInfo(Int)
@@ -34,18 +36,19 @@ public struct UserInfo: Reducer {
     // MARK: - Inner SetState Action
     case _failureSocialNetworking(Error)  // 추후 경고 처리
     case _setUserInfo(UserInfoDTO)
+    case _setUserWineGrade(MyWineGradeDTO)
     
     // MARK: - Child Action
     
   }
   
   @Dependency(\.user) var userService
+  @Dependency(\.wineGrade) var wineGradeService
+  
   
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case ._viewWillAppear:
-      let userId = state.userId
-      
       return .run { send in
         switch await userService.info() {
         case let .success(data):
@@ -57,6 +60,20 @@ public struct UserInfo: Reducer {
       
     case let ._setUserInfo(data):
       state.userId = data.userId
+      return .send(._getUserWineGrade(data.userId))
+      
+    case ._getUserWineGrade(let userId):
+      return .run { send in
+        switch await wineGradeService.myWineGrades(userId) {
+        case let .success(data):
+          await send(._setUserWineGrade(data))
+        case let .failure(error):
+          await send(._failureSocialNetworking(error))
+        }
+      }
+      
+    case let ._setUserWineGrade(data):
+      state.userWineGrade = data
       return .none
       
     case .wineyRatingButtonTapped:

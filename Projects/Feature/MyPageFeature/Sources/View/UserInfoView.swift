@@ -7,6 +7,7 @@
 //
 
 import ComposableArchitecture
+import Messages
 import SwiftUI
 import WineyKit
 
@@ -144,36 +145,41 @@ public struct UserInfoView: View {
   
   private var degreeGraphSpace: some View {
     VStack(spacing: 7) {
-      GeometryReader { lineGeometry in
-        ZStack(alignment: .leading) {
-          Rectangle() // 슬라이더의 바
-            .frame(
-              width: lineGeometry.size.width,
-              height: 1.26
-            )
-            .foregroundColor(.gray)
-          
-          Circle() // 슬라이더의 원
-            .frame(width: 14)
-            .foregroundColor(WineyKitAsset.main2.swiftUIColor)
-            .offset(x: self.sliderValue * lineGeometry.size.width - 7)
-        }
-        .overlay(alignment: .topLeading) {
-          ForEach(WineyRating.allCases, id: \.title) { item in
-            VStack(alignment: .center, spacing: 7) {
-              Circle() // 슬라이더의 원
-                .frame(width: 14, height: 14)
-              
-              Text(item.title)
-                .wineyFont(.captionM2)
+      if let userWineGrade = viewStore.userWineGrade {
+        GeometryReader { lineGeometry in
+          ZStack(alignment: .leading) {
+            Rectangle() // 슬라이더의 바
+              .frame(
+                width: lineGeometry.size.width,
+                height: 1.26
+              )
+              .foregroundColor(WineyKitAsset.gray800.swiftUIColor)
+            
+            Circle() // 슬라이더의 원
+              .frame(width: 14)
+              .foregroundColor(WineyKitAsset.main2.swiftUIColor)
+              .offset(x: CGFloat(userWineGrade.threeMonthsNoteCount)/12 * lineGeometry.size.width - 7)
+          }
+          .overlay(alignment: .topLeading) {
+            ForEach(WineyRating.allCases, id: \.title) { item in
+              VStack(alignment: .center, spacing: 7) {
+                Circle() // 슬라이더의 원
+                  .frame(width: 14, height: 14)
+                
+                Text(item.title)
+                  .wineyFont(.captionM2)
+              }
+              .offset(x: item.degree * lineGeometry.size.width - 21)
+              .foregroundColor(
+                self.sliderValue == item.degree ? WineyKitAsset.main2.swiftUIColor :
+                  WineyKitAsset.gray800.swiftUIColor
+              )
             }
-            .offset(x: item.degree * lineGeometry.size.width - 21)
-            .foregroundColor(
-              self.sliderValue == item.degree ? WineyKitAsset.main2.swiftUIColor :
-                WineyKitAsset.gray800.swiftUIColor
-            )
           }
         }
+      } else {
+        Text("유저 등급 정보를 가져오지 못했습니다.")
+          .wineyFont(.bodyB1)
       }
     }
     .frame(height: 39)
@@ -270,6 +276,8 @@ public struct UserInfoView: View {
       .onTapGesture {
         if title == "FAQ" {
           UIApplication.shared.open( URL(string: "https://holy-wax-3be.notion.site/FAQ-1671bf54033440d2aef23189c4754a45")!)
+        } else if title == "1:1 문의" {
+          EmailController.shared.sendEmail(subject: "Hello", body: "Hello From ishtiz.com", to: "recipient@example.com")
         }
       }
     }

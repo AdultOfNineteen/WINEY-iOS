@@ -28,6 +28,7 @@ public struct Main: Reducer {
     case tappedAnalysisButton
     case tappedTipArrow
     case userScroll
+    case tappedTipCard(url: String)
     
     // MARK: - Inner Business Action
     case _viewWillAppear
