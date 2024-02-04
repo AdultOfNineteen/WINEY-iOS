@@ -57,7 +57,19 @@ public struct MainCoordinator: Reducer {
         state.routes.append(.push(.tipCard(.init())))
         return .none
         
+      case let .routeAction(_, action: .main(.tappedTipCard(url: url))):
+        state.routes.append(.push(.tipCardDetail(.init(url: url))))
+        return .none
+        
       case .routeAction(_, action: .tipCard(.tappedBackButton)):
+        state.routes.pop()
+        return .none
+        
+      case let .routeAction(_, action: .tipCard(.tappedTipCard(url: url))):
+        state.routes.append(.push(.tipCardDetail(.init(url: url))))
+        return .none
+        
+      case .routeAction(_, action: .tipCardDetail(.tappedBackButton)):
         state.routes.pop()
         return .none
         

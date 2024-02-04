@@ -49,6 +49,13 @@ public struct MainCoordinatorView: View {
             action: MainScreen.Action.tipCard,
             then: TipCardView.init
           )
+          
+        case .tipCardDetail:
+          CaseLet(
+            /MainScreen.State.tipCardDetail,
+            action: MainScreen.Action.tipCardDetail,
+            then: TipCardDetailView.init
+          )
         }
       }
       .navigationBarHidden(true)

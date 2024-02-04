@@ -39,6 +39,9 @@ public struct TipCardView: View {
             LazyVGrid(columns: columns, spacing: 20) {
               ForEach(tipCards.contents, id: \.wineTipId) { tipCard in
                 TipCardImage(tipCardInfo: tipCard)
+                  .onTapGesture {
+                    viewStore.send(.tappedTipCard(url: tipCard.url))
+                  }
               }
             }
           }
