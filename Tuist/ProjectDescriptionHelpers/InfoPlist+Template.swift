@@ -43,7 +43,8 @@ public extension InfoPlist {
       "kakaokompassauth",
       "kakaolink"
     ],
-    "NSLocationWhenInUseUsageDescription" : [.string("앱이 위치 기반 기능을 제공하기 위해 사용자의 위치 정보가 필요합니다.")],
+    "CFBundleDisplayName": .string("WINEY"),
+    "NSLocationWhenInUseUsageDescription" : .string("앱이 위치 기반 기능을 제공하기 위해 사용자의 위치 정보가 필요합니다."),
     "NSPhotoLibraryUsageDescription": .string("앱에서 사용자의 사진을 선택할 수 있도록 사진 갤러리에 접근 권한이 필요합니다."),
     "GIDClientID":
         .string(APIKeys.GOOGLE_API_KEY),
