@@ -10,7 +10,7 @@ import ConfigPlugin
 let spm = SwiftPackageManagerDependencies(
   [
     .remote(
-      url: "https://github.com/CombineCommunity/CombineExt.git", 
+      url: "https://github.com/CombineCommunity/CombineExt.git",
       requirement: .exact("1.8.1")
     ),
     .remote(
