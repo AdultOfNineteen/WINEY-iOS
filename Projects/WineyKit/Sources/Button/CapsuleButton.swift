@@ -26,7 +26,8 @@ public struct CapsuleButton: View {
         Text(title)
           .wineyFont(.captionB1)
           .foregroundStyle(validation ? .white : WineyKitAsset.gray700.swiftUIColor)
-          .padding(.vertical, 9)
+          .padding(.top, 9)
+          .padding(.bottom, 8)
           .padding(.horizontal, 12)
           .background(
             Capsule()
