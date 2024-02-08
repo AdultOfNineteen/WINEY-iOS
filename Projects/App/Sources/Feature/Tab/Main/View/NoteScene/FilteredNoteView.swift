@@ -130,10 +130,12 @@ extension FilteredNoteView {
   @ViewBuilder
   private func filterCategoryButton(type: FilterType, list: [String]) -> some View {
     if list.isEmpty {
-      emptyFilterButton(
-        text: type.title,
-        action: { viewStore.send(.tappedFilterButton) }
-      )
+      if type != .rebuy {
+        emptyFilterButton(
+          text: type.title,
+          action: { viewStore.send(.tappedFilterButton) }
+        )
+      }
     } else {
       activateFilterButton(type: type, list: list)
     }

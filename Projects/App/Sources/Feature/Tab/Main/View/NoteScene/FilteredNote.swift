@@ -72,7 +72,7 @@ public struct FilteredNote: Reducer {
         state.countryFilter = FilterManager.shared.countryFilter
         
         let sortState = state.sortState.rawValue
-        let rebuy = state.rebuyFilter.isEmpty ? nil : 0
+        let rebuy = state.rebuyFilter.isEmpty ? nil : 1
         let countries = state.countryFilter
         let types = state.typeFilter.map { filterRequestString(forValue: $0) }
         

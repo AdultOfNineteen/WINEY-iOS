@@ -77,16 +77,12 @@ public struct FilterDetail: Reducer {
         WineType.allCases.forEach { type in
           if let wineTypeFilter = wineTypes.filter({ $0.type == type.korName }).first {
             state.typeFilter.append(FilterInfo(title: wineTypeFilter.type, count: Int(wineTypeFilter.count) ?? 0, type: .type))
-          } else {
-            state.typeFilter.append(FilterInfo(title: type.korName, count: 0, type: .type))
           }
         }
         
         for country in state.wineCountry {
           if let countryFilter = countries.filter({ $0.country == country }).first {
             state.countryFilter.append(FilterInfo(title: countryFilter.country, count: Int(countryFilter.count) ?? 0, type: .country))
-          } else {
-            state.countryFilter.append(FilterInfo(title: country, count: 0, type: .country))
           }
         }
         
