@@ -221,7 +221,7 @@ extension NoteDetailView {
         }
       }
       
-      Text(noteData.memo)
+      Text(noteData.memo.isEmpty ? "입력한 내용이 없어요!" : noteData.memo)
         .wineyFont(.captionM1)
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 15)
