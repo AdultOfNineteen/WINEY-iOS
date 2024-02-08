@@ -25,7 +25,8 @@ struct FlavorSignUpView: View {
         leftIcon: Image("navigationBack_button"),
         leftIconButtonAction: {
           viewStore.send(.tappedBackButton)
-        }
+        },
+        backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
       )
       .overlay(alignment: .trailing) {
         Text("\(viewStore.state.pageState.rawValue)/3")
@@ -108,6 +109,7 @@ struct FlavorSignUpView: View {
         UIApplication.shared.endEditing()
       }
     }
+    .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationBarHidden(true)
   }
   

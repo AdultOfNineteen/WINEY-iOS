@@ -27,7 +27,9 @@ struct CodeSignUpView: View {
           leftIcon: Image("navigationBack_button"),
           leftIconButtonAction: {
             viewStore.send(.tappedBackButton)
-          })
+          },
+          backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
+        )
         
         HStack(alignment: .firstTextBaseline) {
           Text("인증번호를 입력해주세요")
@@ -145,6 +147,7 @@ struct CodeSignUpView: View {
         UIApplication.shared.endEditing()
       }
     }
+    .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationBarHidden(true)
   }
   

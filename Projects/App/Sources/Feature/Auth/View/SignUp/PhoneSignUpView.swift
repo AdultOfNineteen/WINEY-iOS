@@ -26,7 +26,9 @@ struct SignUpView: View {
           ,
           leftIconButtonAction: {
             viewStore.send(.tappedBackButton)
-          })
+          },
+          backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
+        )
         
         HStack(alignment: .firstTextBaseline) {
           Text("휴대폰 번호를 입력해주세요")
@@ -115,6 +117,7 @@ struct SignUpView: View {
         UIApplication.shared.endEditing()
       }
     }
+    .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationBarHidden(true)
   }
   
