@@ -158,13 +158,13 @@ public struct WineDetailGraphMyWineDefaultView: View {
           isValid: true
         )
         WineInfoDetailSingleGraphView(
-          value: 1,
+          value: 0.3,
           category: "알코올",
           graphColor: graphColor,
           isValid: false
         )
         WineInfoDetailSingleGraphView(
-          value: 1,
+          value: 0.3,
           category: "여운",
           graphColor: graphColor,
           isValid: false
