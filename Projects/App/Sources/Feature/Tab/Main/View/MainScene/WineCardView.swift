@@ -25,14 +25,15 @@ public struct WineCardView: View {
       let cardWidth: CGFloat = geo.size.width
       
       ZStack {
-        WineCardBackground(wineBackgroundComponent: viewStore.recommendWineData.wineType.backgroundColor)
-          .offset(x: 17.5, y: 21)
+        WineCardBackground(
+          wineBackgroundComponent: viewStore.recommendWineData.wineType.backgroundColor
+        )
         
         // Wine Card Border
         Path { path in
-          let cardHeight: CGFloat = 382
+          let cardHeight: CGFloat = 393
           let arcRadius: CGFloat = 38
-          let cornerRadius: CGFloat = 5
+          let cornerRadius: CGFloat = 5.4
           
           let topLeft = CGPoint(x: (geo.size.width - cardWidth) / 2, y: (geo.size.height - cardHeight) / 2)
           let topRight = CGPoint(x: topLeft.x + cardWidth, y: topLeft.y)
@@ -57,15 +58,6 @@ public struct WineCardView: View {
             endAngle: Angle(degrees: 90),
             clockwise: false
           )
-          
-          path.addArc(
-            center: arcCenter,
-            radius: arcRadius,
-            startAngle: Angle(degrees: -30),
-            endAngle: Angle(degrees: 210),
-            clockwise: true
-          )
-          
           path.addLine(to: CGPoint(x: bottomLeft.x + cornerRadius, y: bottomLeft.y))
           path.addArc(
             center: CGPoint(x: bottomLeft.x + cornerRadius, y: bottomLeft.y - cornerRadius),
@@ -82,16 +74,15 @@ public struct WineCardView: View {
             endAngle: Angle(degrees: 270),
             clockwise: false
           )
-          
           path.closeSubpath()
         }
-        .fill(.ultraThinMaterial)
+        .fill(.white.opacity(0.05))
         .overlay(
           Path { path in
             let cardWidth: CGFloat = geo.size.width
-            let cardHeight: CGFloat = 382
+            let cardHeight: CGFloat = 393
             let arcRadius: CGFloat = 38
-            let cornerRadius: CGFloat = 5
+            let cornerRadius: CGFloat = 5.4
             
             let topLeft = CGPoint(x: (geo.size.width - cardWidth) / 2, y: (geo.size.height - cardHeight) / 2)
             let topRight = CGPoint(x: topLeft.x + cardWidth, y: topLeft.y)
@@ -117,15 +108,6 @@ public struct WineCardView: View {
               endAngle: Angle(degrees: 90),
               clockwise: false
             )
-            
-            path.addArc(
-              center: arcCenter,
-              radius: arcRadius,
-              startAngle: Angle(degrees: -30),
-              endAngle: Angle(degrees: 210),
-              clockwise: true
-            )
-            
             path.addLine(to: CGPoint(x: bottomLeft.x + cornerRadius, y: bottomLeft.y))
             path.addArc(
               center: CGPoint(x: bottomLeft.x + cornerRadius, y: bottomLeft.y - cornerRadius),
@@ -134,7 +116,6 @@ public struct WineCardView: View {
               endAngle: Angle(degrees: 180),
               clockwise: false
             )
-            
             path.addLine(to: CGPoint(x: topLeft.x, y: topLeft.y + cornerRadius))
             path.addArc(
               center: CGPoint(x: topLeft.x + cornerRadius, y: topLeft.y + cornerRadius),
@@ -146,7 +127,14 @@ public struct WineCardView: View {
             
             path.closeSubpath()
           }
-            .stroke(WineyKitAsset.gray50.swiftUIColor.opacity(0.12), lineWidth: 1)
+            .stroke(
+              LinearGradient(
+                colors: [.white, .clear],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+              ),
+              lineWidth: 1
+            )
         )
         
         Path { path in
@@ -302,7 +290,6 @@ public struct WineCardView: View {
     }
   }
 }
-
 
 // For Text alignment - Justified
 extension String {

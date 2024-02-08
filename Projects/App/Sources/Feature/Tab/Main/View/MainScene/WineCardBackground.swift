@@ -14,21 +14,27 @@ struct WineCardBackground: View {
   var body: some View {
     GeometryReader { geo in
       ZStack {
-        RoundedRectangle(cornerRadius: 10)
-          .frame(width: geo.size.width - 35, height: 383)
+        RoundedRectangle(cornerRadius: 5.4)
+          .frame(width: geo.size.width, height: 393)
           .foregroundColor(wineBackgroundComponent.backgroundColor)
         
         Circle()
           .fill(
             LinearGradient(
               gradient: Gradient(
-                colors: [wineBackgroundComponent.firstCircleStart, wineBackgroundComponent.firstCircleEnd.opacity(0)]
+                colors: [
+                  wineBackgroundComponent.firstCircleStart,
+                  wineBackgroundComponent.firstCircleEnd.opacity(0.4),
+                  .clear
+                ]
               ),
-              startPoint: .top, endPoint: .bottom
+              startPoint: .top,
+              endPoint: .bottom
             )
           )
           .frame(width: 157, height: 157)
           .offset(x: -30, y: -50)
+          .blur(radius: 30)
           
         Circle()
           .fill(
@@ -36,8 +42,9 @@ struct WineCardBackground: View {
           )
           .frame(width: 157, height: 157)
           .offset(x: 30, y: 50)
+          .blur(radius: 20)
       }
-      .frame(width: geo.size.width - 35, height: 383)
+      .frame(width: geo.size.width, height: 393)
     }
   }
 }
