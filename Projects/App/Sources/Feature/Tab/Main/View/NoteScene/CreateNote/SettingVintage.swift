@@ -79,7 +79,7 @@ public struct SettingVintage: Reducer {
         return .send(._setButtonState)
         
       case ._checkPriceValue(let value):
-        state.price = value.filter("0123456789".contains)
+        state.price = String(value.filter("0123456789".contains).prefix(9))
         return .send(._setButtonState)
         
       case ._setButtonState:
