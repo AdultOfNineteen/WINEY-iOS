@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import WineyKit
 
 struct WineCardBackground: View {
   var wineBackgroundComponent: WineBackgroundColor
@@ -15,8 +16,13 @@ struct WineCardBackground: View {
     GeometryReader { geo in
       ZStack {
         RoundedRectangle(cornerRadius: 5.4)
-          .frame(width: geo.size.width, height: 393)
-          .foregroundColor(wineBackgroundComponent.backgroundColor)
+          .foregroundStyle(
+            wineBackgroundComponent.backgroundColor
+          )
+          .overlay(
+            RoundedRectangle(cornerRadius: 5.4)
+              .foregroundStyle(.ultraThinMaterial)
+          )
         
         Circle()
           .fill(
@@ -32,17 +38,17 @@ struct WineCardBackground: View {
               endPoint: .bottom
             )
           )
-          .frame(width: 157, height: 157)
+          .frame(width: geo.size.width / 2, height: geo.size.width / 2)
           .offset(x: -30, y: -50)
-          .blur(radius: 30)
-          
+          .blur(radius: 40)
+        
         Circle()
           .fill(
             wineBackgroundComponent.secondCircle
           )
-          .frame(width: 157, height: 157)
+          .frame(width: geo.size.width / 2, height: geo.size.width / 2)
           .offset(x: 30, y: 50)
-          .blur(radius: 20)
+          .blur(radius: 30)
       }
       .frame(width: geo.size.width, height: 393)
     }

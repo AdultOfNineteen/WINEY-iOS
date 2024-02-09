@@ -22,120 +22,23 @@ public struct WineCardView: View {
   public var body: some View {
     
     GeometryReader { geo in
-      let cardWidth: CGFloat = geo.size.width
       
       ZStack {
         WineCardBackground(
           wineBackgroundComponent: viewStore.recommendWineData.wineType.backgroundColor
         )
         
-        // Wine Card Border
-        Path { path in
-          let cardHeight: CGFloat = 393
-          let arcRadius: CGFloat = 38
-          let cornerRadius: CGFloat = 5.4
-          
-          let topLeft = CGPoint(x: (geo.size.width - cardWidth) / 2, y: (geo.size.height - cardHeight) / 2)
-          let topRight = CGPoint(x: topLeft.x + cardWidth, y: topLeft.y)
-          let bottomRight = CGPoint(x: topRight.x, y: topLeft.y + cardHeight)
-          let bottomLeft = CGPoint(x: topLeft.x, y: topLeft.y + cardHeight)
-          let arcCenter = CGPoint(x: geo.size.width / 2, y: topLeft.y + cardHeight + 20)
-          
-          path.move(to: CGPoint(x: topLeft.x + cornerRadius, y: topLeft.y))
-          path.addLine(to: CGPoint(x: topRight.x - cornerRadius, y: topRight.y))
-          path.addArc(
-            center: CGPoint(x: topRight.x - cornerRadius, y: topRight.y + cornerRadius),
-            radius: cornerRadius,
-            startAngle: Angle(degrees: -90),
-            endAngle: Angle(degrees: 0),
-            clockwise: false
+        RoundedRectangle(cornerRadius: 5.4)
+          .fill(.clear)
+          .stroke(
+            LinearGradient(
+              colors: [.white.opacity(0.8), .white.opacity(0.1)],
+              startPoint: .topLeading,
+              endPoint: .bottomTrailing
+            ),
+            lineWidth: 1
           )
-          path.addLine(to: CGPoint(x: bottomRight.x, y: bottomRight.y - cornerRadius))
-          path.addArc(
-            center: CGPoint(x: bottomRight.x - cornerRadius, y: bottomRight.y - cornerRadius),
-            radius: cornerRadius,
-            startAngle: Angle(degrees: 0),
-            endAngle: Angle(degrees: 90),
-            clockwise: false
-          )
-          path.addLine(to: CGPoint(x: bottomLeft.x + cornerRadius, y: bottomLeft.y))
-          path.addArc(
-            center: CGPoint(x: bottomLeft.x + cornerRadius, y: bottomLeft.y - cornerRadius),
-            radius: cornerRadius,
-            startAngle: Angle(degrees: 90),
-            endAngle: Angle(degrees: 180),
-            clockwise: false
-          )
-          path.addLine(to: CGPoint(x: topLeft.x, y: topLeft.y + cornerRadius))
-          path.addArc(
-            center: CGPoint(x: topLeft.x + cornerRadius, y: topLeft.y + cornerRadius),
-            radius: cornerRadius,
-            startAngle: Angle(degrees: 180),
-            endAngle: Angle(degrees: 270),
-            clockwise: false
-          )
-          path.closeSubpath()
-        }
-        .fill(.white.opacity(0.05))
-        .overlay(
-          Path { path in
-            let cardWidth: CGFloat = geo.size.width
-            let cardHeight: CGFloat = 393
-            let arcRadius: CGFloat = 38
-            let cornerRadius: CGFloat = 5.4
-            
-            let topLeft = CGPoint(x: (geo.size.width - cardWidth) / 2, y: (geo.size.height - cardHeight) / 2)
-            let topRight = CGPoint(x: topLeft.x + cardWidth, y: topLeft.y)
-            let bottomRight = CGPoint(x: topRight.x, y: topLeft.y + cardHeight)
-            let bottomLeft = CGPoint(x: topLeft.x, y: topLeft.y + cardHeight)
-            let arcCenter = CGPoint(x: geo.size.width / 2, y: topLeft.y + cardHeight + 20)
-            
-            
-            path.move(to: CGPoint(x: topLeft.x + cornerRadius, y: topLeft.y))
-            path.addLine(to: CGPoint(x: topRight.x - cornerRadius, y: topRight.y))
-            path.addArc(
-              center: CGPoint(x: topRight.x - cornerRadius, y: topRight.y + cornerRadius),
-              radius: cornerRadius,
-              startAngle: Angle(degrees: -90),
-              endAngle: Angle(degrees: 0),
-              clockwise: false
-            )
-            path.addLine(to: CGPoint(x: bottomRight.x, y: bottomRight.y - cornerRadius))
-            path.addArc(
-              center: CGPoint(x: bottomRight.x - cornerRadius, y: bottomRight.y - cornerRadius),
-              radius: cornerRadius,
-              startAngle: Angle(degrees: 0),
-              endAngle: Angle(degrees: 90),
-              clockwise: false
-            )
-            path.addLine(to: CGPoint(x: bottomLeft.x + cornerRadius, y: bottomLeft.y))
-            path.addArc(
-              center: CGPoint(x: bottomLeft.x + cornerRadius, y: bottomLeft.y - cornerRadius),
-              radius: cornerRadius,
-              startAngle: Angle(degrees: 90),
-              endAngle: Angle(degrees: 180),
-              clockwise: false
-            )
-            path.addLine(to: CGPoint(x: topLeft.x, y: topLeft.y + cornerRadius))
-            path.addArc(
-              center: CGPoint(x: topLeft.x + cornerRadius, y: topLeft.y + cornerRadius),
-              radius: cornerRadius,
-              startAngle: Angle(degrees: 180),
-              endAngle: Angle(degrees: 270),
-              clockwise: false
-            )
-            
-            path.closeSubpath()
-          }
-            .stroke(
-              LinearGradient(
-                colors: [.white, .clear],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-              ),
-              lineWidth: 1
-            )
-        )
+        
         
         Path { path in
           let lineTopLeft = CGPoint(x: 30, y: 145)
@@ -176,6 +79,7 @@ public struct WineCardView: View {
           .position(x: 30 + 33, y: 181 + 59)
         
         VStack(spacing: 0) {
+          
           // MARK: WINE TYPE
           HStack {
             Text(viewStore.recommendWineData.wineType.typeName)
@@ -183,8 +87,8 @@ public struct WineCardView: View {
               .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
               .frame(height: 54, alignment: .topLeading)
             
-            WineyAsset.Assets.star1.swiftUIImage
-              .padding(.top, 14)
+//            WineyAsset.Assets.star1.swiftUIImage
+//              .padding(.top, 14)
             
             Spacer()
             
