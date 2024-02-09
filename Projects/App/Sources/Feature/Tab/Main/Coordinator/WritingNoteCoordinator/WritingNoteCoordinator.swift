@@ -129,7 +129,7 @@ public struct WritingNoteCoordinator: Reducer {
         state.routes.append(.push(.noteDone(.init())))
         return .none
         
-      case .routeAction(_, action: .wineConfirm(.tappedBackButton)):
+      case .routeAction(_, action: .wineConfirm(._moveBackPage)):
         state.routes.pop()
         return .none
         
@@ -154,6 +154,10 @@ public struct WritingNoteCoordinator: Reducer {
         return .none
         
       case .routeAction(_, action: .helpTaste(.tappedBackButton)):
+        state.routes.pop()
+        return .none
+        
+      case .routeAction(_, action: .setMemo(.tappedBackButton)):
         state.routes.pop()
         return .none
         

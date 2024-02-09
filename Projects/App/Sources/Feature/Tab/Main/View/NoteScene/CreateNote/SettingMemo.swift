@@ -37,8 +37,6 @@ public struct SettingMemo: Reducer {
     public var maxCommentLength: Int = 200
     public var starRange: ClosedRange<Int> = 1...5
     
-    public var isPresentedBottomSheet: Bool = false
-    
     public init(
       wineId: Int,
       officialAlcohol: Int,
@@ -77,7 +75,6 @@ public struct SettingMemo: Reducer {
     case tappedBuyAgain(Bool)
     case writingMemo(String)
     case tappedDelImage(Int)
-    case tappedOutsideOfBottomSheet
     
     // MARK: - Inner Business Action
     case _makeNotes(
@@ -110,7 +107,6 @@ public struct SettingMemo: Reducer {
     case _delPickPhoto
     case _addPhoto(UIImage)
     case _backToFirstView
-    case _presentBottomSheet(Bool)
     case _failureSocialNetworking(Error) // 후에 경고창 처리
     
     // MARK: - Child Action
@@ -129,9 +125,6 @@ public struct SettingMemo: Reducer {
       case .writingMemo(let value):
         state.memo = value
         return .none
-        
-      case .tappedBackButton:
-        return .send(._presentBottomSheet(true))
         
       case .tappedAttachPictureButton:
         return .none
@@ -208,10 +201,6 @@ public struct SettingMemo: Reducer {
         
       case ._addPhoto(let image):
         state.displayPhoto.append(image)
-        return .none
-        
-      case ._presentBottomSheet(let bool):
-        state.isPresentedBottomSheet = bool
         return .none
         
       default:
