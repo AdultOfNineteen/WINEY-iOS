@@ -38,7 +38,6 @@ public struct NoteDetail: Reducer {
     case tappedNoteDelete(Int)
     
     // MARK: - Inner Business Action
-    case _navigateToCardDetail(Int, NoteCardData)
     case _presentBottomSheet(Bool)
     case _presentRemoveSheet(Bool)
     case _viewWillAppear

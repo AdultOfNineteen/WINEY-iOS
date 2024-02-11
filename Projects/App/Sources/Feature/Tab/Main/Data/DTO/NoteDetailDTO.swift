@@ -16,10 +16,11 @@ public struct NoteDetailDTO: Codable, Equatable {
   public let region: String
   public let star: Int
   public let color: String
+  public let vintage: Int?
   public let buyAgain: Bool
   public let varietal: String
-  public let officialAlcohol: Double
-  public let price: Int
+  public let officialAlcohol: Double?
+  public let price: Int?
   public let smellKeywordList: [String]
   public let myWineTaste: MyWineTaste
   public let defaultWineTaste: DefaultWineTaste

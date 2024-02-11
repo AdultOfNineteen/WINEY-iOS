@@ -9,6 +9,11 @@
 import SwiftUI
 import WineyKit
 
+public enum DetailMode {
+  case note
+  case recommendWine
+}
+
 public struct WineDetailInfoMiddle: View {
   public let illustImage: Image
   public let circleBorderColor: Color
@@ -16,10 +21,11 @@ public struct WineDetailInfoMiddle: View {
   public let nationalAnthems: String
   public let varities: String
   public let abv: Double?
-  public let purchasePrice: Int
-  public let vintage: String?
+  public let purchasePrice: Int?
+  public let vintage: Int?
   public let star: Int?
   public let buyAgain: Bool?
+  public let mode: DetailMode
   
   public init(
     illustImage: Image,
@@ -28,10 +34,11 @@ public struct WineDetailInfoMiddle: View {
     nationalAnthems: String,
     varities: String,
     abv: Double? = nil,
-    purchasePrice: Int,
-    vintage: String? = nil,
+    purchasePrice: Int? = nil,
+    vintage: Int? = nil,
     star: Int? = nil,
-    buyAgain: Bool? = nil
+    buyAgain: Bool? = nil,
+    mode: DetailMode = .recommendWine
   ) {
     self.illustImage = illustImage
     self.circleBorderColor = circleBorderColor
@@ -43,6 +50,7 @@ public struct WineDetailInfoMiddle: View {
     self.vintage = vintage
     self.star = star
     self.buyAgain = buyAgain
+    self.mode = mode
   }
   
   public var body: some View {
@@ -81,92 +89,44 @@ public struct WineDetailInfoMiddle: View {
       
       VStack(spacing: 18) {
         // MARK: NATIONAL ANTHEMS
-        VStack(alignment: .leading, spacing: 4) {
-          HStack {
-            Text("national an thems")
-              .wineyFont(.captionM3)
-            
-            Spacer()
-          }
-          
-          HStack {
-            Text(nationalAnthems)
-              .wineyFont(.captionB1)
-            
-            Spacer()
-          }
-        }
+        wineInfoTable(
+          title: "national an thems",
+          contents: nationalAnthems
+        )
         
         // MARK: Varities
-        VStack(alignment: .leading, spacing: 4) {
-          HStack {
-            Text("Varities")
-              .wineyFont(.captionM3)
-            
-            Spacer()
-          }
-          
-          HStack {
-            Text(varities)
-              .wineyFont(.captionB1)
-            
-            Spacer()
-          }
-        }
+        wineInfoTable(
+          title: "Varities",
+          contents: varities
+        )
         
         // MARK: ABV
-        if let abv = abv {
-          VStack(alignment: .leading, spacing: 4) {
-            HStack {
-              Text("ABV")
-                .wineyFont(.captionM3)
-              
-              Spacer()
-            }
-            
-            HStack {
-              Text(abv.description + "%")
-                .wineyFont(.captionB1)
-              
-              Spacer()
-            }
-          }
+        if mode == .note {
+          wineInfoTable(
+            title: "ABV",
+            contents: abv?.description ?? "도 수를 알 수 없어요 :("
+          )
         }
         
         // MARK: Purchase Price
-        VStack(alignment: .leading, spacing: 4) {
-          HStack {
-            Text("Purchae price")
-              .wineyFont(.captionM3)
-            
-            Spacer()
-          }
-          
-          HStack {
-            Text(purchasePrice == 0 ? "구매가를 알 수 없어요 :(" : purchasePrice.description)
-              .wineyFont(.captionB1)
-            
-            Spacer()
-          }
+        if let price = purchasePrice {
+          wineInfoTable(
+            title: "Purchae price",
+            contents: price > 0 ? price.description : "구매가를 알 수 없어요 :("
+          )
+        } else {
+          wineInfoTable(
+            title: "Purchae price",
+            contents: "구매가를 알 수 없어요 :("
+          )
         }
         
         // MARK: ABV
-        if let vintage = vintage {
-          VStack(alignment: .leading, spacing: 4) {
-            HStack {
-              Text("Vintage")
-                .wineyFont(.captionM3)
-              
-              Spacer()
-            }
-            
-            HStack {
-              Text(vintage)
-                .wineyFont(.captionB1)
-              
-              Spacer()
-            }
-          }
+        if mode == .note {
+          wineInfoTable(
+            title: "Vintage",
+            contents: vintage?.description ?? "빈티지를 알 수 없어요 :("
+          )
         }
       }
       .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
@@ -174,6 +134,29 @@ public struct WineDetailInfoMiddle: View {
     }
   }
 }
+
+extension WineDetailInfoMiddle {
+  
+  @ViewBuilder
+  private func wineInfoTable(title: String, contents: String) -> some View {
+    VStack(alignment: .leading, spacing: 4) {
+      HStack {
+        Text(title)
+          .wineyFont(.captionM3)
+        
+        Spacer()
+      }
+      
+      HStack {
+        Text(contents)
+          .wineyFont(.captionB1)
+        
+        Spacer()
+      }
+    }
+  }
+}
+
 #Preview {
   WineDetailInfoMiddle(
     illustImage: WineType.rose.illustImage,

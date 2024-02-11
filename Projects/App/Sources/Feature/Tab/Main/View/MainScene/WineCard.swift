@@ -32,8 +32,8 @@ public struct WineCard: Reducer {
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case .wineCardTapped:
-      print("GO TO WINE DETAIL")
       return .send(._navigateToCardDetail(state.recommendWineData.id, state.recommendWineData))
+      
     case ._navigateToCardDetail:
       return .none
     default:

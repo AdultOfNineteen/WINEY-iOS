@@ -186,6 +186,7 @@ public struct WineDetailGraphMyWineDefaultView: View {
       region: "test",
       star: 4,
       color: "red",
+      vintage: 10,
       buyAgain: true,
       varietal: "test",
       officialAlcohol: 24.0,

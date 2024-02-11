@@ -107,9 +107,10 @@ extension NoteDetailView {
           varities: noteData.varietal,
           abv: noteData.officialAlcohol,
           purchasePrice: noteData.price,
-          vintage: "222", // API에서 vintage 확인 불가?
+          vintage: noteData.vintage,
           star: noteData.star,
-          buyAgain: noteData.buyAgain
+          buyAgain: noteData.buyAgain,
+          mode: .note
         )
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
         
