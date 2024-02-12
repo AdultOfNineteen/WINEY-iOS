@@ -67,6 +67,9 @@ public struct WineConfirmView: View {
       }
     )
     .ignoresSafeArea()
+    .onAppear {
+      viewStore.send(._viewWillAppear)
+    }
     .navigationBarHidden(true)
   }
 }

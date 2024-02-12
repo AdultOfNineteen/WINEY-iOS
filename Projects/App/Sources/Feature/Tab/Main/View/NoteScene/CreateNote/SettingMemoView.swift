@@ -48,6 +48,9 @@ public struct SettingMemoView: View {
     .onTapGesture {
       isFocused = false
     }
+    .onAppear {
+      viewStore.send(._viewWillAppear)
+    }
     .navigationBarHidden(true)
   }
 }
@@ -276,20 +279,7 @@ extension SettingMemoView {
 #Preview {
   SettingMemoView(
     store: Store(
-      initialState: SettingMemo.State(
-        wineId: 0,
-        officialAlcohol: 0, 
-        vintage: 0,
-        price: 0,
-        color: "test", 
-        smellKeywordList: [""],
-        sweetness: 1,
-        acidity: 1,
-        alcohol: 1,
-        body: 1,
-        tannin: 1,
-        finish: 1
-      ),
+      initialState: SettingMemo.State(),
       reducer: {
         SettingMemo()
       }

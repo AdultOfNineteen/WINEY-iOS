@@ -13,11 +13,12 @@ public struct BottomOptionButton: View {
   public var validation: Bool
   public var tooltipVisible: Bool
   public var action: () -> Void
+  public var skipAction: () -> Void
   
   public var body: some View {
     HStack(spacing: 15) {
       Button {
-        
+        skipAction()
       } label: {
         Text("건너뛰기")
           .wineyFont(.headLine)

@@ -11,11 +11,6 @@ import SwiftUI
 
 public struct SettingColorSmell: Reducer {
   public struct State: Equatable {
-    public var wineId: Int
-    public var officialAlcohol: Int
-    public var vintage: Int
-    public var price: Int
-    
     public var selectedSmell: [String] = []
     public var colorValue: Double = 0.0
     
@@ -25,16 +20,10 @@ public struct SettingColorSmell: Reducer {
     public var lastCoordinateValue: CGFloat = 0.0
     
     public var buttonState: Bool = false
-    
-    public init(wineId: Int, officialAlcohol: Int, vintage: Int, price: Int) {
-      self.wineId = wineId
-      self.officialAlcohol = officialAlcohol
-      self.vintage = vintage
-      self.price = price
-    }
   }
   
   public enum Action {
+    
     // MARK: - User Action
     case tappedBackButton
     case tappedSmellButton(String)
@@ -46,7 +35,7 @@ public struct SettingColorSmell: Reducer {
     case _addSmell(String)
     case _removeSmell(String)
     case _viewWillAppear(GeometryProxy)
-    case _moveNextPage(wineId: Int, officialAlcohol: Int, vintage: Int, price: Int, color: String, smellKeywordList: [String])
+    case _moveNextPage
     
     // MARK: - Inner SetState Action
     case _setMaxValue(CGFloat)
@@ -55,7 +44,6 @@ public struct SettingColorSmell: Reducer {
     case _setColorValue(CGFloat)
     case _setSliderValue(CGFloat)
     
-    
     // MARK: - Child Action
     case wineCard(id: Int, action: WineCard.Action)
   }
@@ -63,6 +51,12 @@ public struct SettingColorSmell: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
+      case ._viewWillAppear(let value):
+        state.selectedSmell = CreateNoteManager.shared.smellKeywordList ?? []
+        if !state.selectedSmell.isEmpty || state.colorValue != 0.0 {
+          state.buttonState = true
+        }
+        return .send(._setMaxValue(value.size.width - 11))
         
       case .tappedSmellButton(let smell):
         if state.selectedSmell.contains(where: { $0 == smell }) {
@@ -70,9 +64,6 @@ public struct SettingColorSmell: Reducer {
         } else {
           return .send(._addSmell(smell))
         }
-        
-      case ._viewWillAppear(let value):
-        return .send(._setMaxValue(value.size.width - 11))
         
       case ._setMaxValue(let value):
         state.maxValue = value
@@ -118,17 +109,9 @@ public struct SettingColorSmell: Reducer {
         return .none
         
       case .tappedNextButton:
-        print(state.selectedSmell)
-        return .send(
-          ._moveNextPage(
-            wineId: state.wineId,
-            officialAlcohol: state.officialAlcohol,
-            vintage: state.vintage,
-            price: state.price,
-            color: "#"+(Color(red: 255/255, green: state.colorValue/255, blue: state.colorValue/255).toHex() ?? "FFFFFF"),
-            smellKeywordList: state.selectedSmell
-          )
-        )
+        CreateNoteManager.shared.smellKeywordList = state.selectedSmell
+        CreateNoteManager.shared.color = "#"+(Color(red: 255/255, green: state.colorValue/255, blue: state.colorValue/255).toHex() ?? "FFFFFF")
+        return .send(._moveNextPage)
         
       default:
         return .none

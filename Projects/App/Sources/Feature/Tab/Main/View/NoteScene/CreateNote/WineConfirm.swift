@@ -23,6 +23,7 @@ public struct WineConfirm: Reducer {
     case tappedOutsideOfBottomSheet
     
     // MARK: - Inner Business Action
+    case _viewWillAppear
     case _moveNextPage(wineId: Int)
     case _moveBackPage
     
@@ -36,10 +37,15 @@ public struct WineConfirm: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
+      case ._viewWillAppear:
+        CreateNoteManager.shared.initData()
+        return .none
+        
       case .tappedBackButton:
         return .send(._presentBottomSheet(true))
         
       case .tappedWritingButton:
+        CreateNoteManager.shared.wineId = state.wineData.wineId
         return .send(._moveNextPage(wineId: state.wineData.wineId))
         
       case ._presentBottomSheet(let bool):
@@ -47,6 +53,7 @@ public struct WineConfirm: Reducer {
         return .none
         
       case ._deleteNote:
+        CreateNoteManager.shared.initData()
         return .send(._moveBackPage)
         
       default:

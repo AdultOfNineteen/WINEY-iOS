@@ -35,14 +35,17 @@ public struct SettingAlcoholView: View {
       
       BottomOptionButton(
         validation: viewStore.buttonState,
-        tooltipVisible: viewStore.tooltipVisible
-      ) {
-        viewStore.send(.tappedNextButton)
-      }
+        tooltipVisible: viewStore.tooltipVisible,
+        action: { viewStore.send(.tappedNextButton) },
+        skipAction: { viewStore.send(.tappedSkipButton) }
+      )
     }
     .background(
       WineyKitAsset.mainBackground.swiftUIColor
     )
+    .onAppear {
+      viewStore.send(._viewWillAppear)
+    }
     .navigationBarHidden(true)
   }
 }
@@ -122,9 +125,7 @@ extension SettingAlcoholView {
 #Preview {
   SettingAlcoholView(
     store: Store(
-      initialState: SettingAlcohol.State(
-        wineId: 0
-      ),
+      initialState: SettingAlcohol.State(),
       reducer: { SettingAlcohol() }
     )
   )

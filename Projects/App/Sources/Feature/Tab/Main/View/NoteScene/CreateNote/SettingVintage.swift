@@ -11,33 +11,26 @@ import SwiftUI
 
 public struct SettingVintage: Reducer {
   public struct State: Equatable {
-    public var wineId: Int
-    public var officialAlcohol: Int
-    
     public var vintage: String = ""
     public var price: String = ""
     
     public var buttonState: Bool = false
     public var tooltipVisible: Bool = true
-    
-    public init(wineId: Int, officialAlcohol: Int) {
-      self.wineId = wineId
-      self.officialAlcohol = officialAlcohol
-    }
   }
   
   public enum Action {
     // MARK: - User Action
     case tappedBackButton
+    case tappedSkipButton
+    case tappedNextButton
     case editVintage(String)
     case editPrice(String)
-    case tappedNextButton
     
     // MARK: - Inner Business Action
+    case _viewWillAppear
     case _checkVintageValue(String)
     case _checkPriceValue(String)
-    case _moveNextPage(wineId: Int, officialAlcohol: Int, vintage: Int, price: Int)
-    case _viewWillAppear
+    case _moveNextPage
     
     // MARK: - Inner SetState Action
     case _setButtonState
@@ -52,8 +45,10 @@ public struct SettingVintage: Reducer {
     
     Reduce { state, action in
       switch action {
-        
       case ._viewWillAppear:
+        state.vintage = CreateNoteManager.shared.vintage ?? ""
+        state.price = CreateNoteManager.shared.price ?? ""
+        
         return .run { send in
           for await _ in self.clock.timer(interval: .seconds(5)) {
             await send(._setTooltipVisible(false))
@@ -83,18 +78,18 @@ public struct SettingVintage: Reducer {
         return .send(._setButtonState)
         
       case ._setButtonState:
-        state.buttonState = !state.vintage.isEmpty && !state.price.isEmpty
+        state.buttonState = state.vintage.count == 4 || !state.price.isEmpty
         return .none
         
+      case .tappedSkipButton:
+        CreateNoteManager.shared.vintage = nil
+        CreateNoteManager.shared.price = nil
+        return .send(._moveNextPage)
+        
       case .tappedNextButton:
-        return .send(
-          ._moveNextPage(
-            wineId: state.wineId,
-            officialAlcohol: state.officialAlcohol,
-            vintage: Int(state.vintage) ?? 0,
-            price: Int(state.price) ?? 0
-          )
-        )
+        CreateNoteManager.shared.vintage = state.vintage.isEmpty ? nil : state.vintage
+        CreateNoteManager.shared.price = state.price.isEmpty ? nil : state.price
+        return .send(._moveNextPage)
         
       default:
         return .none

@@ -111,6 +111,7 @@ extension HelpTasteView {
       .padding(.top, 30)
     } else {
       ProgressView()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
   }
   

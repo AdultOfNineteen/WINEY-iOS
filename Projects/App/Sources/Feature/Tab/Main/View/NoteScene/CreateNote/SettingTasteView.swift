@@ -47,6 +47,9 @@ public struct SettingTasteView: View {
     .background(
       WineyKitAsset.mainBackground.swiftUIColor
     )
+    .onAppear {
+      viewStore.send(._viewWillAppear)
+    }
     .navigationBarHidden(true)
   }
 }
@@ -116,7 +119,7 @@ extension SettingTasteView {
         .wineyFont(.captionM3)
         .offset(y: 2)
         .onTapGesture {
-          viewStore.send(.tappedHelpButton(wineId: viewStore.wineId))
+          viewStore.send(.tappedHelpButton(wineId: 1))
         }
     }
     .padding(.bottom, 15)
@@ -175,7 +178,7 @@ extension SettingTasteView {
           
           content(category: .finish, value: viewStore.finish)
             .opacity(viewStore.alcohol > 0 ? 1.0 : 0.0)
-            .onChange(of: viewStore.alcohol, perform: { [finish = viewStore.finish] value in
+            .onChange(of: viewStore.finish, perform: { [finish = viewStore.finish] value in
               if finish == 0 && value > 0 {
                 proxy.scrollTo(5, anchor: .bottom)
               }
@@ -266,14 +269,7 @@ extension SettingTasteView {
 #Preview {
   SettingTasteView(
     store: Store(
-      initialState: SettingTaste.State(
-        wineId: 0,
-        officialAlcohol: 0,
-        vintage: 0,
-        price: 0,
-        color: "test",
-        smellKeywordList: [""]
-      ),
+      initialState: SettingTaste.State(),
       reducer: {
         SettingTaste()
       }

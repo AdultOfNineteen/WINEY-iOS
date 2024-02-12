@@ -12,19 +12,6 @@ import SwiftUI
 
 public struct SettingMemo: Reducer {
   public struct State: Equatable {
-    public var wineId: Int
-    public var officialAlcohol: Int
-    public var vintage: Int
-    public var price: Int
-    public var color: String
-    public var smellKeywordList: [String]
-    public var sweetness: Int
-    public var acidity: Int
-    public var alcohol: Int
-    public var body: Int
-    public var tannin: Int
-    public var finish: Int
-    
     public var memo: String = ""
     public var star: Int = 0
     public var buyAgain: Bool? = nil
@@ -36,34 +23,6 @@ public struct SettingMemo: Reducer {
     
     public var maxCommentLength: Int = 200
     public var starRange: ClosedRange<Int> = 1...5
-    
-    public init(
-      wineId: Int,
-      officialAlcohol: Int,
-      vintage: Int,
-      price: Int,
-      color: String,
-      smellKeywordList: [String],
-      sweetness: Int,
-      acidity: Int,
-      alcohol: Int,
-      body: Int,
-      tannin: Int,
-      finish: Int
-    ) {
-      self.wineId = wineId
-      self.officialAlcohol = officialAlcohol
-      self.vintage = vintage
-      self.price = price
-      self.color = color
-      self.smellKeywordList = smellKeywordList
-      self.sweetness = sweetness
-      self.acidity = acidity
-      self.alcohol = alcohol
-      self.body = body
-      self.tannin = tannin
-      self.finish = finish
-    }
   }
   
   public enum Action {
@@ -77,25 +36,8 @@ public struct SettingMemo: Reducer {
     case tappedDelImage(Int)
     
     // MARK: - Inner Business Action
-    case _makeNotes(
-      wineId: Int,
-      vintage: Int,
-      officialAlcohol: Int,
-      price: Int,
-      color: String,
-      sweetness: Int,
-      acidity: Int,
-      alcohol: Int,
-      body: Int,
-      tannin: Int,
-      finish: Int,
-      memo: String,
-      buyAgain: Bool,
-      rating: Int,
-      smellKeywordList: [String],
-      images: [UIImage]
-    )
-    
+    case _viewWillAppear
+    case _makeNotes
     case _moveNextPage
 
     // MARK: - Inner SetState Action
@@ -117,6 +59,8 @@ public struct SettingMemo: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
+      case ._viewWillAppear:
+        return .none
         
       case ._limitMemo(let value):
         state.memo = String(value.prefix(state.maxCommentLength))
@@ -130,36 +74,45 @@ public struct SettingMemo: Reducer {
         return .none
         
       case .tappedDoneButton:
-        return .send(
-          ._makeNotes(
-            wineId: state.wineId,
-            vintage: state.vintage,
-            officialAlcohol: state.officialAlcohol,
-            price: state.price,
-            color: state.color,
-            sweetness: state.sweetness,
-            acidity: state.acidity,
-            alcohol: state.alcohol,
-            body: state.body,
-            tannin: state.tannin,
-            finish: state.finish,
-            memo: state.memo,
-            buyAgain: state.buyAgain!,
-            rating: state.star,
-            smellKeywordList: state.smellKeywordList,
-            images: state.displayPhoto
-          )
-        )
+        CreateNoteManager.shared.memo = state.memo
+        CreateNoteManager.shared.rating = state.star
+        CreateNoteManager.shared.buyAgain = state.buyAgain
+        return .send(._makeNotes)
         
-      case let ._makeNotes(wineId, vintage, officialAlcohol, price, color, sweetness, acidity, alcohol, body, tannin, finish, memo, buyAgain, rating, smellKeywordList, images):
-        return .run(operation: { send in
-          switch await noteService.createNote(wineId, vintage, officialAlcohol, price, color, sweetness, acidity, alcohol, body, tannin, finish, memo, buyAgain, rating, smellKeywordList, images) {
-          case let .success(data):
-            await send(._moveNextPage)
-          case let .failure(error):
-            await send(._failureSocialNetworking(error))
-          }
-        })
+      case ._makeNotes:
+        let photos = state.displayPhoto
+        
+        if CreateNoteManager.shared.mode == .create {
+          return .run(operation: { send in
+            switch await noteService.createNote(
+              CreateNoteManager.shared.wineId!,
+              CreateNoteManager.shared.vintage,
+              CreateNoteManager.shared.officialAlcohol,
+              CreateNoteManager.shared.price,
+              CreateNoteManager.shared.color!,
+              CreateNoteManager.shared.sweetness!,
+              CreateNoteManager.shared.acidity!,
+              CreateNoteManager.shared.alcohol!,
+              CreateNoteManager.shared.body!,
+              CreateNoteManager.shared.tannin!,
+              CreateNoteManager.shared.finish!,
+              CreateNoteManager.shared.memo!,
+              CreateNoteManager.shared.buyAgain!,
+              CreateNoteManager.shared.rating!,
+              CreateNoteManager.shared.smellKeywordList!,
+              photos
+            ) {
+            case let .success(data):
+              CreateNoteManager.shared.initData()
+              await send(._moveNextPage)
+            case let .failure(error):
+              await send(._failureSocialNetworking(error))
+            }
+          })
+        } else {
+          // TODO: Patch
+          return .none
+        }
         
       case .tappedWineStar(let value):
         return .send(._setStar(value))

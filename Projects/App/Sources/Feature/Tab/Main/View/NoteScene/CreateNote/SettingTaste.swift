@@ -11,28 +11,12 @@ import SwiftUI
 
 public struct SettingTaste: Reducer {
   public struct State: Equatable {
-    public var wineId: Int
-    public var officialAlcohol: Int
-    public var vintage: Int
-    public var price: Int
-    public var color: String
-    public var smellKeywordList: [String]
-    
     public var sweetness: Int = 0
     public var acidity: Int = 0
     public var body: Int = 0
     public var tannin: Int = 0
     public var alcohol: Int = 0
     public var finish: Int = 0
-    
-    public init(wineId: Int, officialAlcohol: Int, vintage: Int, price: Int, color: String, smellKeywordList: [String]) {
-      self.wineId = wineId
-      self.officialAlcohol = officialAlcohol
-      self.vintage = vintage
-      self.price = price
-      self.color = color
-      self.smellKeywordList = smellKeywordList
-    }
   }
   
   public enum Action {
@@ -42,20 +26,8 @@ public struct SettingTaste: Reducer {
     case tappedHelpButton(wineId: Int)
   
     // MARK: - Inner Business Action
-    case _moveNextPage(
-      wineId: Int,
-      officialAlcohol: Int,
-      vintage: Int,
-      price: Int,
-      color: String,
-      smellKeywordList: [String],
-      sweetness: Int,
-      acidity: Int,
-      alcohol: Int,
-      body: Int,
-      tannin: Int,
-      finish: Int
-    )
+    case _viewWillAppear
+    case _moveNextPage
     
     // MARK: - Inner SetState Action
     case _setSweetness(Int)
@@ -64,7 +36,6 @@ public struct SettingTaste: Reducer {
     case _setTannin(Int)
     case _setAlcohol(Int)
     case _setFinish(Int)
-
     
     // MARK: - Child Action
   }
@@ -72,48 +43,47 @@ public struct SettingTaste: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
-     
+      case ._viewWillAppear:
+        state.sweetness = CreateNoteManager.shared.sweetness ?? 0
+        state.acidity = CreateNoteManager.shared.acidity ?? 0
+        state.body = CreateNoteManager.shared.body ?? 0
+        state.tannin = CreateNoteManager.shared.tannin ?? 0
+        state.alcohol = CreateNoteManager.shared.alcohol ?? 0
+        state.finish = CreateNoteManager.shared.finish ?? 0
+        return .none
+        
       case ._setSweetness(let value):
         state.sweetness = value
+        CreateNoteManager.shared.sweetness = state.sweetness
         return .none
         
       case ._setAcidity(let value):
         state.acidity = value
+        CreateNoteManager.shared.acidity = state.acidity
         return .none
         
       case ._setBody(let value):
         state.body = value
+        CreateNoteManager.shared.body = state.body
         return .none
         
       case ._setTannin(let value):
         state.tannin = value
+        CreateNoteManager.shared.tannin = state.tannin
         return .none
         
       case ._setAlcohol(let value):
         state.alcohol = value
+        CreateNoteManager.shared.alcohol = state.alcohol
         return .none
         
       case ._setFinish(let value):
         state.finish = value
+        CreateNoteManager.shared.finish = state.finish
         return .none
         
       case .tappedNextButton:
-        return .send(
-          ._moveNextPage(
-            wineId: state.wineId,
-            officialAlcohol: state.officialAlcohol, 
-            vintage: state.vintage,
-            price: state.price,
-            color: state.color,
-            smellKeywordList: state.smellKeywordList, 
-            sweetness: state.sweetness,
-            acidity: state.acidity,
-            alcohol: state.alcohol,
-            body: state.body,
-            tannin: state.tannin,
-            finish: state.finish
-          )
-        )
+        return .send(._moveNextPage)
         
       default:
         return .none

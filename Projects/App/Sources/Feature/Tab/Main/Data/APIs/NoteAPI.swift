@@ -14,7 +14,7 @@ public enum NoteAPI {
   case wineSearch(page: Int, size: Int, content: String)
   case noteDetailInfo(noteId: Int)
   case tastingNotes(page: Int, size: Int, order: Int, country: [String], wineType: [String], buyAgain: Int?)
-  case createNote(wineId: Int, vintage: Int, officialAlcohol: Int, price: Int, color: String, sweetness: Int,
+  case createNote(wineId: Int, vintage: String?, officialAlcohol: Int?, price: String?, color: String, sweetness: Int,
                   acidity: Int, alcohol: Int, body: Int, tannin: Int, finish: Int, memo: String, buyAgain: Bool, rating: Int, smellKeywordList: [String], images: [UIImage])
   case deleteNote(noteId: Int)
   case noteFilter

@@ -13,10 +13,19 @@ import TCACoordinators
 
 public struct WritingNoteCoordinator: Reducer {
   public struct State: Equatable, IndexedRouterState {
-    static let initialState = State(
+    static let createState = State(
       routes: [
         .root(
           .wineSearch(.init()),
+          embedInNavigationView: true
+        )
+      ]
+    )
+    
+    static let patchState = State(
+      routes: [
+        .root(
+          .setAlcohol(.init()),
           embedInNavigationView: true
         )
       ]
@@ -46,75 +55,24 @@ public struct WritingNoteCoordinator: Reducer {
         )
         return .none
         
-      case let .routeAction(_, action: .wineConfirm(._moveNextPage(wineId))):
-        state.routes.append(.push(.setAlcohol(.init(wineId: wineId))))
+      case .routeAction(_, action: .wineConfirm(._moveNextPage)):
+        state.routes.append(.push(.setAlcohol(.init())))
         return .none
         
-      case let .routeAction(_, action: .setAlcohol(._moveNextPage(wineId, officialAlcohol))):
-        state.routes.append(.push(.setVintage(.init(wineId: wineId, officialAlcohol: officialAlcohol))))
+      case .routeAction(_, action: .setAlcohol(._moveNextPage)):
+        state.routes.append(.push(.setVintage(.init())))
         return .none
         
-      case let .routeAction(_, action: .setVintage(._moveNextPage(wineId, officialAlcohol, vintage, price))):
-        state.routes.append(.push(.setColorSmell(.init(wineId: wineId, officialAlcohol: officialAlcohol, vintage: vintage, price: price))))
+      case .routeAction(_, action: .setVintage(._moveNextPage)):
+        state.routes.append(.push(.setColorSmell(.init())))
         return .none
         
-      case let .routeAction(_, action: .setColorSmell(._moveNextPage(wineId, officialAlcohol, vintage, price, color, smellKeywordList))):
-        state.routes.append(
-          .push(
-            .setTaste(
-              .init(
-                wineId: wineId,
-                officialAlcohol: officialAlcohol,
-                vintage: vintage,
-                price: price,
-                color: color,
-                smellKeywordList: smellKeywordList
-              )
-            )
-          )
-        )
+      case .routeAction(_, action: .setColorSmell(._moveNextPage)):
+        state.routes.append(.push(.setTaste(.init())))
         return .none
         
-      case let .routeAction(
-        _,
-        action:
-            .setTaste(
-              ._moveNextPage(
-                wineId,
-                officialAlcohol,
-                vintage,
-                price,
-                color,
-                smellKeywordList,
-                sweetness,
-                acidity,
-                alcohol,
-                body,
-                tannin,
-                finish
-              )
-            )
-      ):
-        state.routes.append(
-          .push(
-            .setMemo(
-              .init(
-                wineId: wineId,
-                officialAlcohol: officialAlcohol,
-                vintage: vintage,
-                price: price,
-                color: color,
-                smellKeywordList: smellKeywordList,
-                sweetness: sweetness,
-                acidity: acidity,
-                alcohol: alcohol,
-                body: body,
-                tannin: tannin,
-                finish: finish
-              )
-            )
-          )
-        )
+      case  .routeAction(_, action: .setTaste(._moveNextPage)):
+        state.routes.append(.push(.setMemo(.init())))
         return .none
         
       case .routeAction(_, action: .setColorSmell(.tappedHelpSmellButton)):
@@ -133,7 +91,7 @@ public struct WritingNoteCoordinator: Reducer {
         state.routes.pop()
         return .none
         
-      case .routeAction(_, action: .setAlcohol(.tappedBackButton)):
+      case .routeAction(_, action: .setAlcohol(._backToWineConfirm)):
         state.routes.pop()
         return .none
         
