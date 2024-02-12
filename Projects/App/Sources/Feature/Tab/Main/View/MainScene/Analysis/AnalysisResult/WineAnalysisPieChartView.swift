@@ -43,20 +43,19 @@ public struct WineAnalysisPieChartView: View {
         }
       }
       .wineyFont(.captionM1)
-      .padding(.top, 22)
       
       WinePieChart(
         values: viewStore.preferWineTypes.map{ $0.percent },
         names: viewStore.preferWineTypes.map{ $0.type }
       )
-      .padding(.top, -20)
+      .padding(.top, -36)
       
       Spacer()
       
       WineyAsset.Assets.arrowBottom.swiftUIImage
         .padding(.bottom, 64)
     }
-    
+    .padding(.top, 24)
   }
 }
 
@@ -231,7 +230,7 @@ struct PieSliceView: View {
           .wineyFont(descriptionFont)
         }
         .offset(
-          x: CGFloat(1.0 + geometry.size.width / 2.5 * cos(self.midRadians)),
+          x: CGFloat(1.0 + geometry.size.width / 2.8 * cos(self.midRadians)),
           y: CGFloat(1.0 - geometry.size.width / 2.8 * sin(self.midRadians))
         )
       }

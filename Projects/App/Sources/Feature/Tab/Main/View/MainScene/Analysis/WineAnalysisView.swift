@@ -21,93 +21,41 @@ public struct WineAnalysisView: View {
   
   public var body: some View {
     VStack(spacing: 0) {
-      NavigationBar(
-        leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
-        leftIconButtonAction: {
-          viewStore.send(.tappedBackButton)
-        },
-        backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
-      )
+      navigation()
       
-      ZStack(alignment: .center) {
-        WineyAsset.Assets.analysisBackground.swiftUIImage
-          .padding(.top, 42)
-        
-        VStack(spacing: 0) {
-          HStack {
-            Text("나의")
-              .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-            Text("와인 취향")
-              .foregroundColor(WineyKitAsset.main3.swiftUIColor)
-            Text("분석")
-              .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-            
-            Spacer()
-          }
-          .wineyFont(.title1)
-          
-          HStack {
-            Text("작성한 테이스팅 노트를 기반으로 나의 와인 취향을 분석해요!")
-              .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
-              .wineyFont(.captionB1)
-            
-            Spacer()
-          }
-          .padding(.top, 18)
-          
-          Spacer()
-          
-          Button {
-            viewStore.send(.tappedAnalysis)
-          } label: {
-            Text("분석하기")
-              .wineyFont(.bodyB2)
-              .foregroundColor(.white)
-              .padding(.horizontal, 73)
-              .padding(.vertical, 16)
-              .background {
-                RoundedRectangle(cornerRadius: 46)
-                  .fill(WineyKitAsset.main1.swiftUIColor)
-                  .shadow(color: WineyKitAsset.main1.swiftUIColor, radius: 8)
-              }
-          }
-          .padding(.bottom, 109)
+      content()
+    }
+    .bottomSheet(
+      backgroundColor: WineyKitAsset.gray950.swiftUIColor,
+      isPresented: viewStore.binding(
+        get: \.isPresentedBottomSheet,
+        send: .tappedOutsideOfBottomSheet
+      ),
+      headerArea: {
+        WineyAsset.Assets.analysisNoteIcon.swiftUIImage
+      },
+      content: {
+        CustomVStack(
+          text1: "재구매 의사가 담긴",
+          text2: "테이스팅 노트가 있는 경우에 볼 수 있어요!"
+        )
+      },
+      bottomArea: {
+        HStack {
+          WineyConfirmButton(
+            title: "확인",
+            validBy: true,
+            action: {
+              viewStore.send(.tappedConfirmButton)
+            }
+          )
         }
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
       }
-      .padding(.top, 28)
-      .bottomSheet(
-        backgroundColor: WineyKitAsset.gray950.swiftUIColor,
-        isPresented: viewStore.binding(
-          get: \.isPresentedBottomSheet,
-          send: .tappedOutsideOfBottomSheet
-        ),
-        headerArea: {
-          WineyAsset.Assets.analysisNoteIcon.swiftUIImage
-        },
-        content: {
-          CustomVStack(
-            text1: "재구매 의사가 담긴",
-            text2: "테이스팅 노트가 있는 경우에 볼 수 있어요!"
-          )
-        },
-        bottomArea: {
-          HStack {
-            WineyConfirmButton(
-              title: "확인",
-              validBy: true,
-              action: {
-                viewStore.send(.tappedConfirmButton)
-              }
-            )
-          }
-          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-        }
-      )
-      .onChange(of: viewStore.state.isPresentedBottomSheet ) { sheetAppear in
-        if sheetAppear {
-          UIApplication.shared.endEditing()
-        }
+    )
+    .onChange(of: viewStore.state.isPresentedBottomSheet ) { sheetAppear in
+      if sheetAppear {
+        UIApplication.shared.endEditing()
       }
     }
     .onAppear {
@@ -115,6 +63,81 @@ public struct WineAnalysisView: View {
     }
     .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationBarHidden(true)
+  }
+}
+
+extension WineAnalysisView {
+  
+  @ViewBuilder
+  private func navigation() -> some View {
+    NavigationBar(
+      leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
+      leftIconButtonAction: {
+        viewStore.send(.tappedBackButton)
+      },
+      backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
+    )
+  }
+  
+  @ViewBuilder
+  private func content() -> some View {
+    ZStack(alignment: .center) {
+      WineyAsset.Assets.analysisBackground.swiftUIImage
+        .padding(.top, 34)
+      
+      VStack(spacing: 0) {
+        analysisTitle()
+        
+        Spacer()
+        
+        analysisButton()
+      }
+      .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+    }
+    .padding(.top, 20)
+  }
+  
+  @ViewBuilder
+  private func analysisTitle() -> some View {
+    HStack {
+      Text("나의")
+        .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+      Text("와인 취향")
+        .foregroundColor(WineyKitAsset.main3.swiftUIColor)
+      Text("분석")
+        .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+      
+      Spacer()
+    }
+    .wineyFont(.title1)
+    
+    HStack {
+      Text("작성한 테이스팅 노트를 기반으로 나의 와인 취향을 분석해요!")
+        .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
+        .wineyFont(.captionB1)
+      
+      Spacer()
+    }
+    .padding(.top, 18)
+  }
+  
+  @ViewBuilder
+  private func analysisButton() -> some View {
+    Button {
+      viewStore.send(.tappedAnalysis)
+    } label: {
+      Text("분석하기")
+        .wineyFont(.bodyB2)
+        .foregroundColor(.white)
+        .padding(.horizontal, 73)
+        .padding(.vertical, 16)
+        .background {
+          RoundedRectangle(cornerRadius: 46)
+            .fill(WineyKitAsset.main1.swiftUIColor)
+            .shadow(color: WineyKitAsset.main1.swiftUIColor, radius: 8)
+        }
+    }
+    .padding(.bottom, 84)
   }
 }
 

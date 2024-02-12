@@ -59,6 +59,7 @@ public struct WinePreferNationView: View {
 
 public struct WineBottle: View {
   @State var countAnimation = 0
+  
   var nationName: String
   var count: Int
   var rank: Int

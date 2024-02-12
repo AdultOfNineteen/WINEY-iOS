@@ -45,8 +45,7 @@ public struct WineAnalysisLoadingView: View {
         .wineyFont(.title2)
       }
       .padding(.top, 21)
-      
-      Spacer()
+      .frame(maxHeight: .infinity)
     }
     .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationBarHidden(true)

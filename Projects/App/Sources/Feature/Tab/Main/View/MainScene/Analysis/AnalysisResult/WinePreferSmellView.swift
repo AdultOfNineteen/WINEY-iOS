@@ -29,8 +29,7 @@ public struct WinePreferSmellView: View {
         
         Spacer()
         
-        WineyAsset.Assets.arrowBottom.swiftUIImage
-          .padding(.bottom, 64)
+        bottomArrow()
       }
       .frame(width: geo.size.width)
     }
@@ -59,6 +58,12 @@ extension WinePreferSmellView {
       }
       .padding(.top, 10)
     }
+  }
+  
+  @ViewBuilder
+  private func bottomArrow() -> some View {
+    WineyAsset.Assets.arrowBottom.swiftUIImage
+      .padding(.bottom, 64)
   }
 }
 
