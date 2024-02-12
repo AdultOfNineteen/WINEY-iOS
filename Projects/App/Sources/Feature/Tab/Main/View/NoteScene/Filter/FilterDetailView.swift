@@ -63,8 +63,9 @@ public struct FilterDetailView: View {
             filterList(title: "와인종류", list: viewStore.typeFilter, buffer: viewStore.typeFilterBuffer)
             filterList(title: "생산지", list: viewStore.countryFilter, buffer: viewStore.countryFilterBuffer)
           }
+          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+          .padding(.bottom, 20)
         }
-        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
         .padding(.top, 20)
         
         Spacer()
@@ -87,14 +88,19 @@ extension FilterDetailView {
       Text(title)
         .wineyFont(.bodyB1)
       
-      LazyVGrid(
-        columns: [GridItem(.adaptive(minimum: 90, maximum: .infinity), spacing: 0)],
-        spacing: 10
-      ) {
-        ForEach(list, id: \.title) { filter in
-          defaultFilter(filterInfo: filter, buffer: buffer)
+      ScrollView(showsIndicators: false) {
+        VStack(alignment: .leading, spacing: 10) {
+          ForEach(filterRows(list: list), id: \.self) { filters in
+            HStack(spacing: 5) {
+              ForEach(filters, id: \.title) { filter in
+                defaultFilter(filterInfo: filter, buffer: buffer)
+              }
+            }
+          }
         }
+        .frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
       }
+      .frame(maxWidth: .infinity)
     }
   }
   
@@ -104,11 +110,16 @@ extension FilterDetailView {
     HStack(spacing: 4) {
       Text(filterInfo.title)
         .foregroundStyle(buffer.contains(where: { $0 == filterInfo.title }) ? WineyKitAsset.main2.swiftUIColor : WineyKitAsset.gray700.swiftUIColor)
+        .lineLimit(1)
       
       if let count = filterInfo.count {
         if count >= 1 {
           Text(count > 100 ? "100+" : count.description)
-            .foregroundStyle(buffer.contains(where: { $0 == filterInfo.title }) ? WineyKitAsset.main2.swiftUIColor :  WineyKitAsset.gray500.swiftUIColor)
+            .foregroundStyle(
+              buffer.contains(
+                where: { $0 == filterInfo.title }
+              ) ? WineyKitAsset.main2.swiftUIColor :  WineyKitAsset.gray500.swiftUIColor
+            )
         }
       }
     }
@@ -117,8 +128,11 @@ extension FilterDetailView {
     .padding(.horizontal, 10)
     .background(
       Capsule()
-        .stroke(buffer.contains(where: { $0 == filterInfo.title }) ? WineyKitAsset.main2.swiftUIColor : WineyKitAsset.gray900.swiftUIColor
-               )
+        .stroke(
+          buffer.contains(
+            where: { $0 == filterInfo.title }
+          ) ? WineyKitAsset.main2.swiftUIColor : WineyKitAsset.gray900.swiftUIColor
+        )
     )
     .padding(1)
     .onTapGesture {
@@ -148,6 +162,7 @@ extension FilterDetailView {
     .padding(1)
   }
   
+  @ViewBuilder
   private func bottomArea() -> some View {
     HStack(spacing: 20) {
       Button(action: {
@@ -176,6 +191,49 @@ extension FilterDetailView {
     .padding(.vertical, 20)
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
     .background(WineyKitAsset.gray950.swiftUIColor)
+  }
+}
+
+extension FilterDetailView {
+  
+  private func filterRows(list: [FilterInfo]) -> [[FilterInfo]] {
+    var rows: [[FilterInfo]] = []
+    var curRow: [FilterInfo] = []
+    
+    var curWidth: CGFloat = 0
+    let screenWidth: CGFloat = UIScreen.main.bounds.width - 50  // 좌우 패딩 25 제거 -> 50
+    
+    list.forEach { filter in
+      let nextWidth = getFilterSize(filter: filter.title) + 30  // 캡슐 모형 크기 보정 값 30 추가
+      curWidth += nextWidth
+      
+      // 화면 밖으로 넘어간다면 다음 줄로 이동.
+      if curWidth > screenWidth {
+        curWidth = nextWidth
+        
+        rows.append(curRow)
+        curRow.removeAll()
+        curRow.append(filter)
+      } else {
+        curRow.append(filter)
+      }
+    }
+    
+    // safe check
+    if !curRow.isEmpty {
+      rows.append(curRow)
+      curRow.removeAll()
+    }
+    
+    return rows
+  }
+  
+  // 해당 글자 크기 리턴.
+  private func getFilterSize(filter: String) -> CGFloat {
+    let font = UIFont.systemFont(ofSize: 15)
+    let attributes = [NSAttributedString.Key.font: font]
+    let size = (filter as NSString).size(withAttributes: attributes)
+    return size.width
   }
 }
 

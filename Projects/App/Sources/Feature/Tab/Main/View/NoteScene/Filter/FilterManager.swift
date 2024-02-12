@@ -36,7 +36,7 @@ public enum FilterType {
   }
 }
 
-public struct FilterInfo: Equatable {
+public struct FilterInfo: Equatable, Hashable {
   public var title: String
   public var count: Int?
   public var type: FilterType

@@ -18,12 +18,6 @@ public struct FilterDetail: Reducer {
     public var rebuyFilterBuffer: [String] = []
     public var typeFilterBuffer: [String] = []
     public var countryFilterBuffer: [String] = []
-    
-    public var wineCountry: [String] = [
-      "프랑스", "스페인", "호주", "뉴질랜드", "미국", "이탈리아", "아르헨티나", "칠레", "조지아", "오스트리아", "포르투갈", "독일",
-      "남아프리카", "체코", "슬로베니아", "그리스", "우루과이", "헝가리", "몰도바", "남아프리카_공화국", "스웨덴", "불가리아", "캐나다",
-      "대한민국", "크로아티아", "중국", "일본", "루마니아", "아제르바이잔", "레바논", "이스라엘", "덴마크", "기타국가", "영국"
-    ]
   }
   
   public enum Action {
@@ -76,14 +70,24 @@ public struct FilterDetail: Reducer {
         
         WineType.allCases.forEach { type in
           if let wineTypeFilter = wineTypes.filter({ $0.type == type.korName }).first {
-            state.typeFilter.append(FilterInfo(title: wineTypeFilter.type, count: Int(wineTypeFilter.count) ?? 0, type: .type))
+            state.typeFilter.append(
+              FilterInfo(
+                title: wineTypeFilter.type,
+                count: Int(wineTypeFilter.count) ?? 0,
+                type: .type
+              )
+            )
           }
         }
         
-        for country in state.wineCountry {
-          if let countryFilter = countries.filter({ $0.country == country }).first {
-            state.countryFilter.append(FilterInfo(title: countryFilter.country, count: Int(countryFilter.count) ?? 0, type: .country))
-          }
+        for country in countries {
+          state.countryFilter.append(
+            FilterInfo(
+              title: country.country,
+              count: Int(country.count) ?? 0,
+              type: .country
+            )
+          )
         }
         
         state.rebuyFilter.append(FilterInfo(title: "재구매 의사", type: .rebuy))
