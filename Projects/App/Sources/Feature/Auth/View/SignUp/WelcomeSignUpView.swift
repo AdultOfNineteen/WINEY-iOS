@@ -48,6 +48,7 @@ struct WelcomeSignUpView: View {
         }
       }
     }
+    .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationBarHidden(true)
   }
 }

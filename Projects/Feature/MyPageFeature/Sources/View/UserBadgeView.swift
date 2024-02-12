@@ -66,8 +66,10 @@ public struct UserBadgeView: View {
                   }
                 }
               }
+              .padding(.horizontal, 1)
               .padding(.bottom, 20)
             }
+            .frame(height: 160)
           }
           .padding(
             .horizontal,
@@ -76,7 +78,7 @@ public struct UserBadgeView: View {
           )
           
           Divider()
-            .padding(.bottom, 20)
+            .padding(.vertical, 20)
           
           Group {
             BadgeSectionTitle(
@@ -98,8 +100,10 @@ public struct UserBadgeView: View {
                   }
                 }
               }
+              .padding(.horizontal, 1)
               .padding(.bottom, 20)
             }
+            .frame(height: 340)
           }
           .padding(
             .horizontal,

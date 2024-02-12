@@ -112,8 +112,9 @@ struct LoginView: View {
         )
       Button(
         action: {
-          viewStore
-            .send(.tappedTermsOfUse)
+          UIApplication.shared.open(
+            URL(string: "http://winey-api-dev-env.eba-atefsiev.ap-northeast-2.elasticbeanstalk.com/docs/service-policy.html")!
+          )
         },
         label: {
           Text("서비스 이용약관")

@@ -10,12 +10,12 @@ import ConfigPlugin
 let spm = SwiftPackageManagerDependencies(
   [
     .remote(
-      url: "https://github.com/CombineCommunity/CombineExt.git", 
+      url: "https://github.com/CombineCommunity/CombineExt.git",
       requirement: .exact("1.8.1")
     ),
     .remote(
       url: "https://github.com/pointfreeco/swift-composable-architecture.git",
-      requirement: .exact("1.0.0")
+      requirement: .range(from: "1.0", to: "2.0")
     ),
     .remote(
       url: "https://github.com/johnpatrickmorgan/TCACoordinators.git",
@@ -25,12 +25,7 @@ let spm = SwiftPackageManagerDependencies(
       url: "https://github.com/kakao/kakao-ios-sdk",
       requirement: .branch("master")
     ),
-//    .package(url: "https://github.com/stleamist/NMapsMap-SwiftPM.git", .upToNextMajor(from: "3.10.0"))
     .remote(url: "https://github.com/jaemyeong/NMapsMap.git", requirement: .upToNextMajor(from: "3.16.0"))
-//    .remote(
-//      url: "https://github.com/stleamist/NMapsMap-SwiftPM.git",
-//      requirement: .upToNextMajor(from: "3.10.0")
-//    )
   ],
   baseSettings: .settings(
         configurations: [
