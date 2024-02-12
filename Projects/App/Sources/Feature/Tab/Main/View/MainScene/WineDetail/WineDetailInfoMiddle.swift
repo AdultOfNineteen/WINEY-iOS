@@ -112,7 +112,7 @@ public struct WineDetailInfoMiddle: View {
         if let price = purchasePrice {
           wineInfoTable(
             title: "Purchae price",
-            contents: price > 0 ? price.description : "구매가를 알 수 없어요 :("
+            contents: price > 0 ? price.description + "%" : "구매가를 알 수 없어요 :("
           )
         } else {
           wineInfoTable(

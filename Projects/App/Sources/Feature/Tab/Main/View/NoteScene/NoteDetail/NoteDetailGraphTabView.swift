@@ -189,16 +189,16 @@ public struct WineDetailGraphMyWineDefaultView: View {
       vintage: 10,
       buyAgain: true,
       varietal: "test",
-      officialAlcohol: 24.0,
+      officialAlcohol: 24,
       price: 5,
       smellKeywordList: ["test"],
       myWineTaste: MyWineTaste(
-        sweetness: 3.0,
-        acidity: 4.2,
-        alcohol: 1.4,
-        body: 3.0,
-        tannin: 2.4,
-        finish: 3.4
+        sweetness: 3,
+        acidity: 4,
+        alcohol: 1,
+        body: 3,
+        tannin: 4,
+        finish: 3
       ),
       defaultWineTaste: DefaultWineTaste(
         sweetness: 2.4,

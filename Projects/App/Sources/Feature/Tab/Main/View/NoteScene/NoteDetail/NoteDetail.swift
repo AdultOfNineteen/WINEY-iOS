@@ -41,6 +41,7 @@ public struct NoteDetail: Reducer {
     case _presentBottomSheet(Bool)
     case _presentRemoveSheet(Bool)
     case _viewWillAppear
+    case _patchNote(noteId: Int)
     
     // MARK: - Inner SetState Action
     case _setDetailNotes(data: NoteDetailDTO)
@@ -77,11 +78,22 @@ public struct NoteDetail: Reducer {
       
     case .tappedOption(let option):
       state.selectOption = option
-      if option == .remove {
+      
+      switch option {
+      case .remove:
         return .send(._presentRemoveSheet(true))
-      }
-      else {
-        return .send(._presentBottomSheet(false))
+        
+      case .modify:
+        let noteId = state.noteId
+        
+        CreateNoteManager.shared.mode = .patch
+        CreateNoteManager.shared.fetchData(noteData: state.noteCardData!)
+        
+        print( CreateNoteManager.shared.mode, "tests!!!")
+        return .run { send in
+          await send(._presentBottomSheet(false))
+          await send(._patchNote(noteId: noteId))
+        }
       }
     
     case ._presentBottomSheet(let bool):
@@ -97,10 +109,8 @@ public struct NoteDetail: Reducer {
         switch await noteService.deleteNote(noteId) {
         case let .success(data):
           await send(.tappedBackButton)
-          print("success")
         case let .failure(error):
           await send(._failureSocialNetworking(error))
-          print("fail")
         }
       }
       
