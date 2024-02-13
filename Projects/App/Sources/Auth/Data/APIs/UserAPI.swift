@@ -13,6 +13,9 @@ public enum UserAPI {
   case socialLogin(socialType: String, accessToken: String)
   case sendCode(userId: String, phoneNumber: String)
   case codeConfirm(userId: String, phoneNumber: String, verificationCode: String)
+  case userInfo
+  case signOut(userId: Int, reason: String)
+  case logout(deviceId: String)
 }
 
 extension UserAPI: EndPointType {
@@ -28,6 +31,12 @@ extension UserAPI: EndPointType {
       return "/users/\(userId)/phone/code/send"
     case let .codeConfirm(userId, _, _):
       return "/users/\(userId)/phone/code/verify"
+    case .userInfo:
+      return "/info"
+    case let .signOut(userId: userId, reason: reason):
+      return "/users/\(userId)"
+    case let .logout(deviceId: deviceId):
+      return "/users/logout"
     }
   }
   
@@ -35,6 +44,12 @@ extension UserAPI: EndPointType {
     switch self {
     case .socialLogin, .sendCode, .codeConfirm:
       return .post
+    case .userInfo:
+      return .get
+    case .signOut:
+      return .delete
+    case .logout:
+      return .get
     }
   }
   
@@ -56,6 +71,23 @@ extension UserAPI: EndPointType {
         "verificationCode": verificationCode
       ]
       return .requestParameters(parameters: parameters, encoding: .jsonBody)
+    case .userInfo:
+      return .requestPlain
+    case let .signOut(userId: userId, reason: reason):
+      return .requestParameters(
+        parameters: [
+          "userId": userId,
+          "reason": reason
+        ],
+        encoding: .queryString
+      )
+    case let .logout(deviceId: deviceId):
+      return .requestParameters(
+        parameters: [
+          "deviceId": deviceId
+        ],
+        encoding: .queryString
+      )
     }
   }
 }

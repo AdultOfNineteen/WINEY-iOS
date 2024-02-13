@@ -163,12 +163,12 @@ struct ShopBottomSheet<Content>: View where Content: View {
       )
       .frame(height: geometry.size.height, alignment: .bottom)
       .offset(y: max(self.offset + self.translation, 0))
-      .onChange(of: height) {
-        coverOpacity = height != .close ? 0 : 1
-      }
-      .onChange(of: presentProgress) {
-        height = presentProgress ? .close : .medium
-      }
+//      .onChange(of: height) {
+//        coverOpacity = height != .close ? 0 : 1
+//      }
+//      .onChange(of: presentProgress) {
+//        height = presentProgress ? .close : .medium
+//      }
     }
     .highPriorityGesture(
       presentProgress ? nil : dragGesture

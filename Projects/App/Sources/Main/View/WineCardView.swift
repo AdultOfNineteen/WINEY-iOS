@@ -29,7 +29,7 @@ public struct WineCardView: View {
         )
         
         RoundedRectangle(cornerRadius: 5.4)
-          .fill(.clear)
+//          .fill(.clear) // 'fill(_:style:)' is only available in iOS 17.0 or newer
           .stroke(
             LinearGradient(
               colors: [.white.opacity(0.8), .white.opacity(0.1)],

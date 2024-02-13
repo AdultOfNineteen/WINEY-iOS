@@ -7,7 +7,6 @@
 //
 
 import ComposableArchitecture
-import MyPageFeature
 import SwiftUI
 import WineyKit
 
