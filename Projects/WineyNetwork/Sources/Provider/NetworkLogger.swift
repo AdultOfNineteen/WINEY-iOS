@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Utils
 
 final class NetworkLogger: NSObject {
   var receivedData: Data? = nil
