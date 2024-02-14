@@ -106,7 +106,8 @@ public struct AppCoordinator: Reducer {
               .routeAction(_, action: .userSetting(._moveToHome))
             )
           )):
-        state.routes = [.root(.splash(.init()))]
+        state.routes = [.root(.auth(.initialState))]
+//        state.routes = [.root(.splash(.init()))]
         return .none
         
       case .routeAction(_, action:
