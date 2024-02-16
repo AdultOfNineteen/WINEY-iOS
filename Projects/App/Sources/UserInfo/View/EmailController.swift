@@ -9,16 +9,20 @@ import Foundation
 import MessageUI
 
 class EmailController: NSObject, MFMailComposeViewControllerDelegate {
+  public var emailValidateDevice: Bool = true
+  
   public static let shared = EmailController()
+  
   private override init() { }
   
   func sendEmail(subject: String, body: String, to: String) {
     if !MFMailComposeViewController.canSendMail() {
-      print("This device cannot send emails.")
+      print("해당 기기에서 메일 기능을 제공하지 않습니다.")
+      self.emailValidateDevice = false
       return
     }
     
-    // Create the email composer
+    self.emailValidateDevice = true
     let mailComposer = MFMailComposeViewController()
     mailComposer.mailComposeDelegate = self
     mailComposer.setToRecipients([to])

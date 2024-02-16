@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import Foundation
+import SwiftUI
 
 public struct UserInfo: Reducer {
   public struct State: Equatable {
@@ -25,6 +26,7 @@ public struct UserInfo: Reducer {
     case wineyRatingButtonTapped
     case wineyRatingClosedTapped
     case userSettingTapped(Int?)
+    case tappedEmailSendButton
     case tappedTermsPolicy
     case tappedPersonalInfoPolicy
     
@@ -36,6 +38,7 @@ public struct UserInfo: Reducer {
     case _presentBottomSheet(Bool)
     case _moveToBadgeTap(Int)
     case _moveToUserInfo(Int)
+    case _displayEmailInvalidate
     
     // MARK: - Inner SetState Action
     case _failureSocialNetworking(Error)  // 추후 경고 처리
@@ -49,6 +52,7 @@ public struct UserInfo: Reducer {
   
   @Dependency(\.user) var userService
   @Dependency(\.wineGrade) var wineGradeService
+  @Dependency(\.alert) var alertService
   
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
@@ -106,6 +110,20 @@ public struct UserInfo: Reducer {
       
     case .wineyRatingClosedTapped:
       return .send(._presentBottomSheet(false))
+      
+    case .tappedEmailSendButton:
+      EmailController.shared.sendEmail(subject: "WINEY 1:1 문의", body: "", to: "923kimhy@gmail.com")
+      
+      // 메일을 보낼 수 있는 기기와 아닌 기기 분류
+      if EmailController.shared.emailValidateDevice  {
+        return .none
+      } else {
+        return .send(._displayEmailInvalidate)
+      }
+      
+    case ._displayEmailInvalidate:
+      alertService.showAlert("해당 기기에서 메일을 보낼 수 없습니다.")
+      return .none
       
     case let ._presentBottomSheet(value):
       state.isPresentedBottomSheet = value

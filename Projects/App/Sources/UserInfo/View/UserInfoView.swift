@@ -280,7 +280,7 @@ public struct UserInfoView: View {
         if title == "FAQ" {
           UIApplication.shared.open( URL(string: "https://holy-wax-3be.notion.site/FAQ-1671bf54033440d2aef23189c4754a45")!)
         } else if title == "1:1 문의" {
-          EmailController.shared.sendEmail(subject: "Hello", body: "Hello From ishtiz.com", to: "recipient@example.com")
+          viewStore.send(.tappedEmailSendButton)
         }
       }
     }
