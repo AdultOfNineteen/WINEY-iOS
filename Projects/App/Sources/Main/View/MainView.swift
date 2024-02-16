@@ -13,7 +13,8 @@ import WineyKit
 public struct MainView: View {
   private let store: StoreOf<Main>
   @ObservedObject var viewStore: ViewStoreOf<Main>
-  let columns = [GridItem(.flexible()), GridItem(.flexible())]
+  
+  let columns = [GridItem(.flexible(), spacing: 17), GridItem(.flexible())]
   
   public init(store: StoreOf<Main>) {
     self.store = store
@@ -154,7 +155,7 @@ extension MainView {
     }
     
     if let tipCards = viewStore.tipCards {
-      LazyVGrid(columns: columns, spacing: 20) {
+      LazyVGrid(columns: columns) {
         ForEach(tipCards.contents, id: \.wineTipId) { tipCard in
           TipCardImage(tipCardInfo: tipCard)
             .onTapGesture {

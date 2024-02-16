@@ -17,22 +17,23 @@ public struct TipCardImage: View {
     AsyncImage(url: URL(string: tipCardInfo.thumbNail)) { image in
       ZStack {
         image.resizable()
-          .aspectRatio(
-            CGSize(width: 31, height: 28),
-            contentMode: .fit
-          )
           .clipShape(
             RoundedRectangle(cornerRadius: 10)
           )
         
-        Text(tipCardInfo.title)
-          .wineyFont(.captionB1)
-          .lineLimit(2)
-          .frame(alignment: .leading)
-          .padding(.horizontal, 15)
-          .padding(.top, 93)
-          .foregroundStyle(WineyKitAsset.gray50.swiftUIColor)
+        VStack {
+          Spacer()
+          
+          Text(tipCardInfo.title)
+            .wineyFont(.captionB1)
+            .lineLimit(2)
+            .frame(alignment: .leading)
+            .padding(.horizontal, 14)
+            .padding(.bottom, 13)
+            .foregroundStyle(WineyKitAsset.gray50.swiftUIColor)
+        }
       }
+      .frame(height: 140)
     } placeholder: {
       ProgressView()
     }
