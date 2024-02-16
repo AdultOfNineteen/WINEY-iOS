@@ -128,8 +128,8 @@ extension WineSearchView {
         ForEach(wineCards.contents, id: \.wineId) { wine in
           wineCard(wineData: wine)
             .onAppear {
-              // Fetch Next Page
-              if wine.wineId == (viewStore.wineSearchPage + 1) * viewStore.wineSearchSize && !wineCards.isLast {
+              // Pagination
+              if wineCards.contents[wineCards.contents.count - 1] == wine && !wineCards.isLast {
                 viewStore.send(._fetchNextWinePage)
               }
             }
@@ -183,15 +183,3 @@ extension WineSearchView {
     }
   }
 }
-
-//#Preview {
-//  WineSearchView(
-//    store: Store(
-//      initialState: WineSearch.State.init(),
-//      reducer: {
-//        WineSearch()
-//          .dependency(\.note, .mock)
-//      }
-//    )
-//  )
-//}
