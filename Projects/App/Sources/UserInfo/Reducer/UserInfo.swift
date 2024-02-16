@@ -14,6 +14,7 @@ public struct UserInfo: Reducer {
     var userId: Int? = nil
     var gradeListInfo: [WineGradeInfoDTO]? = nil
     var userWineGrade: MyWineGradeDTO? = nil
+    var hightestGradeCount: Int = 0
     
     public init() {}
   }
@@ -83,6 +84,7 @@ public struct UserInfo: Reducer {
       
     case let ._setGradeList(data):
       state.gradeListInfo = data
+      state.hightestGradeCount = data[data.count - 1].minCount
       return .none
       
     case ._getUserWineGrade(let userId):

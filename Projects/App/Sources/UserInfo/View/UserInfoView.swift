@@ -129,7 +129,7 @@ public struct UserInfoView: View {
             viewStore.send(.userBadgeButtonTapped(viewStore.userId))
           },
           label: {
-            RoundedRectangle(cornerRadius: 24) //
+            RoundedRectangle(cornerRadius: 24)
               .stroke(WineyKitAsset.gray800.swiftUIColor, lineWidth: 1)
               .frame(height: 39)
               .overlay{
@@ -146,7 +146,7 @@ public struct UserInfoView: View {
   
   private var degreeGraphSpace: some View {
     VStack(spacing: 7) {
-      if let userWineGrade = viewStore.userWineGrade {
+      if let userWineGrade = viewStore.userWineGrade, let gradeListInfo = viewStore.gradeListInfo {
         GeometryReader { lineGeometry in
           ZStack(alignment: .leading) {
             Rectangle() // 슬라이더의 바
@@ -159,20 +159,20 @@ public struct UserInfoView: View {
             Circle() // 슬라이더의 원
               .frame(width: 14)
               .foregroundColor(WineyKitAsset.main2.swiftUIColor)
-              .offset(x: CGFloat(userWineGrade.threeMonthsNoteCount)/12 * lineGeometry.size.width - 7)
+              .offset(x: CGFloat(userWineGrade.threeMonthsNoteCount)/CGFloat(viewStore.hightestGradeCount) * lineGeometry.size.width - 7)
           }
           .overlay(alignment: .topLeading) {
-            ForEach(WineyRating.allCases, id: \.title) { item in
+            ForEach(gradeListInfo) { grade in
               VStack(alignment: .center, spacing: 7) {
                 Circle() // 슬라이더의 원
                   .frame(width: 14, height: 14)
                 
-                Text(item.title)
+                Text(grade.name)
                   .wineyFont(.captionM2)
               }
-              .offset(x: item.degree * lineGeometry.size.width - 21)
+              .offset(x: CGFloat(grade.minCount)/CGFloat(viewStore.hightestGradeCount) * lineGeometry.size.width - 21)
               .foregroundColor(
-                self.sliderValue == item.degree ? WineyKitAsset.main2.swiftUIColor :
+                self.sliderValue == CGFloat(grade.minCount)/CGFloat(viewStore.hightestGradeCount) ? WineyKitAsset.main2.swiftUIColor :
                   WineyKitAsset.gray800.swiftUIColor
               )
             }
