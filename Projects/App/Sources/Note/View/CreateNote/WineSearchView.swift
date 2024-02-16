@@ -21,7 +21,7 @@ public struct WineSearchView: View {
     self.viewStore = ViewStore(self.store, observe: { $0 })
   }
   
-  let columns = [GridItem(.flexible()), GridItem(.flexible())]
+  let columns = [GridItem(.flexible(), spacing: 14), GridItem(.flexible())]
   
   public var body: some View {
     VStack(spacing: 0) {
