@@ -100,7 +100,8 @@ public struct UserInfoView: View {
         .frame(width: 101)
         .foregroundColor(WineyKitAsset.gray900.swiftUIColor)
         .overlay{
-          Text("🍷")
+          Image("UserIcon")
+            .offset(y: 4)
         }
       
       VStack(spacing: 0) {
@@ -117,7 +118,6 @@ public struct UserInfoView: View {
                 .foregroundColor(.white)
             }
           )
-          // Asset 생성 전 이미지 대신 임시
         }
         .wineyFont(.title2)
         
@@ -186,7 +186,7 @@ public struct UserInfoView: View {
   }
   
   private var badgeSpace: some View {
-    HStack {
+    HStack(spacing: 0) {
       Spacer() // 뱃지 들어갈 공간
       
       VStack(alignment: .leading, spacing: 1) {
@@ -201,6 +201,7 @@ public struct UserInfoView: View {
         }
         .wineyFont(.captionM2)
       }
+      .padding(.trailing, 20)
       
       Button(
         action: {
