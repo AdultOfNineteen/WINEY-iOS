@@ -36,6 +36,7 @@ public struct NoteCardScrollView: View {
           }
           .padding(.top, 2)
           .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+          .padding(.bottom, 106)
         }
       } else {
         noteEmptyView()

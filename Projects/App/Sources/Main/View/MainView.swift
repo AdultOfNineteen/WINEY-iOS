@@ -33,7 +33,7 @@ public struct MainView: View {
             
             tipView()
           }
-          .padding(.bottom, 30)
+          .padding(.bottom, 106)
         }
         .simultaneousGesture(
           DragGesture().onChanged({ value in
@@ -163,7 +163,6 @@ extension MainView {
         }
       }
       .padding(.top, 25)
-      .padding(.bottom, 50)
       .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
     } else {
       ProgressView()
