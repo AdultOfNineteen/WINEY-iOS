@@ -77,7 +77,8 @@ public struct UserInfoView: View {
           isPresented: viewStore.binding(
             get: \.isPresentedBottomSheet,
             send: .wineyRatingClosedTapped
-          )
+          ),
+          gradeListInfo: viewStore.gradeListInfo
         )
       }
     }
@@ -193,6 +194,7 @@ public struct UserInfoView: View {
         Text("BOTTLE") // 임시
           .wineyFont(.bodyB2)
           .foregroundColor(WineyKitAsset.gray400.swiftUIColor)
+        
         HStack(spacing: 0) {
           Text("OAK까지 테이스팅 ")
             .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
@@ -200,17 +202,17 @@ public struct UserInfoView: View {
             .foregroundColor(WineyKitAsset.main3.swiftUIColor)
         }
         .wineyFont(.captionM2)
+        .frame(height: 18)
       }
       .padding(.trailing, 20)
       
       Button(
         action: {
           viewStore.send(.wineyRatingButtonTapped)
-          //          isPresentedRatingView = true
         },
         label: {
           ZStack {
-            RoundedRectangle(cornerRadius: 24)
+            Capsule()
               .fill(WineyKitAsset.gray900.swiftUIColor)
               .frame(width: 65, height: 32)
             
@@ -226,7 +228,7 @@ public struct UserInfoView: View {
     .background {
       RoundedRectangle(cornerRadius: 12)
         .stroke(
-          WineyKitAsset.gray700.swiftUIColor,
+          WineyKitAsset.gray900.swiftUIColor,
           lineWidth: 1
         )
         .background(
