@@ -19,14 +19,14 @@ public struct NoteCardScrollView: View {
     self.viewStore = ViewStore(self.store, observe: { $0 })
   }
   
-  let columns = [GridItem(.flexible()), GridItem(.flexible())]
+  let columns = [GridItem(.flexible(), spacing: 15), GridItem(.flexible())]
   
   public var body: some View {
     // MARK: Note List
     VStack(spacing: 0) {
       if viewStore.noteCards.totalCnt > 0 {
         ScrollView {
-          LazyVGrid(columns: columns, spacing: 20) {
+          LazyVGrid(columns: columns, spacing: 24) {
             ForEach(viewStore.noteCards.contents, id: \.noteId) { note in
               noteCard(noteData: note)
                 .onTapGesture {
@@ -49,13 +49,13 @@ extension NoteCardScrollView {
   
   @ViewBuilder
   private func noteCard(noteData: NoteContent) -> some View {
-    VStack(alignment: .leading, spacing: 0) {
+    VStack(alignment: .leading, spacing: 10) {
       SmallWineCard(
         wineType: WineType.changeType(at: noteData.wineType),
         borderColor: Color(red: 150/255, green: 113/255, blue: 1)
       )
       
-      VStack(alignment: .leading, spacing: 2) {
+      VStack(alignment: .leading, spacing: 4) {
         Text(noteData.wineName)
           .lineLimit(1)
           .wineyFont(.captionB1)
@@ -64,7 +64,6 @@ extension NoteCardScrollView {
           .wineyFont(.captionM2)
           .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
       }
-      .padding(.top, 10)
     }
   }
   

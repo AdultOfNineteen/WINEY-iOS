@@ -43,9 +43,9 @@ public struct NoteView: View {
                   .frame(width: 60, height: 60)
               )
           })
+          .padding(.bottom, 114)
           .padding(.trailing, 44)
         }
-        .padding(.bottom, 144)
       }
     }
     .background(WineyKitAsset.mainBackground.swiftUIColor)
