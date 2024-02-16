@@ -8,10 +8,42 @@
 import SwiftUI
 import WineyKit
 
-struct BadgeBottomSheetHeader: View {
-  var body: some View {
-    HStack {
-      Image("rock_image", bundle: Bundle(identifier: "com.winey.wineyKit"))
+public struct BadgeBottomSheetHeader: View {
+  @State private var appearBlur: Double = 0.0
+  
+  public let badgeInfo: Badge?
+  
+  public init(badgeInfo: Badge? = nil) {
+    self.badgeInfo = badgeInfo
+  }
+  
+  public var body: some View {
+    if let badgeInfo = badgeInfo {
+      if let imgUrl = badgeInfo.imgUrl {
+        AsyncImage(url: URL(string: imgUrl)) { image in
+          image.resizable()
+        } placeholder: {
+          ProgressView()
+        }
+        .aspectRatio(contentMode: .fit)
+        .frame(height: 112)
+        .opacity(appearBlur)
+        .onAppear {
+          withAnimation(.easeInOut(duration: 0.5)) {
+            appearBlur = 1.0
+          }
+        }
+      } else {
+        Text("이미지 로드 오류")
+          .wineyFont(.captionM1)
+          .padding(.horizontal, 10)
+          .frame(height: 112)
+      }
+    } else {
+      Text("데이터 로드 오류")
+        .wineyFont(.captionM1)
+        .padding(.horizontal, 10)
+        .frame(height: 112)
     }
   }
 }

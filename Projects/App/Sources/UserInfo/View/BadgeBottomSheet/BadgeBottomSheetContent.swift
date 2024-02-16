@@ -17,16 +17,18 @@ struct BadgeBottomSheetContent: View {
   
   var body: some View {
     if let badgeInfo = badgeInfo {
-      VStack(spacing: 13) {
+      VStack(spacing: 0) {
         Text(badgeInfo.name)
           .wineyFont(.bodyB1)
           .foregroundColor(WineyKitAsset.gray200.swiftUIColor)
+          .padding(.bottom, 4)
 
         Text(extractDate(badgeInfo.acquiredAt) ?? "미취득 뱃지")
           .wineyFont(.bodyB2)
           .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
+          .padding(.bottom, 13)
         
-        Text(badgeInfo.description)
+        Text(badgeInfo.acquiredAt == nil ? badgeInfo.acquisitionMethod : badgeInfo.description)
           .wineyFont(.captionM3)
           .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
       }
