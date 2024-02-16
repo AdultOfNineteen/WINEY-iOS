@@ -25,8 +25,7 @@ public struct PersonalInfoPolicyView: View {
     VStack(spacing: 0) {
       NavigationBar(
         title: "개인정보 처리방침",
-        leftIcon: /*WineyAsset.Assets.navigationBackButton.swiftUIImage,*/ // Asset 적용 후 활성화
-        Image(systemName: "chevron.backward"),
+        leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
         leftIconButtonAction: {
           viewStore.send(.tappedBackButton)
         },

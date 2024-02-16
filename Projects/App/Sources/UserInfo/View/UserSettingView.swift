@@ -95,8 +95,7 @@ public struct UserSettingView: View {
   var navigationBarSpacer: some View {
     NavigationBar(
       title: "계정 설정",
-      leftIcon: /*WineyAsset.Assets.navigationBackButton.swiftUIImage,*/ // Asset 적용 후 활성화
-      Image(systemName: "chevron.backward"),
+      leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
       leftIconButtonAction: {
         viewStore.send(.tappedBackButton)
       },

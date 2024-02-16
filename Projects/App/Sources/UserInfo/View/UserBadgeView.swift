@@ -29,8 +29,7 @@ public struct UserBadgeView: View {
       VStack(spacing: 0) {
         NavigationBar(
           title: "WINEY 뱃지",
-          leftIcon: /*WineyAsset.Assets.navigationBackButton.swiftUIImage,*/ // Asset 적용 후 활성화
-          Image(systemName: "chevron.backward"),
+          leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
           leftIconButtonAction: {
             viewStore.send(.tappedBackButton)
           },
