@@ -50,13 +50,12 @@ public struct SettingVintage: Reducer {
         state.price = CreateNoteManager.shared.price ?? ""
         
         return .run { send in
-          for await _ in self.clock.timer(interval: .seconds(5)) {
-            await send(._setTooltipVisible(false))
-          }
+          try await self.clock.sleep(for: .milliseconds(5000))
+          await send(._setTooltipVisible(false))
         }
         
       case ._setTooltipVisible(let bool):
-        withAnimation {
+        withAnimation(.easeInOut(duration: 0.7)) {
           state.tooltipVisible = bool
         }
         return .none
