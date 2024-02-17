@@ -44,6 +44,8 @@ public struct WritingNoteCoordinator: Reducer {
       switch action {
         
       case .routeAction(_, action: .wineSearch(.tappedWineCard(let wineCard))):
+        CreateNoteManager.shared.initData()
+        
         state.routes.append(
           .push(
             .wineConfirm(
