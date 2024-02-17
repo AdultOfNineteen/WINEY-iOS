@@ -78,22 +78,8 @@ extension NoteView {
         )
     }
     .padding(.top, 17)
-    .padding(.bottom, 10)
+    .padding(.bottom, 28)
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-  }
-  
-  // MARK: Note counter
-  @ViewBuilder
-  private func noteCounter() -> some View {
-    HStack(spacing: 0) {
-      Text("\(5)개")
-        .foregroundColor(WineyKitAsset.main3.swiftUIColor)
-      Text("의 노트를 작성했어요!")
-        .foregroundColor(.white)
-    }
-    .wineyFont(.headLine)
-    .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-    .padding(.top, 10)
   }
   
   // MARK: Filter

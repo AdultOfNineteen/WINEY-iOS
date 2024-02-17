@@ -22,6 +22,8 @@ public struct FilteredNoteView: View {
   
   public var body: some View {
     VStack(spacing: 0) {
+      noteCount()
+      
       filterBar()
       
       noteList()
@@ -47,13 +49,28 @@ public struct FilteredNoteView: View {
 
 extension FilteredNoteView {
   
+  @ViewBuilder
+  private func noteCount() -> some View {
+    HStack(spacing: 0) {
+      Text("\(viewStore.noteCardList?.noteCards.totalCnt ?? 0)개")
+        .foregroundStyle(WineyKitAsset.main3.swiftUIColor)
+      
+      Text("의 노트를 작성했어요!")
+        .foregroundStyle(.white)
+      
+      Spacer()
+    }
+    .wineyFont(.headLine)
+    .padding(.bottom, 14)
+    .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+  }
+  
   // MARK: Filter Bar
   @ViewBuilder
   private func filterBar() -> some View {
     VStack(spacing: 0) {
       Divider()
         .overlay(WineyKitAsset.gray900.swiftUIColor)
-        .padding(.top, 14)
       
       HStack(spacing: 0) {
         ScrollView(.horizontal, showsIndicators: false) {
