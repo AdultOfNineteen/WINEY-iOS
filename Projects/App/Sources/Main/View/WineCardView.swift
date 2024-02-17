@@ -29,7 +29,6 @@ public struct WineCardView: View {
         )
         
         RoundedRectangle(cornerRadius: 5.4)
-//          .fill(.clear) // 'fill(_:style:)' is only available in iOS 17.0 or newer
           .stroke(
             LinearGradient(
               colors: [.white.opacity(0.8), .white.opacity(0.1)],
@@ -38,7 +37,6 @@ public struct WineCardView: View {
             ),
             lineWidth: 1
           )
-        
         
         Path { path in
           let lineTopLeft = CGPoint(x: 30, y: 145)
