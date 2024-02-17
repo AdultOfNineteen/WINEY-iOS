@@ -22,11 +22,7 @@ public struct WineConfirmView: View {
   
   public var body: some View {
     ZStack {
-      WineyKitAsset.mainBackground.swiftUIColor
-      
-      Image("noteBackground")
-        .resizable()
-        .scaledToFit()
+      background()
       
       VStack(spacing: 0) {
         navigation()
@@ -66,7 +62,9 @@ public struct WineConfirmView: View {
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
       }
     )
-    .ignoresSafeArea()
+    .background(
+      WineyKitAsset.mainBackground.swiftUIColor
+    )
     .onAppear {
       viewStore.send(._viewWillAppear)
     }
@@ -77,13 +75,19 @@ public struct WineConfirmView: View {
 extension WineConfirmView {
   
   @ViewBuilder
+  private func background() -> some View {
+    Image("noteBackground")
+      .resizable()
+      .scaledToFit()
+  }
+  
+  @ViewBuilder
   private func navigation() -> some View {
     NavigationBar(
       leftIcon: Image("navigationBack_button"),
       leftIconButtonAction: { viewStore.send(.tappedBackButton) },
       backgroundColor: .clear
     )
-    .padding(.top, 50)
   }
   
   @ViewBuilder
@@ -103,11 +107,13 @@ extension WineConfirmView {
         wineType: WineType.changeType(at: viewStore.wineData.type),
         borderColor: .white
       )
+      .frame(width: UIScreen.main.bounds.width / 2.5)
       
       VStack(spacing: 6) {
         Text(viewStore.wineData.name)
           .wineyFont(.bodyB1)
           .foregroundStyle(WineyKitAsset.gray50.swiftUIColor)
+        
         Text("\(viewStore.wineData.country) / \(viewStore.wineData.varietal)")
           .wineyFont(.captionB1)
           .foregroundStyle(WineyKitAsset.gray700.swiftUIColor)
