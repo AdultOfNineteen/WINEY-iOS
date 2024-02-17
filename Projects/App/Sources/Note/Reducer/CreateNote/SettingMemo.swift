@@ -12,6 +12,8 @@ import SwiftUI
 
 public struct SettingMemo: Reducer {
   public struct State: Equatable {
+    public var isShowBottomSheet: Bool = false
+    
     public var memo: String = ""
     public var star: Int = 0
     public var buyAgain: Bool? = nil
@@ -29,6 +31,7 @@ public struct SettingMemo: Reducer {
     // MARK: - User Action
     case tappedBackButton
     case tappedAttachPictureButton
+    case tappedOutsideOfBottomSheet
     case tappedDoneButton
     case tappedWineStar(Int)
     case tappedBuyAgain(Bool)
@@ -48,6 +51,7 @@ public struct SettingMemo: Reducer {
     case _delDisplayPhoto
     case _delPickPhoto
     case _addPhoto(UIImage)
+    case _setSheetState(Bool)
     case _backToFirstView
     case _failureSocialNetworking(Error) // 후에 경고창 처리
     
@@ -71,6 +75,13 @@ public struct SettingMemo: Reducer {
         return .none
         
       case .tappedAttachPictureButton:
+        return .send(._setSheetState(true))
+        
+      case .tappedOutsideOfBottomSheet:
+        return .send(._setSheetState(false))
+        
+      case ._setSheetState(let bool):
+        state.isShowBottomSheet = bool
         return .none
         
       case .tappedDoneButton:
@@ -136,7 +147,7 @@ public struct SettingMemo: Reducer {
         
       case ._pickPhoto(let item):
         state.selectedPhoto = item
-        return .none
+        return .send(._setSheetState(false))
         
       case ._delPickPhoto:
         if state.deleteImage.count == 3 {
