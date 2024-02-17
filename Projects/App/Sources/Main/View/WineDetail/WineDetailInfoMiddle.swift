@@ -102,17 +102,24 @@ public struct WineDetailInfoMiddle: View {
         
         // MARK: ABV
         if mode == .note {
-          wineInfoTable(
-            title: "ABV",
-            contents: abv?.description ?? "도 수를 알 수 없어요 :("
-          )
+          if let abv = abv {
+            wineInfoTable(
+              title: "ABV",
+              contents: Int(abv).description + "%"
+            )
+          } else {
+            wineInfoTable(
+              title: "ABV",
+              contents: "도 수를 알 수 없어요 :("
+            )
+          }
         }
         
         // MARK: Purchase Price
         if let price = purchasePrice {
           wineInfoTable(
             title: "Purchae price",
-            contents: price > 0 ? price.description + "%" : "구매가를 알 수 없어요 :("
+            contents: price > 0 ? price.description : "구매가를 알 수 없어요 :("
           )
         } else {
           wineInfoTable(
