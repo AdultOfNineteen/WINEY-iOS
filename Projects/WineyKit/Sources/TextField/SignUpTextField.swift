@@ -16,6 +16,7 @@ public struct CustomTextField: View {
   public let isInputTextCompleteCondition: (String) -> Bool
   public var onEditingChange: () -> Void = {}
   public let placeholderText: String
+  public var clockIndicator: Int?
   @Binding public var inputText: String
   @Binding public var rightAccessoryText: String?
     
@@ -27,6 +28,7 @@ public struct CustomTextField: View {
     inputText: Binding<String>,
     textStyle: @escaping (String) -> String,
     maximumInputCount: Int,
+    clockIndicator: Int? = nil,
     isInputTextCompleteCondition: @escaping (String) -> Bool,
     onEditingChange: @escaping () -> Void = {}
   ) {
@@ -37,6 +39,7 @@ public struct CustomTextField: View {
     self._inputText = inputText
     self.textStyle = textStyle
     self.maximumInputCount = maximumInputCount
+    self.clockIndicator = clockIndicator
     self.isInputTextCompleteCondition = isInputTextCompleteCondition
     self.onEditingChange = onEditingChange
   }
@@ -69,6 +72,14 @@ public struct CustomTextField: View {
               
         if let accessoryText = rightAccessoryText {
           Text(accessoryText)
+        }
+        
+        if let clock = clockIndicator {
+          let hour = clock / 60
+          let minute = clock % 60
+          
+          Text("\(hour.description):\(minute.description.count == 1 ? "0" : "")\(minute.description)")
+            .wineyFont(.captionM1)
         }
       }
       .frame(height: 24)

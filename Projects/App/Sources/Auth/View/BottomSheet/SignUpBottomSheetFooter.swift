@@ -17,6 +17,7 @@ struct SignUpBottomSheetFotter: View {
   private let tappedAlreadySignUpConfirm: (() -> Void)
   private let tappedCodeFailConfirm: (() -> Void)
   private let tappedSendCodeConfirm: (() -> Void)
+  private let tappedBottomOverSendCodeButton: (() -> Void)
   
   init(
     bottomSheetType: SignUpBottomSheetType,
@@ -24,7 +25,8 @@ struct SignUpBottomSheetFotter: View {
     tappedBackButtonYesOption: @escaping (() -> Void) = {},
     tappedAlreadySignUpConfirm: @escaping (() -> Void) = {},
     tappedCodeFailConfirm: @escaping (() -> Void) = {},
-    tappedSendCodeConfirm: @escaping (() -> Void) = {}
+    tappedSendCodeConfirm: @escaping (() -> Void) = {},
+    tappedBottomOverSendCodeButton: @escaping (() -> Void) = {}
   ) {
     self.bottomSheetType = bottomSheetType
     self.tappedBackButtonNoOption = tappedBackButtonNoOption
@@ -32,6 +34,7 @@ struct SignUpBottomSheetFotter: View {
     self.tappedAlreadySignUpConfirm = tappedAlreadySignUpConfirm
     self.tappedCodeFailConfirm = tappedCodeFailConfirm
     self.tappedSendCodeConfirm = tappedSendCodeConfirm
+    self.tappedBottomOverSendCodeButton = tappedBottomOverSendCodeButton
   }
   
   var body: some View {
@@ -45,8 +48,6 @@ struct SignUpBottomSheetFotter: View {
           rightAction: { self.tappedBackButtonYesOption() }
         )
       }
-      
-      
       
       if case .alreadySignUp = bottomSheetType {
         WineyConfirmButton(
@@ -64,12 +65,32 @@ struct SignUpBottomSheetFotter: View {
         )
       }
       
+      if bottomSheetType == .codeExpired {
+        WineyConfirmButton(
+          title: "확인",
+          validBy: true,
+          action: {
+            self.tappedCodeFailConfirm()
+          }
+        )
+      }
+      
       if bottomSheetType == .sendCode {
         WineyConfirmButton(
           title: "확인",
           validBy: true,
           action: {
             self.tappedSendCodeConfirm()
+          }
+        )
+      }
+      
+      if bottomSheetType == .codeSendOver {
+        WineyConfirmButton(
+          title: "확인",
+          validBy: true,
+          action: {
+            self.tappedBottomOverSendCodeButton()
           }
         )
       }

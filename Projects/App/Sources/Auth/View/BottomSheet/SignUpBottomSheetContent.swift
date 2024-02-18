@@ -48,6 +48,12 @@ struct SignUpBottomSheetContent: View {
           .wineyFont(.captionM2)
           .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
       }
+      
+    case .codeExpired:
+      CustomVStack(text1: "인증번호 재전송 버튼을 눌러", text2: "새로운 인증번호를 입력해주세요!")
+    
+    case .codeSendOver:
+      CustomVStack(text1: "인증 요청 제한 횟수를 초과했어요", text2: "처음부터 다시 시도해주세요!")
     }
   }
 }

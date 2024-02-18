@@ -9,8 +9,8 @@
 import Combine
 import ComposableArchitecture
 import Foundation
-import Utils
 import UserDomain
+import Utils
 import WineyNetwork
 
 public  struct PhoneSignUp: Reducer {
@@ -54,13 +54,15 @@ public  struct PhoneSignUp: Reducer {
       guard let userId = userDefaultsService.loadValue(.userID) else { return .none }
       let phoneNumber = state.inputPhoneNumber
 
-      return .run { send in
-        let result = await authService.sendCode(
-          userId,
-          phoneNumber
-        )
-        await send(._handleSignUpResponse(result))
-      }
+//      return .run { send in
+//        let result = await authService.sendCode(
+//          userId,
+//          phoneNumber
+//        )
+//        await send(._handleSignUpResponse(result))
+//      }
+      // For Test
+      return .send(._changeBottomSheet(type: .sendCode))
       
     case let ._handleSignUpResponse(result):
       switch result {

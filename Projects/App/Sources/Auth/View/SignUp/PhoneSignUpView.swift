@@ -18,6 +18,7 @@ struct SignUpView: View {
     self.store = store
     self.viewStore = ViewStore(self.store, observe: { $0 })
   }
+  
   var body: some View {
     GeometryReader { geometry in
       VStack(spacing: 0) {
@@ -67,8 +68,7 @@ struct SignUpView: View {
         
         WineyConfirmButton(
           title: "다음",
-          validBy:
-            viewStore.state.validPhoneNumber,
+          validBy: viewStore.state.validPhoneNumber,
           action: {
             viewStore.send(.tappedNextButton)
           }
