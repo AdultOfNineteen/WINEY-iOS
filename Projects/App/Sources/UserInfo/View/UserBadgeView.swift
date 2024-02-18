@@ -58,7 +58,7 @@ public struct UserBadgeView: View {
                     title: badge.name,
                     date: extractDate(badge.acquiredAt) ?? "미취득 뱃지",
                     isRead: badge.isRead ?? true,
-                    imgUrl: badge.imgUrl
+                    imgUrl: extractDate(badge.acquiredAt) != nil ? badge.imgUrl : badge.unActivatedImgUrl
                   )
                   .onTapGesture {
                     viewStore.send(.tappedBadge(badge))
@@ -93,7 +93,7 @@ public struct UserBadgeView: View {
                     title: badge.name,
                     date: extractDate(badge.acquiredAt) ?? "미취득 뱃지",
                     isRead: badge.isRead ?? true,
-                    imgUrl: badge.imgUrl
+                    imgUrl: extractDate(badge.acquiredAt) != nil ? badge.imgUrl : badge.unActivatedImgUrl
                   )
                   .onTapGesture {
                     viewStore.send(.tappedBadge(badge))
