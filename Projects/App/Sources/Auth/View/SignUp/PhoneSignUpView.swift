@@ -112,6 +112,9 @@ struct SignUpView: View {
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
       }
     )
+    .onDisappear {
+      viewStore.send(._disappear)
+    }
     .onChange(of: viewStore.state.isPresentedBottomSheet ) { sheetAppear in
       if sheetAppear {
         UIApplication.shared.endEditing()

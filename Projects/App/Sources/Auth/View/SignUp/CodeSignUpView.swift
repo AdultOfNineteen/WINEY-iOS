@@ -92,7 +92,7 @@ struct CodeSignUpView: View {
         
         WineyConfirmButton(
           title: "다음",
-          validBy: viewStore.state.validCode,
+          validBy: viewStore.state.validCode && !viewStore.state.isTimeOver,
           action: {
             viewStore.send(.tappedCodeConfirmButton)
           }
@@ -141,7 +141,7 @@ struct CodeSignUpView: View {
             },
             tappedBottomOverSendCodeButton: {
               viewStore
-                .send(._backToFirstView)
+                .send(._movePhoneNumberView)
             }
           )
         }

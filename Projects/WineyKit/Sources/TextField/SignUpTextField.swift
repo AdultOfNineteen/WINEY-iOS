@@ -67,6 +67,7 @@ public struct CustomTextField: View {
             textStyle(String(newValue.prefix(maximumInputCount)))
             onEditingChange()
           }
+          .tint(WineyKitAsset.main1.swiftUIColor)
           .foregroundColor(.white)
           .wineyFont(.bodyB1)
               

@@ -24,6 +24,7 @@ public struct CodeSignUp: Reducer {
     let phoneNumber: String
     var inputCode: String = ""
     var validCode: Bool = false
+    var isTimeOver: Bool = false
     var bottomSheetType: SignUpBottomSheetType = .codeFail
     var isPresentedBottomSheet: Bool = false
     
@@ -61,6 +62,7 @@ public struct CodeSignUp: Reducer {
     case _changeBottomSheet(type: SignUpBottomSheetType)
     case _moveFlavorSignUpView
     case _backToFirstView
+    case _movePhoneNumberView
   }
   
   @Dependency(\.userDefaults) var userDefaultsService
@@ -88,6 +90,7 @@ public struct CodeSignUp: Reducer {
       state.codeValidateClock -= 1
       
       if state.codeValidateClock == 0 {
+        state.isTimeOver = true
         return .run { send in
           await send(._changeBottomSheet(type: .codeExpired))
           await send(._stopTimer)
@@ -101,7 +104,7 @@ public struct CodeSignUp: Reducer {
       return .cancel(id: state.timerId)
       
     case .tappedBackButton:
-      return .send(._changeBottomSheet(type: .back))
+      return .send(._movePhoneNumberView)
    
     case .edited(let number):
       state.inputCode = number
@@ -110,8 +113,6 @@ public struct CodeSignUp: Reducer {
       
     case .tappedReSendCodeButton:
       // TODO: 재전송 코드 추가
-      
-      state.codeValidateClock = 10
       state.codeTryCount += 1
       
       if state.codeTryCount > 3 {
@@ -120,6 +121,9 @@ public struct CodeSignUp: Reducer {
           .send(._changeBottomSheet(type: .codeSendOver))
         ])
       } else {
+        state.codeValidateClock = 10
+        state.isTimeOver = false
+        
         return .concatenate([
           .send(._stopTimer),
           .run { send in

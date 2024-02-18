@@ -88,6 +88,9 @@ public  struct PhoneSignUp: Reducer {
       state.isPresentedBottomSheet = isActive
       return .none
       
+    case ._disappear:
+      return .send(._presentBottomSheet(false))
+      
     case .tappedBottomCodeSendConfirmButton:
       let phone = state.inputPhoneNumber
       return .send(._moveCodeSignUpView(phone: phone))
