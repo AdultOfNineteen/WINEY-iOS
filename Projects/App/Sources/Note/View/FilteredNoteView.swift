@@ -70,6 +70,7 @@ extension FilteredNoteView {
   private func filterBar() -> some View {
     VStack(spacing: 0) {
       Divider()
+        .frame(height: 0.8)
         .overlay(WineyKitAsset.gray900.swiftUIColor)
       
       HStack(spacing: 0) {
@@ -91,10 +92,10 @@ extension FilteredNoteView {
         }
         .padding(.leading, WineyGridRules.globalHorizontalPadding)
         
-        Spacer()
-        
         Divider()
+          .frame(width: 0.8)
           .overlay(WineyKitAsset.gray900.swiftUIColor)
+          .border(.red)
         
         HStack {
           Button(action: {
@@ -117,6 +118,7 @@ extension FilteredNoteView {
       .frame(height: 65)
       
       Divider()
+        .frame(height: 0.8)
         .overlay(WineyKitAsset.gray900.swiftUIColor)
         .padding(.bottom, 16)
     }
