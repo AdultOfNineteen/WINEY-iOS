@@ -119,7 +119,7 @@ public struct WineDetailInfoMiddle: View {
         if let price = purchasePrice {
           wineInfoTable(
             title: "Purchae price",
-            contents: price > 0 ? price.description : "구매가를 알 수 없어요 :("
+            contents: price > 0 ? numberFormatter(number: price) : "구매가를 알 수 없어요 :("
           )
         } else {
           wineInfoTable(
@@ -155,12 +155,19 @@ extension WineDetailInfoMiddle {
       }
       
       HStack {
-        Text(contents)
+        Text(contents.description)
           .wineyFont(.captionB1)
         
         Spacer()
       }
     }
+  }
+  
+  private func numberFormatter(number: Int) -> String {
+    let numberFormatter = NumberFormatter()
+    numberFormatter.numberStyle = .decimal
+    
+    return numberFormatter.string(from: NSNumber(value: number))!
   }
 }
 

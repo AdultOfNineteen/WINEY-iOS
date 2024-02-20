@@ -172,7 +172,7 @@ public struct WineCardView: View {
             .padding(.leading, 120)
             
             HStack {
-              Text("\(String(format: "%.2f", viewStore.recommendWineData.price))")
+              Text("\(viewStore.recommendWineData.price)")
                 .wineyFont(.captionB1)
                 .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
               
