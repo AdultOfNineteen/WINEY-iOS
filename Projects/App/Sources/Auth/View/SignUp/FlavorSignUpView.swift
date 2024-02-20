@@ -83,7 +83,7 @@ struct FlavorSignUpView: View {
           title: "확인",
           validBy: viewStore.bottomButtonStatus
         ){
-          
+          viewStore.send(.tappedConfirmButton)
         }
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
         .padding(.bottom, 54)

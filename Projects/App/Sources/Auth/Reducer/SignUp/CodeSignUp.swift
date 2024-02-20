@@ -29,7 +29,7 @@ public struct CodeSignUp: Reducer {
     var isPresentedBottomSheet: Bool = false
     
     var codeTryCount: Int = 1
-    var codeValidateClock: Int = 10
+    var codeValidateClock: Int = 180
     
     var timerId: String = "SignUpTimerID"  // for Cancellable Timer
     
@@ -53,10 +53,12 @@ public struct CodeSignUp: Reducer {
     case _onAppear
     case _onDisappear
     case _handleSignUpResponse(Result<VoidResponse, Error>)
+    case _handleSendCodeResponse(Result<VoidResponse, Error>)
     case _presentBottomSheet(Bool)
     case _startTimer
     case _decreaseTimer
     case _stopTimer
+    case _sendCode
     
     // MARK: - Inner SetState Action
     case _changeBottomSheet(type: SignUpBottomSheetType)
@@ -105,6 +107,19 @@ public struct CodeSignUp: Reducer {
       
     case .tappedBackButton:
       return .send(._movePhoneNumberView)
+      
+    case ._sendCode:
+      guard let userId = userDefaultsService.loadValue(.userID) else { return .none }
+      let phoneNumber = state.phoneNumber
+      
+      return .run { send in
+        let result = await authService.sendCode(
+          userId,
+          phoneNumber
+        )
+        await send(._handleSendCodeResponse(result))
+      }
+      
    
     case .edited(let number):
       state.inputCode = number
@@ -128,18 +143,10 @@ public struct CodeSignUp: Reducer {
           .send(._stopTimer),
           .run { send in
             await send(._startTimer)
-            await send(._changeBottomSheet(type: .sendCode))
+            await send(._sendCode)
           }
         ])
       }
-      
-      //      return .run { send in
-      //        let result = await authService.sendCode(
-      //          userId,
-      //          phoneNumber
-      //        )
-      //        await send(._handleSignUpResponse(result))
-      //      }
       
     case .tappedCodeConfirmButton:
       guard let userId = userDefaultsService.loadValue(.userID) else { return .none }
@@ -154,6 +161,22 @@ public struct CodeSignUp: Reducer {
         )
         await send(._handleSignUpResponse(result))
       }
+      
+    case ._handleSendCodeResponse(let result):
+      switch result {
+      case .success:
+        return .send(._changeBottomSheet(type: .sendCode))
+        
+      case .failure(let error):
+        // TODO: 메시지 전송 실패 시.
+//        guard let providerError = error.toProviderError(),
+//        let message = providerError.errorBody?.message,
+//        let type = LoginPathType.convert(path: message) else { break }
+//
+//        return .send(._changeBottomSheet(type: .codeFail))
+        return .none
+      }
+      
       
     case ._handleSignUpResponse(.success):
       return .send(._moveFlavorSignUpView)
