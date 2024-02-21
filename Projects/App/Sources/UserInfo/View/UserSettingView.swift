@@ -12,7 +12,6 @@ import WineyKit
 public struct UserSettingView: View {
   private let store: StoreOf<UserSetting>
   @ObservedObject var viewStore: ViewStoreOf<UserSetting>
-  let rows: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 0), count: 2)
   
   public init(store: StoreOf<UserSetting>) {
     self.store = store
@@ -74,10 +73,10 @@ public struct UserSettingView: View {
         send: .tappedBottomSheetNoOption
       ),
       headerArea: {
-        BadgeBottomSheetHeader()
+        Image("analysisNoteIcon")
       },
       content: {
-        SettingBottomSheetContent()
+        LogoutBottomSheetContent()
       },
       bottomArea: {
         TwoOptionSelectorButtonView(
