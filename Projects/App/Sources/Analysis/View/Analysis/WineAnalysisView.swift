@@ -53,7 +53,7 @@ public struct WineAnalysisView: View {
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
       }
     )
-    .onChange(of: viewStore.state.isPresentedBottomSheet ) { sheetAppear in
+    .onChange(of: viewStore.state.isPresentedBottomSheet) { sheetAppear in
       if sheetAppear {
         UIApplication.shared.endEditing()
       }
@@ -83,6 +83,7 @@ extension WineAnalysisView {
   private func content() -> some View {
     ZStack(alignment: .center) {
       WineyAsset.Assets.analysisBackground.swiftUIImage
+        .frame(maxWidth: .infinity)
         .padding(.top, 34)
       
       VStack(spacing: 0) {
