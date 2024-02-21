@@ -36,32 +36,6 @@ public struct WineConfirmView: View {
         button()
       }
     }
-    .bottomSheet(
-      backgroundColor: WineyKitAsset.gray950.swiftUIColor,
-      isPresented: viewStore.binding(
-        get: \.isPresentedBottomSheet,
-        send: .tappedOutsideOfBottomSheet
-      ),
-      headerArea: {
-        WineyAsset.Assets.noteColorImage.swiftUIImage
-      },
-      content: {
-        bottomSheetText()
-      },
-      bottomArea: {
-        TwoOptionSelectorButtonView(
-          leftTitle: "아니오",
-          leftAction: {
-            viewStore.send(._presentBottomSheet(false))
-          },
-          rightTitle: "네, 지울래요",
-          rightAction: {
-            viewStore.send(._deleteNote)
-          }
-        )
-        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-      }
-    )
     .background(
       WineyKitAsset.mainBackground.swiftUIColor
     )
@@ -140,17 +114,6 @@ extension WineConfirmView {
         }
     }
     .padding(.bottom, 109)
-  }
-  
-  @ViewBuilder
-  private func bottomSheetText() -> some View {
-    VStack(spacing: 2.4) {
-      Text("테이스팅 노트를 그만두시겠어요?")
-        .foregroundColor(WineyKitAsset.gray200.swiftUIColor)
-      Text("삭제한 노트는 복구할 수 없어요 :(")
-        .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
-    }
-    .wineyFont(.bodyB1)
   }
 }
 

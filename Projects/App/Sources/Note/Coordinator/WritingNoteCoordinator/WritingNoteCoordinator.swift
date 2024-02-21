@@ -73,7 +73,7 @@ public struct WritingNoteCoordinator: Reducer {
         state.routes.append(.push(.setTaste(.init())))
         return .none
         
-      case  .routeAction(_, action: .setTaste(._moveNextPage)):
+      case  .routeAction(_, action: .setTaste(._moveNextPage)):
         state.routes.append(.push(.setMemo(.init())))
         return .none
         
