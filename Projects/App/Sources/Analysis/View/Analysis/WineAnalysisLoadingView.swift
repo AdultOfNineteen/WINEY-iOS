@@ -32,6 +32,9 @@ public struct WineAnalysisLoadingView: View {
       
       ZStack(alignment: .center) {
         WineyAsset.Assets.analysisLoading.swiftUIImage
+          .resizable()
+          .scaledToFill()
+          .frame(maxWidth: .infinity)
         
         VStack(spacing: 5) {
           Text("나의 테이스팅 노트를")
@@ -51,9 +54,7 @@ public struct WineAnalysisLoadingView: View {
     .navigationBarHidden(true)
     .onAppear {
       // loading 확인 딜레이
-      DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-        viewStore.send(._onAppear)
-      }
+      viewStore.send(._onAppear)
     }
   }
 }

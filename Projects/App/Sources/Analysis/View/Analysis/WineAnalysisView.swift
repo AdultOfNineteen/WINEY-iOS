@@ -83,6 +83,8 @@ extension WineAnalysisView {
   private func content() -> some View {
     ZStack(alignment: .center) {
       WineyAsset.Assets.analysisBackground.swiftUIImage
+        .resizable()
+        .scaledToFill()
         .frame(maxWidth: .infinity)
         .padding(.top, 34)
       
