@@ -112,7 +112,7 @@ public struct UserInfo: Reducer {
       return .send(._presentBottomSheet(false))
       
     case .tappedEmailSendButton:
-      EmailController.shared.sendEmail(subject: "WINEY 1:1 문의", body: "", to: "923kimhy@gmail.com")
+      EmailController.shared.sendEmail(subject: "WINEY 1:1 문의", body: "", to: "winey.official.kr@gmail.com")
       
       // 메일을 보낼 수 있는 기기와 아닌 기기 분류
       if EmailController.shared.emailValidateDevice  {

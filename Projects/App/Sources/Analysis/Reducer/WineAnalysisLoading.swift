@@ -39,6 +39,7 @@ public struct WineAnalysisLoading: Reducer {
     case ._onAppear:
       return .run { send in
         let result = await analysisService.myTasteAnalysis()
+        
         switch result {
         case let .success(data):
           await send(._completeAnalysis(data))

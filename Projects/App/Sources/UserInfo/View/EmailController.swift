@@ -8,14 +8,14 @@
 import Foundation
 import MessageUI
 
-class EmailController: NSObject, MFMailComposeViewControllerDelegate {
+final class EmailController: NSObject, MFMailComposeViewControllerDelegate {
   public var emailValidateDevice: Bool = true
   
   public static let shared = EmailController()
   
   private override init() { }
   
-  func sendEmail(subject: String, body: String, to: String) {
+  public func sendEmail(subject: String, body: String, to: String) {
     if !MFMailComposeViewController.canSendMail() {
       print("해당 기기에서 메일 기능을 제공하지 않습니다.")
       self.emailValidateDevice = false
@@ -31,7 +31,7 @@ class EmailController: NSObject, MFMailComposeViewControllerDelegate {
     EmailController.getRootViewController()?.present(mailComposer, animated: true, completion: nil)
   }
   
-  func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+  public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
     EmailController.getRootViewController()?.dismiss(animated: true, completion: nil)
   }
   
