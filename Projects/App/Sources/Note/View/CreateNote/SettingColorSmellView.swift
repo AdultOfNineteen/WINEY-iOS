@@ -52,6 +52,9 @@ public struct SettingColorSmellView: View {
     .background(
       WineyKitAsset.mainBackground.swiftUIColor
     )
+    .onDisappear {
+      viewStore.send(._viewWillDisappear)
+    }
     .navigationBarHidden(true)
   }
 }
@@ -100,17 +103,14 @@ extension SettingColorSmellView {
   @ViewBuilder
   private func wineColorSlider() -> some View {
     GeometryReader { geo in
-      
       ZStack {
-        RoundedRectangle(cornerRadius: 10)
+        Capsule()
           .fill(
             LinearGradient(
-              colors: [
-                Color(red: 255/255, green: 0/255, blue: 0/255),
-                Color(red: 255/255, green: 255/255, blue: 255/255)
-              ],
+              colors: viewStore.colorBarList,
               startPoint: .leading,
-              endPoint: .trailing)
+              endPoint: .trailing
+            )
           )
           .frame(height: 10)
         

@@ -11,6 +11,22 @@ import SwiftUI
 
 public struct SettingColorSmell: Reducer {
   public struct State: Equatable {
+    public var colorBarList: [Color] = [
+      Color(red: 89/255, green: 0, blue: 43/255),
+      Color(red: 107/255, green: 48/255, blue: 54/255),
+      Color(red: 133/255, green: 34/255, blue: 35/255),
+      Color(red: 148/255, green: 31/255, blue: 37/255),
+      Color(red: 203/255, green: 69/255, blue: 70/255),
+      Color(red: 238/255, green: 103/255, blue: 107/255),
+      Color(red: 241/255, green: 137/255, blue: 151/255),
+      Color(red: 233/255, green: 180/255, blue: 167/255),
+      Color(red: 242/255, green: 194/255, blue: 182/255),
+      Color(red: 238/255, green: 198/255, blue: 147/255),
+      Color(red: 245/255, green: 225/255, blue: 166/255),
+      Color(red: 241/255, green: 235/255, blue: 203/255),
+      Color(red: 213/255, green: 219/255, blue: 181/255)
+    ]
+    
     public var selectedSmell: [String] = []
     public var colorValue: Double = 0.0
     
@@ -35,6 +51,7 @@ public struct SettingColorSmell: Reducer {
     case _addSmell(String)
     case _removeSmell(String)
     case _viewWillAppear(GeometryProxy)
+    case _viewWillDisappear
     case _moveNextPage
     
     // MARK: - Inner SetState Action
@@ -57,6 +74,11 @@ public struct SettingColorSmell: Reducer {
           state.buttonState = true
         }
         return .send(._setMaxValue(value.size.width - 11))
+        
+      case ._viewWillDisappear:
+        CreateNoteManager.shared.smellKeywordList = state.selectedSmell
+        // TODO: 색상 추가 해야됨.
+        return .none
         
       case .tappedSmellButton(let smell):
         if state.selectedSmell.contains(where: { $0 == smell }) {
