@@ -110,7 +110,7 @@ public struct WineDetailInfoMiddle: View {
           } else {
             wineInfoTable(
               title: "ABV",
-              contents: "도 수를 알 수 없어요 :("
+              contents: "도수를 알 수 없어요 :("
             )
           }
         }
