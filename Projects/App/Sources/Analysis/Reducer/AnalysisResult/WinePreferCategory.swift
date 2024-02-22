@@ -31,7 +31,6 @@ public struct WinePreferCategory: Reducer {
     // MARK: - User Action
     
     // MARK: - Inner Business Action
-    case _onAppear
     
     // MARK: - Inner SetState Action
     

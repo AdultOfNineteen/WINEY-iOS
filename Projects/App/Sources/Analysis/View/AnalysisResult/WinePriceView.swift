@@ -20,20 +20,14 @@ struct WinePriceView: View {
   }
   
   public var body: some View {
-    GeometryReader { geo in
-      VStack(spacing: 0) {
-        WineAnalysisTitle(title: viewStore.title)
-          .wineyFont(.title2)
-          .padding(.top, 66)
-        
-        contents()
-        
-        Spacer()
-        
-        WineyAsset.Assets.arrowTop.swiftUIImage
-          .padding(.bottom, 64)
-      }
-      .frame(width: geo.size.width)
+    VStack(spacing: 0) {
+      WineAnalysisTitle(title: viewStore.title)
+        .wineyFont(.title2)
+        .padding(.top, 66)
+      
+      contents()
+      
+      Spacer()
     }
   }
 }
@@ -42,24 +36,25 @@ extension WinePriceView {
   
   @ViewBuilder
   private func contents() -> some View {
-    GeometryReader { geo in
-      ZStack {
-        background()
+    ZStack {
+      background()
+      
+      VStack(spacing: 0) {
+        Text(viewStore.secondTitle)
+          .wineyFont(.captionB1)
+          .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
         
-        VStack(spacing: 0) {
-          Text(viewStore.secondTitle)
-            .wineyFont(.captionB1)
-            .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
-          Text("\(viewStore.average) 원")
-            .wineyFont(.title1)
-            .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-            .padding(.top, 6)
-        }
+        Text("\(viewStore.average) 원")
+          .wineyFont(.title1)
+          .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+          .padding(.top, 6)
       }
-      .opacity(viewStore.opacity)
-      .frame(width: geo.size.width, height: geo.size.height)
-      .padding(.top, 10)
     }
+    .frame(height: 324)
+    .frame(maxWidth: .infinity)
+    .opacity(viewStore.opacity)
+    .padding(.top, 16)
+    .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
     .onAppear {
       viewStore.send(._onAppear, animation: .easeIn(duration: 1.0))
     }

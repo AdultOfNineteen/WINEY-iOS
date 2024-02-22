@@ -20,39 +20,30 @@ public struct WinePreferNationView: View {
   }
   
   public var body: some View {
-    GeometryReader { geo in
-      VStack(spacing: 0) {
-        WineAnalysisTitle(title: viewStore.titleName)
-          .padding(.top, 66)
-        
-        HStack {
-          Spacer()
-          
-          ForEach(viewStore.winePreferNationList) { wine in
-            WineBottle(
-              nationName: wine.nationName,
-              count: wine.count,
-              rank: wine.id
-            )
-            
-            if wine.id < viewStore.winePreferNationList.count - 1 {
-              Spacer()
-            }
-          }
-          
-          Spacer()
-        }
-        .padding(.top, 44)
-        
+    VStack(spacing: 0) {
+      WineAnalysisTitle(title: viewStore.titleName)
+        .padding(.top, 66)
+      
+      HStack {
         Spacer()
         
-        WineyAsset.Assets.arrowBottom.swiftUIImage
-          .padding(.bottom, 64)
+        ForEach(viewStore.winePreferNationList) { wine in
+          WineBottle(
+            nationName: wine.nationName,
+            count: wine.count,
+            rank: wine.id
+          )
+          
+          if wine.id < viewStore.winePreferNationList.count - 1 {
+            Spacer()
+          }
+        }
+        
+        Spacer()
       }
-      .frame(width: geo.size.width)
-    }
-    .onAppear {
-      viewStore.send(._onAppear)
+      .frame(height: 324)
+      
+      Spacer()
     }
   }
 }
@@ -60,12 +51,11 @@ public struct WinePreferNationView: View {
 public struct WineBottle: View {
   @State var countAnimation = 0
   
-  var nationName: String
-  var count: Int
-  var rank: Int
+  public var nationName: String
+  public var count: Int
+  public var rank: Int
   
   public var body: some View {
-    // MARK: WINE BOTTLE
     ZStack(alignment: .center) {
       WineyAsset.Assets.wineBottle.swiftUIImage
       
@@ -110,7 +100,7 @@ public struct WineBottle: View {
 }
 
 public struct WineAnalysisTitle: View {
-  var title: String
+  public var title: String
   
   public var body: some View {
     HStack(spacing: 1) {
@@ -118,6 +108,7 @@ public struct WineAnalysisTitle: View {
         .frame(width: 7)
         .offset(y: -14)
         .foregroundColor(WineyKitAsset.main2.swiftUIColor)
+      
       Text(title)
         .wineyFont(.title2)
         .foregroundColor(WineyKitAsset.gray50.swiftUIColor)

@@ -40,7 +40,6 @@ public struct WinePreferNation: Reducer {
     // MARK: - User Action
     
     // MARK: - Inner Business Action
-    case _onAppear
     
     // MARK: - Inner SetState Action
     
@@ -49,8 +48,6 @@ public struct WinePreferNation: Reducer {
   
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
-    case ._onAppear:
-      return .none
     default:
       return .none
     }

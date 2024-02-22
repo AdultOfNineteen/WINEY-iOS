@@ -20,18 +20,13 @@ public struct WinePreferSmellView: View {
   }
   
   public var body: some View {
-    GeometryReader { geo in
-      VStack(spacing: 0) {
-        WineAnalysisTitle(title: viewStore.title)
-          .padding(.top, 66)
-        
-        smellContents()
-        
-        Spacer()
-        
-        bottomArrow()
-      }
-      .frame(width: geo.size.width)
+    VStack(spacing: 0) {
+      WineAnalysisTitle(title: viewStore.title)
+        .padding(.top, 66)
+      
+      smellContents()
+      
+      Spacer()
     }
   }
 }
@@ -51,19 +46,15 @@ extension WinePreferSmellView {
             .offset(x: getGrid(index: index, geo: geo).xGrid, y: getGrid(index: index, geo: geo).yGrid)
         }
       }
+      .frame(height: 324)
+      .frame(maxWidth: .infinity)
       .opacity(viewStore.opacity)
-      .frame(width: geo.size.width, height: geo.size.height)
+      .padding(.top, 16)
+      .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
       .onAppear {
         viewStore.send(._onAppear, animation: .easeIn(duration: 1.0))
       }
-      .padding(.top, 10)
     }
-  }
-  
-  @ViewBuilder
-  private func bottomArrow() -> some View {
-    WineyAsset.Assets.arrowBottom.swiftUIImage
-      .padding(.bottom, 64)
   }
 }
 

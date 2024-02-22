@@ -54,7 +54,9 @@ public struct WineAnalysisLoadingView: View {
     .navigationBarHidden(true)
     .onAppear {
       // loading 확인 딜레이
-      viewStore.send(._onAppear)
+      DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        viewStore.send(._onAppear)
+      }
     }
   }
 }
