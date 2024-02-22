@@ -52,9 +52,6 @@ public struct SettingColorSmellView: View {
     .background(
       WineyKitAsset.mainBackground.swiftUIColor
     )
-    .onDisappear {
-      viewStore.send(._viewWillDisappear)
-    }
     .navigationBarHidden(true)
   }
 }

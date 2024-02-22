@@ -101,7 +101,7 @@ public struct WritingNoteCoordinator: Reducer {
         state.routes.pop()
         return .none
         
-      case .routeAction(_, action: .setColorSmell(.tappedBackButton)):
+      case .routeAction(_, action: .setColorSmell(._moveBackPage)):
         state.routes.pop()
         return .none
         
@@ -117,7 +117,7 @@ public struct WritingNoteCoordinator: Reducer {
         state.routes.pop()
         return .none
         
-      case .routeAction(_, action: .setMemo(.tappedBackButton)):
+      case .routeAction(_, action: .setMemo(._moveBackPage)):
         state.routes.pop()
         return .none
         

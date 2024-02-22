@@ -264,8 +264,8 @@ extension SettingMemoView {
         
         Spacer()
         
-        ForEach(viewStore.starRange, id: \.self) { index in
-          if index <= viewStore.star {
+        ForEach(viewStore.ratingRange, id: \.self) { index in
+          if index <= viewStore.rating {
             WineyAsset.Assets.activeWineIcon.swiftUIImage
               .onTapGesture {
                 isFocused = false
@@ -316,7 +316,7 @@ extension SettingMemoView {
   private func bottomButton() -> some View {
     WineyConfirmButton(
       title: "작성완료",
-      validBy: viewStore.buyAgain != nil && viewStore.star > 0
+      validBy: viewStore.buyAgain != nil && viewStore.rating > 0
     ) {
       viewStore.send(.tappedDoneButton)
     }

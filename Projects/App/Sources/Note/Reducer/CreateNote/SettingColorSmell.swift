@@ -51,8 +51,8 @@ public struct SettingColorSmell: Reducer {
     case _addSmell(String)
     case _removeSmell(String)
     case _viewWillAppear(GeometryProxy)
-    case _viewWillDisappear
     case _moveNextPage
+    case _moveBackPage
     
     // MARK: - Inner SetState Action
     case _setMaxValue(CGFloat)
@@ -75,10 +75,11 @@ public struct SettingColorSmell: Reducer {
         }
         return .send(._setMaxValue(value.size.width - 11))
         
-      case ._viewWillDisappear:
+      case .tappedBackButton:
         CreateNoteManager.shared.smellKeywordList = state.selectedSmell
+        
         // TODO: 색상 추가 해야됨.
-        return .none
+        return .send(._moveBackPage)
         
       case .tappedSmellButton(let smell):
         if state.selectedSmell.contains(where: { $0 == smell }) {
