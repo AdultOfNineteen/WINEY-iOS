@@ -38,9 +38,6 @@ public struct HelpSmellView: View {
       WineyKitAsset.mainBackground.swiftUIColor
     )
     .navigationBarHidden(true)
-    .onAppear {
-      viewStore.send(._viewWillAppear)
-    }
   }
 }
 
@@ -67,13 +64,13 @@ extension HelpSmellView {
   private func wineScrollContent() -> some View {
     ScrollView {
       VStack(alignment: .leading, spacing: 50) {
-        ForEach(WineType.allCases, id: \.typeName) { type in
-          smellCategory(type: type)
-        }
+        smellCategory(type: .red)
+        smellCategory(type: .white)
       }
+      .padding(.top, 15)
       .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+      .padding(.bottom, 140)
     }
-    .padding(.top, 15)
   }
   
   @ViewBuilder
@@ -88,15 +85,14 @@ extension HelpSmellView {
       VStack(alignment: .leading, spacing: 25) {
         ForEachStore(
           self.store.scope(
-            state: \.smellList,
-            action: { .smellList(id: $0, action: $1) }
+            state: type == .red ? \.redList : \.whiteList,
+            action: { type == .red ? .redList(id: $0, action: $1) :.whiteList(id: $0, action: $1) }
           )
         ){
           SmellListView(store: $0)
         }
       }
     }
-    .padding(.top, 30)
   }
 }
 

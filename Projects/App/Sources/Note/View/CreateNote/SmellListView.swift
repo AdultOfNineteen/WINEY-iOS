@@ -22,7 +22,9 @@ public struct SmellListView: View {
   public var body: some View {
     VStack(alignment: .leading, spacing: 12) {
       HStack(spacing: 8) {
-        Text(viewStore.title)
+        Text(viewStore.wineName)
+          .wineyFont(.subhead)
+          .foregroundStyle(viewStore.isOpenList ? WineyKitAsset.gray300.swiftUIColor : WineyKitAsset.gray600.swiftUIColor)
         
         Image(viewStore.isOpenList ? "smellPlusOpen" : "smellPlusDefault")
         
@@ -33,9 +35,9 @@ public struct SmellListView: View {
       }
       
       if viewStore.isOpenList {
-        ScrollView(.horizontal) {
+        ScrollView(.horizontal, showsIndicators: false) {
           HStack(spacing: 5) {
-            ForEach(viewStore.list, id: \.self) { smell in
+            ForEach(viewStore.smellList, id: \.self) { smell in
               smellCapsule(text: smell)
             }
           }
@@ -56,7 +58,7 @@ extension SmellListView {
       .padding(.vertical, 9)
       .background(
         Capsule()
-          .stroke(WineyKitAsset.gray700.swiftUIColor)
+          .stroke(WineyKitAsset.gray900.swiftUIColor)
       )
       .padding(1)
   }
@@ -65,7 +67,7 @@ extension SmellListView {
 #Preview {
   SmellListView(
     store: Store(
-      initialState: SmellList.State(title: "test", list: ["test"]),
+      initialState: SmellList.State(wineName: "test", smellList: ["test", "test"], type: .red),
       reducer: {
         SmellList()
       }
