@@ -22,30 +22,28 @@ public struct MainView: View {
   }
   
   public var body: some View {
-    GeometryReader { _ in
-      VStack(alignment: .leading, spacing: 0) {
-        header()
-        
-        ScrollView {
-          LazyVStack(spacing: 0) {
-            todaysWineDescription()
-            
-            cardScrollView()
-            
-            tipView()
-          }
-          .padding(.bottom, 106)
+    VStack(alignment: .leading, spacing: 0) {
+      header()
+      
+      ScrollView {
+        LazyVStack(spacing: 0) {
+          todaysWineDescription()
+          
+          cardScrollView()
+          
+          tipView()
         }
-        .simultaneousGesture(
-          DragGesture().onChanged({ value in
-            viewStore.send(.userScroll)
-          })
-        )
+        .padding(.bottom, 106)
       }
-      .onAppear {
-        viewStore.send(._viewWillAppear)
-        viewStore.send(._tipCardWillAppear)
-      }
+      .simultaneousGesture(
+        DragGesture().onChanged({ value in
+          viewStore.send(.userScroll)
+        })
+      )
+    }
+    .onAppear {
+      viewStore.send(._viewWillAppear)
+      viewStore.send(._tipCardWillAppear)
     }
     .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationViewStyle(StackNavigationViewStyle())

@@ -48,7 +48,7 @@ public struct TipCardView: View {
           .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
         } else {
           ProgressView()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)// TODO: 에러처리.
+            .frame(maxWidth: .infinity, maxHeight: .infinity) // TODO: 에러처리.
         }
       }
       .background(WineyKitAsset.mainBackground.swiftUIColor)
