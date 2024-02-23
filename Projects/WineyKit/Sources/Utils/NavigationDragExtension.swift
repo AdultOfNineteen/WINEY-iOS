@@ -6,15 +6,16 @@
 //  Copyright © 2024 Winey. All rights reserved.
 //
 
-import UIKit
-
-extension UINavigationController: ObservableObject, UIGestureRecognizerDelegate {
-  override open func viewDidLoad() {
-    super.viewDidLoad()
-    interactivePopGestureRecognizer?.delegate = self
-  }
-  
-  public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-    return viewControllers.count > 1
-  }
-}
+// MARK: 슬라이드 제스처 뒤로가기 (임시 보류)
+//import UIKit
+//
+//extension UINavigationController: ObservableObject, UIGestureRecognizerDelegate {
+//  override open func viewDidLoad() {
+//    super.viewDidLoad()
+//    interactivePopGestureRecognizer?.delegate = self
+//  }
+//  
+//  public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+//    return viewControllers.count > 1
+//  }
+//}
