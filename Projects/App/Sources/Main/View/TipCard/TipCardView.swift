@@ -19,7 +19,7 @@ public struct TipCardView: View {
     self.viewStore = ViewStore(self.store, observe: { $0 })
   }
   
-  let columns = [GridItem(.flexible()), GridItem(.flexible())]
+  let columns = [GridItem(.flexible(), spacing: 17), GridItem(.flexible())]
   
   public var body: some View {
     GeometryReader { geometry in
@@ -36,7 +36,7 @@ public struct TipCardView: View {
         
         if let tipCards = viewStore.tipCards {
           ScrollView {
-            LazyVGrid(columns: columns, spacing: 20) {
+            LazyVGrid(columns: columns, spacing: 2) {
               ForEach(tipCards.contents, id: \.wineTipId) { tipCard in
                 TipCardImage(tipCardInfo: tipCard)
                   .onTapGesture {
@@ -47,7 +47,8 @@ public struct TipCardView: View {
           }
           .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
         } else {
-          ProgressView()  // TODO: 에러처리.
+          ProgressView()
+            .frame(maxWidth: .infinity, maxHeight: .infinity) // TODO: 에러처리.
         }
       }
       .background(WineyKitAsset.mainBackground.swiftUIColor)

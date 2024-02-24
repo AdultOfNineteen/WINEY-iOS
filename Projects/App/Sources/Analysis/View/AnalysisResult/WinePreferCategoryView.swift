@@ -20,41 +20,36 @@ public struct WinePreferCategoryView: View {
   }
   
   public var body: some View {
-    GeometryReader { geo in
-      VStack(spacing: 0) {
-        WineAnalysisTitle(title: viewStore.title)
-          .padding(.top, 66)
-        
-        WinePreferTasteCirlcePositionView(wineData: viewStore.state.wines)
-        
-        Spacer()
-        WineyAsset.Assets.arrowBottom.swiftUIImage
-          .padding(.bottom, 64)
-      }
-      .frame(width: geo.size.width)
+    VStack(spacing: 0) {
+      WineAnalysisTitle(title: viewStore.title)
+        .padding(.top, 66)
+      
+      WinePreferTasteCirlcePositionView(wineData: viewStore.state.wines)
+        .padding(.top, 16)
+      
+      Spacer()
     }
   }
 }
 
 public struct WinePreferTasteCirlcePositionView: View {
-  var wineData: [WineRankData]
+  public var wineData: [WineRankData]
   
   public var body: some View {
-    GeometryReader { geo in
-      ZStack {
-        ForEach(wineData) { wine in
-          WinePreferTasteCirlceView(wine: wine)
-            .offset(x: wine.rank.offsetX, y: wine.rank.offsetY)
-        }
-        .frame(width: geo.size.width, height: geo.size.height)
+    ZStack {
+      ForEach(wineData) { wine in
+        WinePreferTasteCirlceView(wine: wine)
+          .offset(x: wine.rank.offsetX, y: wine.rank.offsetY)
       }
     }
+    .frame(height: 324)
   }
 }
 
 public struct WinePreferTasteCirlceView: View {
-  var wine: WineRankData
   @State var radiusAnimation = 0.0
+  
+  public var wine: WineRankData
   
   public var body: some View {
     ZStack {

@@ -12,8 +12,10 @@ import SwiftUI
 
 public struct SettingMemo: Reducer {
   public struct State: Equatable {
+    public var isShowBottomSheet: Bool = false
+    
     public var memo: String = ""
-    public var star: Int = 0
+    public var rating: Int = 0
     public var buyAgain: Bool? = nil
     
     public var maxPhoto: Int = 3
@@ -22,13 +24,14 @@ public struct SettingMemo: Reducer {
     public var deleteImage: [PhotosPickerItem] = []
     
     public var maxCommentLength: Int = 200
-    public var starRange: ClosedRange<Int> = 1...5
+    public var ratingRange: ClosedRange<Int> = 1...5
   }
   
   public enum Action {
     // MARK: - User Action
     case tappedBackButton
     case tappedAttachPictureButton
+    case tappedOutsideOfBottomSheet
     case tappedDoneButton
     case tappedWineStar(Int)
     case tappedBuyAgain(Bool)
@@ -39,15 +42,17 @@ public struct SettingMemo: Reducer {
     case _viewWillAppear
     case _makeNotes
     case _moveNextPage
+    case _moveBackPage
 
     // MARK: - Inner SetState Action
     case _limitMemo(String)
-    case _setStar(Int)
+    case _setRating(Int)
     case _setBuyAgain(Bool)
     case _pickPhoto([PhotosPickerItem])
     case _delDisplayPhoto
     case _delPickPhoto
     case _addPhoto(UIImage)
+    case _setSheetState(Bool)
     case _backToFirstView
     case _failureSocialNetworking(Error) // 후에 경고창 처리
     
@@ -60,7 +65,17 @@ public struct SettingMemo: Reducer {
     Reduce { state, action in
       switch action {
       case ._viewWillAppear:
+        state.memo = CreateNoteManager.shared.memo ?? ""
+        state.rating = CreateNoteManager.shared.rating ?? 0
+        state.buyAgain = CreateNoteManager.shared.buyAgain
         return .none
+        
+      case .tappedBackButton:
+        CreateNoteManager.shared.memo = state.memo
+        CreateNoteManager.shared.rating = state.rating
+        CreateNoteManager.shared.buyAgain = state.buyAgain
+        // TODO: 사진 추가
+        return .send(._moveBackPage)
         
       case ._limitMemo(let value):
         state.memo = String(value.prefix(state.maxCommentLength))
@@ -71,11 +86,18 @@ public struct SettingMemo: Reducer {
         return .none
         
       case .tappedAttachPictureButton:
+        return .send(._setSheetState(true))
+        
+      case .tappedOutsideOfBottomSheet:
+        return .send(._setSheetState(false))
+        
+      case ._setSheetState(let bool):
+        state.isShowBottomSheet = bool
         return .none
         
       case .tappedDoneButton:
         CreateNoteManager.shared.memo = state.memo
-        CreateNoteManager.shared.rating = state.star
+        CreateNoteManager.shared.rating = state.rating
         CreateNoteManager.shared.buyAgain = state.buyAgain
         return .send(._makeNotes)
         
@@ -115,7 +137,7 @@ public struct SettingMemo: Reducer {
         }
         
       case .tappedWineStar(let value):
-        return .send(._setStar(value))
+        return .send(._setRating(value))
         
       case .tappedBuyAgain(let value):
         return .send(._setBuyAgain(value))
@@ -126,8 +148,8 @@ public struct SettingMemo: Reducer {
         state.deleteImage.append(state.selectedPhoto[idx])
         return .none
         
-      case ._setStar(let value):
-        state.star = value
+      case ._setRating(let value):
+        state.rating = value
         return .none
         
       case ._setBuyAgain(let value):
@@ -136,7 +158,7 @@ public struct SettingMemo: Reducer {
         
       case ._pickPhoto(let item):
         state.selectedPhoto = item
-        return .none
+        return .send(._setSheetState(false))
         
       case ._delPickPhoto:
         if state.deleteImage.count == 3 {

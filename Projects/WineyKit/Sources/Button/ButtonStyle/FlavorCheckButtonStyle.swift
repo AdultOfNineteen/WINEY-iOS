@@ -11,28 +11,31 @@ import SwiftUI
 struct FlavorCheckButtonStyle: ButtonStyle {
   let mainTitle: String
   let subTitle: String
+  let isSelected: Bool
   
   init(
     mainTitle: String,
-    subTitle: String
+    subTitle: String,
+    isSelected: Bool
   ) {
     self.mainTitle = mainTitle
     self.subTitle = subTitle
+    self.isSelected = isSelected
   }
   
   func makeBody(configuration: Self.Configuration) -> some View {
     GeometryReader { geometry in
       ZStack{
-        
         // Label에 해당하는 TextView
         VStack(spacing: 6) {
           Text(subTitle)
             .wineyFont(.captionM1)
             .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
+          
           Text(mainTitle)
             .wineyFont(.bodyB2)
             .foregroundColor(
-              configuration.isPressed ?
+              configuration.isPressed || isSelected ?
               WineyKitAsset.main2.swiftUIColor :
                 WineyKitAsset.gray500.swiftUIColor
             )
@@ -50,7 +53,7 @@ struct FlavorCheckButtonStyle: ButtonStyle {
           .overlay(
             RoundedRectangle( cornerRadius: 11)
               .stroke(
-                configuration.isPressed ?
+                configuration.isPressed || isSelected ?
                 WineyKitAsset.main2.swiftUIColor : WineyKitAsset.gray800.swiftUIColor,
                 lineWidth: 2
               )
@@ -73,7 +76,8 @@ struct FlavorCheckButtonStyle_Previews: PreviewProvider {
       .buttonStyle(
         FlavorCheckButtonStyle(
           mainTitle: "밀크 초콜릿",
-          subTitle: "안달면 초콜릿을 왜 먹어?"
+          subTitle: "안달면 초콜릿을 왜 먹어?",
+          isSelected: true
         )
       )
   }

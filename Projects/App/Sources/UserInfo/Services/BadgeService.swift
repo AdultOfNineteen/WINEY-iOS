@@ -64,7 +64,9 @@ extension BadgeService {
                 description: "Test",
                 acquiredAt: "test",
                 isRead: false,
-                badgeImage: ""
+                badgeImage: "",
+                imgUrl: "",
+                unActivatedImgUrl: ""
               )
             ],
             activityBadgeList: [
@@ -76,7 +78,9 @@ extension BadgeService {
                 description: "Test",
                 acquiredAt: "Test",
                 isRead: false,
-                badgeImage: ""
+                badgeImage: "",
+                imgUrl: "",
+                unActivatedImgUrl: ""
               )
             ]
           )
@@ -92,7 +96,9 @@ extension BadgeService {
             description: "Test",
             acquiredAt: "Test",
             isRead: false,
-            badgeImage: ""
+            badgeImage: "",
+            imgUrl: "",
+            unActivatedImgUrl: ""
           )
         )
       }

@@ -33,7 +33,7 @@ public struct WineAnalysisResultView: View {
               }
             )
           )
-          .frame(width: geo.size.width, height: geo.size.height-221)
+          .frame(width: geo.size.width, height: geo.size.height - 221)
         }
         
         VStack(spacing: 0) {

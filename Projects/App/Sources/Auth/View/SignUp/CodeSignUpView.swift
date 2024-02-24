@@ -13,6 +13,7 @@ import WineyKit
 struct CodeSignUpView: View {
   private let store: StoreOf<CodeSignUp>
   @ObservedObject var viewStore: ViewStoreOf<CodeSignUp>
+  
   @FocusState private var isTextFieldFocused: Bool
   
   public init(store: StoreOf<CodeSignUp>) {
@@ -49,6 +50,7 @@ struct CodeSignUpView: View {
           ),
           textStyle: { $0 },
           maximumInputCount: 6,
+          clockIndicator: viewStore.codeValidateClock,
           isInputTextCompleteCondition: { text in
             text.count == 6
           },
@@ -90,8 +92,7 @@ struct CodeSignUpView: View {
         
         WineyConfirmButton(
           title: "다음",
-          validBy:
-            viewStore.state.validCode,
+          validBy: viewStore.state.validCode && !viewStore.state.isTimeOver,
           action: {
             viewStore.send(.tappedCodeConfirmButton)
           }
@@ -133,22 +134,35 @@ struct CodeSignUpView: View {
             tappedCodeFailConfirm: {
               viewStore
                 .send(._presentBottomSheet(false))
-            }, tappedSendCodeConfirm: {
+            },
+            tappedSendCodeConfirm: {
               viewStore
                 .send(._presentBottomSheet(false))
+            },
+            tappedBottomOverSendCodeButton: {
+              viewStore
+                .send(._movePhoneNumberView)
             }
           )
         }
+        .frame(maxWidth: .infinity)
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
       }
     )
-    .onChange(of: viewStore.state.isPresentedBottomSheet ) { sheetAppear in
+    .onChange(of: viewStore.state.isPresentedBottomSheet) { sheetAppear in
       if sheetAppear {
         UIApplication.shared.endEditing()
       }
     }
     .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationBarHidden(true)
+    .onAppear {
+      isTextFieldFocused = true
+      viewStore.send(._onAppear)
+    }
+    .onDisappear {
+      viewStore.send(._onDisappear)
+    }
   }
   
   func formatPhoneNumber(_ number: String) -> String {

@@ -20,19 +20,13 @@ public struct WinePreferTasteView: View {
   }
   
   public var body: some View {
-    GeometryReader { geo in
-      VStack(spacing: 0) {
-        WineAnalysisTitle(title: viewStore.title)
-          .padding(.top, 66)
-        
-        Spacer()
-        
-        HexagonGraphDataView(store: store)
-        
-        WineyAsset.Assets.arrowBottom.swiftUIImage
-          .padding(.bottom, 64)
-      }
-      .frame(width: geo.size.width)
+    VStack(spacing: 0) {
+      WineAnalysisTitle(title: viewStore.title)
+        .padding(.top, 66)
+      
+      HexagonGraphDataView(store: store)
+      
+      Spacer()
     }
   }
 }
@@ -47,30 +41,31 @@ public struct HexagonGraphDataView: View {
   }
   
   public var body: some View {
-    GeometryReader { geo in
-      ZStack {
-        HexagonBackgroundView()
-        HexagonDataView(
-          store: store,
-          hexagonSize: geo.size.width / 22
-        )
-      }
-      .frame(width: geo.size.width)
+    ZStack {
+      HexagonBackgroundView()
+      
+      HexagonDataView(
+        store: store,
+        hexagonSize: UIScreen.main.bounds.width / 22
+      )
     }
+    .frame(height: 324)
+    .padding(.top, 16)
   }
 }
 
 public struct HexagonDataView: View {
   private let store: StoreOf<WinePreferTaste>
   @ObservedObject var viewStore: ViewStoreOf<WinePreferTaste>
-  var hexagonSize: CGFloat
+  
+  public var hexagonSize: CGFloat
   
   public init(store: StoreOf<WinePreferTaste>, hexagonSize: CGFloat) {
     self.store = store
     self.viewStore = ViewStore(self.store, observe: { $0 })
     self.hexagonSize = hexagonSize
   }
-    
+  
   public var body: some View {
     GeometryReader { geometry in
       Path { path in
@@ -130,45 +125,45 @@ public struct HexagonView: View {
 }
 
 public struct HexagonBackgroundView: View {
+  
+  let width = UIScreen.main.bounds.width
+  
   public var body: some View {
-    GeometryReader { geo in
-      ZStack(alignment: .center) {
+    ZStack(alignment: .center) {
+      HexagonView(
+        hexagonSize: width / 22,
+        color: WineyKitAsset.gray900.swiftUIColor.opacity(0.5),
+        lineWidth: 1.0
+      )
+      
+      ForEach(1..<5) { i in
         HexagonView(
-          hexagonSize: geo.size.width / 22,
+          hexagonSize: width / 22 * CGFloat(i + 1),
           color: WineyKitAsset.gray900.swiftUIColor.opacity(0.5),
           lineWidth: 1.0
         )
-        
-        ForEach(1..<5) { i in
-          HexagonView(
-            hexagonSize: geo.size.width / 22 * CGFloat(i + 1),
-            color: WineyKitAsset.gray900.swiftUIColor.opacity(0.5),
-            lineWidth: 1.0
-          )
-        }
-        
-        HexagonView(
-          hexagonSize: geo.size.width / 22 * 7,
-          color: WineyKitAsset.gray900.swiftUIColor.opacity(0.8),
-          lineWidth: 1.5
-        )
-        
-        Text("당도")
-          .offset(y: -geo.size.width / 3 - 10)
-        Text("산도")
-          .offset(x: -geo.size.width / 3, y: -geo.size.width / 5 + 15)
-        Text("여운")
-          .offset(x: geo.size.width / 3, y: -geo.size.width / 5 + 15)
-        Text("바디")
-          .offset(x: -geo.size.width / 3, y: geo.size.width / 5 - 15)
-        Text("알코올")
-          .offset(x: geo.size.width / 3 + 5, y: geo.size.width / 5 - 15)
-        Text("탄닌")
-          .offset(y: geo.size.width / 3 + 10)
-        
       }
-      .wineyFont(.captionB1)
-      .frame(width: geo.size.width)
+      
+      HexagonView(
+        hexagonSize: width / 22 * 7,
+        color: WineyKitAsset.gray900.swiftUIColor.opacity(0.8),
+        lineWidth: 1.5
+      )
+      
+      Text("당도")
+        .offset(y: -width / 3 - 10)
+      Text("산도")
+        .offset(x: -width / 3, y: -width / 5 + 15)
+      Text("여운")
+        .offset(x: width / 3, y: -width / 5 + 15)
+      Text("바디")
+        .offset(x: -width / 3, y: width / 5 - 15)
+      Text("알코올")
+        .offset(x: width / 3 + 5, y: width / 5 - 15)
+      Text("탄닌")
+        .offset(y: width / 3 + 10)
     }
+    .wineyFont(.captionB1)
+    .frame(height: 324)
   }
 }

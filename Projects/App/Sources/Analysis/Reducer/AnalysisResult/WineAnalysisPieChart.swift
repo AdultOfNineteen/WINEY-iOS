@@ -32,7 +32,6 @@ public struct WineAnalysisPieChart: Reducer {
     // MARK: - User Action
     
     // MARK: - Inner Business Action
-    case _onAppear
     case _setPieChartData(TasteAnalysisDTO)
     
     // MARK: - Inner SetState Action
@@ -42,8 +41,6 @@ public struct WineAnalysisPieChart: Reducer {
 
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
-    case ._onAppear:
-      return .none
     case let ._setPieChartData(analysisData):
       state.wineDrink = analysisData.totalWineCnt
       state.repurchase = analysisData.buyAgainCnt

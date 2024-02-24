@@ -12,7 +12,6 @@ import WineyKit
 public struct UserSettingView: View {
   private let store: StoreOf<UserSetting>
   @ObservedObject var viewStore: ViewStoreOf<UserSetting>
-  let rows: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 0), count: 2)
   
   public init(store: StoreOf<UserSetting>) {
     self.store = store
@@ -74,10 +73,10 @@ public struct UserSettingView: View {
         send: .tappedBottomSheetNoOption
       ),
       headerArea: {
-        BadgeBottomSheetHeader()
+        Image("analysisNoteIcon")
       },
       content: {
-        SettingBottomSheetContent()
+        LogoutBottomSheetContent()
       },
       bottomArea: {
         TwoOptionSelectorButtonView(
@@ -95,8 +94,7 @@ public struct UserSettingView: View {
   var navigationBarSpacer: some View {
     NavigationBar(
       title: "계정 설정",
-      leftIcon: /*WineyAsset.Assets.navigationBackButton.swiftUIImage,*/ // Asset 적용 후 활성화
-      Image(systemName: "chevron.backward"),
+      leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
       leftIconButtonAction: {
         viewStore.send(.tappedBackButton)
       },

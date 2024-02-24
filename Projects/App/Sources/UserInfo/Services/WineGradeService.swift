@@ -11,7 +11,7 @@ import WineyNetwork
 
 public struct WineGradeService {
   public var myWineGrades: (_ userId: Int) async -> Result<MyWineGradeDTO, Error>
-  public var wineGrades: () async -> Result<WineGradeInfoDTO, Error>
+  public var wineGrades: () async -> Result<[WineGradeInfoDTO], Error>
 }
 
 extension WineGradeService {
@@ -38,7 +38,7 @@ extension WineGradeService {
           .init()
           .request(
             WineGradeAPI.wineGrades,
-            type: WineGradeInfoDTO.self
+            type: [WineGradeInfoDTO].self
           )
         
         switch dtoResult {
@@ -61,7 +61,7 @@ extension WineGradeService {
       
       wineGrades: {
         return .success(
-          WineGradeInfoDTO(gradeList: [WineGrade(name: "test", minCount: 0, maxCount: 1)])
+          []
         )
       }
     )

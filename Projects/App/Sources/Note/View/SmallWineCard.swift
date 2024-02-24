@@ -35,57 +35,50 @@ public struct SmallWineCard: View {
         .aspectRatio(contentMode: .fit)
         .padding(.bottom, 4)
     }
-    .frame(width: UIScreen.main.bounds.width / 2 - 24 - 15, height: 163)
     .background(
       RoundedRectangle(cornerRadius: 10)
-        .fill(Color(red: 63/255, green: 63/255, blue: 63/255).opacity(0.4))
-        .background(
-          ZStack {
-            Circle()
-              .fill(
-                LinearGradient(
-                  colors: [
-                    wineType.backgroundColor.firstCircleStart,
-                    wineType.backgroundColor.firstCircleEnd.opacity(0.25)
-                  ],
-                  startPoint: .top,
-                  endPoint: .bottom
-                )
-              )
-              .frame(height: 70)
-              .padding(.trailing, 55)
-              .padding(.bottom, 70)
-              .blur(radius: 10)
-            
-            RadialGradient(
-              colors: [
-                wineType.backgroundColor.secondCircle,
-                .clear
-              ],
-              center: .center,
-              startRadius: 5,
-              endRadius: 70
-            )
-            .padding(.leading, 30)
-            .padding(.top, 40)
-          }
+        .stroke(
+          LinearGradient(
+            colors: [
+              borderColor,
+              borderColor.opacity(0.1)
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+          ),
+          style: .init(lineWidth: 1)
         )
-        .blur(radius: 5)
-        .overlay(
+        .background(
           RoundedRectangle(cornerRadius: 10)
-            .stroke(
-              LinearGradient(
-                colors: [
-                  borderColor,
-                  borderColor.opacity(0.1)
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-              ),
-              style: .init(lineWidth: 1)
+            .foregroundStyle(.ultraThinMaterial)
+            .background(
+              ZStack {
+                Circle()
+                  .fill(
+                    LinearGradient(
+                      colors: [
+                        wineType.backgroundColor.firstCircleStart,
+                        wineType.backgroundColor.firstCircleEnd.opacity(0.4),
+                        .clear
+                      ],
+                      startPoint: .top,
+                      endPoint: .bottom
+                    )
+                  )
+                  .frame(height: 80)
+                  .padding(.trailing, 45)
+                  .padding(.bottom, 60)
+                
+                Circle()
+                  .fill(wineType.backgroundColor.secondCircle)
+                  .frame(height: 94)
+                  .padding(.leading, 24)
+                  .padding(.top, 40)
+              }
             )
         )
     )
+    .frame(height: 163)
   }
 }
 

@@ -20,6 +20,8 @@ public struct SettingAlcohol: Reducer {
     
     public var buttonState: Bool = false
     public var tooltipVisible: Bool = true
+    
+    public var isPresentedBottomSheet: Bool = false
   }
   
   public enum Action {
@@ -29,6 +31,7 @@ public struct SettingAlcohol: Reducer {
     case selectAlcoholValue(Int)
     case tappedSkipButton
     case tappedNextButton
+    case tappedOutsideOfBottomSheet
     
     // MARK: - Inner Business Action
     case _viewWillAppear
@@ -38,6 +41,8 @@ public struct SettingAlcohol: Reducer {
     case _moveNextPage
     case _backToNoteDtail
     case _backToWineConfirm
+    case _deleteNote
+    case _presentBottomSheet(Bool)
     
     // MARK: - Inner SetState Action
     
@@ -61,7 +66,7 @@ public struct SettingAlcohol: Reducer {
       case .tappedBackButton:
         switch CreateNoteManager.shared.mode {
         case .create:
-          return .send(._backToWineConfirm)
+          return .send(._presentBottomSheet(true))
         case .patch:
           CreateNoteManager.shared.initData()
           return .send(._backToNoteDtail)
@@ -83,9 +88,17 @@ public struct SettingAlcohol: Reducer {
         state.buttonState = bool
         return .none
         
+      case ._presentBottomSheet(let bool):
+        state.isPresentedBottomSheet = bool
+        return .none
+        
       case .tappedNextButton:
         CreateNoteManager.shared.officialAlcohol = state.officialAlcohol
         return .send(._moveNextPage)
+        
+      case ._deleteNote:
+        CreateNoteManager.shared.initData()
+        return .send(._backToWineConfirm)
         
       case .tapPicker:
         return .send(._tooltipHide)

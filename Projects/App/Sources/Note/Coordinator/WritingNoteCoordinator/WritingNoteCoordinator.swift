@@ -44,6 +44,8 @@ public struct WritingNoteCoordinator: Reducer {
       switch action {
         
       case .routeAction(_, action: .wineSearch(.tappedWineCard(let wineCard))):
+        CreateNoteManager.shared.initData()
+        
         state.routes.append(
           .push(
             .wineConfirm(
@@ -71,7 +73,7 @@ public struct WritingNoteCoordinator: Reducer {
         state.routes.append(.push(.setTaste(.init())))
         return .none
         
-      case  .routeAction(_, action: .setTaste(._moveNextPage)):
+      case  .routeAction(_, action: .setTaste(._moveNextPage)):
         state.routes.append(.push(.setMemo(.init())))
         return .none
         
@@ -99,7 +101,7 @@ public struct WritingNoteCoordinator: Reducer {
         state.routes.pop()
         return .none
         
-      case .routeAction(_, action: .setColorSmell(.tappedBackButton)):
+      case .routeAction(_, action: .setColorSmell(._moveBackPage)):
         state.routes.pop()
         return .none
         
@@ -115,7 +117,7 @@ public struct WritingNoteCoordinator: Reducer {
         state.routes.pop()
         return .none
         
-      case .routeAction(_, action: .setMemo(.tappedBackButton)):
+      case .routeAction(_, action: .setMemo(._moveBackPage)):
         state.routes.pop()
         return .none
         

@@ -12,15 +12,17 @@ import SwiftUI
 public struct SmellList: Reducer {
   public struct State: Equatable, Identifiable {
     public var id: String {
-      self.title
+      self.wineName
     }
-    public var title: String
-    public var list: [String]
+    public var wineName: String
+    public var smellList: [String]
+    public var type: WineType
     public var isOpenList: Bool = false
     
-    public init(title: String, list: [String]) {
-      self.title = title
-      self.list = list
+    public init(wineName: String, smellList: [String], type: WineType) {
+      self.wineName = wineName
+      self.smellList = smellList
+      self.type = type
     }
   }
   

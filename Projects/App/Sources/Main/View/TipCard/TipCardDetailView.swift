@@ -37,6 +37,7 @@ public struct TipCardDetailView: View {
     .background(
       WineyKitAsset.mainBackground.swiftUIColor
     )
+    .ignoresSafeArea(edges: .bottom)
   }
 }
 

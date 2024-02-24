@@ -21,4 +21,6 @@ public struct Badge: Codable, Equatable {
   public var acquiredAt: String?
   public var isRead: Bool?
   public var badgeImage: String
+  public var imgUrl: String?
+  public var unActivatedImgUrl: String?
 }

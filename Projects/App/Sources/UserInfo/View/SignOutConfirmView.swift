@@ -40,7 +40,7 @@ public struct SignOutConfirmView: View {
         send: .tappedOutsideSheet
       ),
       headerArea: {
-        BadgeBottomSheetHeader()
+        Image("analysisNoteIcon")
       },
       content: {
         Text("탈퇴가 완료되었어요\n언젠가 다시 만나요!")
@@ -66,8 +66,7 @@ public struct SignOutConfirmView: View {
   public var navigationBar: some View {
     NavigationBar(
       title: "회원 탈퇴",
-      leftIcon: /*WineyAsset.Assets.navigationBackButton.swiftUIImage,*/ // Asset 적용 후 활성화
-      Image(systemName: "chevron.backward"),
+      leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
       leftIconButtonAction: {
         viewStore.send(.tappedBackButton)
       },

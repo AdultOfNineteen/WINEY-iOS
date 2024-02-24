@@ -16,7 +16,7 @@ public struct NoteDetailSmellFeatureView: View {
   
   public var body: some View {
     // MARK: FEATURE
-    VStack(alignment: .leading) {
+    VStack(alignment: .leading, spacing: 0) {
       Text("Feature")
         .wineyFont(.display2)
       
@@ -40,8 +40,8 @@ public struct NoteDetailSmellFeatureView: View {
                 .padding(.vertical, 9)
                 .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
                 .background(
-                  RoundedRectangle(cornerRadius: 42)
-                    .stroke(WineyKitAsset.gray700.swiftUIColor)
+                  Capsule()
+                    .stroke(WineyKitAsset.gray900.swiftUIColor)
                 )
             }
           }
@@ -49,6 +49,15 @@ public struct NoteDetailSmellFeatureView: View {
           .padding(.vertical, 4)
         }
       }
+      .padding(.top, 20)
+      
+      HStack(spacing: -6) {
+        Image("noteDetailArrowBody")
+        Image("noteDetailArrowHeader")
+      }
+      .padding(.top, 8)
+      .padding(.leading, 20)
+      .frame(maxWidth: .infinity)
     }
   }
 }

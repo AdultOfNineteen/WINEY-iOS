@@ -40,6 +40,32 @@ public struct SettingAlcoholView: View {
         skipAction: { viewStore.send(.tappedSkipButton) }
       )
     }
+    .bottomSheet(
+      backgroundColor: WineyKitAsset.gray950.swiftUIColor,
+      isPresented: viewStore.binding(
+        get: \.isPresentedBottomSheet,
+        send: .tappedOutsideOfBottomSheet
+      ),
+      headerArea: {
+        WineyAsset.Assets.noteColorImage.swiftUIImage
+      },
+      content: {
+        bottomSheetText()
+      },
+      bottomArea: {
+        TwoOptionSelectorButtonView(
+          leftTitle: "아니오",
+          leftAction: {
+            viewStore.send(._presentBottomSheet(false))
+          },
+          rightTitle: "네, 지울래요",
+          rightAction: {
+            viewStore.send(._deleteNote)
+          }
+        )
+        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+      }
+    )
     .background(
       WineyKitAsset.mainBackground.swiftUIColor
     )
@@ -54,35 +80,34 @@ extension SettingAlcoholView {
   
   @ViewBuilder
   private func topView() -> some View {
-    ZStack {
+    VStack {
+      NavigationBar(
+        title: "와인 정보 입력",
+        leftIcon: Image("navigationBack_button"),
+        leftIconButtonAction: { viewStore.send(.tappedBackButton) },
+        backgroundColor: .clear
+      )
+      
+      Spacer()
+      
+      VStack(spacing: 9) {
+        Text("와인의 기본 정보를 알려주세요!")
+          .foregroundStyle(WineyKitAsset.gray400.swiftUIColor)
+          .wineyFont(.bodyB1)
+        
+        Text("다음 구매시 참고를 돕고 추천해드릴게요!")
+          .foregroundStyle(WineyKitAsset.gray700.swiftUIColor)
+          .wineyFont(.captionB1)
+      }
+      .padding(.bottom, 29)
+    }
+    .frame(height: 312)
+    .background(
       WineyAsset.Assets.wineTicketImage.swiftUIImage
         .resizable()
-      
-      VStack {
-        NavigationBar(
-          title: "와인 정보 입력",
-          leftIcon: Image("navigationBack_button"),
-          leftIconButtonAction: { viewStore.send(.tappedBackButton) },
-          backgroundColor: .clear
-        )
-        .padding(.top, 50)
-        
-        Spacer()
-        
-        VStack(spacing: 9) {
-          Text("와인의 기본 정보를 알려주세요!")
-            .foregroundStyle(WineyKitAsset.gray400.swiftUIColor)
-            .wineyFont(.bodyB1)
-          
-          Text("다음 구매시 참고를 돕고 추천해드릴게요!")
-            .foregroundStyle(WineyKitAsset.gray700.swiftUIColor)
-            .wineyFont(.captionB1)
-        }
-        .padding(.bottom, 29)
-      }
-    }
-    .ignoresSafeArea()
-    .frame(height: viewStore.viewHeight)
+        .frame(maxWidth: .infinity)
+        .ignoresSafeArea()
+    )
   }
   
   @ViewBuilder
@@ -119,6 +144,17 @@ extension SettingAlcoholView {
       )
     }
     .padding(.top, 49)
+  }
+  
+  @ViewBuilder
+  private func bottomSheetText() -> some View {
+    VStack(spacing: 2.4) {
+      Text("테이스팅 노트를 그만두시겠어요?")
+        .foregroundColor(WineyKitAsset.gray200.swiftUIColor)
+      Text("삭제한 노트는 복구할 수 없어요 :(")
+        .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
+    }
+    .wineyFont(.bodyB1)
   }
 }
 

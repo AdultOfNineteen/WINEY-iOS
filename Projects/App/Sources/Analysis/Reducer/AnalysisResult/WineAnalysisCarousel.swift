@@ -48,29 +48,27 @@ public struct WineAnalysisCarousel: Reducer {
   }
   
   public enum Action {
-    case _viewWillAppear
     // MARK: - User Action
     case dragGesture(DragGesture.Value)
+    case tappedArrow
     
     // MARK: - Inner Business Action
     
     // MARK: - Inner SetState Action
+    case _setPage(index: Int)
+    
+    // MARK: - Child Action
     case winePieChart(WineAnalysisPieChart.Action)
     case wineNation(WinePreferNation.Action)
     case wineCategory(WinePreferCategory.Action)
     case wineTaste(WinePreferTaste.Action)
     case wineSmell(WinePreferSmell.Action)
     case winePrice(WinePrice.Action)
-    
-    // MARK: - Child Action
   }
   
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
-      case ._viewWillAppear:
-        return .none
-        
       case let .dragGesture(gesture):
         let dragThreshold: CGFloat = 50.0
         if gesture.translation.height > dragThreshold {
@@ -78,6 +76,18 @@ public struct WineAnalysisCarousel: Reducer {
         } else if gesture.translation.height < -dragThreshold {
           state.pageIndex = min(state.pageIndex + 1, state.pageCount - 1)
         }
+        return .none
+        
+      case .tappedArrow:
+        let curPageIndex = state.pageIndex
+        if curPageIndex < state.pageCount - 1 {
+          return .send(._setPage(index: curPageIndex + 1))
+        } else {
+          return .send(._setPage(index: 0))
+        }
+        
+      case ._setPage(let index):
+        state.pageIndex = index
         return .none
         
       default:

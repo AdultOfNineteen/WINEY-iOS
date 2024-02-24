@@ -7,11 +7,9 @@
 
 import Foundation
 
-public struct WineGradeInfoDTO: Codable {
-  public var gradeList: [WineGrade]
-}
-
-public struct WineGrade: Codable {
+public struct WineGradeInfoDTO: Codable, Identifiable, Equatable {
+  public var id: String { self.name }
+  
   public var name: String
   public var minCount: Int
   public var maxCount: Int

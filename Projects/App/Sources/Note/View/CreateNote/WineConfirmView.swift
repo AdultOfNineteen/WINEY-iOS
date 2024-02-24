@@ -22,11 +22,7 @@ public struct WineConfirmView: View {
   
   public var body: some View {
     ZStack {
-      WineyKitAsset.mainBackground.swiftUIColor
-      
-      Image("noteBackground")
-        .resizable()
-        .scaledToFit()
+      background()
       
       VStack(spacing: 0) {
         navigation()
@@ -40,33 +36,9 @@ public struct WineConfirmView: View {
         button()
       }
     }
-    .bottomSheet(
-      backgroundColor: WineyKitAsset.gray950.swiftUIColor,
-      isPresented: viewStore.binding(
-        get: \.isPresentedBottomSheet,
-        send: .tappedOutsideOfBottomSheet
-      ),
-      headerArea: {
-        WineyAsset.Assets.noteColorImage.swiftUIImage
-      },
-      content: {
-        bottomSheetText()
-      },
-      bottomArea: {
-        TwoOptionSelectorButtonView(
-          leftTitle: "아니오",
-          leftAction: {
-            viewStore.send(._presentBottomSheet(false))
-          },
-          rightTitle: "네, 지울래요",
-          rightAction: {
-            viewStore.send(._deleteNote)
-          }
-        )
-        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-      }
+    .background(
+      WineyKitAsset.mainBackground.swiftUIColor
     )
-    .ignoresSafeArea()
     .onAppear {
       viewStore.send(._viewWillAppear)
     }
@@ -77,13 +49,19 @@ public struct WineConfirmView: View {
 extension WineConfirmView {
   
   @ViewBuilder
+  private func background() -> some View {
+    Image("noteBackground")
+      .resizable()
+      .scaledToFit()
+  }
+  
+  @ViewBuilder
   private func navigation() -> some View {
     NavigationBar(
       leftIcon: Image("navigationBack_button"),
       leftIconButtonAction: { viewStore.send(.tappedBackButton) },
       backgroundColor: .clear
     )
-    .padding(.top, 50)
   }
   
   @ViewBuilder
@@ -103,11 +81,13 @@ extension WineConfirmView {
         wineType: WineType.changeType(at: viewStore.wineData.type),
         borderColor: .white
       )
+      .frame(width: UIScreen.main.bounds.width / 2.5)
       
       VStack(spacing: 6) {
         Text(viewStore.wineData.name)
           .wineyFont(.bodyB1)
           .foregroundStyle(WineyKitAsset.gray50.swiftUIColor)
+        
         Text("\(viewStore.wineData.country) / \(viewStore.wineData.varietal)")
           .wineyFont(.captionB1)
           .foregroundStyle(WineyKitAsset.gray700.swiftUIColor)
@@ -134,17 +114,6 @@ extension WineConfirmView {
         }
     }
     .padding(.bottom, 109)
-  }
-  
-  @ViewBuilder
-  private func bottomSheetText() -> some View {
-    VStack(spacing: 2.4) {
-      Text("테이스팅 노트를 그만두시겠어요?")
-        .foregroundColor(WineyKitAsset.gray200.swiftUIColor)
-      Text("삭제한 노트는 복구할 수 없어요 :(")
-        .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
-    }
-    .wineyFont(.bodyB1)
   }
 }
 

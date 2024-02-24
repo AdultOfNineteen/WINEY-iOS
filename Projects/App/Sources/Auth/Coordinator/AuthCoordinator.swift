@@ -60,6 +60,10 @@ public struct AuthCoordinator: Reducer {
         }
         return .none
 
+      case .routeAction(_, action: .setCodeSignUp(._movePhoneNumberView)):
+        state.routes.pop()
+        return .none
+        
       case .routeAction(_, action: .setCodeSignUp(._moveFlavorSignUpView)):
         state.routes.append( .push( .setFlavorSignUp(.init())))
         return .none

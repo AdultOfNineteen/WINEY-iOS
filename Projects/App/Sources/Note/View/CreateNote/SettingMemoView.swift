@@ -42,6 +42,14 @@ public struct SettingMemoView: View {
       bottomButton()
     }
     .ignoresSafeArea(edges: .bottom)
+    .sheet(
+      isPresented: viewStore.binding(
+        get: \.isShowBottomSheet,
+        send: .tappedOutsideOfBottomSheet
+      ), content: {
+        bottomSheetOptions()
+      }
+    )
     .background(
       WineyKitAsset.mainBackground.swiftUIColor
     )
@@ -67,6 +75,52 @@ extension SettingMemoView {
       },
       backgroundColor: .clear
     )
+  }
+  
+  @ViewBuilder
+  private func bottomSheetOptions() -> some View {
+    ZStack {
+      WineyKitAsset.gray950.swiftUIColor.ignoresSafeArea(edges: .all)
+      
+      VStack(spacing: 0) {
+        HStack {
+          Text("카메라")
+            .wineyFont(.bodyB1)
+            .foregroundStyle(.white)
+        }
+        .padding(.vertical, 20)
+        .frame(height: 64)
+        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+        .onTapGesture {
+          // TODO: Camera
+        }
+        
+        Divider()
+          .overlay(
+            WineyKitAsset.gray900.swiftUIColor
+          )
+        
+        PhotosPicker(
+          selection: viewStore.binding(
+            get: { $0.selectedPhoto },
+            send: SettingMemo.Action._pickPhoto
+          ),
+          maxSelectionCount: viewStore.maxPhoto,
+          matching: .any(of: [.images, .not(.videos)])
+        ) {
+          HStack {
+            Text("앨범에서 가져오기")
+              .wineyFont(.bodyB1)
+              .foregroundStyle(.white)
+          }
+          .padding(.vertical, 20)
+          .frame(height: 64)
+          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+        }
+      }
+    }
+    .presentationDetents([.height(187)])
+    .presentationDragIndicator(.visible)
   }
   
   @ViewBuilder
@@ -136,14 +190,9 @@ extension SettingMemoView {
         }
       })
       
-      PhotosPicker(
-        selection: viewStore.binding(
-          get: { $0.selectedPhoto },
-          send: SettingMemo.Action._pickPhoto
-        ),
-        maxSelectionCount: viewStore.maxPhoto,
-        matching: .any(of: [.images, .not(.videos)])
-      ) {
+      Button {
+        viewStore.send(.tappedAttachPictureButton)
+      } label: {
         HStack(alignment: .center, spacing: 4) {
           Text("사진 첨부하기")
           Image(systemName: "camera")
@@ -156,13 +205,13 @@ extension SettingMemoView {
           RoundedRectangle(cornerRadius: 10)
             .stroke(WineyKitAsset.main2.swiftUIColor)
         )
+        .tint(WineyKitAsset.main2.swiftUIColor)
+//        .simultaneousGesture(
+//          TapGesture().onEnded({ tap in
+//            viewStore.send(._delPickPhoto)
+//          })
+//        )
       }
-      .tint(WineyKitAsset.main2.swiftUIColor)
-      .simultaneousGesture(
-        TapGesture().onEnded({ tap in
-          viewStore.send(._delPickPhoto)
-        })
-      )
     }
     .padding(.top, viewStore.displayPhoto.isEmpty ? 30 : 15)
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
@@ -215,8 +264,8 @@ extension SettingMemoView {
         
         Spacer()
         
-        ForEach(viewStore.starRange, id: \.self) { index in
-          if index <= viewStore.star {
+        ForEach(viewStore.ratingRange, id: \.self) { index in
+          if index <= viewStore.rating {
             WineyAsset.Assets.activeWineIcon.swiftUIImage
               .onTapGesture {
                 isFocused = false
@@ -267,7 +316,7 @@ extension SettingMemoView {
   private func bottomButton() -> some View {
     WineyConfirmButton(
       title: "작성완료",
-      validBy: viewStore.buyAgain != nil && viewStore.star > 0
+      validBy: viewStore.buyAgain != nil && viewStore.rating > 0
     ) {
       viewStore.send(.tappedDoneButton)
     }

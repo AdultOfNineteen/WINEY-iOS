@@ -13,7 +13,8 @@ import WineyKit
 public struct MainView: View {
   private let store: StoreOf<Main>
   @ObservedObject var viewStore: ViewStoreOf<Main>
-  let columns = [GridItem(.flexible()), GridItem(.flexible())]
+  
+  let columns = [GridItem(.flexible(), spacing: 17), GridItem(.flexible())]
   
   public init(store: StoreOf<Main>) {
     self.store = store
@@ -21,30 +22,28 @@ public struct MainView: View {
   }
   
   public var body: some View {
-    GeometryReader { _ in
-      VStack(alignment: .leading, spacing: 0) {
-        header()
-        
-        ScrollView {
-          LazyVStack(spacing: 0) {
-            todaysWineDescription()
-            
-            cardScrollView()
-            
-            tipView()
-          }
-          .padding(.bottom, 30)
+    VStack(alignment: .leading, spacing: 0) {
+      header()
+      
+      ScrollView {
+        LazyVStack(spacing: 0) {
+          todaysWineDescription()
+          
+          cardScrollView()
+          
+          tipView()
         }
-        .simultaneousGesture(
-          DragGesture().onChanged({ value in
-            viewStore.send(.userScroll)
-          })
-        )
+        .padding(.bottom, 106)
       }
-      .onAppear {
-        viewStore.send(._viewWillAppear)
-        viewStore.send(._tipCardWillAppear)
-      }
+      .simultaneousGesture(
+        DragGesture().onChanged({ value in
+          viewStore.send(.userScroll)
+        })
+      )
+    }
+    .onAppear {
+      viewStore.send(._viewWillAppear)
+      viewStore.send(._tipCardWillAppear)
     }
     .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationViewStyle(StackNavigationViewStyle())
@@ -154,7 +153,7 @@ extension MainView {
     }
     
     if let tipCards = viewStore.tipCards {
-      LazyVGrid(columns: columns, spacing: 20) {
+      LazyVGrid(columns: columns) {
         ForEach(tipCards.contents, id: \.wineTipId) { tipCard in
           TipCardImage(tipCardInfo: tipCard)
             .onTapGesture {
@@ -163,7 +162,6 @@ extension MainView {
         }
       }
       .padding(.top, 25)
-      .padding(.bottom, 50)
       .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
     } else {
       ProgressView()

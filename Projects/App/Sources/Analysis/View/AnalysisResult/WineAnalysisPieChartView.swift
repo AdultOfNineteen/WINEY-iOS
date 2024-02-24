@@ -35,6 +35,7 @@ public struct WineAnalysisPieChartView: View {
           Text("\(viewStore.wineDrink)개의 와인을 마셨고,")
             .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
         }
+        
         HStack(spacing: 3) {
           Text("\(viewStore.repurchase)개의 와인에 대해 재구매")
             .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
@@ -48,21 +49,20 @@ public struct WineAnalysisPieChartView: View {
         values: viewStore.preferWineTypes.map{ $0.percent },
         names: viewStore.preferWineTypes.map{ $0.type }
       )
-      .padding(.top, -36)
+      .padding(.bottom, 145)
       
       Spacer()
-      
-      WineyAsset.Assets.arrowBottom.swiftUIImage
-        .padding(.bottom, 64)
     }
     .padding(.top, 24)
   }
 }
 
 public struct WinePieChart: View {
+  
+  @State private var showGauge = false
+  
   public let values: [Int]
   public let names: [String]
-  @State private var showGauge = false
   
   var slices: [PieSliceData] {
     let sum = values.reduce(0, +)

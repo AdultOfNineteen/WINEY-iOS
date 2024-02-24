@@ -77,7 +77,8 @@ public struct UserInfoView: View {
           isPresented: viewStore.binding(
             get: \.isPresentedBottomSheet,
             send: .wineyRatingClosedTapped
-          )
+          ),
+          gradeListInfo: viewStore.gradeListInfo
         )
       }
     }
@@ -100,7 +101,8 @@ public struct UserInfoView: View {
         .frame(width: 101)
         .foregroundColor(WineyKitAsset.gray900.swiftUIColor)
         .overlay{
-          Text("🍷")
+          Image("UserIcon")
+            .offset(y: 4)
         }
       
       VStack(spacing: 0) {
@@ -117,7 +119,6 @@ public struct UserInfoView: View {
                 .foregroundColor(.white)
             }
           )
-          // Asset 생성 전 이미지 대신 임시
         }
         .wineyFont(.title2)
         
@@ -128,7 +129,7 @@ public struct UserInfoView: View {
             viewStore.send(.userBadgeButtonTapped(viewStore.userId))
           },
           label: {
-            RoundedRectangle(cornerRadius: 24) //
+            RoundedRectangle(cornerRadius: 24)
               .stroke(WineyKitAsset.gray800.swiftUIColor, lineWidth: 1)
               .frame(height: 39)
               .overlay{
@@ -145,7 +146,7 @@ public struct UserInfoView: View {
   
   private var degreeGraphSpace: some View {
     VStack(spacing: 7) {
-      if let userWineGrade = viewStore.userWineGrade {
+      if let userWineGrade = viewStore.userWineGrade, let gradeListInfo = viewStore.gradeListInfo {
         GeometryReader { lineGeometry in
           ZStack(alignment: .leading) {
             Rectangle() // 슬라이더의 바
@@ -158,20 +159,20 @@ public struct UserInfoView: View {
             Circle() // 슬라이더의 원
               .frame(width: 14)
               .foregroundColor(WineyKitAsset.main2.swiftUIColor)
-              .offset(x: CGFloat(userWineGrade.threeMonthsNoteCount)/12 * lineGeometry.size.width - 7)
+              .offset(x: CGFloat(userWineGrade.threeMonthsNoteCount)/CGFloat(viewStore.hightestGradeCount) * lineGeometry.size.width - 7)
           }
           .overlay(alignment: .topLeading) {
-            ForEach(WineyRating.allCases, id: \.title) { item in
+            ForEach(gradeListInfo) { grade in
               VStack(alignment: .center, spacing: 7) {
                 Circle() // 슬라이더의 원
                   .frame(width: 14, height: 14)
                 
-                Text(item.title)
+                Text(grade.name)
                   .wineyFont(.captionM2)
               }
-              .offset(x: item.degree * lineGeometry.size.width - 21)
+              .offset(x: CGFloat(grade.minCount)/CGFloat(viewStore.hightestGradeCount) * lineGeometry.size.width - 21)
               .foregroundColor(
-                self.sliderValue == item.degree ? WineyKitAsset.main2.swiftUIColor :
+                self.sliderValue == CGFloat(grade.minCount)/CGFloat(viewStore.hightestGradeCount) ? WineyKitAsset.main2.swiftUIColor :
                   WineyKitAsset.gray800.swiftUIColor
               )
             }
@@ -186,13 +187,14 @@ public struct UserInfoView: View {
   }
   
   private var badgeSpace: some View {
-    HStack {
+    HStack(spacing: 0) {
       Spacer() // 뱃지 들어갈 공간
       
       VStack(alignment: .leading, spacing: 1) {
         Text("BOTTLE") // 임시
           .wineyFont(.bodyB2)
           .foregroundColor(WineyKitAsset.gray400.swiftUIColor)
+        
         HStack(spacing: 0) {
           Text("OAK까지 테이스팅 ")
             .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
@@ -200,16 +202,17 @@ public struct UserInfoView: View {
             .foregroundColor(WineyKitAsset.main3.swiftUIColor)
         }
         .wineyFont(.captionM2)
+        .frame(height: 18)
       }
+      .padding(.trailing, 20)
       
       Button(
         action: {
           viewStore.send(.wineyRatingButtonTapped)
-          //          isPresentedRatingView = true
         },
         label: {
           ZStack {
-            RoundedRectangle(cornerRadius: 24)
+            Capsule()
               .fill(WineyKitAsset.gray900.swiftUIColor)
               .frame(width: 65, height: 32)
             
@@ -225,7 +228,7 @@ public struct UserInfoView: View {
     .background {
       RoundedRectangle(cornerRadius: 12)
         .stroke(
-          WineyKitAsset.gray700.swiftUIColor,
+          WineyKitAsset.gray900.swiftUIColor,
           lineWidth: 1
         )
         .background(
@@ -277,7 +280,7 @@ public struct UserInfoView: View {
         if title == "FAQ" {
           UIApplication.shared.open( URL(string: "https://holy-wax-3be.notion.site/FAQ-1671bf54033440d2aef23189c4754a45")!)
         } else if title == "1:1 문의" {
-          EmailController.shared.sendEmail(subject: "Hello", body: "Hello From ishtiz.com", to: "recipient@example.com")
+          viewStore.send(.tappedEmailSendButton)
         }
       }
     }

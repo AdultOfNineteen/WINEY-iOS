@@ -48,7 +48,7 @@ struct FlavorSignUpView: View {
           .wineyFont(.bodyM2)
       }
       .padding(.leading, WineyGridRules.globalHorizontalPadding)
-      .padding(.bottom, 66)
+      .padding(.bottom, 77)
       
       Text("\(viewStore.state.pageState.question())")
         .wineyFont(.captionB1)
@@ -59,25 +59,37 @@ struct FlavorSignUpView: View {
           RoundedRectangle(cornerRadius: 50)
             .fill(WineyKitAsset.main1.swiftUIColor)
         }
-        .padding(.bottom, 20)
+        .padding(.bottom, 31)
       
       HStack {
         if viewStore.state.pageState.rawValue == 1 {
           chocolateView
-            .transition(.slideInAndOut(edge: .leading))
+            // .transition(.slideInAndOut(edge: viewStore.transitionEdge))
         } else if viewStore.state.pageState.rawValue == 2 {
           coffeeView
-            .transition(.slideInAndOut(edge: .leading))
+            // .transition(.slideInAndOut(edge: viewStore.transitionEdge))
         } else {
           fruitView
-            .transition(.slideInAndOut(edge: .leading))
+            // .transition(.slideInAndOut(edge: viewStore.transitionEdge))
         }
       }
       .padding(.horizontal, 24)
-      .animation(.easeInOut, value: viewStore.state.pageState.rawValue)
+      .animation(.spring(duration: 0.6), value: viewStore.state.pageState.rawValue)
       
       Spacer()
+      
+      if viewStore.state.pageState.rawValue == 3 {
+        WineyConfirmButton(
+          title: "확인",
+          validBy: viewStore.bottomButtonStatus
+        ){
+          viewStore.send(.tappedConfirmButton)
+        }
+        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+        .padding(.bottom, 54)
+      }
     }
+    .ignoresSafeArea(edges: .bottom)
     .bottomSheet(
       backgroundColor: WineyKitAsset.gray950.swiftUIColor,
       isPresented: viewStore.binding(
@@ -118,6 +130,7 @@ struct FlavorSignUpView: View {
       FlavorCheckButton(
         mainTitle: ChocolateFlavor.milk.title,
         subTitle: ChocolateFlavor.milk.subTitle,
+        isSelected: viewStore.userCheck.chocolate == .milk,
         action: {
           viewStore.send(.tappedChocolateButton(.milk))
         }
@@ -126,6 +139,7 @@ struct FlavorSignUpView: View {
       FlavorCheckButton(
         mainTitle: ChocolateFlavor.dark.title,
         subTitle: ChocolateFlavor.dark.subTitle,
+        isSelected: viewStore.userCheck.chocolate == .dark,
         action: {
           viewStore.send(.tappedChocolateButton(.dark))
         }
@@ -138,6 +152,7 @@ struct FlavorSignUpView: View {
       FlavorCheckButton(
         mainTitle: CoffeeFlavor.americano.title,
         subTitle: CoffeeFlavor.americano.subTitle,
+        isSelected: viewStore.userCheck.coffee == .americano,
         action: {
           viewStore.send(.tappedCoffeeButton(.americano))
         }
@@ -146,6 +161,7 @@ struct FlavorSignUpView: View {
       FlavorCheckButton(
         mainTitle: CoffeeFlavor.cafe_latte.title,
         subTitle: CoffeeFlavor.cafe_latte.subTitle,
+        isSelected: viewStore.userCheck.coffee == .cafe_latte,
         action: {
           viewStore.send(.tappedCoffeeButton(.cafe_latte))
         }
@@ -158,6 +174,7 @@ struct FlavorSignUpView: View {
       FlavorCheckButton(
         mainTitle: FruitFlavor.peach.title,
         subTitle: FruitFlavor.peach.subTitle,
+        isSelected: viewStore.userCheck.fruit == .peach,
         action: {
           viewStore.send(.tappedFruitButton(.peach))
         }
@@ -166,6 +183,7 @@ struct FlavorSignUpView: View {
       FlavorCheckButton(
         mainTitle: FruitFlavor.pineapple.title,
         subTitle: FruitFlavor.pineapple.subTitle,
+        isSelected: viewStore.userCheck.fruit == .pineapple,
         action: {
           viewStore.send(.tappedFruitButton(.pineapple))
         }

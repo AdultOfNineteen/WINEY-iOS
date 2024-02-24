@@ -11,8 +11,11 @@ import WineyKit
 struct WineyRatingView: View {
   @Binding private var isPresented: Bool
   
-  init(isPresented: Binding<Bool>) {
+  public var gradeListInfo: [WineGradeInfoDTO]?
+  
+  init(isPresented: Binding<Bool>, gradeListInfo: [WineGradeInfoDTO]? = nil) {
     self._isPresented = isPresented
+    self.gradeListInfo = gradeListInfo
   }
   
   var body: some View {
@@ -44,38 +47,51 @@ struct WineyRatingView: View {
         Text("WINEY 등급")
           .wineyFont(.title1)
           .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-          .padding(.bottom, 10)
+          .padding(.bottom, 14)
         
         Text("직전 3개월의 테이스팅 노트 작성 개수로\n매월 1일 오전 9시에 업데이트 됩니다.")
-          .frame(height: 35)
+          .frame(height: 34)
           .multilineTextAlignment(.center)
           .wineyFont(.captionM2)
           .foregroundColor(WineyKitAsset.gray500.swiftUIColor)
         
         VStack(alignment: .leading, spacing: 18) {
-          ForEach(WineyRating.allCases, id: \.self) { item in
-            HStack(spacing: 37) {
-              Circle()
-                .stroke(
-                  LinearGradient(
-                    colors: [WineyKitAsset.main3.swiftUIColor, WineyKitAsset.main3.swiftUIColor.opacity(0.0)],
-                    startPoint: .top,
-                    endPoint: .bottom
-                  ),
-                  lineWidth: 1
-                )
-                .frame(width: 46, height: 46)
-              
-              VStack(alignment: .leading, spacing: 10) {
-                Text(item.title)
-                  .wineyFont(.captionB1)
-                  .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+          if let gradeListInfo = gradeListInfo {
+            ForEach(gradeListInfo) { grade in
+              HStack(spacing: 37) {
+                Circle()
+                  .stroke(
+                    LinearGradient(
+                      colors: [WineyKitAsset.main3.swiftUIColor, WineyKitAsset.main3.swiftUIColor.opacity(0.0)],
+                      startPoint: .top,
+                      endPoint: .bottom
+                    ),
+                    lineWidth: 1
+                  )
+                  .frame(width: 46, height: 46)
                 
-                Text(item.description)
+                VStack(alignment: .leading, spacing: 10) {
+                  Text(grade.name)
+                    .wineyFont(.captionB1)
+                    .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+                  
+                  HStack(spacing: 0) {
+                    Text("테이스팅 노트 \(grade.minCount)")
+                    
+                    if grade.maxCount <= 1000 {
+                      Text("~\(grade.maxCount)개 작성")
+                    } else {
+                      Text("개 작성")
+                    }
+                  }
                   .wineyFont(.captionM2)
                   .foregroundColor(WineyKitAsset.gray500.swiftUIColor)
+                }
               }
             }
+          } else {
+            Text("데이터 로딩 실패")
+              .wineyFont(.bodyB1)
           }
         }
         .padding(.vertical, 36)

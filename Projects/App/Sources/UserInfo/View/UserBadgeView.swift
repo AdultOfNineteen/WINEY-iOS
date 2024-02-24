@@ -29,8 +29,7 @@ public struct UserBadgeView: View {
       VStack(spacing: 0) {
         NavigationBar(
           title: "WINEY 뱃지",
-          leftIcon: /*WineyAsset.Assets.navigationBackButton.swiftUIImage,*/ // Asset 적용 후 활성화
-          Image(systemName: "chevron.backward"),
+          leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
           leftIconButtonAction: {
             viewStore.send(.tappedBackButton)
           },
@@ -45,7 +44,6 @@ public struct UserBadgeView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .offset(y: -68)
         } else {
-          
           Group {
             BadgeSectionTitle(
               title: .sommelier,
@@ -59,7 +57,8 @@ public struct UserBadgeView: View {
                   BadgeBlock(
                     title: badge.name,
                     date: extractDate(badge.acquiredAt) ?? "미취득 뱃지",
-                    isRead: badge.isRead ?? true
+                    isRead: badge.isRead ?? true,
+                    imgUrl: extractDate(badge.acquiredAt) != nil ? badge.imgUrl : badge.unActivatedImgUrl
                   )
                   .onTapGesture {
                     viewStore.send(.tappedBadge(badge))
@@ -93,7 +92,8 @@ public struct UserBadgeView: View {
                   BadgeBlock(
                     title: badge.name,
                     date: extractDate(badge.acquiredAt) ?? "미취득 뱃지",
-                    isRead: badge.isRead ?? true
+                    isRead: badge.isRead ?? true,
+                    imgUrl: extractDate(badge.acquiredAt) != nil ? badge.imgUrl : badge.unActivatedImgUrl
                   )
                   .onTapGesture {
                     viewStore.send(.tappedBadge(badge))
@@ -122,7 +122,7 @@ public struct UserBadgeView: View {
         send: .tappedBadgeClosed
       ),
       headerArea: {
-        BadgeBottomSheetHeader()
+        BadgeBottomSheetHeader(badgeInfo: viewStore.state.clickedBadgeInfo)
       },
       content: {
         BadgeBottomSheetContent(
@@ -192,22 +192,25 @@ struct BadgeSectionTitle: View {
   }
 }
 
-struct BadgeBlock: View {
+public struct BadgeBlock: View {
   let title: String
   let date: String
   let isRead: Bool
+  let imgUrl: String?
   
-  init(
+  public init(
     title: String = "배지 이름",
     date: String = "취득일",
-    isRead: Bool = true
+    isRead: Bool = true,
+    imgUrl: String? = nil
   ) {
     self.title = title
     self.date = date
     self.isRead = isRead
+    self.imgUrl = imgUrl
   }
   
-  var body: some View {
+  public var body: some View {
     VStack(alignment: .center, spacing: 0) {
       if !isRead {
         HStack {
@@ -224,27 +227,38 @@ struct BadgeBlock: View {
       }
       
       ZStack(alignment: .center) {
-        // TODO: Badge 이미지 들어갈 자리
-        
         RoundedRectangle(cornerRadius: 4.85)
-          .fill(WineyKitAsset.gray950.swiftUIColor)
-          .frame(width: 100, height: 100)
-          .overlay(
-            RoundedRectangle(cornerRadius: 4.85)
-              .stroke(
-                LinearGradient(
-                  gradient: Gradient(
-                    colors: [
-                      WineyKitAsset.main3.swiftUIColor,
-                      WineyKitAsset.main3.swiftUIColor.opacity(0.2)
-                    ]
-                  ),
-                  startPoint: .topLeading,
-                  endPoint: .bottomTrailing
-                ),
-                lineWidth: 0.69
-              )
+          .stroke(
+            LinearGradient(
+              gradient: Gradient(
+                colors: [
+                  WineyKitAsset.main3.swiftUIColor,
+                  WineyKitAsset.main3.swiftUIColor.opacity(0.2)
+                ]
+              ),
+              startPoint: .topLeading,
+              endPoint: .bottomTrailing
+            ),
+            lineWidth: 0.69
           )
+          .foregroundStyle(WineyKitAsset.gray950.swiftUIColor)
+          .frame(width: 100, height: 100)
+        
+        // Wine Badge Image
+        if let imgUrl = imgUrl {
+          AsyncImage(url: URL(string: imgUrl)) { image in
+            image.resizable()
+          } placeholder: {
+            ProgressView()
+          }
+          .aspectRatio(contentMode: .fit)
+          .frame(width: 100, height: 100)
+        } else {
+          Text("이미지를 불러오지 못했습니다.")
+            .wineyFont(.captionM1)
+            .padding(.horizontal, 10)
+            .frame(width: 100, height: 100)
+        }
       }
       .padding(.bottom, 10)
       

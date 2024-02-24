@@ -11,7 +11,7 @@ import Foundation
 public enum SignUpBottomSheetType: Equatable {
   public static func == (lhs: SignUpBottomSheetType, rhs: SignUpBottomSheetType) -> Bool {
     switch (lhs, rhs) {
-    case (.back, .back), (.codeFail, .codeFail), (.sendCode, .sendCode):
+    case (.back, .back), (.codeFail, .codeFail), (.sendCode, .sendCode), (.codeExpired, .codeExpired), (.codeSendOver, .codeSendOver):
       return true
     case (.alreadySignUp, .alreadySignUp):
       return true
@@ -24,4 +24,6 @@ public enum SignUpBottomSheetType: Equatable {
   case sendCode
   case alreadySignUp((phone: String, path: LoginPathType))
   case codeFail
+  case codeExpired
+  case codeSendOver
 }
