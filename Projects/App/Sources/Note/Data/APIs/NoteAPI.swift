@@ -14,8 +14,7 @@ public enum NoteAPI {
   case wineSearch(page: Int, size: Int, content: String)
   case noteDetailInfo(noteId: Int)
   case tastingNotes(page: Int, size: Int, order: Int, country: [String], wineType: [String], buyAgain: Int?)
-  case createNote(wineId: Int, vintage: String?, officialAlcohol: Int?, price: String?, color: String, sweetness: Int,
-                  acidity: Int, alcohol: Int, body: Int, tannin: Int, finish: Int, memo: String, buyAgain: Bool, rating: Int, smellKeywordList: [String], images: [UIImage])
+  case createNote(createNoteData: CreateNoteRequestDTO, images: [UIImage])
   case deleteNote(noteId: Int)
   case noteFilter
   case noteCheck
@@ -93,43 +92,30 @@ extension NoteAPI: EndPointType {
     
     // MARK: MultiPart 추가
     case let .createNote(
-      wineId,
-      vintage,
-      officialAlcohol,
-      price,
-      color,
-      sweetness,
-      acidity,
-      alcohol,
-      body,
-      tannin,
-      finish,
-      memo,
-      buyAgain,
-      rating,
-      smellKeywordList,
+      createNoteData,
       images
     ):
       return .requestMultipartData(
         parameters: [
-          "wineId": wineId,
-          "vintage": vintage,
-          "officialAlcohol": officialAlcohol,
-          "price": price,
-          "color": color,
-          "sweetness": sweetness,
-          "acidity": acidity,
-          "alcohol": alcohol,
-          "body": body,
-          "tannin": tannin,
-          "finish": finish,
-          "memo": memo,
-          "buyAgain": buyAgain,
-          "rating": rating,
-          "smellKeywordList": smellKeywordList
+          "wineId": createNoteData.wineId,
+          "vintage": createNoteData.vintage,
+          "officialAlcohol": createNoteData.officialAlcohol,
+          "price": createNoteData.price,
+          "color": createNoteData.color,
+          "sweetness": createNoteData.sweetness,
+          "acidity": createNoteData.acidity,
+          "alcohol": createNoteData.alcohol,
+          "body": createNoteData.body,
+          "tannin": createNoteData.tannin,
+          "finish": createNoteData.finish,
+          "memo": createNoteData.memo,
+          "buyAgain": createNoteData.buyAgain,
+          "rating": createNoteData.rating,
+          "smellKeywordList": createNoteData.smellKeywordList
         ],
         images: images
       )
+      
     case let .deleteNote(noteId: noteId):
       return .requestParameters(
         parameters: [

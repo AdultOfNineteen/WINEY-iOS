@@ -105,23 +105,11 @@ public struct SettingMemo: Reducer {
         let photos = state.displayPhoto
         
         if CreateNoteManager.shared.mode == .create {
-          return .run(operation: { send in
+          let createNoteData = CreateNoteManager.shared.createNote()
+          
+          return .run { send in
             switch await noteService.createNote(
-              CreateNoteManager.shared.wineId!,
-              CreateNoteManager.shared.vintage,
-              CreateNoteManager.shared.officialAlcohol,
-              CreateNoteManager.shared.price,
-              CreateNoteManager.shared.color!,
-              CreateNoteManager.shared.sweetness!,
-              CreateNoteManager.shared.acidity!,
-              CreateNoteManager.shared.alcohol!,
-              CreateNoteManager.shared.body!,
-              CreateNoteManager.shared.tannin!,
-              CreateNoteManager.shared.finish!,
-              CreateNoteManager.shared.memo!,
-              CreateNoteManager.shared.buyAgain!,
-              CreateNoteManager.shared.rating!,
-              CreateNoteManager.shared.smellKeywordList!,
+              createNoteData,
               photos
             ) {
             case let .success(data):
@@ -130,7 +118,7 @@ public struct SettingMemo: Reducer {
             case let .failure(error):
               await send(._failureSocialNetworking(error))
             }
-          })
+          }
         } else {
           // TODO: Patch
           return .none

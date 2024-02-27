@@ -1,18 +1,17 @@
 //
-//  NoteWriteDTO.swift
+//  PatchNoteRequestDTO.swift
 //  Winey
 //
-//  Created by 정도현 on 12/28/23.
-//  Copyright © 2023 Winey. All rights reserved.
+//  Created by 정도현 on 2/25/24.
+//  Copyright © 2024 Winey. All rights reserved.
 //
 
 import Foundation
 
-public struct CreateNoteRequestDTO: Encodable, Equatable {
-  let wineId: Int
-  let vintage: String?
-  let officialAlcohol: Int?
-  let price: String?
+public struct PatchNoteRequestDTO: Encodable, Equatable {
+  let vintage: Int
+  let officialAlcohol: Int
+  let price: Int
   let color: String
   let sweetness: Int
   let acidity: Int
@@ -23,13 +22,15 @@ public struct CreateNoteRequestDTO: Encodable, Equatable {
   let memo: String
   let buyAgain: Bool
   let rating: Int
-  let smellKeywordList: [String]
+  let smellKeywordList: [String]  // 추가되는 향
+  let deleteSmellKeywordList: [String]  // 삭제되는 향
+  let deleteImgLists: [Int]  // 삭제되는 이미지 (int)
   
   public init(
     wineId: Int,
-    vintage: String?,
-    officialAlcohol: Int?,
-    price: String?,
+    vintage: Int,
+    officialAlcohol: Int,
+    price: Int,
     color: String,
     sweetness: Int,
     acidity: Int,
@@ -40,9 +41,10 @@ public struct CreateNoteRequestDTO: Encodable, Equatable {
     memo: String,
     buyAgain: Bool,
     rating: Int,
-    smellKeywordList: [String]
+    smellKeywordList: [String],
+    deleteSmellKeywordList: [String],
+    deleteImgLists: [Int]
   ) {
-    self.wineId = wineId
     self.vintage = vintage
     self.officialAlcohol = officialAlcohol
     self.price = price
@@ -57,5 +59,7 @@ public struct CreateNoteRequestDTO: Encodable, Equatable {
     self.buyAgain = buyAgain
     self.rating = rating
     self.smellKeywordList = smellKeywordList
+    self.deleteSmellKeywordList = deleteSmellKeywordList
+    self.deleteImgLists = deleteImgLists
   }
 }

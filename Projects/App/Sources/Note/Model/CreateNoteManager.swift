@@ -67,6 +67,26 @@ final class CreateNoteManager: ObservableObject {
     self.smellKeywordList = noteData.smellKeywordList.map { getSmellCode(for: $0) ?? "" }
   }
   
+  func createNote() -> CreateNoteRequestDTO {
+    return CreateNoteRequestDTO(
+      wineId: self.wineId!,
+      vintage: self.vintage!,
+      officialAlcohol: self.officialAlcohol,
+      price: self.price!,
+      color: self.color!,
+      sweetness: self.sweetness!,
+      acidity: self.acidity!,
+      alcohol: self.alcohol!,
+      body: self.body!,
+      tannin: self.tannin!,
+      finish: self.finish!,
+      memo: self.memo!,
+      buyAgain: self.buyAgain!,
+      rating: self.rating!,
+      smellKeywordList: self.smellKeywordList!
+    )
+  }
+  
   private func getSmellCode(for name: String) -> String? {
     for category in SmellCategory.allCases {
       for smell in category.list {
