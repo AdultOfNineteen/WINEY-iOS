@@ -14,6 +14,7 @@ final class CreateNoteManager: ObservableObject {
   private init() { }
   
   @Published var mode: CreateNoteMode = .create
+  @Published var noteId: Int?
   @Published var wineId: Int?
   @Published var vintage: String?
   @Published var officialAlcohol: Int?
@@ -30,9 +31,12 @@ final class CreateNoteManager: ObservableObject {
   @Published var rating: Int?
   @Published var smellKeywordList: [String]?
   @Published var tastingNoteImage: [TastingNoteImage]?
+  @Published var deleteSmellKeywordList: [String]?
+  @Published var deleteImgLists: [Int]?
   
   func initData() {
     self.mode = .create
+    self.noteId = nil
     self.wineId = nil
     self.vintage = nil
     self.officialAlcohol = nil
@@ -70,9 +74,9 @@ final class CreateNoteManager: ObservableObject {
   func createNote() -> CreateNoteRequestDTO {
     return CreateNoteRequestDTO(
       wineId: self.wineId!,
-      vintage: self.vintage!,
+      vintage: self.vintage,
       officialAlcohol: self.officialAlcohol,
-      price: self.price!,
+      price: self.price,
       color: self.color!,
       sweetness: self.sweetness!,
       acidity: self.acidity!,
@@ -83,7 +87,29 @@ final class CreateNoteManager: ObservableObject {
       memo: self.memo!,
       buyAgain: self.buyAgain!,
       rating: self.rating!,
-      smellKeywordList: self.smellKeywordList!
+      smellKeywordList: self.smellKeywordList
+    )
+  }
+  
+  func patchNote() -> PatchNoteRequestDTO {
+    return PatchNoteRequestDTO(
+      noteId: self.noteId!,
+      vintage: self.vintage,
+      officialAlcohol: self.officialAlcohol,
+      price: self.price,
+      color: self.color!,
+      sweetness: self.sweetness!,
+      acidity: self.acidity!,
+      alcohol: self.alcohol!,
+      body: self.body!,
+      tannin: self.tannin!,
+      finish: self.finish!,
+      memo: self.memo!,
+      buyAgain: self.buyAgain!,
+      rating: self.rating!,
+      smellKeywordList: self.smellKeywordList,
+      deleteSmellKeywordList: self.deleteSmellKeywordList,
+      deleteImgLists: self.deleteImgLists
     )
   }
   

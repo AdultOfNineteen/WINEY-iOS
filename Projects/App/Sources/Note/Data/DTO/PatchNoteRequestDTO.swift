@@ -9,9 +9,10 @@
 import Foundation
 
 public struct PatchNoteRequestDTO: Encodable, Equatable {
-  let vintage: Int
-  let officialAlcohol: Int
-  let price: Int
+  let noteId: Int
+  let vintage: String?
+  let officialAlcohol: Int?
+  let price: String?
   let color: String
   let sweetness: Int
   let acidity: Int
@@ -22,15 +23,15 @@ public struct PatchNoteRequestDTO: Encodable, Equatable {
   let memo: String
   let buyAgain: Bool
   let rating: Int
-  let smellKeywordList: [String]  // 추가되는 향
-  let deleteSmellKeywordList: [String]  // 삭제되는 향
-  let deleteImgLists: [Int]  // 삭제되는 이미지 (int)
+  let smellKeywordList: [String]?  // 추가되는 향
+  let deleteSmellKeywordList: [String]?  // 삭제되는 향
+  let deleteImgLists: [Int]?  // 삭제되는 이미지 (int)
   
   public init(
-    wineId: Int,
-    vintage: Int,
-    officialAlcohol: Int,
-    price: Int,
+    noteId: Int,
+    vintage: String?,
+    officialAlcohol: Int?,
+    price: String?,
     color: String,
     sweetness: Int,
     acidity: Int,
@@ -41,10 +42,11 @@ public struct PatchNoteRequestDTO: Encodable, Equatable {
     memo: String,
     buyAgain: Bool,
     rating: Int,
-    smellKeywordList: [String],
-    deleteSmellKeywordList: [String],
-    deleteImgLists: [Int]
+    smellKeywordList: [String]?,
+    deleteSmellKeywordList: [String]?,
+    deleteImgLists: [Int]?
   ) {
+    self.noteId = noteId
     self.vintage = vintage
     self.officialAlcohol = officialAlcohol
     self.price = price
