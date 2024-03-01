@@ -70,7 +70,7 @@ struct SignUpBottomSheetFotter: View {
           title: "확인",
           validBy: true,
           action: {
-            self.tappedCodeFailConfirm()
+            self.tappedSendCodeConfirm()
           }
         )
       }

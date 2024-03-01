@@ -43,7 +43,7 @@ struct CodeSignUpView: View {
         CustomTextField(
           mainTitle: "인증번호",
           placeholderText: "",
-          errorMessage: "인증번호를 확인해주세요",
+          errorMessage: viewStore.isShowVerifyError ? "인증번호를 확인해주세요 (\(viewStore.codeVerifyCount)/5)" : "인증번호 6자리를 입력해주세요",
           inputText: viewStore.binding(
             get: \.inputCode,
             send: CodeSignUp.Action.edited
@@ -51,9 +51,7 @@ struct CodeSignUpView: View {
           textStyle: { $0 },
           maximumInputCount: 6,
           clockIndicator: viewStore.codeValidateClock,
-          isInputTextCompleteCondition: { text in
-            text.count == 6
-          },
+          completeCondition: viewStore.inputCode.count == 6 && !viewStore.isShowVerifyError,
           onEditingChange: { }
         )
         .focused($isTextFieldFocused)
@@ -84,7 +82,7 @@ struct CodeSignUpView: View {
           Spacer()
         }
         .foregroundColor(
-          WineyKitAsset.gray500.swiftUIColor
+          WineyKitAsset.gray700.swiftUIColor
         )
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
         
@@ -133,7 +131,7 @@ struct CodeSignUpView: View {
             },
             tappedCodeFailConfirm: {
               viewStore
-                .send(._presentBottomSheet(false))
+                .send(._movePhoneNumberView)
             },
             tappedSendCodeConfirm: {
               viewStore
