@@ -85,9 +85,9 @@ extension FilteredNoteView {
               action: { viewStore.send(.tappedSortState) }
             )
             
-            filterCategoryButton(type: .rebuy, list: viewStore.rebuyFilter)
-            filterCategoryButton(type: .type, list: viewStore.typeFilter)
-            filterCategoryButton(type: .country, list: viewStore.countryFilter)
+            filterCategoryButton(type: .rebuy, list: Array(viewStore.rebuyFilter))
+            filterCategoryButton(type: .type, list: Array(viewStore.typeFilter))
+            filterCategoryButton(type: .country, list: Array(viewStore.countryFilter))
           }
         }
         .padding(.leading, WineyGridRules.globalHorizontalPadding)

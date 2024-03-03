@@ -27,7 +27,7 @@ public struct SettingColorSmell: Reducer {
       Color(red: 213/255, green: 219/255, blue: 181/255)
     ]
     
-    public var selectedSmell: [String] = []
+    public var selectedSmell: Set<String> = []
     public var colorValue: Double = 0.0
     
     public var maxValue: CGFloat = 0
@@ -69,20 +69,25 @@ public struct SettingColorSmell: Reducer {
     Reduce { state, action in
       switch action {
       case ._viewWillAppear(let value):
-        state.selectedSmell = CreateNoteManager.shared.smellKeywordList ?? []
+        if CreateNoteManager.shared.mode == .create {
+          state.selectedSmell = CreateNoteManager.shared.smellKeywordList ?? []
+        } else {
+          state.selectedSmell = CreateNoteManager.shared.originalSmellKeywordList ?? []
+        }
+        
         if !state.selectedSmell.isEmpty || state.colorValue != 0.0 {
           state.buttonState = true
         }
+        
         return .send(._setMaxValue(value.size.width - 11))
         
       case .tappedBackButton:
-        CreateNoteManager.shared.smellKeywordList = state.selectedSmell
-        
         // TODO: 색상 추가 해야됨.
+        CreateNoteManager.shared.smellKeywordList = state.selectedSmell
         return .send(._moveBackPage)
         
       case .tappedSmellButton(let smell):
-        if state.selectedSmell.contains(where: { $0 == smell }) {
+        if state.selectedSmell.contains(smell) {
           return .send(._removeSmell(smell))
         } else {
           return .send(._addSmell(smell))
@@ -101,11 +106,11 @@ public struct SettingColorSmell: Reducer {
         return .none
         
       case ._addSmell(let smell):
-        state.selectedSmell.append(smell)
+        state.selectedSmell.insert(smell)
         return .none
         
       case ._removeSmell(let smell):
-        state.selectedSmell.removeAll(where: { $0 == smell })
+        state.selectedSmell.remove(smell)
         return .none
         
       case .dragSlider(let value):
@@ -132,7 +137,12 @@ public struct SettingColorSmell: Reducer {
         return .none
         
       case .tappedNextButton:
-        CreateNoteManager.shared.smellKeywordList = state.selectedSmell
+        if CreateNoteManager.shared.mode == .create {
+          CreateNoteManager.shared.smellKeywordList = state.selectedSmell
+        } else {
+          CreateNoteManager.shared.smellKeywordList = state.selectedSmell.subtracting(CreateNoteManager.shared.originalSmellKeywordList ?? [])
+          CreateNoteManager.shared.deleteSmellKeywordList = CreateNoteManager.shared.originalSmellKeywordList?.subtracting(state.selectedSmell)
+        }
         CreateNoteManager.shared.color = "#"+(Color(red: 255/255, green: state.colorValue/255, blue: state.colorValue/255).toHex() ?? "FFFFFF")
         return .send(._moveNextPage)
         

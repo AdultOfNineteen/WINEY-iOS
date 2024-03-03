@@ -35,15 +35,15 @@ public struct FilterDetailView: View {
         
         ScrollView(.horizontal) {
           HStack(spacing: 5) {
-            ForEach(viewStore.rebuyFilterBuffer, id: \.self) { filter in
+            ForEach(viewStore.rebuyFilterBuffer.sorted(), id: \.self) { filter in
               selectedFilter(title: filter, type: .rebuy)
             }
             
-            ForEach(viewStore.typeFilterBuffer, id: \.self) { filter in
+            ForEach(viewStore.typeFilterBuffer.sorted(), id: \.self) { filter in
               selectedFilter(title: filter, type: .type)
             }
             
-            ForEach(viewStore.countryFilterBuffer, id: \.self) { filter in
+            ForEach(viewStore.countryFilterBuffer.sorted(), id: \.self) { filter in
               selectedFilter(title: filter, type: .country)
             }
           }
@@ -83,7 +83,7 @@ public struct FilterDetailView: View {
 extension FilterDetailView {
   
   @ViewBuilder
-  private func filterList(title: String, list: [FilterInfo], buffer: [String]) -> some View {
+  private func filterList(title: String, list: [FilterInfo], buffer: Set<String>) -> some View {
     VStack(alignment: .leading, spacing: 14) {
       Text(title)
         .wineyFont(.bodyB1)
@@ -106,10 +106,10 @@ extension FilterDetailView {
   
   // MARK: 선택할 수 있는 모든 필터
   @ViewBuilder
-  private func defaultFilter(filterInfo: FilterInfo, buffer: [String]) -> some View {
+  private func defaultFilter(filterInfo: FilterInfo, buffer: Set<String>) -> some View {
     HStack(spacing: 4) {
       Text(filterInfo.title)
-        .foregroundStyle(buffer.contains(where: { $0 == filterInfo.title }) ? WineyKitAsset.main2.swiftUIColor : WineyKitAsset.gray700.swiftUIColor)
+        .foregroundStyle(buffer.contains(filterInfo.title) ? WineyKitAsset.main2.swiftUIColor : WineyKitAsset.gray700.swiftUIColor)
         .lineLimit(1)
       
       if let count = filterInfo.count {
@@ -129,9 +129,7 @@ extension FilterDetailView {
     .background(
       Capsule()
         .stroke(
-          buffer.contains(
-            where: { $0 == filterInfo.title }
-          ) ? WineyKitAsset.main2.swiftUIColor : WineyKitAsset.gray900.swiftUIColor
+          buffer.contains(filterInfo.title) ? WineyKitAsset.main2.swiftUIColor : WineyKitAsset.gray900.swiftUIColor
         )
     )
     .padding(1)

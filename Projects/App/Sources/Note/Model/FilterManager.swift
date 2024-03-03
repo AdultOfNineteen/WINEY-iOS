@@ -13,9 +13,9 @@ class FilterManager: ObservableObject {
 
   private init() { }
 
-  @Published public var rebuyFilter: [String] = []
-  @Published public var typeFilter: [String] = []
-  @Published public var countryFilter: [String] = []
+  @Published public var rebuyFilter: Set<String> = []
+  @Published public var typeFilter: Set<String> = []
+  @Published public var countryFilter: Set<String> = []
 }
 
 public enum FilterType {
