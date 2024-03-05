@@ -22,13 +22,14 @@ public struct NoteDoneView: View {
   
   public var body: some View {
     ZStack {
-      WineyKitAsset.mainBackground.swiftUIColor
-      
       colorBackground()
       
-      bottomButton()
+      contents()
     }
-    .ignoresSafeArea()
+    .background(
+      WineyKitAsset.mainBackground.swiftUIColor
+    )
+    .ignoresSafeArea(edges: .bottom)
     .navigationBarHidden(true)
   }
 }
@@ -37,25 +38,59 @@ extension NoteDoneView {
   
   @ViewBuilder
   private func colorBackground() -> some View {
-    Image("noteBackground")
+    Image("noteDoneBackground")
       .resizable()
-      .scaledToFit()
+  }
+  
+  @ViewBuilder
+  private func contents() -> some View {
+    VStack(spacing: 0) {
+      Text("테이스팅 노트 작성이\n완료 되었어요!")
+        .wineyFont(.bodyB1)
+        .foregroundStyle(.white)
+        .multilineTextAlignment(.center)
+        .padding(.top, 264)
+        .padding(.horizontal, 49)
+        .padding(.bottom, 48)
+        .background(
+          RoundedRectangle(cornerRadius: 7)
+            .fill(
+              Color(red: 63/255, green: 63/255, blue: 63/255).opacity(0.4)
+            )
+            .background(
+              RoundedRectangle(cornerRadius: 7)
+                .stroke(
+                  LinearGradient(
+                    colors: [
+                      Color(red: 134/255, green: 124/255, blue: 162/255),
+                      Color(red: 150/255, green: 113/255, blue: 1).opacity(0.5),
+                      Color(red: 150/255, green: 113/255, blue: 1).opacity(0.1)
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                  ),
+                  lineWidth: 1
+                )
+            )
+        )
+        .padding(.top, 136)
+      
+      Spacer()
+      
+      bottomButton()
+    }
+    .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
   }
   
   @ViewBuilder
   private func bottomButton() -> some View {
-    VStack {
-      Spacer()
-      
-      WineyConfirmButton(
-        title: "확인",
-        validBy: true,
-        action: {
-          viewStore.send(.tappedButton)
-        }
-      )
-    }
-    .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+    WineyConfirmButton(
+      title: "확인",
+      validBy: true,
+      action: {
+        viewStore.send(.tappedButton)
+      }
+    )
     .padding(.bottom, 54)
   }
 }

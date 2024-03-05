@@ -21,10 +21,10 @@ public struct NoteDetailDTO: Codable, Equatable {
   public let varietal: String
   public let officialAlcohol: Double?
   public let price: Int?
-  public let smellKeywordList: [String]
+  public let smellKeywordList: Set<String>
   public let myWineTaste: MyWineTaste
   public let defaultWineTaste: DefaultWineTaste
-  public let tastingNoteImage: [TastingNoteImage]
+  public let tastingNoteImage: Set<TastingNoteImage>
   public let memo: String
 }
 

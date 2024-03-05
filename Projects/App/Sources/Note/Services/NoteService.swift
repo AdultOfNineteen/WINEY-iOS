@@ -12,10 +12,11 @@ import WineyNetwork
 import UIKit
 
 public struct NoteService {
-  public var notes: (_ page: Int, _ size: Int, _ order: Int, _ country: [String], _ wineType: [String], _  buyAgain: Int?) async -> Result<NoteDTO, Error>
+  public var notes: (_ page: Int, _ size: Int, _ order: Int, _ country: Set<String>, _ wineType: Set<String>, _  buyAgain: Int?) async -> Result<NoteDTO, Error>
   public var noteDetail: (_ noteId: Int) async -> Result<NoteDetailDTO, Error>
   public var wineSearch: (_ page: Int, _ size: Int, _ content: String) async -> Result<WineSearchDTO, Error>
   public var createNote: (_ createNoteData: CreateNoteRequestDTO, _ images: [UIImage]) async -> Result<VoidResponse, Error>
+  public var patchNote: (_ patchNoteData: PatchNoteRequestDTO, _ images: [UIImage]) async -> Result<VoidResponse, Error>
   public var deleteNote: (_ noteId: Int) async -> Result<VoidResponse, Error>
   public var noteFilter: () async -> Result<NoteFilterDTO, Error>
   public var noteCheck: () async -> Result<NoteCheckDTO, Error>
@@ -32,8 +33,8 @@ extension NoteService {
               page: page,
               size: size,
               order: order,
-              country: country,
-              wineType: wineType,
+              country: Array(country),
+              wineType: Array(wineType),
               buyAgain: buyAgain
             ),
             type: NoteDTO.self
@@ -86,6 +87,25 @@ extension NoteService {
           .request(
             NoteAPI.createNote(
               createNoteData: createNoteData,
+              images: images
+            ),
+            type: VoidResponse.self
+          )
+        
+        switch dtoResult {
+        case let .success(dto):
+          return .success(dto)
+        case let .failure(error):
+          return .failure(error)
+        }
+      },
+      
+      patchNote: { patchNoteData, images in
+        let dtoResult = await Provider<NoteAPI>
+          .init()
+          .request(
+            NoteAPI.patchNote(
+              patchNoteData: patchNoteData,
               images: images
             ),
             type: VoidResponse.self

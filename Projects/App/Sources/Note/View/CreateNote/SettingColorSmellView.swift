@@ -53,6 +53,9 @@ public struct SettingColorSmellView: View {
       WineyKitAsset.mainBackground.swiftUIColor
     )
     .navigationBarHidden(true)
+    .onAppear {
+      viewStore.send(._viewWillAppear)
+    }
   }
 }
 
@@ -77,7 +80,7 @@ extension SettingColorSmellView {
             colors: [
               viewStore.colorIndicator,
               viewStore.colorIndicator.opacity(0.5),
-              viewStore.colorIndicator.opacity(0.1)
+              .clear
             ],
             center: .center,
             startRadius: 0,

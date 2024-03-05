@@ -60,7 +60,7 @@ public struct SettingColorSmell: Reducer {
     case _setScaleFactor(CGFloat)
     case _setCoordinateValue(CGFloat)
     case _setColorValue(CGFloat)
-    case _setSliderValue(CGFloat)
+    case _setSliderValue
     
     // MARK: - Child Action
     case wineCard(id: Int, action: WineCard.Action)
@@ -104,15 +104,19 @@ public struct SettingColorSmell: Reducer {
         state.maxValue = maxValue
         return .concatenate([
           .send(._setScaleFactor(maxValue / CGFloat(state.colorBarList.count))),
-          .send(._setSliderValue(maxValue / CGFloat(state.colorBarList.count)))
+          .send(._setSliderValue)
         ])
         
       case ._setScaleFactor(let value):
         state.scaleFactor = value
-        return .send(._setSliderValue(value))
+        return .none
         
-      case ._setSliderValue(let value):
-        state.sliderValue = 0
+      case ._setSliderValue:
+        if let storedColor = CreateNoteManager.shared.color {
+          state.sliderValue = CGFloat(findNearestColorValue(colorList: state.colorBarList, targetColor: Color.init(hex: storedColor))) * (state.maxValue / CGFloat(state.colorBarList.count - 1))
+        }
+        
+        print(state.sliderValue, "!@#")
         return .none
         
       case ._addSmell(let smell):
@@ -146,6 +150,8 @@ public struct SettingColorSmell: Reducer {
         
       case ._setColorValue(let value):
         state.sliderValue = value
+        
+        print(value, "realValue")
         
         let widthPerItem = state.maxValue / CGFloat(state.colorBarList.count - 1)
         let index = Int(value / widthPerItem)
@@ -187,7 +193,45 @@ public struct SettingColorSmell: Reducer {
   }
 }
 
-private func getLinearColorValue(firstColor: [CGFloat]? , secondColor: [CGFloat]?, alpha: Float) -> [Double] {
+private func findNearestColorValue(colorList: [Color], targetColor: Color) -> CGFloat {
+  var minDistance: Double = Double.infinity
+  var nearestIndex: CGFloat = 0
+  var alpha: CGFloat = 0
+  
+  for (index, color) in colorList.enumerated() {
+    let targetColorComponent = UIColor(targetColor).cgColor.components
+    let colorComponent = UIColor(color).cgColor.components
+    
+    if let colorComponent = colorComponent, let targetColorComponent = targetColorComponent {
+      let targetRed = targetColorComponent[0]
+      let targetGreen = targetColorComponent[1]
+      let targetBlue = targetColorComponent[2]
+      
+      let redDiff = colorComponent[0] - targetRed
+      let greenDiff = colorComponent[1] - targetGreen
+      let blueDiff = colorComponent[2] - targetBlue
+      
+      let distance = sqrt(redDiff * redDiff + greenDiff * greenDiff + blueDiff * blueDiff)
+      
+      if distance < minDistance {
+        minDistance = distance
+        nearestIndex = CGFloat(index)
+        
+        if redDiff + greenDiff + blueDiff > 0 {
+          alpha = -distance
+        } else {
+          alpha = distance
+        }
+      }
+    } else {
+      continue
+    }
+  }
+  
+  return nearestIndex + alpha
+}
+
+private func getLinearColorValue(firstColor: [CGFloat]?, secondColor: [CGFloat]?, alpha: Float) -> [Double] {
   let red = lerp(a: Float(firstColor?[0] ?? 0), b: Float(secondColor?[0] ?? 0), alpha: alpha)
   let green = lerp(a: Float(firstColor?[1] ?? 0), b: Float(secondColor?[1] ?? 0), alpha: alpha)
   let blue = lerp(a: Float(firstColor?[2] ?? 0), b: Float(secondColor?[2] ?? 0), alpha: alpha)

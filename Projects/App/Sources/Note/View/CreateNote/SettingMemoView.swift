@@ -172,7 +172,6 @@ extension SettingMemoView {
               
               Spacer()
             }
-            
           }
         }
       }
@@ -206,11 +205,6 @@ extension SettingMemoView {
             .stroke(WineyKitAsset.main2.swiftUIColor)
         )
         .tint(WineyKitAsset.main2.swiftUIColor)
-//        .simultaneousGesture(
-//          TapGesture().onEnded({ tap in
-//            viewStore.send(._delPickPhoto)
-//          })
-//        )
       }
     }
     .padding(.top, viewStore.displayPhoto.isEmpty ? 30 : 15)

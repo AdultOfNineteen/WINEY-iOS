@@ -41,7 +41,7 @@ public struct NoteDetail: Reducer {
     case _presentBottomSheet(Bool)
     case _presentRemoveSheet(Bool)
     case _viewWillAppear
-    case _patchNote(noteId: Int)
+    case _patchNote
     
     // MARK: - Inner SetState Action
     case _setDetailNotes(data: NoteDetailDTO)
@@ -87,12 +87,14 @@ public struct NoteDetail: Reducer {
         let noteId = state.noteId
         
         CreateNoteManager.shared.mode = .patch
-        CreateNoteManager.shared.fetchData(noteData: state.noteCardData!)
         
-        print( CreateNoteManager.shared.mode, "tests!!!")
+        // TODO: NoteCardData nil 처리
+        CreateNoteManager.shared.fetchData(noteData: state.noteCardData!)
+        CreateNoteManager.shared.noteId = state.noteId
+        
         return .run { send in
           await send(._presentBottomSheet(false))
-          await send(._patchNote(noteId: noteId))
+          await send(._patchNote)
         }
       }
     

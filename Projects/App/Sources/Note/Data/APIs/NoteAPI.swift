@@ -15,6 +15,7 @@ public enum NoteAPI {
   case noteDetailInfo(noteId: Int)
   case tastingNotes(page: Int, size: Int, order: Int, country: [String], wineType: [String], buyAgain: Int?)
   case createNote(createNoteData: CreateNoteRequestDTO, images: [UIImage])
+  case patchNote(patchNoteData: PatchNoteRequestDTO, images: [UIImage])
   case deleteNote(noteId: Int)
   case noteFilter
   case noteCheck
@@ -35,6 +36,8 @@ extension NoteAPI: EndPointType {
       return "/tasting-notes"
     case .createNote:
       return "/tasting-notes"
+    case let .patchNote(patchNoteData: patchNoteData, images: _):
+      return "/tasting-notes/\(patchNoteData.noteId)"
     case let .deleteNote(noteId):
       return "/tasting-notes/\(noteId)"
     case .noteFilter:
@@ -54,6 +57,8 @@ extension NoteAPI: EndPointType {
       return .get
     case .createNote:
       return .post
+    case .patchNote:
+      return .patch
     case .deleteNote:
       return .delete
     case .noteFilter:
@@ -83,7 +88,7 @@ extension NoteAPI: EndPointType {
           "page": page,
           "size": size,
           "order": order,
-          country.isEmpty ? "c" : "countries" : country.joined(separator: ", "),
+          country.isEmpty ? "" : "countries" : country.joined(separator: ", "),
           wineType.isEmpty ? "w" : "wineTypes" : wineType.joined(separator: ", "),
           "buyAgain": buyAgain ?? ""
         ],
@@ -111,7 +116,33 @@ extension NoteAPI: EndPointType {
           "memo": createNoteData.memo,
           "buyAgain": createNoteData.buyAgain,
           "rating": createNoteData.rating,
-          "smellKeywordList": createNoteData.smellKeywordList
+          "smellKeywordList": createNoteData.smellKeywordList?.sorted()
+        ],
+        images: images
+      )
+      
+    case let .patchNote(
+      patchNoteData,
+      images
+    ):
+      return .requestMultipartData(
+        parameters: [
+          "vintage": patchNoteData.vintage,
+          "officialAlcohol": patchNoteData.officialAlcohol,
+          "price": patchNoteData.price,
+          "color": patchNoteData.color,
+          "sweetness": patchNoteData.sweetness,
+          "acidity": patchNoteData.acidity,
+          "alcohol": patchNoteData.alcohol,
+          "body": patchNoteData.body,
+          "tannin": patchNoteData.tannin,
+          "finish": patchNoteData.finish,
+          "memo": patchNoteData.memo,
+          "buyAgain": patchNoteData.buyAgain,
+          "rating": patchNoteData.rating,
+          "smellKeywordList": patchNoteData.smellKeywordList?.sorted(),
+          "deleteSmellKeywordList": patchNoteData.deleteSmellKeywordList?.sorted(),
+          "deleteImgLists": patchNoteData.deleteImgLists
         ],
         images: images
       )

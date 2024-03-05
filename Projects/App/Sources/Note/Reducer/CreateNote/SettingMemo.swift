@@ -68,6 +68,13 @@ public struct SettingMemo: Reducer {
         state.memo = CreateNoteManager.shared.memo ?? ""
         state.rating = CreateNoteManager.shared.rating ?? 0
         state.buyAgain = CreateNoteManager.shared.buyAgain
+        
+        if CreateNoteManager.shared.mode == .create {
+          
+        } else {
+          
+        }
+        
         return .none
         
       case .tappedBackButton:
@@ -86,7 +93,10 @@ public struct SettingMemo: Reducer {
         return .none
         
       case .tappedAttachPictureButton:
-        return .send(._setSheetState(true))
+        return .concatenate([
+          .send(._delPickPhoto),
+          .send(._setSheetState(true))
+        ])
         
       case .tappedOutsideOfBottomSheet:
         return .send(._setSheetState(false))
@@ -120,8 +130,21 @@ public struct SettingMemo: Reducer {
             }
           }
         } else {
-          // TODO: Patch
-          return .none
+          let patchNoteData = CreateNoteManager.shared.patchNote()
+          
+          return .run { send in
+            switch await noteService.patchNote(
+              patchNoteData,
+              photos
+            ) {
+              // TODO: 수정하기, 작성하기 분기처리 (작성완료 화면 분기)
+            case let .success(data):
+              CreateNoteManager.shared.initData()
+              await send(._moveNextPage)
+            case let .failure(error):
+              await send(._failureSocialNetworking(error))
+            }
+          }
         }
         
       case .tappedWineStar(let value):
@@ -134,6 +157,7 @@ public struct SettingMemo: Reducer {
         let image = state.displayPhoto[idx]
         state.displayPhoto.removeAll(where: { $0 == image })
         state.deleteImage.append(state.selectedPhoto[idx])
+        print(state.deleteImage, "!!!")
         return .none
         
       case ._setRating(let value):

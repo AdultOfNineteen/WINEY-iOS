@@ -51,7 +51,7 @@ public struct NoteCoordinator: Reducer {
         state.routes.pop()
         return .none
         
-      case .routeAction(_, action: .createNote(.routeAction(_, action: .setAlcohol(._backToNoteDtail)))):
+      case .routeAction(_, action: .createNote(.routeAction(_, action: .setAlcohol(._backToNoteDetail)))):
         state.routes.pop()
         return .none
         
@@ -67,7 +67,7 @@ public struct NoteCoordinator: Reducer {
         state.routes.pop()
         return .none
         
-      case let .routeAction(_, action: .noteDetail(._patchNote(noteId: noteId))):
+      case .routeAction(_, action: .noteDetail(._patchNote)):
         state.routes.append(.push(.creatNote(.patchState)))
         return .none
         
