@@ -32,7 +32,7 @@ public struct CodeSignUp: Reducer {
     var timerId: String = "SignUpTimerID"  // for Cancellable Timer
     var codeVerifyCount: Int = 0  // 코드 인증 횟수
     var codeResendCount: Int = 1  // 코드 재전송 횟수
-    var codeValidateClock: Int = 10
+    var codeValidateClock: Int = 180
     var isShowVerifyError: Bool = false
     
     public init(phoneNumber: String) {
@@ -109,7 +109,7 @@ public struct CodeSignUp: Reducer {
       return .cancel(id: state.timerId)
       
     case .tappedBackButton:
-      return .send(._movePhoneNumberView)
+      return .send(._changeBottomSheet(type: .back))
       
     case ._sendCode:
       guard let userId = userDefaultsService.loadValue(.userID) else { return .none }
@@ -122,7 +122,6 @@ public struct CodeSignUp: Reducer {
         )
         await send(._handleSendCodeResponse(result))
       }
-      
    
     case .edited(let number):
       state.inputCode = number
@@ -151,7 +150,7 @@ public struct CodeSignUp: Reducer {
           .send(._stopTimer),
           .run { send in
             await send(._startTimer)
-            // await send(._sendCode)
+            await send(._sendCode)
           }
         ])
       }

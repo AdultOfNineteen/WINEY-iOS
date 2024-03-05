@@ -18,6 +18,7 @@ struct SignUpBottomSheetFotter: View {
   private let tappedCodeFailConfirm: (() -> Void)
   private let tappedSendCodeConfirm: (() -> Void)
   private let tappedBottomOverSendCodeButton: (() -> Void)
+  private let tappedCodeDelayMinuteConfirm: (() -> Void)
   
   init(
     bottomSheetType: SignUpBottomSheetType,
@@ -26,7 +27,8 @@ struct SignUpBottomSheetFotter: View {
     tappedAlreadySignUpConfirm: @escaping (() -> Void) = {},
     tappedCodeFailConfirm: @escaping (() -> Void) = {},
     tappedSendCodeConfirm: @escaping (() -> Void) = {},
-    tappedBottomOverSendCodeButton: @escaping (() -> Void) = {}
+    tappedBottomOverSendCodeButton: @escaping (() -> Void) = {},
+    tappedCodeDelayMinuteConfirm: @escaping (() -> Void) = {}
   ) {
     self.bottomSheetType = bottomSheetType
     self.tappedBackButtonNoOption = tappedBackButtonNoOption
@@ -35,6 +37,7 @@ struct SignUpBottomSheetFotter: View {
     self.tappedCodeFailConfirm = tappedCodeFailConfirm
     self.tappedSendCodeConfirm = tappedSendCodeConfirm
     self.tappedBottomOverSendCodeButton = tappedBottomOverSendCodeButton
+    self.tappedCodeDelayMinuteConfirm = tappedCodeDelayMinuteConfirm
   }
   
   var body: some View {
@@ -91,6 +94,16 @@ struct SignUpBottomSheetFotter: View {
           validBy: true,
           action: {
             self.tappedBottomOverSendCodeButton()
+          }
+        )
+      }
+      
+      if bottomSheetType == .codeDelayMinute {
+        WineyConfirmButton(
+          title: "확인",
+          validBy: true,
+          action: {
+            self.tappedCodeDelayMinuteConfirm()
           }
         )
       }

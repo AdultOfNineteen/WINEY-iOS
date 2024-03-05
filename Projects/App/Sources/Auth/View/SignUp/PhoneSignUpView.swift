@@ -102,9 +102,13 @@ struct SignUpView: View {
             viewStore.send(
               .tappedBackButton
             )
-          }, tappedSendCodeConfirm: {
-            viewStore.send(.tappedBottomCodeSendConfirmButton
-            )
+          },
+          tappedSendCodeConfirm: {
+            viewStore.send(.tappedBottomCodeSendConfirmButton)
+          },
+          tappedCodeDelayMinuteConfirm: {
+            viewStore
+              .send(._presentBottomSheet(false))
           }
         )
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)

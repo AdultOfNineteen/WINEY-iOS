@@ -54,6 +54,9 @@ struct SignUpBottomSheetContent: View {
     
     case .codeSendOver:
       CustomVStack(text1: "인증 요청 제한 횟수를 초과했어요", text2: "5분 뒤 처음부터 진행해주세요!")
+      
+    case .codeDelayMinute:
+      CustomVStack(text1: "아직 5분이 지나지 않았어요", text2: "5분 후 인증을 진행해주세요!")
     }
   }
 }
