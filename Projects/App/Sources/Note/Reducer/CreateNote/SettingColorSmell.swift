@@ -28,7 +28,8 @@ public struct SettingColorSmell: Reducer {
     ]
     
     public var selectedSmell: Set<String> = []
-    public var colorValue: Double = 0.0
+    
+    public var colorIndicator: Color = Color(red: 89/255, green: 0, blue: 43/255)
     
     public var maxValue: CGFloat = 0
     public var scaleFactor: CGFloat = 0
@@ -50,12 +51,12 @@ public struct SettingColorSmell: Reducer {
     // MARK: - Inner Business Action
     case _addSmell(String)
     case _removeSmell(String)
-    case _viewWillAppear(GeometryProxy)
+    case _viewWillAppear
     case _moveNextPage
     case _moveBackPage
     
     // MARK: - Inner SetState Action
-    case _setMaxValue(CGFloat)
+    case _setMaxValue(GeometryProxy)
     case _setScaleFactor(CGFloat)
     case _setCoordinateValue(CGFloat)
     case _setColorValue(CGFloat)
@@ -68,21 +69,26 @@ public struct SettingColorSmell: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
-      case ._viewWillAppear(let value):
+      case ._viewWillAppear:
         if CreateNoteManager.shared.mode == .create {
           state.selectedSmell = CreateNoteManager.shared.smellKeywordList ?? []
         } else {
           state.selectedSmell = CreateNoteManager.shared.originalSmellKeywordList ?? []
         }
         
-        if !state.selectedSmell.isEmpty || state.colorValue != 0.0 {
+        if let storedColor = CreateNoteManager.shared.color {
+          state.colorIndicator = Color.init(hex: storedColor)
+        }
+        
+        if !state.selectedSmell.isEmpty {
           state.buttonState = true
         }
         
-        return .send(._setMaxValue(value.size.width - 11))
+        return .none
+        
         
       case .tappedBackButton:
-        // TODO: 색상 추가 해야됨.
+        CreateNoteManager.shared.color = state.colorIndicator.toHex() == nil ? nil : "#" + state.colorIndicator.toHex()!
         CreateNoteManager.shared.smellKeywordList = state.selectedSmell
         return .send(._moveBackPage)
         
@@ -94,15 +100,19 @@ public struct SettingColorSmell: Reducer {
         }
         
       case ._setMaxValue(let value):
-        state.maxValue = value
-        return .send(._setScaleFactor(value / 255))
+        let maxValue = value.size.width - 11
+        state.maxValue = maxValue
+        return .concatenate([
+          .send(._setScaleFactor(maxValue / CGFloat(state.colorBarList.count))),
+          .send(._setSliderValue(maxValue / CGFloat(state.colorBarList.count)))
+        ])
         
       case ._setScaleFactor(let value):
         state.scaleFactor = value
         return .send(._setSliderValue(value))
         
       case ._setSliderValue(let value):
-        state.sliderValue = state.colorValue * value
+        state.sliderValue = 0
         return .none
         
       case ._addSmell(let smell):
@@ -114,17 +124,20 @@ public struct SettingColorSmell: Reducer {
         return .none
         
       case .dragSlider(let value):
-        state.buttonState = true
+        if !state.buttonState {
+          state.buttonState = true
+        }
+        
         if abs(value.translation.width) < 0.1 {
           return .send(._setCoordinateValue(state.sliderValue))
         }
         
         if value.translation.width > 0 {
           let nextCoordinateValue = min(state.maxValue, state.lastCoordinateValue + value.translation.width)
-          return .send(._setColorValue(nextCoordinateValue / state.scaleFactor))
+          return .send(._setColorValue(nextCoordinateValue))
         } else {
           let nextCoordinateValue = max(0, state.lastCoordinateValue + value.translation.width)
-          return .send(._setColorValue(nextCoordinateValue / state.scaleFactor))
+          return .send(._setColorValue(nextCoordinateValue))
         }
         
       case ._setCoordinateValue(let translation):
@@ -132,8 +145,27 @@ public struct SettingColorSmell: Reducer {
         return .none
         
       case ._setColorValue(let value):
-        state.colorValue = value
-        state.sliderValue = value * state.scaleFactor
+        state.sliderValue = value
+        
+        let widthPerItem = state.maxValue / CGFloat(state.colorBarList.count - 1)
+        let index = Int(value / widthPerItem)
+        
+        if index < state.colorBarList.count - 1 {
+          let firstColorComponent = UIColor(state.colorBarList[index]).cgColor.components
+          let secondColorComponent = UIColor(state.colorBarList[index + 1]).cgColor.components
+          let alphaValue = Float((value/widthPerItem)) - Float(index)
+          
+          let linearColorValue = getLinearColorValue(
+            firstColor: firstColorComponent,
+            secondColor: secondColorComponent,
+            alpha: alphaValue
+          )
+          
+          state.colorIndicator = Color(red: linearColorValue[0], green: linearColorValue[1], blue: linearColorValue[2])
+        } else {
+          state.colorIndicator = state.colorBarList[index]
+        }
+        
         return .none
         
       case .tappedNextButton:
@@ -143,7 +175,9 @@ public struct SettingColorSmell: Reducer {
           CreateNoteManager.shared.smellKeywordList = state.selectedSmell.subtracting(CreateNoteManager.shared.originalSmellKeywordList ?? [])
           CreateNoteManager.shared.deleteSmellKeywordList = CreateNoteManager.shared.originalSmellKeywordList?.subtracting(state.selectedSmell)
         }
-        CreateNoteManager.shared.color = "#"+(Color(red: 255/255, green: state.colorValue/255, blue: state.colorValue/255).toHex() ?? "FFFFFF")
+        
+        CreateNoteManager.shared.color = "#" + (state.colorIndicator.toHex() ?? "FFFFFF")
+        
         return .send(._moveNextPage)
         
       default:
@@ -151,4 +185,16 @@ public struct SettingColorSmell: Reducer {
       }
     }
   }
+}
+
+private func getLinearColorValue(firstColor: [CGFloat]? , secondColor: [CGFloat]?, alpha: Float) -> [Double] {
+  let red = lerp(a: Float(firstColor?[0] ?? 0), b: Float(secondColor?[0] ?? 0), alpha: alpha)
+  let green = lerp(a: Float(firstColor?[1] ?? 0), b: Float(secondColor?[1] ?? 0), alpha: alpha)
+  let blue = lerp(a: Float(firstColor?[2] ?? 0), b: Float(secondColor?[2] ?? 0), alpha: alpha)
+  
+  return [red, green, blue]
+}
+
+private func lerp(a: Float, b: Float, alpha: Float) -> Double {
+  return Double(a * (1 - alpha) + b * alpha)
 }
