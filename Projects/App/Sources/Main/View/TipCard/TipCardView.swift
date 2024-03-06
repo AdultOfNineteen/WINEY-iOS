@@ -42,6 +42,11 @@ public struct TipCardView: View {
                   .onTapGesture {
                     viewStore.send(.tappedTipCard(url: tipCard.url))
                   }
+                  .onAppear {
+                    if tipCards.contents[tipCards.contents.count - 1] == tipCard && !tipCards.isLast {
+                      viewStore.send(._fetchNextTipCardPage)
+                    }
+                  }
               }
             }
           }
