@@ -43,7 +43,8 @@ public struct SettingMemo: Reducer {
     case _makeNotes
     case _moveNextPage
     case _moveBackPage
-
+    case _backToNoteDetail
+    
     // MARK: - Inner SetState Action
     case _limitMemo(String)
     case _setRating(Int)
@@ -53,7 +54,6 @@ public struct SettingMemo: Reducer {
     case _delPickPhoto
     case _addPhoto(UIImage)
     case _setSheetState(Bool)
-    case _backToFirstView
     case _failureSocialNetworking(Error) // 후에 경고창 처리
     
     // MARK: - Child Action
@@ -140,7 +140,7 @@ public struct SettingMemo: Reducer {
               // TODO: 수정하기, 작성하기 분기처리 (작성완료 화면 분기)
             case let .success(data):
               CreateNoteManager.shared.initData()
-              await send(._moveNextPage)
+              await send(._backToNoteDetail)
             case let .failure(error):
               await send(._failureSocialNetworking(error))
             }

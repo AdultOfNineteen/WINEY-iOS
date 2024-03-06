@@ -59,7 +59,7 @@ public struct NoteCoordinator: Reducer {
         state.routes.pop()
         return .none
         
-      case .routeAction(_, action: .createNote(.routeAction(_, action: .setMemo(._backToFirstView)))):
+      case .routeAction(_, action: .createNote(.routeAction(_, action: .setMemo(._backToNoteDetail)))):
         state.routes.pop()
         return .none
         

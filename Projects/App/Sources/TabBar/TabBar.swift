@@ -108,8 +108,8 @@ public struct TabBar: Reducer {
       case .note(.routeAction(_, action: .createNote(.routeAction(_, action: .noteDone(.tappedButton))))):
         return .send(._setTabHiddenStatus(false))
         
-      case .note(.routeAction(_, action: .createNote(.routeAction(_, action: .setMemo(._backToFirstView))))):
-        return .send(._setTabHiddenStatus(false))
+      case .note(.routeAction(_, action: .createNote(.routeAction(_, action: .setMemo(._backToNoteDetail))))):
+        return .send(._setTabHiddenStatus(true))
         
       case .map(.routeAction(_, action: .map(._tabBarHidden))):
         return .send(._setTabHiddenStatus(true))
