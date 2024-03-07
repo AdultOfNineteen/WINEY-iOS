@@ -33,6 +33,9 @@ public struct FilteredNote: Reducer {
     public var isPresentedBottomSheet: Bool = false
     
     public var noteCardList: NoteCardScroll.State?
+    
+    public var noteSearchPage: Int = 0
+    public var noteSearchSize: Int = 10
   }
   
   public enum Action {
@@ -72,13 +75,16 @@ public struct FilteredNote: Reducer {
         state.typeFilter = FilterManager.shared.typeFilter
         state.countryFilter = FilterManager.shared.countryFilter
         
+        let searchPage = state.noteSearchPage
+        let searchSize = state.noteSearchSize
+        
         let sortState = state.sortState.rawValue
         let rebuy = state.rebuyFilter.isEmpty ? nil : 1
         let countries = state.countryFilter
         let types = state.typeFilter.setmap(transform: { filterRequestString(forValue: $0) })
         
         return .run { send in
-          switch await noteService.notes(0, 10, sortState, countries, types, rebuy) {
+          switch await noteService.notes(searchPage, searchSize, sortState, countries, types, rebuy) {
           case let .success(data):
             await send(._setNotes(data: data))
           case let .failure(error):
@@ -127,6 +133,51 @@ public struct FilteredNote: Reducer {
         
       case ._presentBottomSheet(let bool):
         state.isPresentedBottomSheet = bool
+        return .none
+        
+       
+      case .noteCardScroll(._fetchNextNotePage):
+        guard let noteData = state.noteCardList else {
+          return .none
+        }
+        
+        if noteData.noteCards.isLast {
+          return .none
+        } else {
+          return .send(.noteCardScroll(._appendNextNote(noteData.noteCards)))
+        }
+        
+        
+      case let .noteCardScroll(._appendNextNote(noteData)):
+        
+        state.noteSearchPage += 1
+        
+        let searchPage = state.noteSearchPage
+        let searchSize = state.noteSearchSize
+        
+        let sortState = state.sortState.rawValue
+        let rebuy = state.rebuyFilter.isEmpty ? nil : 1
+        let countries = state.countryFilter
+        let types = state.typeFilter.setmap(transform: { filterRequestString(forValue: $0) })
+        
+        return .run { send in
+          switch await noteService.notes(searchPage, searchSize, sortState, countries, types, rebuy) {
+          case let .success(data):
+            await send(.noteCardScroll(._appendNotes(noteData, data: data)))
+          case let .failure(error):
+            await send(._failureSocialNetworking(error))
+          }
+        }
+        
+      case let .noteCardScroll(._appendNotes(noteData, data)):
+        var originNoteData = noteData
+        
+        originNoteData.contents.append(contentsOf: data.contents)
+        originNoteData.isLast = data.isLast
+        originNoteData.totalCnt = data.totalCnt
+        
+        state.noteCardList?.noteCards = originNoteData
+        
         return .none
         
       default:

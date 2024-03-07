@@ -32,6 +32,11 @@ public struct NoteCardScrollView: View {
                 .onTapGesture {
                   viewStore.send(.tappedNoteCard(noteId: note.noteId))
                 }
+                .onAppear {
+                  if viewStore.noteCards.contents[viewStore.noteCards.contents.count - 1] == note && !viewStore.noteCards.isLast {
+                    viewStore.send(._fetchNextNotePage)
+                  }
+                }
             }
           }
           .padding(.top, 2)
