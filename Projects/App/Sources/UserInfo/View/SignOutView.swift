@@ -28,14 +28,17 @@ public struct SignOutView: View {
     VStack(alignment: .leading, spacing: 0) {
       navigationBarSpacer
       
-      VStack(alignment: .leading, spacing: 0) {
-        signOutDescription
-        
-        signOutReason
-        
-        if viewStore.selectedSignOutOption == .etc {
-          etcReasonField
+      ScrollView(showsIndicators: false) {
+        VStack(alignment: .leading, spacing: 0) {
+          signOutDescription
+          
+          signOutReason
+          
+          if viewStore.selectedSignOutOption == .etc {
+            etcReasonField
+          }
         }
+        .padding(.top, 20)
       }
       
       Spacer()
@@ -66,7 +69,6 @@ public struct SignOutView: View {
     .onTapGesture {
       isFocused = false
     }
-    .ignoresSafeArea(edges: .bottom)
     .navigationBarHidden(true)
   }
   
@@ -79,7 +81,6 @@ public struct SignOutView: View {
       },
       backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
     )
-    .padding(.bottom, 20)
     .padding(
       .horizontal,
       -WineyGridRules
@@ -218,7 +219,7 @@ public struct SignOutView: View {
         )
       }
     )
-    .padding(.bottom, 54)
+    .padding(.bottom, WineyGridRules.bottomButtonPadding)
   }
 }
 

@@ -53,6 +53,9 @@ public struct SettingColorSmellView: View {
       WineyKitAsset.mainBackground.swiftUIColor
     )
     .navigationBarHidden(true)
+    .onAppear {
+      viewStore.send(._viewWillAppear)
+    }
   }
 }
 
@@ -75,8 +78,9 @@ extension SettingColorSmellView {
         Circle()
           .fill(RadialGradient(
             colors: [
-              Color(red: 255/255, green: viewStore.colorValue/255, blue: viewStore.colorValue/255),
-              Color(red: 255/255, green: viewStore.colorValue/255, blue: viewStore.colorValue/255).opacity(0.3)
+              viewStore.colorIndicator,
+              viewStore.colorIndicator.opacity(0.5),
+              .clear
             ],
             center: .center,
             startRadius: 0,
@@ -85,7 +89,7 @@ extension SettingColorSmellView {
           .frame(width: 40, height: 40)
         
         Spacer()
-          .frame(width: 21)
+          .frame(width: 10)
         
         VStack {
           Spacer()
@@ -110,6 +114,7 @@ extension SettingColorSmellView {
             )
           )
           .frame(height: 10)
+          .padding(.leading, 11)
         
         HStack {
           Circle()
@@ -126,7 +131,7 @@ extension SettingColorSmellView {
           Spacer()
         }
         .onAppear {
-          viewStore.send(._viewWillAppear(geo))
+          viewStore.send(._setMaxValue(geo))
         }
       }
     }

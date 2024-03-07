@@ -46,6 +46,7 @@ public struct SignOutConfirmView: View {
         Text("탈퇴가 완료되었어요\n언젠가 다시 만나요!")
           .wineyFont(.bodyB1)
           .foregroundStyle(WineyKitAsset.gray200.swiftUIColor)
+          .multilineTextAlignment(.center)
       },
       bottomArea: {
         WineyConfirmButton(

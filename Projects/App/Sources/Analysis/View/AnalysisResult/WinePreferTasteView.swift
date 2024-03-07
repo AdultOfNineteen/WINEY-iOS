@@ -42,7 +42,7 @@ public struct HexagonGraphDataView: View {
   
   public var body: some View {
     ZStack {
-      HexagonBackgroundView()
+      HexagonBackgroundView(topTaste: viewStore.topTaste)
       
       HexagonDataView(
         store: store,
@@ -76,16 +76,16 @@ public struct HexagonDataView: View {
         let centerY = geometry.size.height / 2
         
         let points: [CGPoint] = [
-          CGPoint(x: centerX, y: centerY - size * viewStore.sweet),
-          CGPoint(x: centerX + sideLength * viewStore.remain, y: centerY - size / 2 * viewStore.remain),
-          CGPoint(x: centerX + sideLength * viewStore.alcohol, y: centerY + size / 2 * viewStore.alcohol),
-          CGPoint(x: centerX, y: centerY + size * viewStore.tannin),
-          CGPoint(x: centerX - sideLength * viewStore.wineBody, y: centerY + size / 2 * viewStore.wineBody),
-          CGPoint(x: centerX - sideLength * viewStore.acid, y: centerY - size / 2 * viewStore.acid)
+          CGPoint(x: centerX, y: centerY - size * viewStore.sweet.value),
+          CGPoint(x: centerX + sideLength * viewStore.remain.value, y: centerY - size / 2 * viewStore.remain.value),
+          CGPoint(x: centerX + sideLength * viewStore.alcohol.value, y: centerY + size / 2 * viewStore.alcohol.value),
+          CGPoint(x: centerX, y: centerY + size * viewStore.tannin.value),
+          CGPoint(x: centerX - sideLength * viewStore.wineBody.value, y: centerY + size / 2 * viewStore.wineBody.value),
+          CGPoint(x: centerX - sideLength * viewStore.acid.value, y: centerY - size / 2 * viewStore.acid.value)
         ]
         path.addLines(points)
       }
-      .fill(WineyKitAsset.main3.swiftUIColor.opacity(0.5))
+      .fill(WineyKitAsset.main3.swiftUIColor.opacity(0.3))
       .scaleEffect(viewStore.animation)
       .onAppear {
         viewStore.send(._onAppear, animation: .easeIn(duration: 1.0))
@@ -96,9 +96,9 @@ public struct HexagonDataView: View {
 
 
 public struct HexagonView: View {
-  var hexagonSize: CGFloat
-  var color: Color
-  var lineWidth: CGFloat
+  let hexagonSize: CGFloat
+  let color: Color
+  let lineWidth: CGFloat
   
   public var body: some View {
     GeometryReader { geometry in
@@ -108,6 +108,7 @@ public struct HexagonView: View {
         
         let centerX = geometry.size.width / 2
         let centerY = geometry.size.height / 2
+        
         let points: [CGPoint] = [
           CGPoint(x: centerX, y: centerY - size),
           CGPoint(x: centerX + sideLength, y: centerY - size / 2),
@@ -126,6 +127,7 @@ public struct HexagonView: View {
 
 public struct HexagonBackgroundView: View {
   
+  let topTaste: String
   let width = UIScreen.main.bounds.width
   
   public var body: some View {
@@ -152,16 +154,22 @@ public struct HexagonBackgroundView: View {
       
       Text("당도")
         .offset(y: -width / 3 - 10)
+        .foregroundStyle(topTaste == "당도" ? .white : WineyKitAsset.gray600.swiftUIColor)
       Text("산도")
         .offset(x: -width / 3, y: -width / 5 + 15)
+        .foregroundStyle(topTaste == "산도" ? .white : WineyKitAsset.gray600.swiftUIColor)
       Text("여운")
         .offset(x: width / 3, y: -width / 5 + 15)
+        .foregroundStyle(topTaste == "여운" ? .white : WineyKitAsset.gray600.swiftUIColor)
       Text("바디")
         .offset(x: -width / 3, y: width / 5 - 15)
+        .foregroundStyle(topTaste == "바디" ? .white : WineyKitAsset.gray600.swiftUIColor)
       Text("알코올")
         .offset(x: width / 3 + 5, y: width / 5 - 15)
+        .foregroundStyle(topTaste == "알코올" ? .white : WineyKitAsset.gray600.swiftUIColor)
       Text("탄닌")
         .offset(y: width / 3 + 10)
+        .foregroundStyle(topTaste == "탄닌" ? .white : WineyKitAsset.gray600.swiftUIColor)
     }
     .wineyFont(.captionB1)
     .frame(height: 324)

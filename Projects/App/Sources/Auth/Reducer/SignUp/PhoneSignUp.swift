@@ -53,10 +53,7 @@ public  struct PhoneSignUp: Reducer {
     case .tappedNextButton:
       guard let userId = userDefaultsService.loadValue(.userID) else { return .none }
       let phoneNumber = state.inputPhoneNumber
-
-//      // For Test
-//      return .send(._changeBottomSheet(type: .sendCode))
-      
+ 
       return .run { send in
         let result = await authService.sendCode(
           userId,
@@ -72,14 +69,17 @@ public  struct PhoneSignUp: Reducer {
         
       case .failure(let error):
         guard let providerError = error.toProviderError(),
-        let message = providerError.errorBody?.message,
-        let type = LoginPathType.convert(path: message) else { break }
+              let message = providerError.errorBody?.message else {
+          return .none
+        }
         
-        let phone = state.inputPhoneNumber
-        return .send(._changeBottomSheet(type: .alreadySignUp((phone, type))))
+        if let type = LoginPathType.convert(path: message) {
+          let phone = state.inputPhoneNumber
+          return .send(._changeBottomSheet(type: .alreadySignUp((phone, type))))
+        } else {
+          return .send(._changeBottomSheet(type: .codeDelayMinute))
+        }
       }
-      
-      return .none
       
     case let ._changeBottomSheet(type):
       state.bottomSheetType = type

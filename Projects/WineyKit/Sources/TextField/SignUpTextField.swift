@@ -13,10 +13,11 @@ public struct CustomTextField: View {
   public let errorMessage: String
   public let textStyle: (String) -> String // Formatter로 만들 지 고민 중
   public let maximumInputCount: Int
-  public let isInputTextCompleteCondition: (String) -> Bool
+  public let completeCondition: Bool
   public var onEditingChange: () -> Void = {}
   public let placeholderText: String
   public var clockIndicator: Int?
+  
   @Binding public var inputText: String
   @Binding public var rightAccessoryText: String?
     
@@ -29,7 +30,7 @@ public struct CustomTextField: View {
     textStyle: @escaping (String) -> String,
     maximumInputCount: Int,
     clockIndicator: Int? = nil,
-    isInputTextCompleteCondition: @escaping (String) -> Bool,
+    completeCondition: Bool,
     onEditingChange: @escaping () -> Void = {}
   ) {
     self.mainTitle = mainTitle
@@ -40,7 +41,7 @@ public struct CustomTextField: View {
     self.textStyle = textStyle
     self.maximumInputCount = maximumInputCount
     self.clockIndicator = clockIndicator
-    self.isInputTextCompleteCondition = isInputTextCompleteCondition
+    self.completeCondition = completeCondition
     self.onEditingChange = onEditingChange
   }
     
@@ -48,12 +49,12 @@ public struct CustomTextField: View {
     VStack(alignment: .leading, spacing: 0) {
       
       Text(
-        inputText.isEmpty || isInputTextCompleteCondition(inputText) ?
+        inputText.isEmpty || completeCondition ?
         mainTitle : errorMessage
 
       )
       .foregroundColor(
-        inputText.isEmpty || isInputTextCompleteCondition(inputText) ?
+        inputText.isEmpty || completeCondition ?
         WineyKitAsset.gray600.swiftUIColor : WineyKitAsset.error.swiftUIColor
       )
       .wineyFont(.bodyB2)
@@ -89,7 +90,7 @@ public struct CustomTextField: View {
       Rectangle()
         .frame(height: 1)
         .foregroundColor(
-          isInputTextCompleteCondition(inputText) ?
+          completeCondition ?
             .white :
             inputText.isEmpty ? WineyKitAsset.gray600.swiftUIColor : WineyKitAsset.error.swiftUIColor
         )
@@ -113,9 +114,7 @@ struct CustomTextFieldExample: View {
         inputText: $phoneNumber,
         textStyle: formatPhoneNumber(_:),
         maximumInputCount: 13,
-        isInputTextCompleteCondition: { text in
-          text.count == 13
-        },
+        completeCondition: true,
         onEditingChange: { }
       )
             
@@ -127,9 +126,7 @@ struct CustomTextFieldExample: View {
         inputText: $authCode,
         textStyle: { $0 },
         maximumInputCount: 6,
-        isInputTextCompleteCondition: { text in
-          text.count == 6
-        },
+        completeCondition: false,
         onEditingChange: { }
       )
       

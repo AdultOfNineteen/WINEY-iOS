@@ -43,7 +43,8 @@ public struct SettingMemo: Reducer {
     case _makeNotes
     case _moveNextPage
     case _moveBackPage
-
+    case _backToNoteDetail
+    
     // MARK: - Inner SetState Action
     case _limitMemo(String)
     case _setRating(Int)
@@ -53,7 +54,6 @@ public struct SettingMemo: Reducer {
     case _delPickPhoto
     case _addPhoto(UIImage)
     case _setSheetState(Bool)
-    case _backToFirstView
     case _failureSocialNetworking(Error) // 후에 경고창 처리
     
     // MARK: - Child Action
@@ -68,6 +68,13 @@ public struct SettingMemo: Reducer {
         state.memo = CreateNoteManager.shared.memo ?? ""
         state.rating = CreateNoteManager.shared.rating ?? 0
         state.buyAgain = CreateNoteManager.shared.buyAgain
+        
+        if CreateNoteManager.shared.mode == .create {
+          
+        } else {
+          
+        }
+        
         return .none
         
       case .tappedBackButton:
@@ -86,7 +93,10 @@ public struct SettingMemo: Reducer {
         return .none
         
       case .tappedAttachPictureButton:
-        return .send(._setSheetState(true))
+        return .concatenate([
+          .send(._delPickPhoto),
+          .send(._setSheetState(true))
+        ])
         
       case .tappedOutsideOfBottomSheet:
         return .send(._setSheetState(false))
@@ -105,23 +115,11 @@ public struct SettingMemo: Reducer {
         let photos = state.displayPhoto
         
         if CreateNoteManager.shared.mode == .create {
-          return .run(operation: { send in
+          let createNoteData = CreateNoteManager.shared.createNote()
+          
+          return .run { send in
             switch await noteService.createNote(
-              CreateNoteManager.shared.wineId!,
-              CreateNoteManager.shared.vintage,
-              CreateNoteManager.shared.officialAlcohol,
-              CreateNoteManager.shared.price,
-              CreateNoteManager.shared.color!,
-              CreateNoteManager.shared.sweetness!,
-              CreateNoteManager.shared.acidity!,
-              CreateNoteManager.shared.alcohol!,
-              CreateNoteManager.shared.body!,
-              CreateNoteManager.shared.tannin!,
-              CreateNoteManager.shared.finish!,
-              CreateNoteManager.shared.memo!,
-              CreateNoteManager.shared.buyAgain!,
-              CreateNoteManager.shared.rating!,
-              CreateNoteManager.shared.smellKeywordList!,
+              createNoteData,
               photos
             ) {
             case let .success(data):
@@ -130,10 +128,23 @@ public struct SettingMemo: Reducer {
             case let .failure(error):
               await send(._failureSocialNetworking(error))
             }
-          })
+          }
         } else {
-          // TODO: Patch
-          return .none
+          let patchNoteData = CreateNoteManager.shared.patchNote()
+          
+          return .run { send in
+            switch await noteService.patchNote(
+              patchNoteData,
+              photos
+            ) {
+              // TODO: 수정하기, 작성하기 분기처리 (작성완료 화면 분기)
+            case let .success(data):
+              CreateNoteManager.shared.initData()
+              await send(._backToNoteDetail)
+            case let .failure(error):
+              await send(._failureSocialNetworking(error))
+            }
+          }
         }
         
       case .tappedWineStar(let value):
@@ -146,6 +157,7 @@ public struct SettingMemo: Reducer {
         let image = state.displayPhoto[idx]
         state.displayPhoto.removeAll(where: { $0 == image })
         state.deleteImage.append(state.selectedPhoto[idx])
+        print(state.deleteImage, "!!!")
         return .none
         
       case ._setRating(let value):

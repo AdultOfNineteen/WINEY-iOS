@@ -85,14 +85,17 @@ extension WineConfirmView {
       
       VStack(spacing: 6) {
         Text(viewStore.wineData.name)
+          .multilineTextAlignment(.center)
           .wineyFont(.bodyB1)
           .foregroundStyle(WineyKitAsset.gray50.swiftUIColor)
         
         Text("\(viewStore.wineData.country) / \(viewStore.wineData.varietal)")
+          .multilineTextAlignment(.center)
           .wineyFont(.captionB1)
           .foregroundStyle(WineyKitAsset.gray700.swiftUIColor)
       }
       .padding(.top, 24)
+      .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
     }
     .padding(.top, 59)
   }

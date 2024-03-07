@@ -148,20 +148,15 @@ public struct UserInfoView: View {
     VStack(spacing: 7) {
       if let userWineGrade = viewStore.userWineGrade, let gradeListInfo = viewStore.gradeListInfo {
         GeometryReader { lineGeometry in
-          ZStack(alignment: .leading) {
+          ZStack(alignment: .topLeading) {
             Rectangle() // 슬라이더의 바
               .frame(
                 width: lineGeometry.size.width,
                 height: 1.26
               )
               .foregroundColor(WineyKitAsset.gray800.swiftUIColor)
-            
-            Circle() // 슬라이더의 원
-              .frame(width: 14)
-              .foregroundColor(WineyKitAsset.main2.swiftUIColor)
-              .offset(x: CGFloat(userWineGrade.threeMonthsNoteCount)/CGFloat(viewStore.hightestGradeCount) * lineGeometry.size.width - 7)
-          }
-          .overlay(alignment: .topLeading) {
+              .padding(.top, 7)
+              
             ForEach(gradeListInfo) { grade in
               VStack(alignment: .center, spacing: 7) {
                 Circle() // 슬라이더의 원
@@ -176,6 +171,11 @@ public struct UserInfoView: View {
                   WineyKitAsset.gray800.swiftUIColor
               )
             }
+            
+            Circle() // 슬라이더의 원
+              .frame(width: 14)
+              .foregroundColor(WineyKitAsset.main2.swiftUIColor)
+              .offset(x: CGFloat(userWineGrade.threeMonthsNoteCount)/CGFloat(viewStore.hightestGradeCount) * lineGeometry.size.width - 7)
           }
         }
       } else {

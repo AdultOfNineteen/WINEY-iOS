@@ -122,7 +122,7 @@ extension NoteDetailView {
         // MARK: FEATURE
         NoteDetailSmellFeatureView(
           circleColor: noteData.color,
-          smellKeywordList: noteData.smellKeywordList
+          smellKeywordList: Array(noteData.smellKeywordList)
         )
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
         
@@ -205,9 +205,9 @@ extension NoteDetailView {
       }
       
       if !noteData.tastingNoteImage.isEmpty {
-        ScrollView(.horizontal) {
+        ScrollView(.horizontal, showsIndicators: false) {
           HStack(spacing: 10) {
-            ForEach(noteData.tastingNoteImage, id: \.self) { imageData in
+            ForEach(Array(noteData.tastingNoteImage), id: \.self) { imageData in
               AsyncImage(url: URL(string: imageData.imgUrl)) { image in
                 image.resizable()
               } placeholder: {

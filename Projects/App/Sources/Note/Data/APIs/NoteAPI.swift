@@ -14,8 +14,8 @@ public enum NoteAPI {
   case wineSearch(page: Int, size: Int, content: String)
   case noteDetailInfo(noteId: Int)
   case tastingNotes(page: Int, size: Int, order: Int, country: [String], wineType: [String], buyAgain: Int?)
-  case createNote(wineId: Int, vintage: String?, officialAlcohol: Int?, price: String?, color: String, sweetness: Int,
-                  acidity: Int, alcohol: Int, body: Int, tannin: Int, finish: Int, memo: String, buyAgain: Bool, rating: Int, smellKeywordList: [String], images: [UIImage])
+  case createNote(createNoteData: CreateNoteRequestDTO, images: [UIImage])
+  case patchNote(patchNoteData: PatchNoteRequestDTO, images: [UIImage])
   case deleteNote(noteId: Int)
   case noteFilter
   case noteCheck
@@ -36,6 +36,8 @@ extension NoteAPI: EndPointType {
       return "/tasting-notes"
     case .createNote:
       return "/tasting-notes"
+    case let .patchNote(patchNoteData: patchNoteData, images: _):
+      return "/tasting-notes/\(patchNoteData.noteId)"
     case let .deleteNote(noteId):
       return "/tasting-notes/\(noteId)"
     case .noteFilter:
@@ -55,6 +57,8 @@ extension NoteAPI: EndPointType {
       return .get
     case .createNote:
       return .post
+    case .patchNote:
+      return .patch
     case .deleteNote:
       return .delete
     case .noteFilter:
@@ -84,7 +88,7 @@ extension NoteAPI: EndPointType {
           "page": page,
           "size": size,
           "order": order,
-          country.isEmpty ? "c" : "countries" : country.joined(separator: ", "),
+          country.isEmpty ? "" : "countries" : country.joined(separator: ", "),
           wineType.isEmpty ? "w" : "wineTypes" : wineType.joined(separator: ", "),
           "buyAgain": buyAgain ?? ""
         ],
@@ -93,43 +97,56 @@ extension NoteAPI: EndPointType {
     
     // MARK: MultiPart 추가
     case let .createNote(
-      wineId,
-      vintage,
-      officialAlcohol,
-      price,
-      color,
-      sweetness,
-      acidity,
-      alcohol,
-      body,
-      tannin,
-      finish,
-      memo,
-      buyAgain,
-      rating,
-      smellKeywordList,
+      createNoteData,
       images
     ):
       return .requestMultipartData(
         parameters: [
-          "wineId": wineId,
-          "vintage": vintage,
-          "officialAlcohol": officialAlcohol,
-          "price": price,
-          "color": color,
-          "sweetness": sweetness,
-          "acidity": acidity,
-          "alcohol": alcohol,
-          "body": body,
-          "tannin": tannin,
-          "finish": finish,
-          "memo": memo,
-          "buyAgain": buyAgain,
-          "rating": rating,
-          "smellKeywordList": smellKeywordList
+          "wineId": createNoteData.wineId,
+          "vintage": createNoteData.vintage,
+          "officialAlcohol": createNoteData.officialAlcohol,
+          "price": createNoteData.price,
+          "color": createNoteData.color,
+          "sweetness": createNoteData.sweetness,
+          "acidity": createNoteData.acidity,
+          "alcohol": createNoteData.alcohol,
+          "body": createNoteData.body,
+          "tannin": createNoteData.tannin,
+          "finish": createNoteData.finish,
+          "memo": createNoteData.memo,
+          "buyAgain": createNoteData.buyAgain,
+          "rating": createNoteData.rating,
+          "smellKeywordList": createNoteData.smellKeywordList?.sorted()
         ],
         images: images
       )
+      
+    case let .patchNote(
+      patchNoteData,
+      images
+    ):
+      return .requestMultipartData(
+        parameters: [
+          "vintage": patchNoteData.vintage,
+          "officialAlcohol": patchNoteData.officialAlcohol,
+          "price": patchNoteData.price,
+          "color": patchNoteData.color,
+          "sweetness": patchNoteData.sweetness,
+          "acidity": patchNoteData.acidity,
+          "alcohol": patchNoteData.alcohol,
+          "body": patchNoteData.body,
+          "tannin": patchNoteData.tannin,
+          "finish": patchNoteData.finish,
+          "memo": patchNoteData.memo,
+          "buyAgain": patchNoteData.buyAgain,
+          "rating": patchNoteData.rating,
+          "smellKeywordList": patchNoteData.smellKeywordList?.sorted(),
+          "deleteSmellKeywordList": patchNoteData.deleteSmellKeywordList?.sorted(),
+          "deleteImgLists": patchNoteData.deleteImgLists
+        ],
+        images: images
+      )
+      
     case let .deleteNote(noteId: noteId):
       return .requestParameters(
         parameters: [

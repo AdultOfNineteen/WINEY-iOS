@@ -52,9 +52,7 @@ struct SignUpView: View {
           ),
           textStyle: formatPhoneNumber(_:),
           maximumInputCount: 13,
-          isInputTextCompleteCondition: { text in
-            text.count == 13
-          },
+          completeCondition: viewStore.inputPhoneNumber.count == 13,
           onEditingChange: { }
         )
         .padding(
@@ -104,9 +102,13 @@ struct SignUpView: View {
             viewStore.send(
               .tappedBackButton
             )
-          }, tappedSendCodeConfirm: {
-            viewStore.send(.tappedBottomCodeSendConfirmButton
-            )
+          },
+          tappedSendCodeConfirm: {
+            viewStore.send(.tappedBottomCodeSendConfirmButton)
+          },
+          tappedCodeDelayMinuteConfirm: {
+            viewStore
+              .send(._presentBottomSheet(false))
           }
         )
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)

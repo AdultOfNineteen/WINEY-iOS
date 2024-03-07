@@ -15,9 +15,9 @@ public struct FilterDetail: Reducer {
     public var typeFilter: [FilterInfo] = []
     public var countryFilter: [FilterInfo] = []
     
-    public var rebuyFilterBuffer: [String] = []
-    public var typeFilterBuffer: [String] = []
-    public var countryFilterBuffer: [String] = []
+    public var rebuyFilterBuffer: Set<String> = []
+    public var typeFilterBuffer: Set<String> = []
+    public var countryFilterBuffer: Set<String> = []
   }
   
   public enum Action {
@@ -121,23 +121,23 @@ public struct FilterDetail: Reducer {
         if !state.rebuyFilterBuffer.isEmpty {
           state.rebuyFilterBuffer = []
         } else {
-          state.rebuyFilterBuffer.append("재구매 의사")
+          state.rebuyFilterBuffer.insert("재구매 의사")
         }
         return .none
         
       case ._setTypeBuffer(let filter):
-        if state.typeFilterBuffer.contains(where: { $0 == filter }) {
-          state.typeFilterBuffer.removeAll(where: { $0 == filter })
+        if state.typeFilterBuffer.contains(filter) {
+          state.typeFilterBuffer.remove(filter)
         } else {
-          state.typeFilterBuffer.append(filter)
+          state.typeFilterBuffer.insert(filter)
         }
         return .none
         
       case ._setCountryBuffer(let filter):
-        if state.countryFilterBuffer.contains(where: { $0 == filter }) {
-          state.countryFilterBuffer.removeAll(where: { $0 == filter })
+        if state.countryFilterBuffer.contains(filter) {
+          state.countryFilterBuffer.remove(filter)
         } else {
-          state.countryFilterBuffer.append(filter)
+          state.countryFilterBuffer.insert(filter)
         }
         return .none
         
@@ -146,9 +146,9 @@ public struct FilterDetail: Reducer {
         
       case let ._removeFilter(title, type):
         if type == .type {
-          state.typeFilterBuffer.removeAll(where: { $0 == title })
+          state.typeFilterBuffer.remove(title)
         } else if type == .country {
-          state.countryFilterBuffer.removeAll(where: { $0 == title })
+          state.countryFilterBuffer.remove(title)
         } else {
           state.rebuyFilterBuffer.removeAll()
         }

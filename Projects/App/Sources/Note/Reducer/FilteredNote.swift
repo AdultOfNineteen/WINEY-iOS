@@ -25,9 +25,10 @@ public enum SortState: Int, CaseIterable {
 
 public struct FilteredNote: Reducer {
   public struct State: Equatable {
-    public var rebuyFilter: [String] = []
-    public var typeFilter: [String] = []
-    public var countryFilter: [String] = []
+    public var rebuyFilter: Set<String> = []
+    public var typeFilter: Set<String> = []
+    public var countryFilter: Set<String> = []
+    
     public var sortState: SortState = .latest
     public var isPresentedBottomSheet: Bool = false
     
@@ -74,7 +75,7 @@ public struct FilteredNote: Reducer {
         let sortState = state.sortState.rawValue
         let rebuy = state.rebuyFilter.isEmpty ? nil : 1
         let countries = state.countryFilter
-        let types = state.typeFilter.map { filterRequestString(forValue: $0) }
+        let types = state.typeFilter.setmap(transform: { filterRequestString(forValue: $0) })
         
         return .run { send in
           switch await noteService.notes(0, 10, sortState, countries, types, rebuy) {
@@ -109,11 +110,11 @@ public struct FilteredNote: Reducer {
         
       case let ._removeFilter(type, filter):
         if type == .type {
-          FilterManager.shared.typeFilter.removeAll(where: {$0 == filter })
+          FilterManager.shared.typeFilter.remove(filter)
         } else if type == .country {
-          FilterManager.shared.countryFilter.removeAll(where: {$0 == filter })
+          FilterManager.shared.countryFilter.remove(filter)
         } else {
-          FilterManager.shared.rebuyFilter.removeAll()
+          FilterManager.shared.rebuyFilter.remove(filter)
         }
         return .send(._viewWillAppear)
         

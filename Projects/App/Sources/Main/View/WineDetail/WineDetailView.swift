@@ -32,36 +32,10 @@ public struct WineDetailView: View {
       
       ScrollView {
         VStack(spacing: 0) {
-          // MARK: WINE TYPE, NAME
-          VStack(spacing: 0) {
-            HStack {
-              Text(viewStore.wineCardData.wineType.typeName)
-                .wineyFont(.display1)
-                .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-                .frame(height: 54, alignment: .topLeading)
-              
-              WineyAsset.Assets.star1.swiftUIImage
-                .padding(.top, 14)
-                .padding(.leading, 6)
-              
-              Spacer()
-            }
-            .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-            
-            HStack {
-              Text(viewStore.wineCardData.name.useNonBreakingSpace())
-                .wineyFont(.bodyB2)
-                .foregroundColor(WineyKitAsset.gray500.swiftUIColor)
-                .frame(alignment: .topLeading)
-              
-              Spacer()
-            }
-            .padding(.top, 16)
-          }
           
-          Divider()
-            .overlay(WineyKitAsset.gray900.swiftUIColor)
-            .padding(.top, 20)
+          wineTypeName()
+          
+          divider()
           
           WineDetailInfoMiddle(
             illustImage: WineType.changeType(at: viewStore.windDetailData?.type ?? "test").illustImage,
@@ -72,21 +46,13 @@ public struct WineDetailView: View {
             purchasePrice: Int(viewStore.windDetailData?.wineSummary.avgPrice ?? 0)
           )
           .padding(.top, 42)
+          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
           
-          Divider()
-            .overlay(WineyKitAsset.gray900.swiftUIColor)
-            .padding(.top, 20)
+          divider()
           
-          // MARK: Wine Graph
-          if let info = viewStore.windDetailData {
-            WineDetailTabView(detail: info)
-              .frame(height: 450)
-          } else {
-            ProgressView()
-          }
+          wineGraph()
         }
         .padding(.top, 14)
-        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
       }
       .onAppear {
         viewStore.send(._viewWillAppear)
@@ -94,6 +60,59 @@ public struct WineDetailView: View {
     }
     .navigationBarHidden(true)
     .background(WineyKitAsset.mainBackground.swiftUIColor)
+  }
+}
+
+
+extension WineDetailView {
+  
+  @ViewBuilder
+  private func wineTypeName() -> some View {
+    VStack(spacing: 0) {
+      HStack {
+        Text(viewStore.wineCardData.wineType.typeName)
+          .wineyFont(.display1)
+          .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+          .frame(height: 54, alignment: .topLeading)
+        
+        WineyAsset.Assets.star1.swiftUIImage
+          .padding(.top, 14)
+          .padding(.leading, 6)
+        
+        Spacer()
+      }
+      .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+      
+      HStack {
+        Text(viewStore.wineCardData.name.useNonBreakingSpace())
+          .wineyFont(.bodyB2)
+          .foregroundColor(WineyKitAsset.gray500.swiftUIColor)
+          .frame(alignment: .topLeading)
+        
+        Spacer()
+      }
+      .padding(.top, 16)
+    }
+    .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+  }
+  
+  @ViewBuilder
+  private func wineGraph() -> some View {
+    if let info = viewStore.windDetailData {
+      WineDetailTabView(detail: info)
+        .frame(height: 450)
+        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+    } else {
+      ProgressView()
+    }
+  }
+  
+  @ViewBuilder
+  private func divider() -> some View {
+    Divider()
+      .frame(height: 0.8)
+      .overlay(WineyKitAsset.gray900.swiftUIColor)
+      .padding(.top, 20)
   }
 }
 
@@ -149,13 +168,6 @@ public struct WineDetailTabView: View {
       setupAppearance()
     }
   }
-}
-
-public func setupAppearance() {
-  UIPageControl.appearance()
-    .currentPageIndicatorTintColor = WineyKitAsset.point1.color
-  UIPageControl.appearance()
-    .pageIndicatorTintColor = WineyKitAsset.gray900.color
 }
 
 public struct WineDetailInfoSum: View {
@@ -277,27 +289,3 @@ public struct WineDetailIllust: View {
     }
   }
 }
-
-
-// MARK: PREVIEW
-//struct WineDetailView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    WineDetailView(
-//      store: Store(
-//        initialState: WineDetail.State(
-//          windId: 1,
-//          wineCardData: WineCardData(
-//            id: 1,
-//            wineType: .red,
-//            wineName: "test",
-//            nationalAnthems: "test",
-//            varities: "test",
-//            purchasePrice: 1.22)
-//        ), reducer: {
-//          WineDetail()
-//            .dependency(\.wine, .mock)
-//        }
-//      )
-//    )
-//  }
-//}

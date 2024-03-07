@@ -22,11 +22,17 @@ public struct NoteDetailSmellFeatureView: View {
       
       HStack(spacing: 7) {
         Circle()
-          .fill(Color(hex: circleColor))
-          .aspectRatio(contentMode: .fit)
-          .frame(width: 32)
-          .blur(radius: 4)
-          .padding(.trailing, 2)
+          .fill(RadialGradient(
+            colors: [
+              Color(hex: circleColor),
+              Color(hex: circleColor).opacity(0.5),
+              .clear
+            ],
+            center: .center,
+            startRadius: 0,
+            endRadius: 20)
+          )
+          .frame(width: 40, height: 40)
         
         Divider()
           .overlay(WineyKitAsset.gray900.swiftUIColor)
