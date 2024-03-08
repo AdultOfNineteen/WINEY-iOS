@@ -46,9 +46,8 @@ public struct SettingColorSmellView: View {
       }
       .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
       .padding(.top, 20)
-      .padding(.bottom, 54)
+      .padding(.bottom, WineyGridRules.bottomButtonPadding)
     }
-    .ignoresSafeArea(edges: .bottom)
     .background(
       WineyKitAsset.mainBackground.swiftUIColor
     )

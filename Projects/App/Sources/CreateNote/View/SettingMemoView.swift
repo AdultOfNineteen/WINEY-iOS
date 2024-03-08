@@ -56,7 +56,6 @@ public struct SettingMemoView: View {
         }
       }
     )
-    .ignoresSafeArea(edges: .bottom)
     .background(
       WineyKitAsset.mainBackground.swiftUIColor
     )
@@ -249,6 +248,7 @@ extension SettingMemoView {
     }
     .padding(.top, 30)
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+    .padding(.bottom, 10)
     .onTapGesture {
       isFocused = false
     }
@@ -263,7 +263,7 @@ extension SettingMemoView {
       viewStore.send(.tappedDoneButton)
     }
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-    .padding(.bottom, 54)
+    .padding(.bottom, WineyGridRules.bottomButtonPadding)
   }
 }
 
