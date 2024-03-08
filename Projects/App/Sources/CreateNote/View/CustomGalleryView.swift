@@ -42,7 +42,7 @@ extension CustomGalleryView {
   private func header() -> some View {
     VStack(spacing: 0) {
       HStack {
-        Text("X")
+        Image(systemName: "xmark")
           .tint(.white)
           .onTapGesture {
             viewStore.send(.tappedDismissButton)
@@ -51,15 +51,16 @@ extension CustomGalleryView {
         Spacer()
         
         Button(action: {
-          
+          viewStore.send(.tappedAttachButton)
         }, label: {
-          Text("첨부하기(\(viewStore.selectedImage.count)/\(viewStore.availableSelectCount))")
-            .wineyFont(.captionM1)
+          Text("첨부하기 (\(viewStore.selectedImage.count)/\(viewStore.availableSelectCount))")
+            .wineyFont(.subhead)
+            .bold()
         })
         .tint(WineyKitAsset.main2.swiftUIColor)
       }
       .padding(.vertical, 14)
-      .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+      .padding(.horizontal, 10)
       
       Divider()
         .overlay(.black)
@@ -71,12 +72,48 @@ extension CustomGalleryView {
     ScrollView {
       LazyVGrid(columns: columns, spacing: 4) {
         ForEach(viewStore.userGalleryImage, id: \.self) { image in
-          Image(uiImage: image)
-            .resizable()
-            .frame(height: 126)
-            .onTapGesture {
-              viewStore.send(.tappedImage(image))
+          ZStack {
+            Image(uiImage: image)
+              .resizable()
+              .frame(height: 126)
+            
+            VStack {
+              HStack {
+                Spacer()
+                
+                Circle()
+                  .stroke(
+                    viewStore.selectedImage.contains(image) ? WineyKitAsset.main2.swiftUIColor : Color(.systemGray4),
+                    lineWidth: 2
+                  )
+                  .frame(width: 24, height: 24)
+                  .overlay(
+                    Circle()
+                      .fill(viewStore.selectedImage.contains(image) ? WineyKitAsset.main2.swiftUIColor : .clear)
+                      .frame(width: 22, height: 22)
+                  )
+                  .overlay(
+                    Text(viewStore.selectedImage.firstIndex(of: image) != nil ? "\(viewStore.selectedImage.firstIndex(of: image)! + 1)" : "")
+                      .wineyFont(.bodyM2)
+                      .foregroundStyle(.black)
+                  )
+              }
+              
+              Spacer()
             }
+            .padding(.vertical, 8)
+            .padding(.horizontal, 9)
+            .background(
+              viewStore.selectedImage.contains(image) ? Color(.systemGray2).opacity(0.4) : .clear
+            )
+          }
+          .onTapGesture {
+            viewStore.send(.tappedImage(image))
+          }
+          .border(
+            viewStore.selectedImage.contains(image) ? WineyKitAsset.main2.swiftUIColor : .clear,
+            width: 2
+          )
         }
       }
     }

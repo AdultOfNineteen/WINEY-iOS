@@ -26,7 +26,7 @@ public struct CustomGallery: Reducer {
   public enum Action {
     // MARK: - User Action
     case tappedDismissButton
-    case tappedConfirmButton
+    case tappedAttachButton
     case tappedImage(UIImage)
     
     // MARK: - Inner Business Action
@@ -57,8 +57,17 @@ public struct CustomGallery: Reducer {
         if state.selectedImage.contains(image) {
           return .send(._deleteImage(image))
         } else {
-          return .send(._appendImage(image))
+          if state.selectedImage.count < state.availableSelectCount {
+            return .send(._appendImage(image))
+          } else {
+            return .none
+          }
         }
+        
+      case .tappedAttachButton:
+        let userSelectImages = state.selectedImage
+        state.selectedImage = []
+        return .send(._sendParentViewImage(userSelectImages))
         
       case let ._appendImage(image):
         state.selectedImage.append(image)

@@ -12,22 +12,23 @@ import SwiftUI
 
 public struct SettingMemo: Reducer {
   public struct State: Equatable {
-    public var isShowBottomSheet: Bool = false
     
     public var memo: String = ""
     public var rating: Int = 0
     public var buyAgain: Bool? = nil
     
     public var maxPhoto: Int = 3
-    public var selectedPhoto: [PhotosPickerItem] = []
-    public var displayPhoto: [UIImage] = []
-    public var deleteImage: [PhotosPickerItem] = []
+    public var displayImages: [UIImage] = []
+    public var isShowGallery: Bool = false
     
     public var maxCommentLength: Int = 200
     public var ratingRange: ClosedRange<Int> = 1...5
+    
+    public var customGallery: CustomGallery.State?
   }
   
   public enum Action {
+    
     // MARK: - User Action
     case tappedBackButton
     case tappedAttachPictureButton
@@ -36,7 +37,7 @@ public struct SettingMemo: Reducer {
     case tappedWineStar(Int)
     case tappedBuyAgain(Bool)
     case writingMemo(String)
-    case tappedDelImage(Int)
+    case tappedDelImage(UIImage)
     
     // MARK: - Inner Business Action
     case _viewWillAppear
@@ -44,19 +45,17 @@ public struct SettingMemo: Reducer {
     case _moveNextPage
     case _moveBackPage
     case _backToNoteDetail
+    case _requestAuthorizationAndFetchPhotos
     
     // MARK: - Inner SetState Action
     case _limitMemo(String)
     case _setRating(Int)
     case _setBuyAgain(Bool)
-    case _pickPhoto([PhotosPickerItem])
-    case _delDisplayPhoto
-    case _delPickPhoto
-    case _addPhoto(UIImage)
     case _setSheetState(Bool)
     case _failureSocialNetworking(Error) // 후에 경고창 처리
     
     // MARK: - Child Action
+    case customGallery(CustomGallery.Action)
   }
   
   @Dependency(\.note) var noteService
@@ -93,16 +92,14 @@ public struct SettingMemo: Reducer {
         return .none
         
       case .tappedAttachPictureButton:
-        return .concatenate([
-          .send(._delPickPhoto),
-          .send(._setSheetState(true))
-        ])
+        state.customGallery = CustomGallery.State(availableSelectCount: state.maxPhoto - state.displayImages.count)
+        return .send(._requestAuthorizationAndFetchPhotos)
         
       case .tappedOutsideOfBottomSheet:
         return .send(._setSheetState(false))
         
       case ._setSheetState(let bool):
-        state.isShowBottomSheet = bool
+        state.isShowGallery = bool
         return .none
         
       case .tappedDoneButton:
@@ -112,7 +109,7 @@ public struct SettingMemo: Reducer {
         return .send(._makeNotes)
         
       case ._makeNotes:
-        let photos = state.displayPhoto
+        let photos = state.displayImages
         
         if CreateNoteManager.shared.mode == .create {
           let createNoteData = CreateNoteManager.shared.createNote()
@@ -137,7 +134,6 @@ public struct SettingMemo: Reducer {
               patchNoteData,
               photos
             ) {
-              // TODO: 수정하기, 작성하기 분기처리 (작성완료 화면 분기)
             case let .success(data):
               CreateNoteManager.shared.initData()
               await send(._backToNoteDetail)
@@ -153,11 +149,8 @@ public struct SettingMemo: Reducer {
       case .tappedBuyAgain(let value):
         return .send(._setBuyAgain(value))
         
-      case .tappedDelImage(let idx):
-        let image = state.displayPhoto[idx]
-        state.displayPhoto.removeAll(where: { $0 == image })
-        state.deleteImage.append(state.selectedPhoto[idx])
-        print(state.deleteImage, "!!!")
+      case .tappedDelImage(let image):
+        state.displayImages.removeAll(where: { $0 == image })
         return .none
         
       case ._setRating(let value):
@@ -168,31 +161,60 @@ public struct SettingMemo: Reducer {
         state.buyAgain = value
         return .none
         
-      case ._pickPhoto(let item):
-        state.selectedPhoto = item
-        return .send(._setSheetState(false))
+      case ._requestAuthorizationAndFetchPhotos:
+        let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
         
-      case ._delPickPhoto:
-        if state.deleteImage.count == 3 {
-          state.selectedPhoto.removeAll()
-        } else {
-          for photo in state.deleteImage {
-            state.selectedPhoto.removeAll(where: { $0 == photo })
-          }
+        switch status {
+        case .authorized, .limited:
+          return .send(._setSheetState(true))
+          
+        case .denied, .restricted:
+          // error 발생
+          return .none
+          
+        case .notDetermined:
+          break
+          
+        @unknown default:
+          return .none
         }
-        return .none
         
-      case ._delDisplayPhoto:
-        state.displayPhoto.removeAll()
-        return .none
+        // Semaphore을 통한 동기 처리
+        let semaphore = DispatchSemaphore(value: 0)
         
-      case ._addPhoto(let image):
-        state.displayPhoto.append(image)
-        return .none
+        PHPhotoLibrary.requestAuthorization{ _ in
+          semaphore.signal()
+        }
+        
+        semaphore.wait()
+        
+        let newStatus = PHPhotoLibrary.authorizationStatus()
+        
+        switch newStatus {
+        case .authorized, .limited:
+          return .send(._setSheetState(true))
+          
+        case .denied, .restricted:
+          // error 발생
+          return .none
+          
+        default:
+          return .none
+        }
+        
+      case let .customGallery(._sendParentViewImage(images)):
+        state.displayImages.append(contentsOf: images)
+        return .send(.customGallery(._dismissWindow))
+        
+      case .customGallery(._dismissWindow):
+        return .send(._setSheetState(false))
         
       default:
         return .none
       }
+    }
+    .ifLet(\.customGallery, action: /Action.customGallery) {
+      CustomGallery()
     }
   }
 }
