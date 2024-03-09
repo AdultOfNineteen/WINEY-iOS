@@ -36,17 +36,18 @@ public struct WineAnalysisCoordinator: Reducer {
       case .routeAction(_, action: .wineAnaylsis(._navigateLoading)):
         state.routes.append(.push(.loading(.init())))
         return .none
+        
+      case let .routeAction(_, action: .loading(._completeAnalysis(data))):
+        state.routes.pop()
+        state.routes.append(.push(.result(.init(data: data))))
+        return .none
       
       case .routeAction(_, action: .loading(.tappedBackButton)):
         state.routes.pop()
         return .none
         
       case .routeAction(_, action: .result(.tappedBackButton)):
-        state.routes.pop(2)
-        return .none
-        
-      case let .routeAction(_, action: .loading(._completeAnalysis(data))):
-        state.routes.push(.result(.init(data: data)))
+        state.routes.popToRoot()
         return .none
         
       default:
