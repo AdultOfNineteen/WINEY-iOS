@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import WineyKit
 
 final class CreateNoteManager: ObservableObject {
   static let shared = CreateNoteManager()
@@ -32,9 +33,10 @@ final class CreateNoteManager: ObservableObject {
   @Published var smellKeywordList: Set<String>?
   @Published var originalSmellKeywordList: Set<String>?
   @Published var deleteSmellKeywordList: Set<String>?
-  @Published var originalImage: Set<TastingNoteImage>?
-  @Published var tastingNoteImage: Set<TastingNoteImage>?
-  @Published var deleteImgLists: [Int]?
+  @Published var originalImages: [TastingNoteImage]?
+  @Published var orginalUIImages: [UIImage]?
+  @Published var tastingNoteImages: [TastingNoteImage]?
+  @Published var userSelectImages: [UIImage]?
   
   func initData() {
     self.mode = .create
@@ -56,8 +58,9 @@ final class CreateNoteManager: ObservableObject {
     self.smellKeywordList = nil
     self.originalSmellKeywordList = nil
     self.deleteSmellKeywordList = nil
-    self.tastingNoteImage = nil
-    self.deleteImgLists = nil
+    self.originalImages = nil
+    self.tastingNoteImages = nil
+    self.userSelectImages = nil
   }
   
   func fetchData(noteData: NoteDetailDTO) {
@@ -75,11 +78,23 @@ final class CreateNoteManager: ObservableObject {
     self.buyAgain = noteData.buyAgain
     self.rating = noteData.star
     self.originalSmellKeywordList = noteData.smellKeywordList.setmap(transform: ({ getSmellCode(for: $0) ?? "" }))
-    self.originalImage = noteData.tastingNoteImage
+    self.originalImages = noteData.tastingNoteImage
+    self.fetchImage(urls: self.originalImages!.map{ $0.imgUrl })
   }
   
-  func createNote() -> CreateNoteRequestDTO {
-    return CreateNoteRequestDTO(
+  func fetchImage(urls: [String]) {
+    var images: [UIImage] = []
+    
+    for url in urls {
+      images.append(ImageCacheManager.shared.getCachedImage(forKey: url)!)
+    }
+    
+    self.userSelectImages = images
+    self.orginalUIImages = images
+  }
+  
+  func createNote() -> (CreateNoteRequestDTO, [UIImage]) {
+    return (CreateNoteRequestDTO(
       wineId: self.wineId!,
       vintage: self.vintage,
       officialAlcohol: self.officialAlcohol,
@@ -95,12 +110,29 @@ final class CreateNoteManager: ObservableObject {
       buyAgain: self.buyAgain!,
       rating: self.rating!,
       smellKeywordList: self.smellKeywordList
-    )
+    ), userSelectImages!)
   }
   
-  func patchNote() -> PatchNoteRequestDTO {
-    return PatchNoteRequestDTO(
-      noteId: self.noteId!, // TODO: Note ID
+  func patchNote() -> (PatchNoteRequestDTO, [UIImage]) {
+    var deleteImageIndex: Set<String> = []
+    var updateImage: [UIImage] = []
+    
+    if let orginalUIImages = orginalUIImages, let userSelectImages = userSelectImages, let originalImages = originalImages {
+      for (idx, image) in orginalUIImages.enumerated() {
+        if !userSelectImages.contains(image) {
+          deleteImageIndex.insert(originalImages[idx].imgId.description)
+        }
+      }
+      
+      for image in userSelectImages {
+        if !orginalUIImages.contains(image) {
+          updateImage.append(image)
+        }
+      }
+    }
+    
+    return (PatchNoteRequestDTO(
+      noteId: self.noteId!,
       vintage: self.vintage,
       officialAlcohol: self.officialAlcohol,
       price: self.price,
@@ -116,8 +148,8 @@ final class CreateNoteManager: ObservableObject {
       rating: self.rating!,
       smellKeywordList: self.smellKeywordList,
       deleteSmellKeywordList: self.deleteSmellKeywordList,
-      deleteImgLists: self.deleteImgLists
-    )
+      deleteImgLists: deleteImageIndex
+    ), updateImage)
   }
   
   private func getSmellCode(for name: String) -> String? {

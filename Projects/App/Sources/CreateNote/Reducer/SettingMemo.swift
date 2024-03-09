@@ -67,20 +67,14 @@ public struct SettingMemo: Reducer {
         state.memo = CreateNoteManager.shared.memo ?? ""
         state.rating = CreateNoteManager.shared.rating ?? 0
         state.buyAgain = CreateNoteManager.shared.buyAgain
-        
-        if CreateNoteManager.shared.mode == .create {
-          
-        } else {
-          
-        }
-        
+        state.displayImages = CreateNoteManager.shared.userSelectImages ?? []
         return .none
         
       case .tappedBackButton:
         CreateNoteManager.shared.memo = state.memo
         CreateNoteManager.shared.rating = state.rating
         CreateNoteManager.shared.buyAgain = state.buyAgain
-        // TODO: 사진 추가
+        CreateNoteManager.shared.userSelectImages = state.displayImages
         return .send(._moveBackPage)
         
       case ._limitMemo(let value):
@@ -106,18 +100,17 @@ public struct SettingMemo: Reducer {
         CreateNoteManager.shared.memo = state.memo
         CreateNoteManager.shared.rating = state.rating
         CreateNoteManager.shared.buyAgain = state.buyAgain
+        CreateNoteManager.shared.userSelectImages = state.displayImages
         return .send(._makeNotes)
         
       case ._makeNotes:
-        let photos = state.displayImages
-        
         if CreateNoteManager.shared.mode == .create {
           let createNoteData = CreateNoteManager.shared.createNote()
           
           return .run { send in
             switch await noteService.createNote(
-              createNoteData,
-              photos
+              createNoteData.0,
+              createNoteData.1
             ) {
             case let .success(data):
               CreateNoteManager.shared.initData()
@@ -131,8 +124,8 @@ public struct SettingMemo: Reducer {
           
           return .run { send in
             switch await noteService.patchNote(
-              patchNoteData,
-              photos
+              patchNoteData.0,
+              patchNoteData.1
             ) {
             case let .success(data):
               CreateNoteManager.shared.initData()
@@ -182,7 +175,7 @@ public struct SettingMemo: Reducer {
         // Semaphore을 통한 동기 처리
         let semaphore = DispatchSemaphore(value: 0)
         
-        PHPhotoLibrary.requestAuthorization{ _ in
+        PHPhotoLibrary.requestAuthorization { _ in
           semaphore.signal()
         }
         
