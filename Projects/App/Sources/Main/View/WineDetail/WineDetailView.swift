@@ -75,13 +75,8 @@ extension WineDetailView {
           .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
           .frame(height: 54, alignment: .topLeading)
         
-        WineyAsset.Assets.star1.swiftUIImage
-          .padding(.top, 14)
-          .padding(.leading, 6)
-        
         Spacer()
       }
-      .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
       
       HStack {
         Text(viewStore.wineCardData.name.useNonBreakingSpace())

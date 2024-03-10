@@ -85,9 +85,6 @@ public struct WineCardView: View {
               .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
               .frame(height: 54, alignment: .topLeading)
             
-//            WineyAsset.Assets.star1.swiftUIImage
-//              .padding(.top, 14)
-            
             Spacer()
             
             WineyAsset.Assets.icArrowRight.swiftUIImage

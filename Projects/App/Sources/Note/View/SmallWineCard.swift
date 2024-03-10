@@ -19,12 +19,6 @@ public struct SmallWineCard: View {
         Text(wineType.typeName)
           .wineyFont(.cardTitle)
         
-        WineyAsset.Assets.star1.swiftUIImage
-          .resizable()
-          .aspectRatio(contentMode: .fit)
-          .frame(height: 13)
-          .offset(y: -2)
-        
         Spacer()
       }
       .padding(.leading, 19)
