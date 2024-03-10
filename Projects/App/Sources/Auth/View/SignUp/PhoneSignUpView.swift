@@ -52,7 +52,8 @@ struct SignUpView: View {
           ),
           textStyle: formatPhoneNumber(_:),
           maximumInputCount: 13,
-          completeCondition: viewStore.inputPhoneNumber.count == 13,
+          completeCondition: viewStore.inputPhoneNumber.count == 13, 
+          textDeleteButton: Image("text_delete_icon"),
           onEditingChange: { }
         )
         .padding(

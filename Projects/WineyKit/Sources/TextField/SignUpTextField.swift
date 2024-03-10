@@ -15,32 +15,32 @@ public struct CustomTextField: View {
   public let maximumInputCount: Int
   public let completeCondition: Bool
   public var onEditingChange: () -> Void = {}
+  public let textDeleteButton: Image?
   public let placeholderText: String
   public var clockIndicator: Int?
   
   @Binding public var inputText: String
-  @Binding public var rightAccessoryText: String?
     
   public init(
     mainTitle: String,
     placeholderText: String,
-    rightAccessoryText: Binding<String?> = .constant(nil),
     errorMessage: String,
     inputText: Binding<String>,
     textStyle: @escaping (String) -> String,
     maximumInputCount: Int,
     clockIndicator: Int? = nil,
     completeCondition: Bool,
+    textDeleteButton: Image? = nil,
     onEditingChange: @escaping () -> Void = {}
   ) {
     self.mainTitle = mainTitle
     self.placeholderText = placeholderText
-    self._rightAccessoryText = rightAccessoryText
     self.errorMessage = errorMessage
     self._inputText = inputText
     self.textStyle = textStyle
     self.maximumInputCount = maximumInputCount
     self.clockIndicator = clockIndicator
+    self.textDeleteButton = textDeleteButton
     self.completeCondition = completeCondition
     self.onEditingChange = onEditingChange
   }
@@ -72,8 +72,11 @@ public struct CustomTextField: View {
           .foregroundColor(.white)
           .wineyFont(.bodyB1)
               
-        if let accessoryText = rightAccessoryText {
-          Text(accessoryText)
+        if let textDeleteButton = textDeleteButton {
+          textDeleteButton
+            .onTapGesture {
+              self.inputText = ""
+            }
         }
         
         if let clock = clockIndicator {
@@ -121,7 +124,6 @@ struct CustomTextFieldExample: View {
       CustomTextField(
         mainTitle: "인증번호",
         placeholderText: "",
-        rightAccessoryText: $timerText,
         errorMessage: "인증번호를 입력해주세요",
         inputText: $authCode,
         textStyle: { $0 },
