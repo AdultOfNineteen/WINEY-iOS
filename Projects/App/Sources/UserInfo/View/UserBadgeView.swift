@@ -12,7 +12,7 @@ import WineyKit
 public struct UserBadgeView: View {
   private let store: StoreOf<UserBadge>
   @ObservedObject var viewStore: ViewStoreOf<UserBadge>
-  let rows: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 0), count: 2)
+  let rows: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 34), count: 2)
   
   public init(store: StoreOf<UserBadge>) {
     self.store = store
