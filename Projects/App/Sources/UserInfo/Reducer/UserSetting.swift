@@ -23,6 +23,7 @@ public struct UserSetting: Reducer {
   public enum Action {
     // MARK: - User Action
     case tappedBackButton
+    case tappedChangeNickname
     case tappedLogout
     case tappedSignOut(userId: Int)
     case tappedBottomSheetYesOption

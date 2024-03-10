@@ -53,6 +53,10 @@ public struct UserInfoCoordinator: Reducer {
         state.routes.append(.push( .personalPolicy(.init()) ))
         return .none
         
+      case .routeAction(_, action: .userSetting(.tappedChangeNickname)):
+        state.routes.append(.push( .nickname(.init()) ))
+        return .none
+        
       case .routeAction(_, action: .userSetting(.tappedSignOut(let userId))):
         state.routes.append(.push( .signOut(.init(userId: userId)) ))
         return .none
@@ -74,6 +78,10 @@ public struct UserInfoCoordinator: Reducer {
         return .none
         
       case .routeAction(_, action: .personalPolicy(.tappedBackButton)):
+        state.routes.pop()
+        return .none
+        
+      case .routeAction(_, action: .nickname(._backToSetting)):
         state.routes.pop()
         return .none
         

@@ -12,6 +12,7 @@ import WineyNetwork
 public struct UserService {
   public var info: () async -> Result<UserInfoDTO, Error>
   public var nickname: () async -> Result<UserNicknameDTO, Error>
+  public var patchNickname: (_ nickname: String) async -> Result<VoidResponse, Error>
   public var signOut: (_ userId: Int, _ reason: String) async -> Result<SignOutDTO, Error>
   public var logout: (_ deviceId: String) async -> Result<String, Error>
 }
@@ -41,6 +42,22 @@ extension UserService {
           .request(
             UserAPI.nickname,
             type: UserNicknameDTO.self
+          )
+        
+        switch dtoResult {
+        case let .success(dto):
+          return .success(dto)
+        case let .failure(error):
+          return .failure(error)
+        }
+      },
+      
+      patchNickname: { nickname in
+        let dtoResult = await Provider<UserAPI>
+          .init()
+          .request(
+            UserAPI.patchNickname(nickname: nickname),
+            type: VoidResponse.self
           )
         
         switch dtoResult {
@@ -85,34 +102,34 @@ extension UserService {
     )
   }()
   
-  static let mock = {
-    return Self(
-      info: {
-        return .success(
-          UserInfoDTO(userId: 22, status: "ACTIVATE")
-        )
-      },
-      nickname: {
-        return .success(UserNicknameDTO(nickname: "test"))
-      },
-      signOut: { userId, reason in
-        return .success(
-          SignOutDTO(userId: 22, deletedAt: "2024-01-30T15:13:22.505Z")
-        )
-      },
-      logout: { deviceId in
-        return .success(
-          "Test"
-        )
-      }
-    )
-  }()
+//  static let mock = {
+//    return Self(
+//      info: {
+//        return .success(
+//          UserInfoDTO(userId: 22, status: "ACTIVATE")
+//        )
+//      },
+//      nickname: {
+//        return .success(UserNicknameDTO(nickname: "test"))
+//      },
+//      signOut: { userId, reason in
+//        return .success(
+//          SignOutDTO(userId: 22, deletedAt: "2024-01-30T15:13:22.505Z")
+//        )
+//      },
+//      logout: { deviceId in
+//        return .success(
+//          "Test"
+//        )
+//      }
+//    )
+//  }()
   //  static let unimplemented = Self(…)
 }
 
 extension UserService: DependencyKey {
   public static var liveValue = Self.live
-  public static var previewValue = Self.mock
+  // public static var previewValue = Self.mock
 }
 
 extension DependencyValues {

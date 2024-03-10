@@ -18,6 +18,7 @@ public struct CustomTextField: View {
   public let textDeleteButton: Image?
   public let placeholderText: String
   public var clockIndicator: Int?
+  public var keyboardType: UIKeyboardType
   
   @Binding public var inputText: String
     
@@ -31,6 +32,7 @@ public struct CustomTextField: View {
     clockIndicator: Int? = nil,
     completeCondition: Bool,
     textDeleteButton: Image? = nil,
+    keyboardType: UIKeyboardType,
     onEditingChange: @escaping () -> Void = {}
   ) {
     self.mainTitle = mainTitle
@@ -42,6 +44,7 @@ public struct CustomTextField: View {
     self.clockIndicator = clockIndicator
     self.textDeleteButton = textDeleteButton
     self.completeCondition = completeCondition
+    self.keyboardType = keyboardType
     self.onEditingChange = onEditingChange
   }
     
@@ -62,7 +65,7 @@ public struct CustomTextField: View {
           
       HStack {
         TextField(placeholderText, text: $inputText)
-          .keyboardType(.numberPad)
+          .keyboardType(keyboardType)
           .onChange(of: inputText) { newValue in
             inputText =
             textStyle(String(newValue.prefix(maximumInputCount)))
@@ -118,6 +121,7 @@ struct CustomTextFieldExample: View {
         textStyle: formatPhoneNumber(_:),
         maximumInputCount: 13,
         completeCondition: true,
+        keyboardType: .numberPad,
         onEditingChange: { }
       )
             
@@ -129,6 +133,7 @@ struct CustomTextFieldExample: View {
         textStyle: { $0 },
         maximumInputCount: 6,
         completeCondition: false,
+        keyboardType: .numberPad,
         onEditingChange: { }
       )
       
