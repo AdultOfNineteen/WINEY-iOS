@@ -56,8 +56,7 @@ extension NoteCardScrollView {
   private func noteCard(noteData: NoteContent) -> some View {
     VStack(alignment: .leading, spacing: 10) {
       SmallWineCard(
-        wineType: WineType.changeType(at: noteData.wineType),
-        borderColor: Color(red: 150/255, green: 113/255, blue: 1)
+        wineType: WineType.changeType(at: noteData.wineType)
       )
       
       VStack(alignment: .leading, spacing: 4) {

@@ -78,8 +78,7 @@ extension WineConfirmView {
   private func wineCard() -> some View {
     VStack(spacing: 0) {
       SmallWineCard(
-        wineType: WineType.changeType(at: viewStore.wineData.type),
-        borderColor: .white
+        wineType: WineType.changeType(at: viewStore.wineData.type)
       )
       .frame(width: UIScreen.main.bounds.width / 2.5)
       
