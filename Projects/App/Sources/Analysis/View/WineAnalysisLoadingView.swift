@@ -19,7 +19,6 @@ public struct WineAnalysisLoadingView: View {
     self.viewStore = ViewStore(self.store, observe: { $0 })
   }
   
-  
   public var body: some View {
     VStack(spacing: 0) {
       NavigationBar(
@@ -36,14 +35,20 @@ public struct WineAnalysisLoadingView: View {
           .scaledToFill()
           .frame(maxWidth: .infinity)
         
-        VStack(spacing: 5) {
-          Text("나의 테이스팅 노트를")
-            .foregroundColor(.white)
+        VStack(spacing: 6) {
+          HStack(spacing: 0) {
+            Text(viewStore.userNickname + "님")
+              .foregroundColor(WineyKitAsset.main3.swiftUIColor)
+            Text("의 테이스팅 노트를")
+              .foregroundColor(.white)
+          }
+          
           Text("분석중이에요!")
             .foregroundColor(.white)
           
           Spacer()
         }
+        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
         .padding(.top, 18)
         .wineyFont(.title2)
       }
@@ -63,7 +68,7 @@ public struct WineAnalysisLoadingView_Previews: PreviewProvider {
   public static var previews: some View {
     WineAnalysisLoadingView(
       store: Store(
-        initialState: WineAnalysisLoading.State(),
+        initialState: WineAnalysisLoading.State(userNickname: "test"),
         reducer: {
           WineAnalysisLoading()
         }

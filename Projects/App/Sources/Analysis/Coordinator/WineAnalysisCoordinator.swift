@@ -33,8 +33,8 @@ public struct WineAnalysisCoordinator: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
-      case .routeAction(_, action: .wineAnaylsis(._navigateLoading)):
-        state.routes.append(.push(.loading(.init())))
+      case let .routeAction(_, action: .wineAnaylsis(._navigateLoading(nickName))):
+        state.routes.append(.push(.loading(.init(userNickname: nickName))))
         return .none
         
       case let .routeAction(_, action: .loading(._completeAnalysis(data))):
