@@ -31,6 +31,14 @@ public struct CustomGalleryView: View {
     .onAppear {
       viewStore.send(._viewWillAppear)
     }
+    .sheet(
+      isPresented: viewStore.binding(
+        get: \.isOpenCamera,
+        send: .tappedOutsideOfBottomSheet
+      ), content: {
+        // CustomCameraView()
+      }
+    )
     .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationBarHidden(true)
   }
@@ -71,6 +79,8 @@ extension CustomGalleryView {
   private func imageList() -> some View {
     ScrollView {
       LazyVGrid(columns: columns, spacing: 4) {
+        cameraButton()
+        
         ForEach(viewStore.userGalleryImage, id: \.self) { image in
           ZStack {
             Image(uiImage: image)
@@ -117,6 +127,16 @@ extension CustomGalleryView {
         }
       }
     }
+  }
+  
+  @ViewBuilder
+  private func cameraButton() -> some View {
+    Image(systemName: "camera")
+      .wineyFont(.bodyB1)
+      .foregroundStyle(WineyKitAsset.main2.swiftUIColor)
+      .onTapGesture {
+        print("tap Camera")
+      }
   }
 }
 

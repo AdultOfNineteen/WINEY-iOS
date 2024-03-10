@@ -41,7 +41,7 @@ public struct SettingMemoView: View {
       
       bottomButton()
     }
-    .sheet(
+    .fullScreenCover(
       isPresented: viewStore.binding(
         get: \.isShowGallery,
         send: .tappedOutsideOfBottomSheet

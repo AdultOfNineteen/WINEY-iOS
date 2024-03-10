@@ -17,6 +17,8 @@ public struct CustomGallery: Reducer {
     
     public var selectedImage: [UIImage] = []
     public var userGalleryImage: [UIImage] = []
+    
+    public var isOpenCamera: Bool = false
 
     public init(availableSelectCount: Int) {
       self.availableSelectCount = availableSelectCount
@@ -28,12 +30,15 @@ public struct CustomGallery: Reducer {
     case tappedDismissButton
     case tappedAttachButton
     case tappedImage(UIImage)
+    case tappedCameraButton
+    case tappedOutsideOfBottomSheet
     
     // MARK: - Inner Business Action
     case _viewWillAppear
     case _fetchPhotos
     case _dismissWindow
     case _sendParentViewImage([UIImage])
+    case _openCamera
     
     // MARK: - Inner SetState Action
     case _appendImage(UIImage)
@@ -49,6 +54,46 @@ public struct CustomGallery: Reducer {
         return .run { send in
           await send(._fetchPhotos)
         }
+        
+      case .tappedCameraButton:
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        
+        switch status {
+        case .authorized:
+          return .send(._openCamera)
+          
+        case .notDetermined:
+          break
+          
+        default:
+          // error 발생
+          return .none
+        }
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        AVCaptureDevice.requestAccess(for: .video) { _ in
+          semaphore.signal()
+        }
+        semaphore.wait()
+        
+        let newStatus = AVCaptureDevice.authorizationStatus(for: .video)
+        
+        switch newStatus {
+        case .authorized:
+          return .send(._openCamera)
+          
+        default:
+          // error 발생
+          return .none
+        }
+        
+      case ._openCamera:
+        state.isOpenCamera = true
+        return .none
+        
+      case .tappedOutsideOfBottomSheet:
+        state.isOpenCamera = false
+        return .none
         
       case .tappedDismissButton:
         return .send(._dismissWindow)
