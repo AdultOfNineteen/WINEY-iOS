@@ -14,6 +14,7 @@ public enum UserAPI {
   case sendCode(userId: String, phoneNumber: String)
   case codeConfirm(userId: String, phoneNumber: String, verificationCode: String)
   case userInfo
+  case nickname
   case signOut(userId: Int, reason: String)
   case logout(deviceId: String)
 }
@@ -33,6 +34,8 @@ extension UserAPI: EndPointType {
       return "/users/\(userId)/phone/code/verify"
     case .userInfo:
       return "/info"
+    case .nickname:
+      return "/nickname"
     case let .signOut(userId: userId, reason: reason):
       return "/users/\(userId)"
     case let .logout(deviceId: deviceId):
@@ -45,6 +48,8 @@ extension UserAPI: EndPointType {
     case .socialLogin, .sendCode, .codeConfirm:
       return .post
     case .userInfo:
+      return .get
+    case .nickname:
       return .get
     case .signOut:
       return .delete
@@ -81,6 +86,10 @@ extension UserAPI: EndPointType {
         ],
         encoding: .queryString
       )
+      
+    case .nickname:
+      return .requestPlain
+      
     case let .logout(deviceId: deviceId):
       return .requestParameters(
         parameters: [
