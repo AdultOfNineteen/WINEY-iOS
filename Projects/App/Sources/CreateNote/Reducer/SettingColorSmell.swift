@@ -116,7 +116,8 @@ public struct SettingColorSmell: Reducer {
           state.sliderValue = CGFloat(findNearestColorValue(colorList: state.colorBarList, targetColor: Color.init(hex: storedColor))) * (state.maxValue / CGFloat(state.colorBarList.count - 1))
         }
         
-        print(state.sliderValue, "!@#")
+        print(state.sliderValue, "fetchSliderValue")
+        
         return .none
         
       case ._addSmell(let smell):

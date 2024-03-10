@@ -20,7 +20,7 @@ public struct SettingMemoView: View {
     self.store = store
     self.viewStore = ViewStore(self.store, observe: { $0 })
   }
-
+  
   public var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
   
   public var body: some View {
@@ -41,13 +41,19 @@ public struct SettingMemoView: View {
       
       bottomButton()
     }
-    .ignoresSafeArea(edges: .bottom)
-    .sheet(
+    .fullScreenCover(
       isPresented: viewStore.binding(
-        get: \.isShowBottomSheet,
+        get: \.isShowGallery,
         send: .tappedOutsideOfBottomSheet
       ), content: {
-        bottomSheetOptions()
+        IfLetStore(
+          self.store.scope(
+            state: \.customGallery,
+            action: SettingMemo.Action.customGallery
+          )
+        ) {
+          CustomGalleryView(store: $0)
+        }
       }
     )
     .background(
@@ -78,52 +84,6 @@ extension SettingMemoView {
   }
   
   @ViewBuilder
-  private func bottomSheetOptions() -> some View {
-    ZStack {
-      WineyKitAsset.gray950.swiftUIColor.ignoresSafeArea(edges: .all)
-      
-      VStack(spacing: 0) {
-        HStack {
-          Text("카메라")
-            .wineyFont(.bodyB1)
-            .foregroundStyle(.white)
-        }
-        .padding(.vertical, 20)
-        .frame(height: 64)
-        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-        .onTapGesture {
-          // TODO: Camera
-        }
-        
-        Divider()
-          .overlay(
-            WineyKitAsset.gray900.swiftUIColor
-          )
-        
-        PhotosPicker(
-          selection: viewStore.binding(
-            get: { $0.selectedPhoto },
-            send: SettingMemo.Action._pickPhoto
-          ),
-          maxSelectionCount: viewStore.maxPhoto,
-          matching: .any(of: [.images, .not(.videos)])
-        ) {
-          HStack {
-            Text("앨범에서 가져오기")
-              .wineyFont(.bodyB1)
-              .foregroundStyle(.white)
-          }
-          .padding(.vertical, 20)
-          .frame(height: 64)
-          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-        }
-      }
-    }
-    .presentationDetents([.height(187)])
-    .presentationDragIndicator(.visible)
-  }
-  
-  @ViewBuilder
   private func header() -> some View {
     VStack(alignment: .leading, spacing: 4) {
       Text("마지막이에요!")
@@ -150,9 +110,9 @@ extension SettingMemoView {
   private func attachPhotoButton() -> some View {
     VStack(spacing: 15) {
       LazyVGrid(columns: columns) {
-        ForEach(0..<viewStore.displayPhoto.count, id: \.self) { idx in
+        ForEach(viewStore.displayImages, id: \.self) { image in
           ZStack {
-            Image(uiImage: viewStore.displayPhoto[idx])
+            Image(uiImage: image)
               .resizable()
               .clipShape(RoundedRectangle(cornerRadius: 10))
               .frame(height: 100)
@@ -162,7 +122,7 @@ extension SettingMemoView {
                 Spacer()
                 
                 Button(action: {
-                  viewStore.send(.tappedDelImage(idx))
+                  viewStore.send(.tappedDelImage(image))
                 }, label: {
                   Image("imageX")
                 })
@@ -175,19 +135,6 @@ extension SettingMemoView {
           }
         }
       }
-      .onChange(of: viewStore.selectedPhoto, perform: { value in
-        Task {
-          viewStore.send(._delDisplayPhoto)
-          
-          for item in viewStore.selectedPhoto {
-            if let data = try? await item.loadTransferable(type: Data.self) {
-              if let image = UIImage(data: data) {
-                viewStore.send(._addPhoto(image))
-              }
-            }
-          }
-        }
-      })
       
       Button {
         viewStore.send(.tappedAttachPictureButton)
@@ -207,7 +154,7 @@ extension SettingMemoView {
         .tint(WineyKitAsset.main2.swiftUIColor)
       }
     }
-    .padding(.top, viewStore.displayPhoto.isEmpty ? 30 : 15)
+    .padding(.top, viewStore.displayImages.isEmpty ? 30 : 15)
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
   }
   
@@ -301,6 +248,7 @@ extension SettingMemoView {
     }
     .padding(.top, 30)
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+    .padding(.bottom, 10)
     .onTapGesture {
       isFocused = false
     }
@@ -315,7 +263,7 @@ extension SettingMemoView {
       viewStore.send(.tappedDoneButton)
     }
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-    .padding(.bottom, 54)
+    .padding(.bottom, WineyGridRules.bottomButtonPadding)
   }
 }
 

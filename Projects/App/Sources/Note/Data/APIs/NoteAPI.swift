@@ -124,7 +124,7 @@ extension NoteAPI: EndPointType {
     case let .patchNote(
       patchNoteData,
       images
-    ):
+    ):      
       return .requestMultipartData(
         parameters: [
           "vintage": patchNoteData.vintage,
@@ -142,7 +142,7 @@ extension NoteAPI: EndPointType {
           "rating": patchNoteData.rating,
           "smellKeywordList": patchNoteData.smellKeywordList?.sorted(),
           "deleteSmellKeywordList": patchNoteData.deleteSmellKeywordList?.sorted(),
-          "deleteImgLists": patchNoteData.deleteImgLists
+          "deleteImgLists": patchNoteData.deleteImgLists?.sorted()
         ],
         images: images
       )

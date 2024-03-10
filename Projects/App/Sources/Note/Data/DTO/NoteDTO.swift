@@ -9,9 +9,9 @@
 import Foundation
 
 public struct NoteDTO: Codable, Equatable {
-  let isLast: Bool
-  let totalCnt: Int
-  let contents: [NoteContent]
+  var isLast: Bool
+  var totalCnt: Int
+  var contents: [NoteContent]
 }
 
 public struct NoteContent: Codable, Equatable {

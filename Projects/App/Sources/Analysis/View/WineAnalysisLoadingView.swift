@@ -53,10 +53,7 @@ public struct WineAnalysisLoadingView: View {
     .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationBarHidden(true)
     .onAppear {
-      // loading 확인 딜레이
-      DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-        viewStore.send(._onAppear)
-      }
+      viewStore.send(._onAppear)
     }
   }
 }

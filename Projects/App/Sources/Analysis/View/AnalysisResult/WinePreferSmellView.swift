@@ -39,11 +39,17 @@ extension WinePreferSmellView {
       ZStack {
         background()
         
-        ForEach(viewStore.topSevenSmells.indices, id: \.self) { index in
-          Text(viewStore.topSevenSmells[index].smell)
-            .wineyFont(index == 0 ? .title2 : .bodyB1)
-            .foregroundColor(index == 0 ? WineyKitAsset.main3.swiftUIColor : index == 2 ? WineyKitAsset.gray300.swiftUIColor : WineyKitAsset.gray600.swiftUIColor)
-            .offset(x: getGrid(index: index, geo: geo).xGrid, y: getGrid(index: index, geo: geo).yGrid)
+        if viewStore.topSevenSmells.isEmpty {
+          Text("선호하는 향이 없어요 :(")
+            .wineyFont(.title2)
+            .foregroundStyle(WineyKitAsset.gray600.swiftUIColor)
+        } else {
+          ForEach(viewStore.topSevenSmells.indices, id: \.self) { index in
+            Text(viewStore.topSevenSmells[index].smell)
+              .wineyFont(index == 0 ? .title2 : .bodyB1)
+              .foregroundColor(index == 0 ? WineyKitAsset.main3.swiftUIColor : index == 2 ? WineyKitAsset.gray300.swiftUIColor : WineyKitAsset.gray600.swiftUIColor)
+              .offset(x: getGrid(index: index, geo: geo).xGrid, y: getGrid(index: index, geo: geo).yGrid)
+          }
         }
       }
       .frame(height: 324)

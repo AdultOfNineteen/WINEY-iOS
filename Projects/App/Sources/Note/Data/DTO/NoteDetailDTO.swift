@@ -24,7 +24,7 @@ public struct NoteDetailDTO: Codable, Equatable {
   public let smellKeywordList: Set<String>
   public let myWineTaste: MyWineTaste
   public let defaultWineTaste: DefaultWineTaste
-  public let tastingNoteImage: Set<TastingNoteImage>
+  public let tastingNoteImage: [TastingNoteImage]
   public let memo: String
 }
 

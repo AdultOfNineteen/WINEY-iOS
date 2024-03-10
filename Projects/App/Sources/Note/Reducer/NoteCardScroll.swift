@@ -23,8 +23,11 @@ public struct NoteCardScroll: Reducer {
     case tappedNoteCard(noteId: Int)
     
     // MARK: - Inner Business Action
+    case _fetchNextNotePage
+    case _appendNextNote(NoteDTO)
     
     // MARK: - Inner SetState Action
+    case _appendNotes(NoteDTO, data: NoteDTO)
     
     // MARK: - Child Action
   }

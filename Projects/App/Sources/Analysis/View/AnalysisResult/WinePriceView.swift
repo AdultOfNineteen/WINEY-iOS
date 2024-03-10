@@ -40,13 +40,15 @@ extension WinePriceView {
       background()
       
       VStack(spacing: 0) {
-        Text(viewStore.secondTitle)
-          .wineyFont(.captionB1)
-          .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
+        if viewStore.average > 0 {
+          Text(viewStore.secondTitle)
+            .wineyFont(.captionB1)
+            .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
+        }
         
-        Text("\(viewStore.average) 원")
-          .wineyFont(.title1)
-          .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+        Text(viewStore.average == 0 ? "가격 정보가 없어요 :(" : "\(viewStore.average) 원")
+          .wineyFont(viewStore.average == 0 ? .title2 : .title1)
+          .foregroundColor(viewStore.average == 0 ? WineyKitAsset.gray600.swiftUIColor : WineyKitAsset.gray50.swiftUIColor)
           .padding(.top, 6)
       }
     }

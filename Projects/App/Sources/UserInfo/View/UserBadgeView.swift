@@ -246,13 +246,9 @@ public struct BadgeBlock: View {
         
         // Wine Badge Image
         if let imgUrl = imgUrl {
-          AsyncImage(url: URL(string: imgUrl)) { image in
-            image.resizable()
-          } placeholder: {
-            ProgressView()
-          }
-          .aspectRatio(contentMode: .fit)
-          .frame(width: 100, height: 100)
+          CachedImageView(url: imgUrl)
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 100, height: 100)
         } else {
           Text("이미지를 불러오지 못했습니다.")
             .wineyFont(.captionM1)
