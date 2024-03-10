@@ -17,13 +17,12 @@ public struct RadientCircleBackgroundView: View {
       gradient: Gradient(
         colors: [
           WineyKitAsset.main1.swiftUIColor.opacity(0.5),
-          WineyKitAsset.main1.swiftUIColor.opacity(0.25),
           WineyKitAsset.main1.swiftUIColor.opacity(0)
         ]
       ),
       center: .center,
-      startRadius: 10,
-      endRadius: 250
+      startRadius: 0,
+      endRadius: UIScreen.main.bounds.width / 2
     )
     .clipShape(Circle())  // 원 형태로 잘라내기
     .frame(width: 506, height: 506)  // 프레임 크기 설정
