@@ -208,15 +208,9 @@ extension NoteDetailView {
         ScrollView(.horizontal, showsIndicators: false) {
           HStack(spacing: 10) {
             ForEach(Array(noteData.tastingNoteImage), id: \.self) { imageData in
-              AsyncImage(url: URL(string: imageData.imgUrl)) { image in
-                image.resizable()
-              } placeholder: {
-                ProgressView()
-              }
-              .clipShape(
-                RoundedRectangle(cornerRadius: 10)
-              )
-              .frame(width: 120, height: 120)
+              CachedImageView(url: imageData.imgUrl)
+                .frame(width: 120, height: 120)
+                .cornerRadius(10)
             }
           }
         }
