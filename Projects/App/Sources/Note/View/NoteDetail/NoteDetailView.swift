@@ -223,7 +223,7 @@ extension NoteDetailView {
         .padding(.vertical, 14)
         .background(
           RoundedRectangle(cornerRadius: 10)
-            .stroke(WineyKitAsset.main2.swiftUIColor)
+            .stroke(WineyKitAsset.gray800.swiftUIColor)
         )
         .padding(.top, 36)
     }
