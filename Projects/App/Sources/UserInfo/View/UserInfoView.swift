@@ -188,9 +188,7 @@ public struct UserInfoView: View {
   
   private var badgeSpace: some View {
     HStack(spacing: 0) {
-      Spacer() // 뱃지 들어갈 공간
-      
-      VStack(alignment: .leading, spacing: 1) {
+      VStack(alignment: .leading, spacing: 2) {
         Text("BOTTLE") // 임시
           .wineyFont(.bodyB2)
           .foregroundColor(WineyKitAsset.gray400.swiftUIColor)
@@ -204,7 +202,8 @@ public struct UserInfoView: View {
         .wineyFont(.captionM2)
         .frame(height: 18)
       }
-      .padding(.trailing, 20)
+      
+      Spacer()
       
       Button(
         action: {
