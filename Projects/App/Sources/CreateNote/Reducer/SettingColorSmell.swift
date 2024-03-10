@@ -70,17 +70,15 @@ public struct SettingColorSmell: Reducer {
     Reduce { state, action in
       switch action {
       case ._viewWillAppear:
+        if let storedColor = CreateNoteManager.shared.color {
+          state.colorIndicator = Color.init(hex: storedColor)
+          state.buttonState = true
+        }
+        
         if CreateNoteManager.shared.mode == .create {
           state.selectedSmell = CreateNoteManager.shared.smellKeywordList ?? []
         } else {
           state.selectedSmell = CreateNoteManager.shared.originalSmellKeywordList ?? []
-        }
-        
-        if let storedColor = CreateNoteManager.shared.color {
-          state.colorIndicator = Color.init(hex: storedColor)
-        }
-        
-        if !state.selectedSmell.isEmpty {
           state.buttonState = true
         }
         
