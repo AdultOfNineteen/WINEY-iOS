@@ -93,8 +93,8 @@ public struct WritingNoteCoordinator: Reducer {
         state.routes.pop()
         return .none
         
-      case .routeAction(_, action: .setAlcohol(._backToWineConfirm)):
-        state.routes.pop()
+      case .routeAction(_, action: .setAlcohol(._backToWineSearch)):
+        state.routes.popToRoot()
         return .none
         
       case .routeAction(_, action: .setVintage(.tappedBackButton)):
