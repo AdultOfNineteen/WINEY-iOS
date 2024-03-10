@@ -106,21 +106,23 @@ public struct UserInfoView: View {
         }
       
       VStack(spacing: 0) {
-        HStack(spacing: 0) {
-          Text("김희연")
-            .foregroundColor(WineyKitAsset.main3.swiftUIColor)
-          Text("님")
-            .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-          Spacer()
-          Button(
-            action: { viewStore.send(.userSettingTapped(viewStore.userId)) },
-            label: {
-              Image(systemName: "chevron.right")
-                .foregroundColor(.white)
-            }
-          )
+        if let nickname = viewStore.userNickname {
+          HStack(spacing: 0) {
+            Text(nickname)
+              .foregroundColor(WineyKitAsset.main3.swiftUIColor)
+            Text("님")
+              .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+            Spacer()
+            Button(
+              action: { viewStore.send(.userSettingTapped(viewStore.userId)) },
+              label: {
+                Image(systemName: "chevron.right")
+                  .foregroundColor(.white)
+              }
+            )
+          }
+          .wineyFont(.title2)
         }
-        .wineyFont(.title2)
         
         Spacer()
         
@@ -140,7 +142,7 @@ public struct UserInfoView: View {
           }
         )
       }
-      .frame(height: 88)
+      .frame(height: 82)
     }
   }
   
