@@ -25,7 +25,7 @@ public struct PatchNoteRequestDTO: Encodable, Equatable {
   let rating: Int
   let smellKeywordList: Set<String>?  // 추가되는 향
   let deleteSmellKeywordList: Set<String>?  // 삭제되는 향
-  let deleteImgLists: Set<String>?  // 삭제되는 이미지 (int)
+  let deleteImgLists: Set<Int>?  // 삭제되는 이미지 (int)
   
   public init(
     noteId: Int,
@@ -44,7 +44,7 @@ public struct PatchNoteRequestDTO: Encodable, Equatable {
     rating: Int,
     smellKeywordList: Set<String>?,
     deleteSmellKeywordList: Set<String>?,
-    deleteImgLists: Set<String>?
+    deleteImgLists: Set<Int>?
   ) {
     self.noteId = noteId
     self.vintage = vintage

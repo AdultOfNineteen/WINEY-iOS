@@ -114,13 +114,13 @@ final class CreateNoteManager: ObservableObject {
   }
   
   func patchNote() -> (PatchNoteRequestDTO, [UIImage]) {
-    var deleteImageIndex: Set<String> = []
+    var deleteImageIndex: Set<Int> = []
     var updateImage: [UIImage] = []
     
     if let orginalUIImages = orginalUIImages, let userSelectImages = userSelectImages, let originalImages = originalImages {
       for (idx, image) in orginalUIImages.enumerated() {
         if !userSelectImages.contains(image) {
-          deleteImageIndex.insert(originalImages[idx].imgId.description)
+          deleteImageIndex.insert(originalImages[idx].imgId)
         }
       }
       
