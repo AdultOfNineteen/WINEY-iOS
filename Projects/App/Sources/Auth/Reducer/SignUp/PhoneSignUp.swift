@@ -46,8 +46,8 @@ public  struct PhoneSignUp: Reducer {
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case .edited(let number):
-      state.inputPhoneNumber = number
-      state.validPhoneNumber = number.count == 13
+      state.inputPhoneNumber = String(number.filter("0123456789".contains).prefix(13))
+      state.validPhoneNumber = state.inputPhoneNumber.count == 13
       return .none
     
     case .tappedNextButton:
