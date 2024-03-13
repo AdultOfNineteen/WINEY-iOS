@@ -26,13 +26,13 @@ public struct ReverseToolTip: View {
       
       Text(content)
         .wineyFont(.captionM2)
-        .padding(.vertical, 6)
         .padding(.leading, 11)
-        .padding(.trailing, 14)
+        .padding(.trailing, 13)
         .foregroundColor(WineyKitAsset.gray100.swiftUIColor)
         .background(
-          RoundedRectangle(cornerRadius: 20)
+          Capsule()
             .fill(WineyKitAsset.gray900.swiftUIColor)
+            .frame(height: 26)
         )
     }
   }
@@ -62,5 +62,5 @@ public struct ReverseTooltipTrangleView: View {
 
 
 #Preview {
-  ReverseToolTip(content: "건너뛰기를 누르면 내요ㅕㅇ이 저장되지 않아요")
+  ReverseToolTip(content: "건너뛰기를 누르면 내용이 저장되지 않아요")
 }
