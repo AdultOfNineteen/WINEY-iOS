@@ -59,6 +59,7 @@ public struct SettingMemo: Reducer {
   }
   
   @Dependency(\.note) var noteService
+  @Dependency(\.alert) var alertService
   
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
@@ -162,13 +163,14 @@ public struct SettingMemo: Reducer {
           return .send(._setSheetState(true))
           
         case .denied, .restricted:
-          // error 발생
+          alertService.showAlert("설정에서 갤러리 접근을 허용해주세요.")
           return .none
           
         case .notDetermined:
           break
           
         @unknown default:
+          alertService.showAlert("설정에서 갤러리 접근을 허용해주세요.")
           return .none
         }
         
@@ -188,10 +190,11 @@ public struct SettingMemo: Reducer {
           return .send(._setSheetState(true))
           
         case .denied, .restricted:
-          // error 발생
+          alertService.showAlert("설정에서 갤러리 접근을 허용해주세요.")
           return .none
           
         default:
+          alertService.showAlert("설정에서 갤러리 접근을 허용해주세요.")
           return .none
         }
         

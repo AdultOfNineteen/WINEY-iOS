@@ -34,12 +34,17 @@ public struct CustomGalleryView: View {
     .onDisappear {
       viewStore.send(._viewDisappear)
     }
-    .sheet(
+    .fullScreenCover(
       isPresented: viewStore.binding(
         get: \.isOpenCamera,
         send: .tappedOutsideOfBottomSheet
       ), content: {
-        // CustomCameraView()
+        CustomCameraView(
+          store: self.store.scope(
+            state: \.camera,
+            action: { .camera($0) }
+          )
+        )
       }
     )
     .background(WineyKitAsset.mainBackground.swiftUIColor)
@@ -96,7 +101,7 @@ extension CustomGalleryView {
     ZStack {
       Image(uiImage: image)
         .resizable()
-        .frame(height: 126)
+        .frame(height: UIScreen.main.bounds.width / 3 - 8)
       
       VStack {
         HStack {
@@ -128,7 +133,7 @@ extension CustomGalleryView {
         viewStore.selectedImage.contains(image) ? Color(.systemGray2).opacity(0.4) : .clear
       )
     }
-    .frame(height: 126)
+    .frame(height: UIScreen.main.bounds.width / 3 - 8)
     .onAppear {
       if image == viewStore.userGalleryImage.last {
         viewStore.send(._paginationImageData)
@@ -149,10 +154,10 @@ extension CustomGalleryView {
       .wineyFont(.bodyB1)
       .foregroundStyle(WineyKitAsset.main2.swiftUIColor)
       .frame(maxWidth: .infinity)
-      .frame(height: 126)
+      .frame(height: UIScreen.main.bounds.width / 3 - 8)
+      .background(WineyKitAsset.gray950.swiftUIColor)
       .onTapGesture {
-        // TODO: CAMERA OPEN
-        print("tap Camera")
+        viewStore.send(.tappedCameraButton)
       }
   }
 }

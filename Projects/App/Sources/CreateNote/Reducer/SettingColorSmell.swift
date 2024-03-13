@@ -113,9 +113,6 @@ public struct SettingColorSmell: Reducer {
         if let storedColor = CreateNoteManager.shared.color {
           state.sliderValue = CGFloat(findNearestColorValue(colorList: state.colorBarList, targetColor: Color.init(hex: storedColor))) * (state.maxValue / CGFloat(state.colorBarList.count - 1))
         }
-        
-        print(state.sliderValue, "fetchSliderValue")
-        
         return .none
         
       case ._addSmell(let smell):
@@ -149,8 +146,6 @@ public struct SettingColorSmell: Reducer {
         
       case ._setColorValue(let value):
         state.sliderValue = value
-        
-        print(value, "realValue")
         
         let widthPerItem = state.maxValue / CGFloat(state.colorBarList.count - 1)
         let index = Int(value / widthPerItem)

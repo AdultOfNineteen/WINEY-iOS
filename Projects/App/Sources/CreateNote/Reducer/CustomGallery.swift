@@ -17,9 +17,10 @@ public struct CustomGallery: Reducer {
     
     public var selectedImage: [UIImage] = []
     public var userGalleryImage: [UIImage] = []
-    
+  
     public var isOpenCamera: Bool = false
-
+    public var camera: CustomCamera.State = .init()
+    
     public init(availableSelectCount: Int) {
       self.availableSelectCount = availableSelectCount
     }
@@ -39,7 +40,6 @@ public struct CustomGallery: Reducer {
     case _viewDisappear
     case _dismissWindow
     case _sendParentViewImage([UIImage])
-    case _openCamera
     
     // MARK: - Inner SetState Action
     case _setImageData([UIImage])
@@ -47,11 +47,14 @@ public struct CustomGallery: Reducer {
     case _appendImageData([UIImage])
     case _appendImage(UIImage)
     case _deleteImage(UIImage)
+    case _showCamera(Bool)
     
     // MARK: - Child Action
+    case camera(CustomCamera.Action)
   }
   
   @Dependency(\.photoService) var photoService
+  @Dependency(\.alert) var alertService
   
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
@@ -82,13 +85,18 @@ public struct CustomGallery: Reducer {
         
         switch status {
         case .authorized:
-          return .send(._openCamera)
+          if state.availableSelectCount > 0 {
+            return .send(._showCamera(true))
+          } else {
+            alertService.showAlert("더 사진을 선택할 수 없어요 :(")
+            return .none
+          }
           
         case .notDetermined:
           break
           
         default:
-          // error 발생
+          alertService.showAlert("설정에서 카메라 권한을 허용해주세요.")
           return .none
         }
         
@@ -102,15 +110,20 @@ public struct CustomGallery: Reducer {
         
         switch newStatus {
         case .authorized:
-          return .send(._openCamera)
+          if state.availableSelectCount > 0 {
+            return .send(._showCamera(true))
+          } else {
+            alertService.showAlert("더 사진을 선택할 수 없어요 :(")
+            return .none
+          }
           
         default:
-          // error 발생
+          alertService.showAlert("설정에서 카메라 권한을 허용해주세요.")
           return .none
         }
         
-      case ._openCamera:
-        state.isOpenCamera = true
+      case let ._showCamera(bool):
+        state.isOpenCamera = bool
         return .none
         
       case .tappedOutsideOfBottomSheet:
@@ -143,6 +156,12 @@ public struct CustomGallery: Reducer {
       case let ._deleteImage(image):
         state.selectedImage.removeAll(where: { $0 == image })
         return .none
+        
+      case let .camera(.savePhoto(image)):
+        return .concatenate([
+          .send(._showCamera(false)),
+          .send(._sendParentViewImage([image]))
+        ])
         
       case ._viewDisappear:
         state.userGalleryImage.removeAll()
