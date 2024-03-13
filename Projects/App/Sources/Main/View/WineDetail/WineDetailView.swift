@@ -37,16 +37,18 @@ public struct WineDetailView: View {
           
           divider()
           
-          WineDetailInfoMiddle(
-            illustImage: WineType.changeType(at: viewStore.windDetailData?.type ?? "test").illustImage,
-            circleBorderColor: WineType.changeType(at: viewStore.windDetailData?.type ?? "test").cirlcleBorderColor,
-            secondaryColor: WineType.changeType(at: viewStore.windDetailData?.type ?? "test").backgroundColor.secondCircle,
-            nationalAnthems: viewStore.windDetailData?.country ?? "error",
-            varities: viewStore.windDetailData?.varietal ?? "error",
-            purchasePrice: Int(viewStore.windDetailData?.wineSummary.avgPrice ?? 0)
-          )
-          .padding(.top, 42)
-          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+          if let wineDetailData = viewStore.windDetailData {
+            WineDetailInfoMiddle(
+              wineType: WineType.changeType(at: wineDetailData.type),
+              nationalAnthems: wineDetailData.country,
+              varities: wineDetailData.varietal,
+              purchasePrice: Int(wineDetailData.wineSummary.avgPrice)
+            )
+            .padding(.top, 42)
+            .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+          } else {
+            ProgressView()
+          }
           
           divider()
           

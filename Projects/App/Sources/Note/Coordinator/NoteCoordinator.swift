@@ -35,8 +35,8 @@ public struct NoteCoordinator: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
-      case .routeAction(_, action: .note(.filteredNote(.noteCardScroll(.tappedNoteCard(let noteId))))):
-        state.routes.append(.push(.noteDetail(.init(noteId: noteId))))
+      case let .routeAction(_, action: .note(.filteredNote(.noteCardScroll(.tappedNoteCard(noteId, country))))):
+        state.routes.append(.push(.noteDetail(.init(noteId: noteId, country: country))))
         return .none
         
       case .routeAction(_, action: .note(.filteredNote(.tappedFilterButton))):

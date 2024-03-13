@@ -39,7 +39,7 @@ public struct NoteDetailView: View {
       } else {
         VStack {
           Spacer()
-          Text("네트워크 오류")
+          ProgressView()
           Spacer()
         }
       }
@@ -100,10 +100,8 @@ extension NoteDetailView {
         
         // MARK: Wine Info
         WineDetailInfoMiddle(
-          illustImage: WineType.changeType(at: noteData.wineType).illustImage,
-          circleBorderColor: WineType.changeType(at: noteData.wineType).cirlcleBorderColor,
-          secondaryColor: WineType.changeType(at: noteData.wineType).backgroundColor.secondCircle,
-          nationalAnthems: noteData.region,
+          wineType: WineType.changeType(at: noteData.wineType),
+          nationalAnthems: viewStore.country,
           varities: noteData.varietal,
           abv: noteData.officialAlcohol,
           purchasePrice: noteData.price,
@@ -286,7 +284,7 @@ extension NoteDetailView {
   NoteDetailView(
     store: Store(
       initialState: NoteDetail.State.init(
-        noteId: 1
+        noteId: 1, country: "test"
       ),
       reducer: {
         NoteDetail()

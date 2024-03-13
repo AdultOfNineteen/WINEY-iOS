@@ -15,9 +15,7 @@ public enum DetailMode {
 }
 
 public struct WineDetailInfoMiddle: View {
-  public let illustImage: Image
-  public let circleBorderColor: Color
-  public let secondaryColor: Color
+  public let wineType: WineType
   public let nationalAnthems: String
   public let varities: String
   public let abv: Double?
@@ -28,9 +26,7 @@ public struct WineDetailInfoMiddle: View {
   public let mode: DetailMode
   
   public init(
-    illustImage: Image,
-    circleBorderColor: Color,
-    secondaryColor: Color,
+    wineType: WineType,
     nationalAnthems: String,
     varities: String,
     abv: Double? = nil,
@@ -40,9 +36,7 @@ public struct WineDetailInfoMiddle: View {
     buyAgain: Bool? = nil,
     mode: DetailMode = .recommendWine
   ) {
-    self.illustImage = illustImage
-    self.circleBorderColor = circleBorderColor
-    self.secondaryColor = secondaryColor
+    self.wineType = wineType
     self.nationalAnthems = nationalAnthems
     self.varities = varities
     self.abv = abv
@@ -57,9 +51,9 @@ public struct WineDetailInfoMiddle: View {
     HStack(alignment: .top) {
       VStack {
         WineDetailIllust(
-          illustImage: illustImage,
-          circleBorderColor: circleBorderColor,
-          secondaryColor: secondaryColor
+          illustImage: wineType.illustImage,
+          circleBorderColor: wineType.cirlcleBorderColor,
+          secondaryColor: wineType.backgroundColor.secondCircle
         )
         
         Spacer()
@@ -169,17 +163,4 @@ extension WineDetailInfoMiddle {
     
     return numberFormatter.string(from: NSNumber(value: number))!
   }
-}
-
-#Preview {
-  WineDetailInfoMiddle(
-    illustImage: WineType.rose.illustImage,
-    circleBorderColor: .black,
-    secondaryColor: .red,
-    nationalAnthems: "test",
-    varities: "test",
-    purchasePrice: 9,
-    star: 4,
-    buyAgain: true
-  )
 }

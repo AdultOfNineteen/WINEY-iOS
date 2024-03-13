@@ -30,7 +30,7 @@ public struct NoteCardScrollView: View {
             ForEach(viewStore.noteCards.contents, id: \.noteId) { note in
               noteCard(noteData: note)
                 .onTapGesture {
-                  viewStore.send(.tappedNoteCard(noteId: note.noteId))
+                  viewStore.send(.tappedNoteCard(noteId: note.noteId, country: note.country))
                 }
                 .onAppear {
                   if viewStore.noteCards.contents[viewStore.noteCards.contents.count - 1] == note && !viewStore.noteCards.isLast {
