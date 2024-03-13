@@ -31,6 +31,9 @@ public struct CustomGalleryView: View {
     .onAppear {
       viewStore.send(._viewWillAppear)
     }
+    .onDisappear {
+      viewStore.send(._viewDisappear)
+    }
     .sheet(
       isPresented: viewStore.binding(
         get: \.isOpenCamera,
@@ -82,51 +85,62 @@ extension CustomGalleryView {
         cameraButton()
         
         ForEach(viewStore.userGalleryImage, id: \.self) { image in
-          ZStack {
-            Image(uiImage: image)
-              .resizable()
-              .frame(height: 126)
-            
-            VStack {
-              HStack {
-                Spacer()
-                
-                Circle()
-                  .stroke(
-                    viewStore.selectedImage.contains(image) ? WineyKitAsset.main2.swiftUIColor : Color(.systemGray4),
-                    lineWidth: 2
-                  )
-                  .frame(width: 24, height: 24)
-                  .overlay(
-                    Circle()
-                      .fill(viewStore.selectedImage.contains(image) ? WineyKitAsset.main2.swiftUIColor : .clear)
-                      .frame(width: 22, height: 22)
-                  )
-                  .overlay(
-                    Text(viewStore.selectedImage.firstIndex(of: image) != nil ? "\(viewStore.selectedImage.firstIndex(of: image)! + 1)" : "")
-                      .wineyFont(.bodyM2)
-                      .foregroundStyle(.black)
-                  )
-              }
-              
-              Spacer()
-            }
-            .padding(.vertical, 8)
-            .padding(.horizontal, 9)
-            .background(
-              viewStore.selectedImage.contains(image) ? Color(.systemGray2).opacity(0.4) : .clear
-            )
-          }
-          .onTapGesture {
-            viewStore.send(.tappedImage(image))
-          }
-          .border(
-            viewStore.selectedImage.contains(image) ? WineyKitAsset.main2.swiftUIColor : .clear,
-            width: 2
-          )
+          imageBox(image: image)
         }
       }
     }
+  }
+  
+  @ViewBuilder
+  private func imageBox(image: UIImage) -> some View {
+    ZStack {
+      Image(uiImage: image)
+        .resizable()
+        .frame(height: 126)
+      
+      VStack {
+        HStack {
+          Spacer()
+          
+          Circle()
+            .stroke(
+              viewStore.selectedImage.contains(image) ? WineyKitAsset.main2.swiftUIColor : Color(.systemGray4),
+              lineWidth: 2
+            )
+            .frame(width: 24, height: 24)
+            .overlay(
+              Circle()
+                .fill(viewStore.selectedImage.contains(image) ? WineyKitAsset.main2.swiftUIColor : .clear)
+                .frame(width: 22, height: 22)
+            )
+            .overlay(
+              Text(viewStore.selectedImage.firstIndex(of: image) != nil ? "\(viewStore.selectedImage.firstIndex(of: image)! + 1)" : "")
+                .wineyFont(.bodyM2)
+                .foregroundStyle(.black)
+            )
+        }
+        
+        Spacer()
+      }
+      .padding(.vertical, 8)
+      .padding(.horizontal, 9)
+      .background(
+        viewStore.selectedImage.contains(image) ? Color(.systemGray2).opacity(0.4) : .clear
+      )
+    }
+    .frame(height: 126)
+    .onAppear {
+      if image == viewStore.userGalleryImage.last {
+        viewStore.send(._paginationImageData)
+      }
+    }
+    .onTapGesture {
+      viewStore.send(.tappedImage(image))
+    }
+    .border(
+      viewStore.selectedImage.contains(image) ? WineyKitAsset.main2.swiftUIColor : .clear,
+      width: 2
+    )
   }
   
   @ViewBuilder
@@ -134,7 +148,10 @@ extension CustomGalleryView {
     Image(systemName: "camera")
       .wineyFont(.bodyB1)
       .foregroundStyle(WineyKitAsset.main2.swiftUIColor)
+      .frame(maxWidth: .infinity)
+      .frame(height: 126)
       .onTapGesture {
+        // TODO: CAMERA OPEN
         print("tap Camera")
       }
   }

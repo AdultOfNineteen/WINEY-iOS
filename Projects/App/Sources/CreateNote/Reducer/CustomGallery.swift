@@ -26,6 +26,7 @@ public struct CustomGallery: Reducer {
   }
   
   public enum Action {
+    
     // MARK: - User Action
     case tappedDismissButton
     case tappedAttachButton
@@ -35,25 +36,46 @@ public struct CustomGallery: Reducer {
     
     // MARK: - Inner Business Action
     case _viewWillAppear
-    case _fetchPhotos
+    case _viewDisappear
     case _dismissWindow
     case _sendParentViewImage([UIImage])
     case _openCamera
     
     // MARK: - Inner SetState Action
+    case _setImageData([UIImage])
+    case _paginationImageData
+    case _appendImageData([UIImage])
     case _appendImage(UIImage)
     case _deleteImage(UIImage)
     
     // MARK: - Child Action
   }
   
+  @Dependency(\.photoService) var photoService
+  
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
       case ._viewWillAppear:
         return .run { send in
-          await send(._fetchPhotos)
+          await photoService.getPhResult()
+          let imageData = await photoService.fetchPhotos()
+          await send(._setImageData(imageData))
         }
+        
+      case let ._setImageData(images):
+        state.userGalleryImage = images
+        return .none
+        
+      case ._paginationImageData:
+        return .run { send in
+          let imageData = await photoService.fetchPhotos()
+          await send(._appendImageData(imageData))
+        }
+        
+      case let ._appendImageData(images):
+        state.userGalleryImage.append(contentsOf: images)
+        return .none
         
       case .tappedCameraButton:
         let status = AVCaptureDevice.authorizationStatus(for: .video)
@@ -122,32 +144,8 @@ public struct CustomGallery: Reducer {
         state.selectedImage.removeAll(where: { $0 == image })
         return .none
         
-      case ._fetchPhotos:
-        let imageManaer = PHImageManager.default()
-        let requestOptions = PHImageRequestOptions()
-        
-        requestOptions.isSynchronous = true
-        requestOptions.deliveryMode = .highQualityFormat
-        
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-        
-        let fetchResult: PHFetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-        var fetchedImage: [UIImage] = []
-        
-        for i in 0..<fetchResult.count {
-          imageManaer.requestImage(
-            for: fetchResult.object(at: i),
-            targetSize: .init(),
-            contentMode: .aspectFit,
-            options: requestOptions) { image, _ in
-              if let image = image {
-                fetchedImage.append(image)
-              }
-            }
-        }
-        
-        state.userGalleryImage = fetchedImage
+      case ._viewDisappear:
+        state.userGalleryImage.removeAll()
         return .none
         
       default:
