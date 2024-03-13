@@ -76,7 +76,7 @@ public struct NoteDetailView: View {
         bottomSheetFooter()
       }
     )
-    .background(WineyKitAsset.background1.swiftUIColor)
+    .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationBarHidden(true)
   }
 }
@@ -249,6 +249,7 @@ extension NoteDetailView {
     .padding(.vertical, 20)
     .frame(height: 64)
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+    .background(WineyKitAsset.gray950.swiftUIColor)
     .onTapGesture {
       viewStore.send(.tappedOption(option))
     }
