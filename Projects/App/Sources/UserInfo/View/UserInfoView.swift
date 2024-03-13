@@ -177,7 +177,7 @@ public struct UserInfoView: View {
             Circle() // 슬라이더의 원
               .frame(width: 14)
               .foregroundColor(WineyKitAsset.main2.swiftUIColor)
-              .offset(x: CGFloat(userWineGrade.threeMonthsNoteCount)/CGFloat(viewStore.hightestGradeCount) * lineGeometry.size.width - 7)
+              .offset(x: CGFloat(userWineGrade.threeMonthsNoteCount)/CGFloat(viewStore.hightestGradeCount) * lineGeometry.size.width - 10)
           }
         }
       } else {
