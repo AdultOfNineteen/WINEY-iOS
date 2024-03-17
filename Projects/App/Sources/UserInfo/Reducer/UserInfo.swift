@@ -13,6 +13,7 @@ public struct UserInfo: Reducer {
   public struct State: Equatable {
     var isPresentedBottomSheet: Bool = false
     var userId: Int? = nil
+    var userNickname: String? = nil
     var gradeListInfo: [WineGradeInfoDTO]? = nil
     var userWineGrade: MyWineGradeDTO? = nil
     var hightestGradeCount: Int = 0
@@ -33,6 +34,7 @@ public struct UserInfo: Reducer {
     // MARK: - Inner Business Action
     case _viewWillAppear
     case _getUserInfo
+    case _getNickName
     case _getWineGrades
     case _getUserWineGrade(Int)
     case _presentBottomSheet(Bool)
@@ -43,6 +45,7 @@ public struct UserInfo: Reducer {
     // MARK: - Inner SetState Action
     case _failureSocialNetworking(Error)  // 추후 경고 처리
     case _setUserInfo(UserInfoDTO)
+    case _setNickname(UserNicknameDTO)
     case _setUserWineGrade(MyWineGradeDTO)
     case _setGradeList([WineGradeInfoDTO])
     
@@ -59,6 +62,7 @@ public struct UserInfo: Reducer {
     case ._viewWillAppear:
       return .run { send in
         await send(._getUserInfo)
+        await send(._getNickName)
         await send(._getWineGrades)
       }
       
@@ -67,6 +71,16 @@ public struct UserInfo: Reducer {
         switch await userService.info() {
         case let .success(data):
           await send(._setUserInfo(data))
+        case let .failure(error):
+          await send(._failureSocialNetworking(error))
+        }
+      }
+      
+    case ._getNickName:
+      return .run { send in
+        switch await userService.nickname() {
+        case let .success(data):
+          await send(._setNickname(data))
         case let .failure(error):
           await send(._failureSocialNetworking(error))
         }
@@ -85,6 +99,10 @@ public struct UserInfo: Reducer {
     case let ._setUserInfo(data):
       state.userId = data.userId
       return .send(._getUserWineGrade(data.userId))
+      
+    case let ._setNickname(data):
+      state.userNickname = data.nickname
+      return .none
       
     case let ._setGradeList(data):
       state.gradeListInfo = data

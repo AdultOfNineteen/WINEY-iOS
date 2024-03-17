@@ -150,7 +150,7 @@ public struct SignOutView: View {
         VStack(alignment: .leading, spacing: 20) {
           Text(option.rawValue)
             .foregroundStyle(.white)
-            .wineyFont(.bodyB1)
+            .wineyFont(.bodyM1)
           
           if option != .etc {
             Divider()

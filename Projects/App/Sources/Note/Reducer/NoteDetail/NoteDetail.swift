@@ -17,6 +17,7 @@ public enum NoteDetailOption: String {
 public struct NoteDetail: Reducer {
   public struct State: Equatable {
     let noteId: Int
+    let country: String
     
     public var noteCardData: NoteDetailDTO?
     
@@ -24,8 +25,9 @@ public struct NoteDetail: Reducer {
     public var isPresentedBottomSheet: Bool = false
     public var isPresentedRemoveSheet: Bool = false
     
-    public init(noteId: Int) {
+    public init(noteId: Int, country: String) {
       self.noteId = noteId
+      self.country = country
     }
   }
   

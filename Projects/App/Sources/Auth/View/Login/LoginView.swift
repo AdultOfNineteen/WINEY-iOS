@@ -22,25 +22,21 @@ struct LoginView: View {
   }
   
   var body: some View {
-    GeometryReader { _ in
-      ZStack {
-        HStack {
-          Rectangle()
-            .fill(.black)
-        }
-        mainLogoSpace
-        
-        searchWineTextSpace
-          .offset(y: -150) // mainLogoSpace로부터 위로 150
-        
-        bottomSpace // 로그인 경로 Text부터 서비스 이용약관까지
-          .offset(y: -20) // 화면 최 하단으로부터 위로 20
-      }
-      .onAppear {
-        guard !didAppear else { return }
-        store.send(._onAppear)
-        didAppear = true
-      }
+    ZStack {
+      WineyKitAsset.mainBackground.swiftUIColor.ignoresSafeArea()
+      
+      mainLogoSpace
+      
+      searchWineTextSpace
+        .offset(y: -150) // mainLogoSpace로부터 위로 150
+      
+      bottomSpace // 로그인 경로 Text부터 서비스 이용약관까지
+        .offset(y: -20) // 화면 최 하단으로부터 위로 20
+    }
+    .onAppear {
+      guard !didAppear else { return }
+      store.send(._onAppear)
+      didAppear = true
     }
   }
   
@@ -52,7 +48,7 @@ struct LoginView: View {
       }
       .padding(.bottom, 30)
       
-      Button( // 추후 삭제 
+      Button( // 추후 삭제
         action: {
           viewStore
             .send(._gotoMain)
@@ -168,13 +164,10 @@ struct LoginView: View {
       Image("logo_imge")
         .background {
           RadientCircleBackgroundView()
+            .offset(y: -15)
         }
       
-      ZStack(alignment: .top) {
-        Image("logoText_imge")
-        Image("wave_imge")
-          .offset(y: 2)
-      }
+      Image("logoText_imge")
     }
   }
 }

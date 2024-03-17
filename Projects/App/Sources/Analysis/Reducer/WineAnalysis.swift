@@ -13,6 +13,7 @@ import Foundation
 public struct WineAnalysis: Reducer {
   public struct State: Equatable {
     public var isPresentedBottomSheet: Bool = false
+    public var userNickname: String?
     
     public init(
       isPresentedBottomSheet: Bool
@@ -30,29 +31,45 @@ public struct WineAnalysis: Reducer {
     
     // MARK: - Inner Business Action
     case _presentBottomSheet(Bool)
-    case _navigateLoading
+    case _navigateLoading(nickName: String)
     case _onAppear
     
     // MARK: - Inner SetState Action
     case _setNoteCheck(data: NoteCheckDTO)
+    case _setUserNickname(data: UserNicknameDTO)
     case _failureSocialNetworking(Error)
     
     // MARK: - Child Action
   }
   
   @Dependency(\.note) var noteService
-
+  @Dependency(\.user) var userService
+  
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case ._onAppear:
-      return .run { send in
-        switch await noteService.noteCheck() {
-        case let .success(data):
-          await send(._setNoteCheck(data: data))
-        case let .failure(error):
-          await send(._failureSocialNetworking(error))
+      return .concatenate([
+        .run { send in
+          switch await noteService.noteCheck() {
+          case let .success(data):
+            await send(._setNoteCheck(data: data))
+          case let .failure(error):
+            await send(._failureSocialNetworking(error))
+          }
+        },
+        .run { send in
+          switch await userService.nickname() {
+          case let .success(data):
+            await send(._setUserNickname(data: data))
+          case let .failure(error):
+            await send(._failureSocialNetworking(error))
+          }
         }
-      }
+      ])
+      
+    case let ._setUserNickname(data: data):
+      state.userNickname = data.nickname
+      return .none
       
     case let ._setNoteCheck(data: data):
       if data.tastingNoteExists {
@@ -68,7 +85,11 @@ public struct WineAnalysis: Reducer {
       return .send(.tappedBackButton)
       
     case .tappedAnalysis:
-      return .send(._navigateLoading)
+      if let userNickname = state.userNickname {
+        return .send(._navigateLoading(nickName: userNickname))
+      } else {
+        return .none
+      }
       
     case ._presentBottomSheet(let bool):
       state.isPresentedBottomSheet = bool

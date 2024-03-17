@@ -20,7 +20,7 @@ struct WineyRatingView: View {
   
   var body: some View {
     ZStack {
-      WineyKitAsset.mainBackground.swiftUIColor.opacity(0.85).ignoresSafeArea()
+      Color(red: 20/255, green: 20/255, blue: 20/255).opacity(0.85).ignoresSafeArea()
       
       VStack(alignment: .center, spacing: 0) {
         HStack {
@@ -47,46 +47,32 @@ struct WineyRatingView: View {
         Text("WINEY 등급")
           .wineyFont(.title1)
           .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-          .padding(.bottom, 14)
+          .padding(.bottom, 10)
         
         Text("직전 3개월의 테이스팅 노트 작성 개수로\n매월 1일 오전 9시에 업데이트 됩니다.")
-          .frame(height: 34)
           .multilineTextAlignment(.center)
           .wineyFont(.captionM2)
           .foregroundColor(WineyKitAsset.gray500.swiftUIColor)
         
-        VStack(alignment: .leading, spacing: 18) {
+        VStack(spacing: 28) {
           if let gradeListInfo = gradeListInfo {
             ForEach(gradeListInfo) { grade in
-              HStack(spacing: 37) {
-                Circle()
-                  .stroke(
-                    LinearGradient(
-                      colors: [WineyKitAsset.main3.swiftUIColor, WineyKitAsset.main3.swiftUIColor.opacity(0.0)],
-                      startPoint: .top,
-                      endPoint: .bottom
-                    ),
-                    lineWidth: 1
-                  )
-                  .frame(width: 46, height: 46)
+              VStack(spacing: 10) {
+                Text(grade.name)
+                  .wineyFont(.captionB1)
+                  .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
                 
-                VStack(alignment: .leading, spacing: 10) {
-                  Text(grade.name)
-                    .wineyFont(.captionB1)
-                    .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+                HStack(spacing: 0) {
+                  Text("테이스팅 노트 \(grade.minCount)")
                   
-                  HStack(spacing: 0) {
-                    Text("테이스팅 노트 \(grade.minCount)")
-                    
-                    if grade.maxCount <= 1000 {
-                      Text("~\(grade.maxCount)개 작성")
-                    } else {
-                      Text("개 작성")
-                    }
+                  if grade.maxCount <= 1000 {
+                    Text("~\(grade.maxCount)개 작성")
+                  } else {
+                    Text("개 작성")
                   }
-                  .wineyFont(.captionM2)
-                  .foregroundColor(WineyKitAsset.gray500.swiftUIColor)
                 }
+                .wineyFont(.captionM2)
+                .foregroundColor(WineyKitAsset.gray500.swiftUIColor)
               }
             }
           } else {
@@ -94,20 +80,21 @@ struct WineyRatingView: View {
               .wineyFont(.bodyB1)
           }
         }
-        .padding(.vertical, 36)
+        .padding(.top, 38)
+        .padding(.bottom, 42)
       }
       .background(WineyKitAsset.gray950.swiftUIColor)
       .cornerRadius(20)
-      .frame(width: 301, height: 420)
+      .frame(width: 301)
     }
   }
 }
 
 struct WineyRatingView_Previews: PreviewProvider {
   @State static private var isPresented = true
-
-    static var previews: some View {
-        // WineyRatingView를 미리보기에 표시하고, isPresented 바인딩을 제공합니다.
-      WineyRatingView(isPresented: $isPresented)
-    }
+  
+  static var previews: some View {
+    // WineyRatingView를 미리보기에 표시하고, isPresented 바인딩을 제공합니다.
+    WineyRatingView(isPresented: $isPresented)
+  }
 }

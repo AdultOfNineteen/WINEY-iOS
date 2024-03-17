@@ -14,6 +14,8 @@ public enum UserAPI {
   case sendCode(userId: String, phoneNumber: String)
   case codeConfirm(userId: String, phoneNumber: String, verificationCode: String)
   case userInfo
+  case nickname
+  case patchNickname(nickname: String)
   case signOut(userId: Int, reason: String)
   case logout(deviceId: String)
 }
@@ -33,6 +35,10 @@ extension UserAPI: EndPointType {
       return "/users/\(userId)/phone/code/verify"
     case .userInfo:
       return "/info"
+    case .nickname:
+      return "/nickname"
+    case let .patchNickname(nickname):
+      return "/nickname"
     case let .signOut(userId: userId, reason: reason):
       return "/users/\(userId)"
     case let .logout(deviceId: deviceId):
@@ -46,6 +52,10 @@ extension UserAPI: EndPointType {
       return .post
     case .userInfo:
       return .get
+    case .nickname:
+      return .get
+    case .patchNickname:
+      return .patch
     case .signOut:
       return .delete
     case .logout:
@@ -71,8 +81,10 @@ extension UserAPI: EndPointType {
         "verificationCode": verificationCode
       ]
       return .requestParameters(parameters: parameters, encoding: .jsonBody)
+      
     case .userInfo:
       return .requestPlain
+      
     case let .signOut(userId: userId, reason: reason):
       return .requestParameters(
         parameters: [
@@ -81,6 +93,18 @@ extension UserAPI: EndPointType {
         ],
         encoding: .queryString
       )
+      
+    case .nickname:
+      return .requestPlain
+      
+    case let .patchNickname(nickname: nickname):
+      return .requestParameters(
+        parameters: [
+          "nickname": nickname
+        ],
+        encoding: .queryString
+      )
+      
     case let .logout(deviceId: deviceId):
       return .requestParameters(
         parameters: [

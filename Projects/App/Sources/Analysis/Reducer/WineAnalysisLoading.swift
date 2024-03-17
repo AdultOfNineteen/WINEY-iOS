@@ -12,7 +12,11 @@ import Foundation
 
 public struct WineAnalysisLoading: Reducer {
   public struct State: Equatable {
-   
+    public var userNickname: String
+    
+    public init(userNickname: String) {
+      self.userNickname = userNickname
+    }
   }
   
   public enum Action {

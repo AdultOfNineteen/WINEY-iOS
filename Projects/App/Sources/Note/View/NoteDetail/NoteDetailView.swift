@@ -39,7 +39,7 @@ public struct NoteDetailView: View {
       } else {
         VStack {
           Spacer()
-          Text("네트워크 오류")
+          ProgressView()
           Spacer()
         }
       }
@@ -76,7 +76,7 @@ public struct NoteDetailView: View {
         bottomSheetFooter()
       }
     )
-    .background(WineyKitAsset.background1.swiftUIColor)
+    .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationBarHidden(true)
   }
 }
@@ -100,10 +100,8 @@ extension NoteDetailView {
         
         // MARK: Wine Info
         WineDetailInfoMiddle(
-          illustImage: WineType.changeType(at: noteData.wineType).illustImage,
-          circleBorderColor: WineType.changeType(at: noteData.wineType).cirlcleBorderColor,
-          secondaryColor: WineType.changeType(at: noteData.wineType).backgroundColor.secondCircle,
-          nationalAnthems: noteData.region,
+          wineType: WineType.changeType(at: noteData.wineType),
+          nationalAnthems: viewStore.country,
           varities: noteData.varietal,
           abv: noteData.officialAlcohol,
           purchasePrice: noteData.price,
@@ -172,13 +170,8 @@ extension NoteDetailView {
           .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
           .frame(height: 54, alignment: .topLeading)
         
-        WineyAsset.Assets.star1.swiftUIImage
-          .padding(.top, 14)
-          .padding(.leading, 6)
-        
         Spacer()
       }
-      .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
       
       HStack {
         Text(noteData.wineName.useNonBreakingSpace())
@@ -223,7 +216,7 @@ extension NoteDetailView {
         .padding(.vertical, 14)
         .background(
           RoundedRectangle(cornerRadius: 10)
-            .stroke(WineyKitAsset.main2.swiftUIColor)
+            .stroke(WineyKitAsset.gray800.swiftUIColor)
         )
         .padding(.top, 36)
     }
@@ -256,6 +249,7 @@ extension NoteDetailView {
     .padding(.vertical, 20)
     .frame(height: 64)
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+    .background(WineyKitAsset.gray950.swiftUIColor)
     .onTapGesture {
       viewStore.send(.tappedOption(option))
     }
@@ -291,7 +285,7 @@ extension NoteDetailView {
   NoteDetailView(
     store: Store(
       initialState: NoteDetail.State.init(
-        noteId: 1
+        noteId: 1, country: "test"
       ),
       reducer: {
         NoteDetail()

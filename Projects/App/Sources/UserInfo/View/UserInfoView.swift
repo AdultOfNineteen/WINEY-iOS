@@ -106,21 +106,23 @@ public struct UserInfoView: View {
         }
       
       VStack(spacing: 0) {
-        HStack(spacing: 0) {
-          Text("김희연")
-            .foregroundColor(WineyKitAsset.main3.swiftUIColor)
-          Text("님")
-            .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-          Spacer()
-          Button(
-            action: { viewStore.send(.userSettingTapped(viewStore.userId)) },
-            label: {
-              Image(systemName: "chevron.right")
-                .foregroundColor(.white)
-            }
-          )
+        if let nickname = viewStore.userNickname {
+          HStack(spacing: 0) {
+            Text(nickname)
+              .foregroundColor(WineyKitAsset.main3.swiftUIColor)
+            Text("님")
+              .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+            Spacer()
+            Button(
+              action: { viewStore.send(.userSettingTapped(viewStore.userId)) },
+              label: {
+                Image(systemName: "chevron.right")
+                  .foregroundColor(.white)
+              }
+            )
+          }
+          .wineyFont(.title2)
         }
-        .wineyFont(.title2)
         
         Spacer()
         
@@ -140,7 +142,7 @@ public struct UserInfoView: View {
           }
         )
       }
-      .frame(height: 88)
+      .frame(height: 82)
     }
   }
   
@@ -175,7 +177,7 @@ public struct UserInfoView: View {
             Circle() // 슬라이더의 원
               .frame(width: 14)
               .foregroundColor(WineyKitAsset.main2.swiftUIColor)
-              .offset(x: CGFloat(userWineGrade.threeMonthsNoteCount)/CGFloat(viewStore.hightestGradeCount) * lineGeometry.size.width - 7)
+              .offset(x: CGFloat(userWineGrade.threeMonthsNoteCount)/CGFloat(viewStore.hightestGradeCount) * lineGeometry.size.width - 10)
           }
         }
       } else {
@@ -188,9 +190,7 @@ public struct UserInfoView: View {
   
   private var badgeSpace: some View {
     HStack(spacing: 0) {
-      Spacer() // 뱃지 들어갈 공간
-      
-      VStack(alignment: .leading, spacing: 1) {
+      VStack(alignment: .leading, spacing: 2) {
         Text("BOTTLE") // 임시
           .wineyFont(.bodyB2)
           .foregroundColor(WineyKitAsset.gray400.swiftUIColor)
@@ -204,7 +204,8 @@ public struct UserInfoView: View {
         .wineyFont(.captionM2)
         .frame(height: 18)
       }
-      .padding(.trailing, 20)
+      
+      Spacer()
       
       Button(
         action: {

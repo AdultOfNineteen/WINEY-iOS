@@ -20,28 +20,27 @@ public struct CapsuleButton: View {
   }
  
   public var body: some View {
-    Button(
-      action: action,
-      label: {
-        Text(title)
-          .wineyFont(.captionB1)
-          .foregroundStyle(validation ? .white : WineyKitAsset.gray700.swiftUIColor)
-          .padding(.top, 9)
-          .padding(.bottom, 8)
-          .padding(.horizontal, 12)
-          .background(
+    
+    Text(title)
+      .wineyFont(.captionB1)
+      .foregroundStyle(validation ? .white : WineyKitAsset.gray700.swiftUIColor)
+      .padding(.top, 9)
+      .padding(.bottom, 8)
+      .padding(.horizontal, 12)
+      .background(
+        Capsule()
+          .fill(
+            validation ? WineyKitAsset.main2.swiftUIColor : .clear
+          )
+          .overlay(
             Capsule()
-              .fill(
-                validation ? WineyKitAsset.main2.swiftUIColor : .clear
-              )
-              .overlay(
-                Capsule()
-                  .stroke(
-                    validation ? WineyKitAsset.main2.swiftUIColor : WineyKitAsset.gray900.swiftUIColor
-                  )
+              .stroke(
+                validation ? WineyKitAsset.main2.swiftUIColor : WineyKitAsset.gray900.swiftUIColor
               )
           )
-      }
-    )
+      )
+      .onTapGesture(perform: {
+        action()
+      })
   }
 }

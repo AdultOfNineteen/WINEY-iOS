@@ -277,6 +277,7 @@ extension FilteredNoteView {
         WineyAsset.Assets.checkIcon.swiftUIImage
       }
     }
+    .background(WineyKitAsset.gray950.swiftUIColor)
     .padding(.vertical, 20)
     .frame(height: 64)
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)

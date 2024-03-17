@@ -52,6 +52,7 @@ struct CodeSignUpView: View {
           maximumInputCount: 6,
           clockIndicator: viewStore.codeValidateClock,
           completeCondition: viewStore.inputCode.count == 6 && !viewStore.isShowVerifyError,
+          keyboardType: .numberPad,
           onEditingChange: { }
         )
         .focused($isTextFieldFocused)

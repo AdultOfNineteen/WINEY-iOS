@@ -36,7 +36,7 @@ public struct BottomOptionButton: View {
       }
     }
     .overlay(
-      ReverseToolTip(content: "건너뛰기를 누르면 내용이 저장되지 않아요.")
+      ReverseToolTip(content: "건너뛰기를 누르면 내용이 저장되지 않아요")
         .offset(x: -50, y: -60)
         .opacity(tooltipVisible ? 1.0 : 0.0)
     )

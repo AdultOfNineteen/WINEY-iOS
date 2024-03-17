@@ -26,7 +26,7 @@ public extension View {
       self
       ZStack(alignment: .bottom) {
         if isPresented.wrappedValue {
-          WineyKitAsset.background1.swiftUIColor.opacity(0.85)
+          WineyKitAsset.mainBackground.swiftUIColor.opacity(0.85)
             .ignoresSafeArea(.container, edges: .all)
             .zIndex(1)
             .onTapGesture {

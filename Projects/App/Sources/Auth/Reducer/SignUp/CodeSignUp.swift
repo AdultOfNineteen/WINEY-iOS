@@ -124,8 +124,8 @@ public struct CodeSignUp: Reducer {
       }
    
     case .edited(let number):
-      state.inputCode = number
-      state.validCode = number.count == 6
+      state.inputCode = String(number.filter("0123456789".contains).prefix(6))
+      state.validCode = state.inputCode.count == 6
       
       if state.isShowVerifyError {
         return .send(._setDisplayErrorState(false))

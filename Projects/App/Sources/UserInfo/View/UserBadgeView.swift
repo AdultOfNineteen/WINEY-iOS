@@ -12,7 +12,7 @@ import WineyKit
 public struct UserBadgeView: View {
   private let store: StoreOf<UserBadge>
   @ObservedObject var viewStore: ViewStoreOf<UserBadge>
-  let rows: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 0), count: 2)
+  let rows: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 20), count: 2)
   
   public init(store: StoreOf<UserBadge>) {
     self.store = store
@@ -23,36 +23,37 @@ public struct UserBadgeView: View {
   }
   
   public var body: some View {
-    ZStack {
-      WineyKitAsset.mainBackground.swiftUIColor.ignoresSafeArea()
+    VStack(spacing: 0) {
+      NavigationBar(
+        title: "WINEY 뱃지",
+        leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
+        leftIconButtonAction: {
+          viewStore.send(.tappedBackButton)
+        },
+        backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
+      )
+      .padding(.bottom, 10)
       
-      VStack(spacing: 0) {
-        NavigationBar(
-          title: "WINEY 뱃지",
-          leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
-          leftIconButtonAction: {
-            viewStore.send(.tappedBackButton)
-          },
-          backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
-        )
-        .padding(.bottom, 10)
-        
-        
-        if !viewStore.errorMsg.isEmpty {
-          Text(viewStore.errorMsg)
-            .wineyFont(.bodyB1)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .offset(y: -68)
-        } else {
-          Group {
+      if !viewStore.errorMsg.isEmpty {
+        Text(viewStore.errorMsg)
+          .wineyFont(.bodyB1)
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
+          .offset(y: -68)
+      } else {
+        ScrollView {
+          VStack(spacing: 20) {
             BadgeSectionTitle(
               title: .sommelier,
               count: viewStore.sommelierBadgeList.filter({ $0.acquiredAt != nil }).count
+            )   
+            .padding(
+              .horizontal,
+              WineyGridRules
+                .globalHorizontalPadding
             )
-            .padding(.bottom, 20)
             
-            ScrollView(.horizontal) {
-              LazyHGrid(rows: [.init(.flexible())], spacing: 14) {
+            ScrollView(.horizontal, showsIndicators: false) {
+              LazyHStack(spacing: 14) {
                 ForEach(viewStore.state.sommelierBadgeList, id: \.badgeId) { badge in
                   BadgeBlock(
                     title: badge.name,
@@ -65,28 +66,29 @@ public struct UserBadgeView: View {
                   }
                 }
               }
-              .padding(.horizontal, 1)
-              .padding(.bottom, 20)
+              .padding(.horizontal, 24)
             }
-            .frame(height: 160)
           }
-          .padding(
-            .horizontal,
-            WineyGridRules
-              .globalHorizontalPadding
-          )
           
           Divider()
+            .frame(height: 0.8)
+            .overlay(
+              WineyKitAsset.gray900.swiftUIColor
+            )
             .padding(.vertical, 20)
           
-          Group {
+          VStack(spacing: 20) {
             BadgeSectionTitle(
               title: .activity,
               count: viewStore.activityBadgeList.filter({ $0.acquiredAt != nil }).count
             )
-            .padding(.bottom, 20)
+            .padding(
+              .horizontal,
+              WineyGridRules
+                .globalHorizontalPadding
+            )
             
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: false) {
               LazyHGrid(rows: rows, spacing: 14) {
                 ForEach(viewStore.state.activityBadgeList, id: \.badgeId) { badge in
                   BadgeBlock(
@@ -100,21 +102,16 @@ public struct UserBadgeView: View {
                   }
                 }
               }
-              .padding(.horizontal, 1)
-              .padding(.bottom, 20)
+              .padding(.horizontal, 24)
+              .padding(.bottom, 40)
             }
-            .frame(height: 340)
           }
-          .padding(
-            .horizontal,
-            WineyGridRules
-              .globalHorizontalPadding
-          )
-          
-          Spacer()
         }
       }
     }
+    .background(
+      WineyKitAsset.mainBackground.swiftUIColor
+    )
     .bottomSheet(
       backgroundColor: WineyKitAsset.gray950.swiftUIColor,
       isPresented: viewStore.binding(
@@ -212,36 +209,35 @@ public struct BadgeBlock: View {
   
   public var body: some View {
     VStack(alignment: .center, spacing: 0) {
-      if !isRead {
-        HStack {
-          Spacer()
-          
-          Circle()
-            .fill(WineyKitAsset.main2.swiftUIColor)
-            .frame(width: 8)
-        }
-        .padding(.bottom, 6)
-      } else {
+      HStack {
         Spacer()
-          .frame(height: 14)
+        
+        Circle()
+          .fill(WineyKitAsset.main2.swiftUIColor)
+          .frame(width: 8)
       }
+      .padding(.bottom, 6)
+      .opacity(!isRead ? 1.0 : 0.0)
       
       ZStack(alignment: .center) {
         RoundedRectangle(cornerRadius: 4.85)
-          .stroke(
-            LinearGradient(
-              gradient: Gradient(
-                colors: [
-                  WineyKitAsset.main3.swiftUIColor,
-                  WineyKitAsset.main3.swiftUIColor.opacity(0.2)
-                ]
-              ),
-              startPoint: .topLeading,
-              endPoint: .bottomTrailing
-            ),
-            lineWidth: 0.69
+          .fill(Color(red: 63/255, green: 63/255, blue: 63/255).opacity(0.4))
+          .overlay(
+            RoundedRectangle(cornerRadius: 4.85)
+              .stroke(
+                LinearGradient(
+                  gradient: Gradient(
+                    colors: [
+                      WineyKitAsset.main3.swiftUIColor,
+                      WineyKitAsset.main3.swiftUIColor.opacity(0.2)
+                    ]
+                  ),
+                  startPoint: .topLeading,
+                  endPoint: .bottomTrailing
+                ),
+                lineWidth: 0.69
+              )
           )
-          .foregroundStyle(WineyKitAsset.gray950.swiftUIColor)
           .frame(width: 100, height: 100)
         
         // Wine Badge Image
@@ -256,6 +252,7 @@ public struct BadgeBlock: View {
             .frame(width: 100, height: 100)
         }
       }
+      .frame(width: 100, height: 100)
       .padding(.bottom, 10)
       
       VStack(alignment: .center, spacing: 3) {

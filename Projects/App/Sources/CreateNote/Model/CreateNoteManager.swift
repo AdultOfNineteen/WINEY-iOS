@@ -34,7 +34,7 @@ final class CreateNoteManager: ObservableObject {
   @Published var originalSmellKeywordList: Set<String>?
   @Published var deleteSmellKeywordList: Set<String>?
   @Published var originalImages: [TastingNoteImage]?
-  @Published var orginalUIImages: [UIImage]?
+  @Published var originalUIImages: [UIImage]?
   @Published var tastingNoteImages: [TastingNoteImage]?
   @Published var userSelectImages: [UIImage]?
   
@@ -59,6 +59,7 @@ final class CreateNoteManager: ObservableObject {
     self.originalSmellKeywordList = nil
     self.deleteSmellKeywordList = nil
     self.originalImages = nil
+    self.originalUIImages = nil
     self.tastingNoteImages = nil
     self.userSelectImages = nil
   }
@@ -90,7 +91,7 @@ final class CreateNoteManager: ObservableObject {
     }
     
     self.userSelectImages = images
-    self.orginalUIImages = images
+    self.originalUIImages = images
   }
   
   func createNote() -> (CreateNoteRequestDTO, [UIImage]) {
@@ -114,13 +115,13 @@ final class CreateNoteManager: ObservableObject {
   }
   
   func patchNote() -> (PatchNoteRequestDTO, [UIImage]) {
-    var deleteImageIndex: Set<String> = []
+    var deleteImageIndex: Set<Int> = []
     var updateImage: [UIImage] = []
     
-    if let orginalUIImages = orginalUIImages, let userSelectImages = userSelectImages, let originalImages = originalImages {
+    if let orginalUIImages = originalUIImages, let userSelectImages = userSelectImages, let originalImages = originalImages {
       for (idx, image) in orginalUIImages.enumerated() {
         if !userSelectImages.contains(image) {
-          deleteImageIndex.insert(originalImages[idx].imgId.description)
+          deleteImageIndex.insert(originalImages[idx].imgId)
         }
       }
       

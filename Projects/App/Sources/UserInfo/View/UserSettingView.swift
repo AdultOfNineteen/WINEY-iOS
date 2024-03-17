@@ -25,40 +25,21 @@ public struct UserSettingView: View {
     GeometryReader { _ in
       VStack(alignment: .leading, spacing: 0) {
         navigationBarSpacer
-        .padding(.bottom, 20)
         .padding(
           .horizontal,
           -WineyGridRules
             .globalHorizontalPadding
         )
         
-        Button(
-          action: { viewStore.send(.tappedLogout) },
-          label: {
-            HStack {
-              Text("로그아웃")
-              Spacer()
-            }
-          }
-        )
-        .frame(height: 48)
-        .wineyFont(.bodyM1)
-        .foregroundColor(.white)
-        .padding(.bottom, 8)
+        changeNickname
         
-        Divider()
-          .padding(.bottom, 17)
-          .padding(
-            .horizontal,
-            -WineyGridRules
-              .globalHorizontalPadding
-          )
+        divider
         
-        Button("회원탈퇴") {
-          viewStore.send(.tappedSignOut(userId: viewStore.userId))
-        }
-        .wineyFont(.captionM1)
-        .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
+        logoutButton
+        
+        divider
+        
+        signoutButton
       }
     }
     .padding(
@@ -100,6 +81,70 @@ public struct UserSettingView: View {
       },
       backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
     )
+  }
+  
+  var divider: some View {
+    Divider()
+      .frame(height: 0.8)
+      .overlay(
+        WineyKitAsset.gray900.swiftUIColor
+      )
+      .padding(
+        .horizontal,
+        -WineyGridRules
+          .globalHorizontalPadding
+      )
+  }
+  
+  var changeNickname: some View {
+    Button(
+      action: { viewStore.send(.tappedChangeNickname) },
+      label: {
+        HStack {
+          Text("닉네임 변경")
+            .wineyFont(.bodyM1)
+          
+          Spacer()
+          
+          Image(systemName: "chevron.right")
+            .foregroundColor(.white)
+            .wineyFont(.title2)
+        }
+      }
+    )
+    .frame(height: 48)
+    .foregroundColor(.white)
+    .padding(.vertical, 8)
+  }
+  
+  var logoutButton: some View {
+    Button(
+      action: { viewStore.send(.tappedLogout) },
+      label: {
+        HStack {
+          Text("로그아웃")
+          
+          Spacer()
+        }
+      }
+    )
+    .frame(height: 48)
+    .wineyFont(.bodyM1)
+    .foregroundColor(.white)
+    .padding(.vertical, 8)
+  }
+  
+  var signoutButton: some View {
+    Button(action: {
+      viewStore.send(.tappedSignOut(userId: viewStore.userId))
+    }, label: {
+      Text("회원탈퇴")
+        .underline(pattern: .solid)
+        .baselineOffset(4)
+    })
+    .wineyFont(.captionM1)
+    .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
+    .padding(.top, 17)
   }
 }
 

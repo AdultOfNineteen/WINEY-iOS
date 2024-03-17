@@ -30,7 +30,7 @@ public struct NoteCardScrollView: View {
             ForEach(viewStore.noteCards.contents, id: \.noteId) { note in
               noteCard(noteData: note)
                 .onTapGesture {
-                  viewStore.send(.tappedNoteCard(noteId: note.noteId))
+                  viewStore.send(.tappedNoteCard(noteId: note.noteId, country: note.country))
                 }
                 .onAppear {
                   if viewStore.noteCards.contents[viewStore.noteCards.contents.count - 1] == note && !viewStore.noteCards.isLast {
@@ -56,8 +56,7 @@ extension NoteCardScrollView {
   private func noteCard(noteData: NoteContent) -> some View {
     VStack(alignment: .leading, spacing: 10) {
       SmallWineCard(
-        wineType: WineType.changeType(at: noteData.wineType),
-        borderColor: Color(red: 150/255, green: 113/255, blue: 1)
+        wineType: WineType.changeType(at: noteData.wineType)
       )
       
       VStack(alignment: .leading, spacing: 4) {

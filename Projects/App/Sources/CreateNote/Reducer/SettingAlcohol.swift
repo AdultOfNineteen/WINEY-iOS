@@ -40,7 +40,7 @@ public struct SettingAlcohol: Reducer {
     case _tooltipHide
     case _moveNextPage
     case _backToNoteDetail
-    case _backToWineConfirm
+    case _backToWineSearch
     case _deleteNote
     case _presentBottomSheet(Bool)
     
@@ -98,7 +98,7 @@ public struct SettingAlcohol: Reducer {
         
       case ._deleteNote:
         CreateNoteManager.shared.initData()
-        return .send(._backToWineConfirm)
+        return .send(._backToWineSearch)
         
       case .tapPicker:
         return .send(._tooltipHide)

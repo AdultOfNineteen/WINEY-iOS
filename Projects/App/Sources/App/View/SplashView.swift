@@ -18,13 +18,14 @@ public struct SplashView: View {
   }
   
   public var body: some View {
-    VStack {
+    ZStack {
+      WineyKitAsset.mainBackground.swiftUIColor.ignoresSafeArea()
+      
       mainLogoSpace
         .onAppear {
           store.send(._onAppear)
         }
     }
-    .background(.black)
     .navigationViewStyle(StackNavigationViewStyle())
     .navigationBarHidden(true)
   }
@@ -34,13 +35,10 @@ public struct SplashView: View {
       Image("logo_imge")
         .background {
           RadientCircleBackgroundView()
+            .offset(y: -15)
         }
       
-      ZStack(alignment: .top) {
-        Image("logoText_imge")
-        Image("wave_imge")
-          .offset(y: 2)
-      }
+      Image("logoText_imge")
     }
   }
 }

@@ -11,19 +11,12 @@ import WineyKit
 
 public struct SmallWineCard: View {
   public var wineType: WineType
-  public var borderColor: Color
   
   public var body: some View {
     VStack(spacing: -10) {
       HStack(spacing: 3) {
         Text(wineType.typeName)
           .wineyFont(.cardTitle)
-        
-        WineyAsset.Assets.star1.swiftUIImage
-          .resizable()
-          .aspectRatio(contentMode: .fit)
-          .frame(height: 13)
-          .offset(y: -2)
         
         Spacer()
       }
@@ -40,8 +33,8 @@ public struct SmallWineCard: View {
         .stroke(
           LinearGradient(
             colors: [
-              borderColor,
-              borderColor.opacity(0.1)
+              .white.opacity(0.9),
+              .white.opacity(0.1)
             ],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
@@ -84,7 +77,6 @@ public struct SmallWineCard: View {
 
 #Preview {
   SmallWineCard(
-    wineType: .red,
-    borderColor: Color(red: 150/255, green: 113/255, blue: 1)
+    wineType: .red
   )
 }
