@@ -14,6 +14,7 @@ import WineyKit
 public struct MapView: View {
   private let store: StoreOf<Map>
   @ObservedObject var viewStore: ViewStoreOf<Map>
+  @State var testSheet = false
   
   public init(store: StoreOf<Map>) {
     self.store = store
@@ -64,8 +65,6 @@ public struct MapView: View {
                 .wineyFont(.title2)
             }
             .frame(height: 68)
-            
-            
           }
             .frame(height: 118)
           Spacer()
@@ -100,6 +99,13 @@ public struct MapView: View {
     .onAppear {
       viewStore.send(._onAppear)
     }
+    .sheet(
+      isPresented: $testSheet,
+      content: {
+        Text("하이하이")
+      }
+    )
+    
     .shopBottomSheet(
       height: viewStore.binding(
         get: \.sheetHeight,

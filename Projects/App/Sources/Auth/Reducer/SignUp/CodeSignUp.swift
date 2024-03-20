@@ -9,7 +9,7 @@
 import Combine
 import ComposableArchitecture
 import Foundation
-import UserDomain
+//import UserDomain
 import WineyNetwork
 
 public struct CodeSignUp: Reducer {

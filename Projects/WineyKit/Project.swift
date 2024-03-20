@@ -20,7 +20,7 @@ let project = Project.make(
       sources: ["Sources/**"],
       resources: ["Resources/**"],
       dependencies: [
-        .project(target: "Utils", path: "../Utils")
+//        .project(target: "Utils", path: "../Utils")
       ]
     )
   ]

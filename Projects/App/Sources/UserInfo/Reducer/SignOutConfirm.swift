@@ -7,7 +7,7 @@
 
 import ComposableArchitecture
 import Foundation
-import UserDomain
+//import UserDomain
 
 public struct SignOutConfirm: Reducer {
   public struct State: Equatable {

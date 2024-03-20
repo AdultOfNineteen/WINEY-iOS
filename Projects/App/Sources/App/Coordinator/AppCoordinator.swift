@@ -28,6 +28,7 @@ public struct AppCoordinator: Reducer {
   public enum Action: IndexedRouterAction {
     case routeAction(Int, action: AppScreen.Action)
     case updateRoutes([Route<AppScreen.State>])
+    case home
   }
   
   public var body: some ReducerOf<Self> {

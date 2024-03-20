@@ -22,8 +22,10 @@ let project = Project.make(
       sources: ["Sources/**"],
       resources: ["Resources/**"],
       dependencies: [
-        .project(target: "MyPageFeatureInterface", path: "../Feature/MyPageFeature"),
-        .project(target: "MyPageFeature", path: "../Feature/MyPageFeature"),
+        .project(target: "WineyNetwork", path: "../WineyNetwork"),
+        .project(target: "WineyKit", path: "../WineyKit"),
+//        .project(target: "MyPageFeatureInterface", path: "../Feature/MyPageFeature"),
+//        .project(target: "MyPageFeature", path: "../Feature/MyPageFeature"),
 //        .project(target: "MapFeature", path: "../Feature/MapFeature"),
         
         .package(product: "GoogleSignIn")

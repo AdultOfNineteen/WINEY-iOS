@@ -8,7 +8,7 @@
 import ComposableArchitecture
 import Foundation
 import UIKit
-import UserDomain
+//import UserDomain
 
 public struct UserSetting: Reducer {
   public struct State: Equatable {

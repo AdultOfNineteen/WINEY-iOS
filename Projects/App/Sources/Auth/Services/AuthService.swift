@@ -19,7 +19,7 @@ public struct AuthService {
     _ path: LoginPathType
   ) async -> String?
   
-  public var loginState: ( 
+  public var loginState: (
     _ path: LoginPathType,
     _ accessToken: String
   ) async -> Result<LoginUserDTO, Error>
