@@ -32,6 +32,7 @@ public struct CustomGalleryView: View {
       viewStore.send(._viewWillAppear)
     }
     .onDisappear {
+      print("here!")
       viewStore.send(._viewDisappear)
     }
     .fullScreenCover(
@@ -101,7 +102,10 @@ extension CustomGalleryView {
     ZStack {
       Image(uiImage: image)
         .resizable()
+        .scaledToFill()
+        .frame(maxWidth: UIScreen.main.bounds.width / 3 - 4)
         .frame(height: UIScreen.main.bounds.width / 3 - 8)
+        .clipped()
       
       VStack {
         HStack {
