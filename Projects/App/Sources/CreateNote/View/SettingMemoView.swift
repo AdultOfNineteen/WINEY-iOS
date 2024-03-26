@@ -21,7 +21,7 @@ public struct SettingMemoView: View {
     self.viewStore = ViewStore(self.store, observe: { $0 })
   }
   
-  public var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
+  public var columns: [GridItem] = [GridItem(.flexible(), spacing: 9), GridItem(.flexible(), spacing: 4), GridItem(.flexible())]
   
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
@@ -114,8 +114,9 @@ extension SettingMemoView {
           ZStack {
             Image(uiImage: image)
               .resizable()
+              .scaledToFill()
+              .frame(width: (UIScreen.main.bounds.width - 48 - 18)/3, height: (UIScreen.main.bounds.width - 48 - 18)/3)
               .clipShape(RoundedRectangle(cornerRadius: 10))
-              .frame(height: 100)
             
             VStack(alignment: .trailing) {
               HStack {

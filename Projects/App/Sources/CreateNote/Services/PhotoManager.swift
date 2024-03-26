@@ -19,7 +19,7 @@ final class PhotoManager: NSObject {
   
   func getPHResult() {
     self.startIndex = 0
-
+    
     let fetchOptions = PHFetchOptions()
     fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
     
@@ -32,6 +32,7 @@ final class PhotoManager: NSObject {
     requestOptions.deliveryMode = .highQualityFormat
     
     var imageBuffer: [UIImage] = []
+    var count = 0
     
     for i in self.startIndex ..< (self.startIndex + self.pagingSize) {
       if fetchResult.count - 1 < i {
@@ -40,17 +41,22 @@ final class PhotoManager: NSObject {
       
       imageManager.requestImage(
         for: fetchResult.object(at: i),
-        targetSize: CGSize(width: 200, height: 200),
+        targetSize: CGSize(width: 300, height: 300),
         contentMode: .aspectFit,
         options: requestOptions
-      ) { (image, _) in
-          if let image = image {
-            imageBuffer.append(image)
-          }
+      ) { [weak self] (image, _) in
+        guard let self = self else { return }
+        count += 1
+        
+        if let image = image {
+          imageBuffer.append(image)
         }
+        
+        if count == self.pagingSize {
+          self.startIndex += self.pagingSize
+        }
+      }
     }
-    
-    self.startIndex += self.pagingSize
     
     return imageBuffer
   }
