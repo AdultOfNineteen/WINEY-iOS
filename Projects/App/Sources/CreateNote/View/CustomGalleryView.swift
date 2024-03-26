@@ -32,7 +32,6 @@ public struct CustomGalleryView: View {
       viewStore.send(._viewWillAppear)
     }
     .onDisappear {
-      print("here!")
       viewStore.send(._viewDisappear)
     }
     .fullScreenCover(
@@ -46,6 +45,7 @@ public struct CustomGalleryView: View {
             action: { .camera($0) }
           )
         )
+        .ignoresSafeArea()
       }
     )
     .background(WineyKitAsset.mainBackground.swiftUIColor)
