@@ -70,7 +70,6 @@ public struct SignOutConfirm: Reducer {
       userDefaultsService.deleteValue(.accessToken)
       userDefaultsService.deleteValue(.refreshToken)
       userDefaultsService.deleteValue(.userID)
-      userDefaultsService.deleteValue(.socialLoginPath)
       return .send(._setSheetState(true))
       
     case ._setSheetState(let bool):
