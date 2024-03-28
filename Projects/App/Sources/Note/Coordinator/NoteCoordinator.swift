@@ -43,19 +43,7 @@ public struct NoteCoordinator: Reducer {
         state.routes.append(.push(.filterDetail(.init())))
         return .none
         
-      case .routeAction(_, action: .note(.tappedNoteWriteButton)):
-        state.routes.append(.push(.creatNote(.createState)))
-        return .none
-        
-      case .routeAction(_, action: .createNote(.routeAction(_, action: .wineSearch(.tappedBackButton)))):
-        state.routes.pop()
-        return .none
-        
       case .routeAction(_, action: .createNote(.routeAction(_, action: .setAlcohol(._backToNoteDetail)))):
-        state.routes.pop()
-        return .none
-        
-      case .routeAction(_, action: .createNote(.routeAction(_, action: .noteDone(.tappedButton)))):
         state.routes.pop()
         return .none
         

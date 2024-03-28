@@ -119,6 +119,19 @@ public struct AppCoordinator: Reducer {
         state.routes = [.root(.splash(.init()))]
         return .none
         
+      /// Note 작성 관련 Action
+      case .routeAction(_, action: .tabBar(.note(.routeAction(_, action: .note(.tappedNoteWriteButton))))):
+        state.routes.append(.push(.createNote(.init(routes: [.root(.wineSearch(.init()))]))))
+        return .none
+        
+      case .routeAction(_, action: .createNote(.routeAction(_, action: .wineSearch(.tappedBackButton)))):
+        state.routes.pop()
+        return .none
+        
+      case .routeAction(_, action: .createNote(.routeAction(_, action: .noteDone(.tappedButton)))):
+        state.routes.pop()
+        return .none
+        
       default:
         return .none
         

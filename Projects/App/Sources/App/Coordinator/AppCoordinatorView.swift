@@ -36,6 +36,13 @@ public struct AppCoordinatorView: View {
             then: AuthCoordinatorView.init
           )
           
+        case .createNote:
+          CaseLet(
+            /AppScreen.State.createNote,
+            action: AppScreen.Action.createNote,
+            then: WritingNoteCoordinatorView.init
+          )
+          
         case .tabBar:
           CaseLet(
             /AppScreen.State.tabBar,

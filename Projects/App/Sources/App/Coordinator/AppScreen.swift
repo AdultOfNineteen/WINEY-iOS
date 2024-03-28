@@ -16,12 +16,14 @@ public struct AppScreen: Reducer {
   public enum State: Equatable {
     case splash(Splash.State)
     case auth(AuthCoordinator.State)
+    case createNote(WritingNoteCoordinator.State)
     case tabBar(TabBar.State)
   }
 
   public enum Action {
     case splash(Splash.Action)
     case auth(AuthCoordinator.Action)
+    case createNote(WritingNoteCoordinator.Action)
     case tabBar(TabBar.Action)
   }
   
@@ -31,6 +33,9 @@ public struct AppScreen: Reducer {
     }
     Scope(state: /State.auth, action: /Action.auth) {
       AuthCoordinator()
+    }
+    Scope(state: /State.createNote, action: /Action.createNote) {
+      WritingNoteCoordinator()
     }
     Scope(state: /State.tabBar, action: /Action.tabBar) {
       TabBar()
