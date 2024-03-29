@@ -35,7 +35,10 @@ final class PhotoManager: NSObject {
     var count = 0
     
     for i in self.startIndex ..< (self.startIndex + self.pagingSize) {
+      print("\(i) TEST!!!")
+      
       if fetchResult.count - 1 < i {
+        self.startIndex = i
         break
       }
       
