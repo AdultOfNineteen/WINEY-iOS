@@ -16,6 +16,6 @@ extension UINavigationController: ObservableObject, UIGestureRecognizerDelegate 
   }
   
   public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-    return viewControllers.count > 1
+    return UserDefaults.standard.bool(forKey: "isPopGestureEnabled") && viewControllers.count > 1
   }
 }

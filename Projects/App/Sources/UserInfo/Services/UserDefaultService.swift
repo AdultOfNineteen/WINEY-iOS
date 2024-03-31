@@ -15,6 +15,7 @@ public enum UserDefaultsKey {
   
   public enum BoolValues: String {
     case hasLaunched
+    case isPopGestureEnabled
   }
   
   public enum StringValues: String {
