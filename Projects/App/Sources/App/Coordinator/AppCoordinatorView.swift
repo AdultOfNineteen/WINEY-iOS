@@ -43,6 +43,13 @@ public struct AppCoordinatorView: View {
             then: WritingNoteCoordinatorView.init
           )
           
+        case .analysis:
+          CaseLet(
+            /AppScreen.State.analysis,
+            action: AppScreen.Action.analysis,
+            then: WineAnalysisCoordinatorView.init
+          )
+          
         case .tabBar:
           CaseLet(
             /AppScreen.State.tabBar,

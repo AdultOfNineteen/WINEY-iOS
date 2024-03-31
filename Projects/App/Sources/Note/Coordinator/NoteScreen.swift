@@ -17,7 +17,6 @@ public struct NoteScreen: Reducer {
     case noteDetail(NoteDetail.State)
     case filterDetail(FilterDetail.State)
     case creatNote(WritingNoteCoordinator.State)
-    case analysis(WineAnalysisCoordinator.State)
   }
 
   public enum Action {
@@ -25,7 +24,6 @@ public struct NoteScreen: Reducer {
     case noteDetail(NoteDetail.Action)
     case filterDetail(FilterDetail.Action)
     case createNote(WritingNoteCoordinator.Action)
-    case analysis(WineAnalysisCoordinator.Action)
   }
   
   public var body: some ReducerOf<Self> {
@@ -55,10 +53,6 @@ public struct NoteScreen: Reducer {
       action: /Action.createNote
     ) {
       WritingNoteCoordinator()
-    }
-    
-    Scope(state: /State.analysis, action: /Action.analysis) {
-      WineAnalysisCoordinator()
     }
   }
 }

@@ -73,14 +73,6 @@ public struct MainCoordinator: Reducer {
         state.routes.pop()
         return .none
         
-      case .routeAction(_, action: .main(._navigateToAnalysis)):
-        state.routes.append(.push(.analysis(.initialState)))
-        return .none
-        
-      case .routeAction(_, action: .analysis(.routeAction(_, action: .wineAnaylsis(.tappedBackButton)))):
-        state.routes.pop()
-        return .none
-        
       default:
         return .none
       }

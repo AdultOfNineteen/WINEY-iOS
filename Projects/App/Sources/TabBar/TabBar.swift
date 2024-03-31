@@ -57,9 +57,6 @@ public struct TabBar: Reducer {
         state.selectedTab = tab
         return .none
         
-      case .main(.routeAction(_, action: .main(._navigateToAnalysis))):
-        return .send(._setTabHiddenStatus(true))
-        
       case .main(.routeAction(_, action: .main(._viewWillAppear))):
         return .send(._setTabHiddenStatus(false))
         
@@ -81,9 +78,6 @@ public struct TabBar: Reducer {
       case .main(.routeAction(_, action: .tipCard(.tappedBackButton))):
         return .send(._setTabHiddenStatus(false))
         
-      case .main(.routeAction(_, action: .analysis(.routeAction(_, action: .wineAnaylsis(.tappedBackButton))))):
-        return .send(._setTabHiddenStatus(false))
-        
       case .main(.routeAction(_, action: .wineDetail(.tappedBackButton))):
         return .send(._setTabHiddenStatus(false))
         
@@ -91,12 +85,6 @@ public struct TabBar: Reducer {
         return .send(._setTabHiddenStatus(false))
       
       case .note(.routeAction(_, action: .filterDetail(.tappedBackButton))):
-        return .send(._setTabHiddenStatus(false))
-        
-      case .note(.routeAction(_, action: .note(._navigateToAnalysis))):
-        return .send(._setTabHiddenStatus(true))
-        
-      case .note(.routeAction(_, action: .analysis(.routeAction(_, action: .wineAnaylsis(.tappedBackButton))))):
         return .send(._setTabHiddenStatus(false))
         
       case .note(.routeAction(_, action: .createNote(.routeAction(_, action: .setMemo(._backToNoteDetail))))):

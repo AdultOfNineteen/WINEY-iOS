@@ -22,13 +22,6 @@ public struct MainCoordinatorView: View {
     TCARouter(store) { screen in
       SwitchStore(screen) { screen in
         switch screen {
-        case .analysis:
-          CaseLet(
-            /MainScreen.State.analysis,
-            action: MainScreen.Action.analysis,
-            then: WineAnalysisCoordinatorView.init
-          )
-          
         case .main:
           CaseLet(
             /MainScreen.State.main,

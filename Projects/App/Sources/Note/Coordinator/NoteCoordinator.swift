@@ -63,14 +63,6 @@ public struct NoteCoordinator: Reducer {
         state.routes.pop()
         return .none
         
-      case .routeAction(_, action: .note(._navigateToAnalysis)):
-        state.routes.append(.push(.analysis(.initialState)))
-        return .none
-        
-      case .routeAction(_, action: .analysis(.routeAction(_, action: .wineAnaylsis(.tappedBackButton)))):
-        state.routes.pop()
-        return .none
-        
       default:
         return .none
       }

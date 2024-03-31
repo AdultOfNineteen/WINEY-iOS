@@ -17,6 +17,7 @@ public struct AppScreen: Reducer {
     case splash(Splash.State)
     case auth(AuthCoordinator.State)
     case createNote(WritingNoteCoordinator.State)
+    case analysis(WineAnalysisCoordinator.State)
     case tabBar(TabBar.State)
   }
 
@@ -24,6 +25,7 @@ public struct AppScreen: Reducer {
     case splash(Splash.Action)
     case auth(AuthCoordinator.Action)
     case createNote(WritingNoteCoordinator.Action)
+    case analysis(WineAnalysisCoordinator.Action)
     case tabBar(TabBar.Action)
   }
   
@@ -36,6 +38,9 @@ public struct AppScreen: Reducer {
     }
     Scope(state: /State.createNote, action: /Action.createNote) {
       WritingNoteCoordinator()
+    }
+    Scope(state: /State.analysis, action: /Action.analysis) {
+      WineAnalysisCoordinator()
     }
     Scope(state: /State.tabBar, action: /Action.tabBar) {
       TabBar()
