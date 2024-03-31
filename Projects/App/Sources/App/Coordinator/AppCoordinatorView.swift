@@ -57,6 +57,13 @@ public struct AppCoordinatorView: View {
             then: WineTipCoordinatorView.init
           )
           
+        case .recommendWine:
+          CaseLet(
+            /AppScreen.State.recommendWine,
+            action: AppScreen.Action.recommendWine,
+            then: RecommendWineCoordinatorView.init
+          )
+          
         case .tabBar:
           CaseLet(
             /AppScreen.State.tabBar,

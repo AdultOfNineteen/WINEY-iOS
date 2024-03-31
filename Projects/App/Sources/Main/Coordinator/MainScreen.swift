@@ -14,21 +14,15 @@ import TCACoordinators
 public struct MainScreen: Reducer {
   public enum State: Equatable {
     case main(Main.State)
-    case wineDetail(WineDetail.State)
   }
 
   public enum Action {
     case main(Main.Action)
-    case wineDetail(WineDetail.Action)
   }
   
   public var body: some ReducerOf<Self> {
     Scope(state: /State.main, action: /Action.main) {
       Main()
-    }
-    
-    Scope(state: /State.wineDetail, action: /Action.wineDetail) {
-      WineDetail()
     }
   }
 }

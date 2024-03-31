@@ -119,6 +119,14 @@ public struct AppCoordinator: Reducer {
         state.routes = [.root(.splash(.init()))]
         return .none
         
+      /// 추천 와인 관련 Action
+      case let .routeAction(_, action: .tabBar(.main(.routeAction(_, action: .main(.wineCardScroll(.wineCard(id: _, action: ._navigateToCardDetail(id, data)))))))):
+        state.routes.append(.push(.recommendWine(.wineDetail(id: id, data: data))))
+        return .none
+        
+      case .routeAction(_, action: .recommendWine(.routeAction(_, action: .wineDetail(.tappedBackButton)))):
+        state.routes.pop()
+        return .none
         
       /// 와인 팁 관련 Action
       case .routeAction(_, action: .tabBar(.main(.routeAction(_, action: .main(._navigateToTipCard))))):

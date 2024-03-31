@@ -36,22 +36,6 @@ public struct MainCoordinator: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
-      case let .routeAction(
-        _,
-        action: .main(
-          .wineCardScroll(
-            .wineCard(id: _, action: ._navigateToCardDetail(id, wineData))
-          )
-        )
-      ):
-        state.routes.append(.push(
-          .wineDetail(.init(windId: id, wineCardData: wineData))
-        ))
-        return .none
-        
-      case .routeAction(_, action: .wineDetail(.tappedBackButton)):
-        state.routes.pop()
-        return .none
         
       default:
         return .none

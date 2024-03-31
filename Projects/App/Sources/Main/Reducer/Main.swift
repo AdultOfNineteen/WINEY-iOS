@@ -95,9 +95,6 @@ public struct Main: Reducer {
       case .tappedTipArrow:
         return .send(._navigateToTipCard)
         
-      case .wineCardScroll:
-        return .none
-        
       case .userScroll:
         state.tooltipState = false
         return .none

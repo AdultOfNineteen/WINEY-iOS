@@ -28,13 +28,6 @@ public struct MainCoordinatorView: View {
             action: MainScreen.Action.main,
             then: MainView.init
           )
-          
-        case .wineDetail:
-          CaseLet(
-            /MainScreen.State.wineDetail,
-            action: MainScreen.Action.wineDetail,
-            then: WineDetailView.init
-          )
         }
       }
       .navigationBarHidden(true)
