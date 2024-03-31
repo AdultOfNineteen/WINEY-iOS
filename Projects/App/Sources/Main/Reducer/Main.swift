@@ -13,7 +13,7 @@ import Foundation
 public struct Main: Reducer {
   public struct State: Equatable {
     public var wineCardListState: WineCardScroll.State?
-    public var tipCards: WineTipDTO?
+    public var wineTipState: TipCard.State?
     public var tooltipState: Bool
     
     public init(
@@ -28,7 +28,6 @@ public struct Main: Reducer {
     case tappedAnalysisButton
     case tappedTipArrow
     case userScroll
-    case tappedTipCard(url: String)
     
     // MARK: - Inner Business Action
     case _viewWillAppear
@@ -43,6 +42,7 @@ public struct Main: Reducer {
     
     // MARK: - Child Action
     case wineCardScroll(WineCardScroll.Action)
+    case wineTip(TipCard.Action)
   }
   
   @Dependency(\.wine) var wineService
@@ -86,12 +86,10 @@ public struct Main: Reducer {
         })
         
       case let ._setTipCards(data: data):
-        state.tipCards = data
+        state.wineTipState = TipCard.State.init(isShowNavigationBar: false, tipCards: data)
         return .none
         
-        
       case .tappedAnalysisButton:
-        print("Go to Analysis")
         return .send(._navigateToAnalysis)
         
       case .tappedTipArrow:
@@ -110,6 +108,9 @@ public struct Main: Reducer {
     }
     .ifLet(\.wineCardListState, action: /Action.wineCardScroll) {
       WineCardScroll()
+    }
+    .ifLet(\.wineTipState, action: /Action.wineTip) {
+      TipCard()
     }
   }
 }

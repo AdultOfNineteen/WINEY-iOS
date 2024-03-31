@@ -119,6 +119,24 @@ public struct AppCoordinator: Reducer {
         state.routes = [.root(.splash(.init()))]
         return .none
         
+        
+      /// 와인 팁 관련 Action
+      case .routeAction(_, action: .tabBar(.main(.routeAction(_, action: .main(._navigateToTipCard))))):
+        state.routes.append(.push(.wineTip(.tipList)))
+        return .none
+        
+      case let .routeAction(_, action: .tabBar(.main(.routeAction(_, action: .main(.wineTip(.tappedTipCard(url: url))))))):
+        state.routes.append(.push(.wineTip(.tipDetail(url: url))))
+        return .none
+        
+      case .routeAction(_, action: .wineTip(.routeAction(_, action: .tipCardList(.tappedBackButton)))):
+        state.routes.pop()
+        return .none
+        
+      case .routeAction(_, action: .wineTip(.routeAction(_, action: .tipCardDetail(._moveToMain)))):
+        state.routes.pop()
+        return .none
+      
       /// 와인 분석 관련 Action
       case .routeAction(_, action: .tabBar(.main(.routeAction(_, action: .main(._navigateToAnalysis))))):
         state.routes.append(.push(.analysis(.initialState)))

@@ -12,9 +12,11 @@ import WineyKit
 
 public struct TipCardDetail: Reducer {
   public struct State: Equatable {
+    public var isEnterMainView: Bool = false
     public var url: String
     
-    public init(url: String) {
+    public init(isEnterMainView: Bool = false, url: String) {
+      self.isEnterMainView = isEnterMainView
       self.url = url
     }
   }
@@ -24,6 +26,8 @@ public struct TipCardDetail: Reducer {
     case tappedBackButton
     
     // MARK: - Inner Business Action
+    case _moveToList
+    case _moveToMain
     
     // MARK: - Inner SetState Action
     
@@ -35,6 +39,12 @@ public struct TipCardDetail: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
+      case .tappedBackButton:
+        if !state.isEnterMainView {
+          return .send(._moveToList)
+        } else {
+          return .send(._moveToMain)
+        }
         
       default:
         return .none

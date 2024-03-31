@@ -50,6 +50,13 @@ public struct AppCoordinatorView: View {
             then: WineAnalysisCoordinatorView.init
           )
           
+        case .wineTip:
+          CaseLet(
+            /AppScreen.State.wineTip,
+            action: AppScreen.Action.wineTip,
+            then: WineTipCoordinatorView.init
+          )
+          
         case .tabBar:
           CaseLet(
             /AppScreen.State.tabBar,

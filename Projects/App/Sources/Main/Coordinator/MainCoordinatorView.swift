@@ -35,20 +35,6 @@ public struct MainCoordinatorView: View {
             action: MainScreen.Action.wineDetail,
             then: WineDetailView.init
           )
-          
-        case .tipCard:
-          CaseLet(
-            /MainScreen.State.tipCard,
-            action: MainScreen.Action.tipCard,
-            then: TipCardView.init
-          )
-          
-        case .tipCardDetail:
-          CaseLet(
-            /MainScreen.State.tipCardDetail,
-            action: MainScreen.Action.tipCardDetail,
-            then: TipCardDetailView.init
-          )
         }
       }
       .navigationBarHidden(true)
