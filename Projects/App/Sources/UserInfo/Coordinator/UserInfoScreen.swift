@@ -16,7 +16,6 @@ public struct UserInfoScreen: Reducer {
     case userInfo(UserInfo.State)
     case userBadge(UserBadge.State)
     case userSetting(UserSetting.State)
-    case termsPolicy(TermsPolicy.State)
     case personalPolicy(PersonalInfoPolicy.State)
     case nickname(ChangeNickname.State)
     case signOut(SignOut.State)
@@ -27,7 +26,6 @@ public struct UserInfoScreen: Reducer {
     case userInfo(UserInfo.Action)
     case userBadge(UserBadge.Action)
     case userSetting(UserSetting.Action)
-    case termsPolicy(TermsPolicy.Action)
     case personalPolicy(PersonalInfoPolicy.Action)
     case nickname(ChangeNickname.Action)
     case signOut(SignOut.Action)
@@ -54,12 +52,6 @@ public struct UserInfoScreen: Reducer {
       action: /Action.userSetting
     ) {
       UserSetting()
-    }
-    Scope(
-      state: /State.termsPolicy,
-      action: /Action.termsPolicy
-    ) {
-      TermsPolicy()
     }
     Scope(
       state: /State.personalPolicy,

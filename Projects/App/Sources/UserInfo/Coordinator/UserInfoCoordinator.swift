@@ -45,10 +45,6 @@ public struct UserInfoCoordinator: Reducer {
         state.routes.append(.push( .userSetting(.init(userId: userId)) ))
         return .none
         
-      case .routeAction(_, action: .userInfo(.tappedTermsPolicy)):
-        state.routes.append(.push( .termsPolicy(.init()) ))
-        return .none
-        
       case .routeAction(_, action: .userInfo(.tappedPersonalInfoPolicy)):
         state.routes.append(.push( .personalPolicy(.init()) ))
         return .none
@@ -70,10 +66,6 @@ public struct UserInfoCoordinator: Reducer {
         return .none
         
       case .routeAction(_, action: .userSetting(.tappedBackButton)):
-        state.routes.pop()
-        return .none
-        
-      case .routeAction(_, action: .termsPolicy(.tappedBackButton)):
         state.routes.pop()
         return .none
         
