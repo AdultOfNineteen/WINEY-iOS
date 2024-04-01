@@ -28,8 +28,7 @@ public struct UserInfo: Reducer {
     case wineyRatingClosedTapped
     case userSettingTapped(Int?)
     case tappedEmailSendButton
-    case tappedTermsPolicy
-    case tappedPersonalInfoPolicy
+    case tappedPolicySection(WineyPolicyViewType)
     
     // MARK: - Inner Business Action
     case _viewWillAppear

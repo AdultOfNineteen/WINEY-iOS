@@ -64,11 +64,11 @@ public struct AppCoordinatorView: View {
             then: RecommendWineCoordinatorView.init
           )
           
-        case .termsPolicy:
+        case .policy:
           CaseLet(
-            /AppScreen.State.termsPolicy,
-            action: AppScreen.Action.termsPolicy,
-            then: TermsPolicyView.init
+            /AppScreen.State.policy,
+            action: AppScreen.Action.policy,
+            then: WineyPolicyView.init
           )
           
         case .tabBar:

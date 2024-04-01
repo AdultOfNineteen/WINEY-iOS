@@ -1,17 +1,21 @@
 //
-//  PersonalInfoPolicy.swift
-//  MyPageFeature
+//  WineyPolicy.swift
+//  Winey
 //
-//  Created by 정도현 on 2/1/24.
+//  Created by 정도현 on 4/1/24.
+//  Copyright © 2024 Winey. All rights reserved.
 //
 
 import ComposableArchitecture
 import Foundation
 
-public struct PersonalInfoPolicy: Reducer {
+public struct WineyPolicy: Reducer {
   public struct State: Equatable {
+    public var viewType: WineyPolicyViewType
     
-    public init() { }
+    public init(viewType: WineyPolicyViewType) {
+      self.viewType = viewType
+    }
   }
   
   public enum Action {

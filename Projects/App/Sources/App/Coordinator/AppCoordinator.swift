@@ -172,11 +172,11 @@ public struct AppCoordinator: Reducer {
         return .none
         
       /// 유저 정보 관련 Action
-      case .routeAction(_, action: .tabBar(.userInfo(.routeAction(_, action: .userInfo(.tappedTermsPolicy))))):
-        state.routes.push(.termsPolicy(.init()))
+      case let .routeAction(_, action: .tabBar(.userInfo(.routeAction(_, action: .userInfo(.tappedPolicySection(type)))))):
+        state.routes.append(.push(.policy(.init(viewType: type))))
         return .none
         
-      case .routeAction(_, action: .termsPolicy(.tappedBackButton)):
+      case .routeAction(_, action: .policy(.tappedBackButton)):
         state.routes.pop()
         return .none
         

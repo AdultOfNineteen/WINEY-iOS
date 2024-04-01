@@ -43,13 +43,6 @@ public struct UserInfoCoordinatorView: View {
              then: UserSettingView.init
           )
           
-        case .personalPolicy:
-          CaseLet(
-            /UserInfoScreen.State.personalPolicy,
-             action: UserInfoScreen.Action.personalPolicy,
-             then: PersonalInfoPolicyView.init
-          )
-          
         case .nickname:
           CaseLet(
             /UserInfoScreen.State.nickname,
