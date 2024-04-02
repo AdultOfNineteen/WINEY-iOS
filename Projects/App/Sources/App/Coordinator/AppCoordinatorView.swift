@@ -71,6 +71,13 @@ public struct AppCoordinatorView: View {
             then: WineyPolicyView.init
           )
           
+        case .userSetting:
+          CaseLet(
+            /AppScreen.State.userSetting,
+            action: AppScreen.Action.userSetting,
+            then: UserSettingCoordinatorView.init
+          )
+          
         case .tabBar:
           CaseLet(
             /AppScreen.State.tabBar,

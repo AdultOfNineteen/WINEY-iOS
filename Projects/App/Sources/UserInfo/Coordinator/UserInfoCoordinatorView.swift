@@ -35,34 +35,6 @@ public struct UserInfoCoordinatorView: View {
              action: UserInfoScreen.Action.userBadge,
              then: UserBadgeView.init
           )
-          
-        case .userSetting:
-          CaseLet(
-            /UserInfoScreen.State.userSetting,
-             action: UserInfoScreen.Action.userSetting,
-             then: UserSettingView.init
-          )
-          
-        case .nickname:
-          CaseLet(
-            /UserInfoScreen.State.nickname,
-             action: UserInfoScreen.Action.nickname,
-             then: ChangeNicknameView.init
-          )
-          
-        case .signOut:
-          CaseLet(
-            /UserInfoScreen.State.signOut,
-             action: UserInfoScreen.Action.signOut,
-             then: SignOutView.init
-          )
-          
-        case .signOutConfirm:
-          CaseLet(
-            /UserInfoScreen.State.signOutConfirm,
-             action: UserInfoScreen.Action.signOutConfirm,
-             then: SignOutConfirmView.init
-          )
         }
       }
     }

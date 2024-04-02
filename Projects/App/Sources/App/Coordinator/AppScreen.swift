@@ -21,6 +21,7 @@ public struct AppScreen: Reducer {
     case wineTip(WineTipCoordinator.State)
     case recommendWine(RecommendWineCoordinator.State)
     case policy(WineyPolicy.State)
+    case userSetting(UserSettingCoordinator.State)
     case tabBar(TabBar.State)
   }
 
@@ -32,6 +33,7 @@ public struct AppScreen: Reducer {
     case wineTip(WineTipCoordinator.Action)
     case recommendWine(RecommendWineCoordinator.Action)
     case policy(WineyPolicy.Action)
+    case userSetting(UserSettingCoordinator.Action)
     case tabBar(TabBar.Action)
   }
   
@@ -56,6 +58,9 @@ public struct AppScreen: Reducer {
     }
     Scope(state: /State.policy, action: /Action.policy) {
       WineyPolicy()
+    }
+    Scope(state: /State.userSetting, action: /Action.userSetting) {
+      UserSettingCoordinator()
     }
     Scope(state: /State.tabBar, action: /Action.tabBar) {
       TabBar()

@@ -100,25 +100,6 @@ public struct AppCoordinator: Reducer {
         ]
         return .none
         
-      case .routeAction(_, action:
-          .tabBar(
-            .userInfo(
-              .routeAction(_, action: .userSetting(._moveToHome))
-            )
-          )):
-        state.routes = [.root(.auth(.initialState))]
-//        state.routes = [.root(.splash(.init()))]
-        return .none
-        
-      case .routeAction(_, action:
-          .tabBar(
-            .userInfo(
-              .routeAction(_, action: .signOutConfirm(.tappedConfirmButton))
-            )
-          )):
-        state.routes = [.root(.splash(.init()))]
-        return .none
-        
       /// 추천 와인 관련 Action
       case let .routeAction(_, action: .tabBar(.main(.routeAction(_, action: .main(.wineCardScroll(.wineCard(id: _, action: ._navigateToCardDetail(id, data)))))))):
         state.routes.append(.push(.recommendWine(.wineDetail(id: id, data: data))))
@@ -172,6 +153,25 @@ public struct AppCoordinator: Reducer {
         return .none
         
       /// 유저 정보 관련 Action
+      case let .routeAction(_, action: .tabBar(.userInfo(.routeAction(_, action: .userInfo(._moveToUserInfo(userId)))))):
+        state.routes.append(.push(.userSetting(.userSetting(userId: userId))))
+        return .none
+
+      case .routeAction(_, action: .userSetting(.routeAction(_, action: .settingMain(.tappedBackButton)))):
+        state.routes.pop()
+        return .none
+        
+      case .routeAction(_, action: .userSetting(.routeAction(_, action: .settingMain(._moveToHome)))):
+        state.routes.pop()
+        state.routes = [.root(.splash(.initialState))]
+        return .none
+        
+      case .routeAction(_, action: .userSetting(.routeAction(_, action: .signOutConfirm(.tappedConfirmButton)))):
+        state.routes.pop()
+        state.routes = [.root(.splash(.initialState))]
+        return .none
+        
+      /// 약관 관련 Action
       case let .routeAction(_, action: .tabBar(.userInfo(.routeAction(_, action: .userInfo(.tappedPolicySection(type)))))):
         state.routes.append(.push(.policy(.init(viewType: type))))
         return .none
