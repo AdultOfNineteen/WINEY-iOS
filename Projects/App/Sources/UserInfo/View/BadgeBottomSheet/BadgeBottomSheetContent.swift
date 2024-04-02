@@ -23,14 +23,15 @@ struct BadgeBottomSheetContent: View {
           .foregroundColor(WineyKitAsset.gray200.swiftUIColor)
           .padding(.bottom, 4)
 
-        Text(extractDate(badgeInfo.acquiredAt) ?? "미취득 뱃지")
-          .wineyFont(.bodyB2)
+        Text(badgeInfo.acquiredAt ?? "미취득 뱃지")
+          .wineyFont(.bodyM2)
           .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
           .padding(.bottom, 13)
         
         Text(badgeInfo.acquiredAt == nil ? badgeInfo.acquisitionMethod : badgeInfo.description)
           .wineyFont(.captionM3)
           .foregroundColor(WineyKitAsset.gray600.swiftUIColor)
+          .multilineTextAlignment(.center)
       }
       .padding(.horizontal, 72)
       .multilineTextAlignment(.center)
@@ -39,24 +40,6 @@ struct BadgeBottomSheetContent: View {
         .wineyFont(.bodyB1)
         .foregroundColor(WineyKitAsset.gray200.swiftUIColor)
         .multilineTextAlignment(.center)
-    }
-  }
-  
-  private func extractDate(_ dateString: String?) -> String? {
-    if let dateString = dateString {
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-      dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-      
-      if let date = dateFormatter.date(from: dateString) {
-        let outputDateFormatter = DateFormatter()
-        outputDateFormatter.dateFormat = "yyyy-MM-dd"
-        return outputDateFormatter.string(from: date)
-      } else {
-        return nil
-      }
-    } else {
-      return nil
     }
   }
 }
