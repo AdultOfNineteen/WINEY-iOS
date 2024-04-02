@@ -20,6 +20,7 @@ public struct AppScreen: Reducer {
     case wineTip(WineTipCoordinator.State)
     case recommendWine(RecommendWineCoordinator.State)
     case noteFilter(FilterDetail.State)
+    case noteDetail(NoteDetail.State)
     case userSetting(UserSettingCoordinator.State)
     case userBadge(UserBadge.State)
     case policy(WineyPolicy.State)
@@ -33,6 +34,7 @@ public struct AppScreen: Reducer {
     case analysis(WineAnalysisCoordinator.Action)
     case wineTip(WineTipCoordinator.Action)
     case recommendWine(RecommendWineCoordinator.Action)
+    case noteDetail(NoteDetail.Action)
     case noteFilter(FilterDetail.Action)
     case userSetting(UserSettingCoordinator.Action)
     case userBadge(UserBadge.Action)
@@ -61,6 +63,9 @@ public struct AppScreen: Reducer {
     }
     Scope(state: /State.noteFilter, action: /Action.noteFilter) {
       FilterDetail()
+    }
+    Scope(state: /State.noteDetail, action: /Action.noteDetail) {
+      NoteDetail()
     }
     Scope(state: /State.userSetting, action: /Action.userSetting) {
       UserSettingCoordinator()

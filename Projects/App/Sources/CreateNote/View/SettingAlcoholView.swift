@@ -40,6 +40,7 @@ public struct SettingAlcoholView: View {
         skipAction: { viewStore.send(.tappedSkipButton) }
       )
     }
+    .popGestureDisabled()
     .bottomSheet(
       backgroundColor: WineyKitAsset.gray950.swiftUIColor,
       isPresented: viewStore.binding(

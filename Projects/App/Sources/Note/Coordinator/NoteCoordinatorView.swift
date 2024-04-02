@@ -28,20 +28,6 @@ public struct NoteCoordinatorView: View {
              action: NoteScreen.Action.note,
              then: NoteView.init
           )
-          
-        case .noteDetail:
-          CaseLet(
-            /NoteScreen.State.noteDetail,
-             action: NoteScreen.Action.noteDetail,
-             then: NoteDetailView.init
-          )
-          
-        case .creatNote:
-          CaseLet(
-            /NoteScreen.State.creatNote,
-             action: NoteScreen.Action.createNote,
-             then: WritingNoteCoordinatorView.init
-          )
         }
       }
     }

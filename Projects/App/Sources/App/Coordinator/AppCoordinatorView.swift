@@ -71,6 +71,13 @@ public struct AppCoordinatorView: View {
             then: FilterDetailView.init
           )
           
+        case .noteDetail:
+          CaseLet(
+            /AppScreen.State.noteDetail,
+            action: AppScreen.Action.noteDetail,
+            then: NoteDetailView.init
+          )
+          
         case .userSetting:
           CaseLet(
             /AppScreen.State.userSetting,
