@@ -63,13 +63,7 @@ public struct TabBar: Reducer {
       case .note(.routeAction(_, action: .note(.filteredNote(.noteCardScroll(.tappedNoteCard))))):
         return .send(._setTabHiddenStatus(true))
         
-      case .note(.routeAction(_, action: .note(.filteredNote(.tappedFilterButton)))):
-        return .send(._setTabHiddenStatus(true))
-        
       case .note(.routeAction(_, action: .noteDetail(.tappedBackButton))):
-        return .send(._setTabHiddenStatus(false))
-      
-      case .note(.routeAction(_, action: .filterDetail(.tappedBackButton))):
         return .send(._setTabHiddenStatus(false))
         
       case .note(.routeAction(_, action: .createNote(.routeAction(_, action: .setMemo(._backToNoteDetail))))):

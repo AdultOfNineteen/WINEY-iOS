@@ -152,6 +152,15 @@ public struct AppCoordinator: Reducer {
         state.routes.pop()
         return .none
         
+      /// 노트 필터 관련 Action
+      case .routeAction(_, action: .tabBar(.note(.routeAction(_, action: .note(.filteredNote(.tappedFilterButton)))))):
+        state.routes.append(.push(.noteFilter(.init())))
+        return .none
+        
+      case .routeAction(_, action: .noteFilter(.tappedBackButton)):
+        state.routes.pop()
+        return .none
+        
       /// 유저 정보 관련 Action
       case let .routeAction(_, action: .tabBar(.userInfo(.routeAction(_, action: .userInfo(._moveToUserInfo(userId)))))):
         state.routes.append(.push(.userSetting(.userSetting(userId: userId))))

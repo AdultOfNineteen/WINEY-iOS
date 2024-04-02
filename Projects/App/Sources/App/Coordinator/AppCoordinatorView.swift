@@ -64,11 +64,11 @@ public struct AppCoordinatorView: View {
             then: RecommendWineCoordinatorView.init
           )
           
-        case .policy:
+        case .noteFilter:
           CaseLet(
-            /AppScreen.State.policy,
-            action: AppScreen.Action.policy,
-            then: WineyPolicyView.init
+            /AppScreen.State.noteFilter,
+            action: AppScreen.Action.noteFilter,
+            then: FilterDetailView.init
           )
           
         case .userSetting:
@@ -83,6 +83,13 @@ public struct AppCoordinatorView: View {
             /AppScreen.State.userBadge,
             action: AppScreen.Action.userBadge,
             then: UserBadgeView.init
+          )
+          
+        case .policy:
+          CaseLet(
+            /AppScreen.State.policy,
+            action: AppScreen.Action.policy,
+            then: WineyPolicyView.init
           )
           
         case .tabBar:

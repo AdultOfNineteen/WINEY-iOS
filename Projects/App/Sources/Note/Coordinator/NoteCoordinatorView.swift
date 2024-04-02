@@ -22,7 +22,6 @@ public struct NoteCoordinatorView: View {
     TCARouter(store) { screen in
       SwitchStore(screen) { screen in
         switch screen {
-          
         case .note:
           CaseLet(
             /NoteScreen.State.note,
@@ -35,13 +34,6 @@ public struct NoteCoordinatorView: View {
             /NoteScreen.State.noteDetail,
              action: NoteScreen.Action.noteDetail,
              then: NoteDetailView.init
-          )
-          
-        case .filterDetail:
-          CaseLet(
-            /NoteScreen.State.filterDetail,
-             action: NoteScreen.Action.filterDetail,
-             then: FilterDetailView.init
           )
           
         case .creatNote:

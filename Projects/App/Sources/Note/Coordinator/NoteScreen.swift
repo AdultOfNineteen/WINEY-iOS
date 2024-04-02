@@ -15,14 +15,12 @@ public struct NoteScreen: Reducer {
   public enum State: Equatable {
     case note(Note.State)
     case noteDetail(NoteDetail.State)
-    case filterDetail(FilterDetail.State)
     case creatNote(WritingNoteCoordinator.State)
   }
 
   public enum Action {
     case note(Note.Action)
     case noteDetail(NoteDetail.Action)
-    case filterDetail(FilterDetail.Action)
     case createNote(WritingNoteCoordinator.Action)
   }
   
@@ -40,14 +38,7 @@ public struct NoteScreen: Reducer {
     ) {
       NoteDetail()
     }
-    
-    Scope(
-      state: /State.filterDetail,
-      action: /Action.filterDetail
-    ) {
-      FilterDetail()
-    }
-    
+
     Scope(
       state: /State.creatNote,
       action: /Action.createNote
