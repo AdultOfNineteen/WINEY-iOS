@@ -130,7 +130,7 @@ extension SettingTasteView {
   private func contentList() -> some View {
     ScrollViewReader { proxy in
       ScrollView {
-        VStack(spacing: 37) {
+        LazyVStack(spacing: 37) {
           content(category: .sweetness, value: viewStore.sweetness)
             .onChange(of: viewStore.sweetness, perform: { [sweetness = viewStore.sweetness] value in
               if sweetness == 0 && value > 0 {

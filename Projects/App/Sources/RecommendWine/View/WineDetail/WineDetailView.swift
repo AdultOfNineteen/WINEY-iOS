@@ -31,7 +31,7 @@ public struct WineDetailView: View {
       )
       
       ScrollView {
-        VStack(spacing: 0) {
+        LazyVStack(spacing: 0) {
           
           wineTypeName()
           

@@ -36,7 +36,7 @@ public struct SmellListView: View {
       
       if viewStore.isOpenList {
         ScrollView(.horizontal, showsIndicators: false) {
-          HStack(spacing: 5) {
+          LazyHStack(spacing: 5) {
             ForEach(viewStore.smellList, id: \.self) { smell in
               smellCapsule(text: smell)
             }

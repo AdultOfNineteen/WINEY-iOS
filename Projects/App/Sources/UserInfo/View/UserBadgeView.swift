@@ -41,7 +41,7 @@ public struct UserBadgeView: View {
           .offset(y: -68)
       } else {
         ScrollView {
-          VStack(spacing: 20) {
+          LazyVStack(spacing: 20) {
             BadgeSectionTitle(
               title: .sommelier,
               count: viewStore.sommelierBadgeList.filter({ $0.acquiredAt != nil }).count
@@ -77,7 +77,7 @@ public struct UserBadgeView: View {
             )
             .padding(.vertical, 20)
           
-          VStack(spacing: 20) {
+          LazyVStack(spacing: 20) {
             BadgeSectionTitle(
               title: .activity,
               count: viewStore.activityBadgeList.filter({ $0.acquiredAt != nil }).count

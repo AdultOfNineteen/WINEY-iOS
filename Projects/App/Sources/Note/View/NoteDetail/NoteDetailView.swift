@@ -86,7 +86,7 @@ extension NoteDetailView {
   @ViewBuilder
   private func noteDetail(noteData: NoteDetailDTO) -> some View {
     ScrollView {
-      VStack(spacing: 0) {
+      LazyVStack(spacing: 0) {
         // MARK: Note Number & Date
         noteHeader(noteData: noteData)
         
@@ -199,7 +199,7 @@ extension NoteDetailView {
       
       if !noteData.tastingNoteImage.isEmpty {
         ScrollView(.horizontal, showsIndicators: false) {
-          HStack(spacing: 10) {
+          LazyHStack(spacing: 10) {
             ForEach(Array(noteData.tastingNoteImage), id: \.self) { imageData in
               CachedImageView(url: imageData.imgUrl)
                 .frame(width: 120, height: 120)

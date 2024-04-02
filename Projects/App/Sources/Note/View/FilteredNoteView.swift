@@ -75,7 +75,7 @@ extension FilteredNoteView {
       
       HStack(spacing: 0) {
         ScrollView(.horizontal, showsIndicators: false) {
-          HStack(spacing: 8) {
+          LazyHStack(spacing: 8) {
             if !viewStore.rebuyFilter.isEmpty || !viewStore.typeFilter.isEmpty || !viewStore.countryFilter.isEmpty {
               initButton()
             }
