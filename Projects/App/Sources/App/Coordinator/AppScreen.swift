@@ -11,7 +11,6 @@ import ComposableArchitecture
 import Foundation
 import TCACoordinators
 
-
 public struct AppScreen: Reducer {
   public enum State: Equatable {
     case splash(Splash.State)
@@ -20,8 +19,9 @@ public struct AppScreen: Reducer {
     case analysis(WineAnalysisCoordinator.State)
     case wineTip(WineTipCoordinator.State)
     case recommendWine(RecommendWineCoordinator.State)
-    case policy(WineyPolicy.State)
     case userSetting(UserSettingCoordinator.State)
+    case userBadge(UserBadge.State)
+    case policy(WineyPolicy.State)
     case tabBar(TabBar.State)
   }
 
@@ -32,8 +32,9 @@ public struct AppScreen: Reducer {
     case analysis(WineAnalysisCoordinator.Action)
     case wineTip(WineTipCoordinator.Action)
     case recommendWine(RecommendWineCoordinator.Action)
-    case policy(WineyPolicy.Action)
     case userSetting(UserSettingCoordinator.Action)
+    case userBadge(UserBadge.Action)
+    case policy(WineyPolicy.Action)
     case tabBar(TabBar.Action)
   }
   
@@ -56,11 +57,14 @@ public struct AppScreen: Reducer {
     Scope(state: /State.recommendWine, action: /Action.recommendWine) {
       RecommendWineCoordinator()
     }
-    Scope(state: /State.policy, action: /Action.policy) {
-      WineyPolicy()
-    }
     Scope(state: /State.userSetting, action: /Action.userSetting) {
       UserSettingCoordinator()
+    }
+    Scope(state: /State.userBadge, action: /Action.userBadge) {
+      UserBadge()
+    }
+    Scope(state: /State.policy, action: /Action.policy) {
+      WineyPolicy()
     }
     Scope(state: /State.tabBar, action: /Action.tabBar) {
       TabBar()

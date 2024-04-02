@@ -14,12 +14,10 @@ import TCACoordinators
 public struct UserInfoScreen: Reducer {
   public enum State: Equatable {
     case userInfo(UserInfo.State)
-    case userBadge(UserBadge.State)
   }
 
   public enum Action {
     case userInfo(UserInfo.Action)
-    case userBadge(UserBadge.Action)
   }
   
   public init() { }
@@ -30,12 +28,6 @@ public struct UserInfoScreen: Reducer {
       action: /Action.userInfo
     ) {
       UserInfo()
-    }
-    Scope(
-      state: /State.userBadge,
-      action: /Action.userBadge
-    ) {
-      UserBadge()
     }
   }
 }

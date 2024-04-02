@@ -28,13 +28,6 @@ public struct UserInfoCoordinatorView: View {
              action: UserInfoScreen.Action.userInfo,
              then: UserInfoView.init
           )
-          
-        case .userBadge:
-          CaseLet(
-            /UserInfoScreen.State.userBadge,
-             action: UserInfoScreen.Action.userBadge,
-             then: UserBadgeView.init
-          )
         }
       }
     }

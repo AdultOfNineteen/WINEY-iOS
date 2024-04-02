@@ -78,6 +78,13 @@ public struct AppCoordinatorView: View {
             then: UserSettingCoordinatorView.init
           )
           
+        case .userBadge:
+          CaseLet(
+            /AppScreen.State.userBadge,
+            action: AppScreen.Action.userBadge,
+            then: UserBadgeView.init
+          )
+          
         case .tabBar:
           CaseLet(
             /AppScreen.State.tabBar,

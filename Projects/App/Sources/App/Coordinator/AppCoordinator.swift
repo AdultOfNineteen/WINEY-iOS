@@ -171,6 +171,15 @@ public struct AppCoordinator: Reducer {
         state.routes = [.root(.splash(.initialState))]
         return .none
         
+      /// 유저 뱃지 관련 Action
+      case let .routeAction(_, action: .tabBar(.userInfo(.routeAction(_, action: .userInfo(._moveToBadgeTap(userId)))))):
+        state.routes.append(.push( .userBadge(.init(userId: userId) )))
+        return .none
+        
+      case .routeAction(_, action: .userBadge(.tappedBackButton)):
+        state.routes.pop()
+        return .none
+        
       /// 약관 관련 Action
       case let .routeAction(_, action: .tabBar(.userInfo(.routeAction(_, action: .userInfo(.tappedPolicySection(type)))))):
         state.routes.append(.push(.policy(.init(viewType: type))))
