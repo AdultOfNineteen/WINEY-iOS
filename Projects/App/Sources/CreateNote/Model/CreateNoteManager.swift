@@ -80,18 +80,6 @@ final class CreateNoteManager: ObservableObject {
     self.rating = noteData.star
     self.originalSmellKeywordList = noteData.smellKeywordList.setmap(transform: ({ getSmellCode(for: $0) ?? "" }))
     self.originalImages = noteData.tastingNoteImage
-    self.fetchImage(urls: self.originalImages!.map{ $0.imgUrl })
-  }
-  
-  func fetchImage(urls: [String]) {
-    var images: [UIImage] = []
-    
-    for url in urls {
-      images.append(ImageCacheManager.shared.getCachedImage(forKey: url)!)
-    }
-    
-    self.userSelectImages = images
-    self.originalUIImages = images
   }
   
   func createNote() -> (CreateNoteRequestDTO, [UIImage]) {
@@ -151,6 +139,34 @@ final class CreateNoteManager: ObservableObject {
       deleteSmellKeywordList: self.deleteSmellKeywordList,
       deleteImgLists: deleteImageIndex
     ), updateImage)
+  }
+  
+  /// 노트 수정 시 이미지를 UIImage로 바꿔 진행
+  func loadNoteImage() async {
+    if let originalImages = originalImages {
+      let urls = originalImages.compactMap { URL(string: $0.imgUrl) }
+      
+      var imageData: [UIImage] = []
+      
+      for url in urls {
+        do {
+          let data = try await loadData(from: url)
+          if let image = UIImage(data: data) {
+            imageData.append(image)
+          }
+        } catch {
+          print("Error loading image from URL: \(url)")
+        }
+      }
+      
+      self.originalUIImages = imageData
+      self.userSelectImages = imageData
+    }
+  }
+  
+  private func loadData(from url: URL) async throws -> Data {
+    let (data, _) = try await URLSession.shared.data(from: url)
+    return data
   }
   
   private func getSmellCode(for name: String) -> String? {
