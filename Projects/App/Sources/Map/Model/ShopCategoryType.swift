@@ -14,6 +14,8 @@ public enum ShopCategoryType: CaseIterable {
   case bottleShop
   case wineBar
   case restaurant
+  case pub
+  case cafe
   
   var title: String {
     switch self {
@@ -27,6 +29,10 @@ public enum ShopCategoryType: CaseIterable {
       return "와인바"
     case .restaurant:
       return "음식점"
+    case .pub:
+      return "펍"
+    case .cafe:
+      return "카페"
     }
   }
   
@@ -42,6 +48,10 @@ public enum ShopCategoryType: CaseIterable {
       return "BAR"
     case .restaurant:
       return "RESTAURANT"
+    case .pub:
+      return "PUB"
+    case .cafe:
+      return "CAFE"
     }
   }
 }
