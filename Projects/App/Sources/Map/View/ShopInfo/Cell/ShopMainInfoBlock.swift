@@ -16,35 +16,35 @@ struct ShopMainInfoBlock: View {
     case detail
   }
   
-  private let shopId: Int
-  private let shopMoods: [String]
   private let type: ShopInfoBlockType
+  private var shopInfo: ShopMapDTO
   @Binding var isBookmarked: Bool
   
   public init(
     type: ShopInfoBlockType,
-    shopId: Int,
-    shopMoods: [String],
+    shopInfo: ShopMapDTO,
     isBookmarked: Binding<Bool>
   )
   {
     self.type = type
-    self.shopId = shopId
-    self.shopMoods = shopMoods
+    self.shopInfo = shopInfo
     self._isBookmarked = isBookmarked
   }
   
   var body: some View {
     HStack {
-      VStack(alignment: .leading) {
+      VStack(
+        alignment: .leading,
+        spacing: 0
+      ) {
         HStack(spacing: 8) {
-          Text("모이니 와인바")
+          Text(shopInfo.name)
             .wineyFont(.headLine)
             .foregroundColor(
               WineyKitAsset.gray50.swiftUIColor
             )
           
-          Text("와인바")
+          Text(shopInfo.shopType)
             .wineyFont(.captionM1)
             .foregroundColor(
               WineyKitAsset.gray500.swiftUIColor
@@ -52,12 +52,12 @@ struct ShopMainInfoBlock: View {
           
           Spacer()
           
-          VStack {
+          VStack(spacing: 0) {
             Spacer()
               .frame(height: 4)
             Button(
               action: {
-                isBookmarked.toggle()
+                isBookmarked = !isBookmarked
               },
               label: {
                 Group {
@@ -76,7 +76,7 @@ struct ShopMainInfoBlock: View {
         }
         .padding(.bottom, 7)
         
-        Text("서울시 마포구 신공덕동")
+        Text(shopInfo.address)
           .wineyFont(.captionM1)
           .foregroundColor(
             WineyKitAsset.gray700.swiftUIColor
@@ -84,7 +84,17 @@ struct ShopMainInfoBlock: View {
           .padding(.bottom, 14)
         
         HStack(spacing: 5) {
-          ForEach(type == .short ? Array(shopMoods.prefix(3)) : Array(shopMoods), id: \.self) { mode in
+          ForEach(
+            type == .short ? Array(
+              shopInfo
+                .shopMoods
+                .prefix(3)
+            ) : Array(
+              shopInfo
+                .shopMoods
+            ),
+            id: \.self
+          ) { mode in
             Text(mode)
               .wineyFont(.captionM1)
               .foregroundColor(
@@ -101,9 +111,16 @@ struct ShopMainInfoBlock: View {
           }
         }
       }
-//      .fixedSize()
       
       Spacer()
     }
   }
+}
+
+#Preview {
+  ShopMainInfoBlock(
+    type: .short,
+    shopInfo: .dummy,
+    isBookmarked: .constant(true)
+  )
 }

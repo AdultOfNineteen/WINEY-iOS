@@ -14,7 +14,7 @@ struct ShopListCell: View {
   var shopInfo: ShopMapDTO
   
   public init(
-    _ info: ShopMapDTO,
+    info: ShopMapDTO,
     isBookMarked: Binding<Bool>
   ) {
     self.shopInfo = info
@@ -44,11 +44,18 @@ struct ShopListCell: View {
       
       ShopMainInfoBlock(
         type: .short,
-        shopId: shopInfo.shopId,
-        shopMoods: shopInfo.shopMoods,
+        shopInfo: shopInfo,
         isBookmarked: $isBookMarked
       )
     }
+    .background(WineyKitAsset.gray950.swiftUIColor)
     .frame(height: 98)
   }
+}
+
+#Preview {
+  ShopListCell(
+    info: .dummy,
+    isBookMarked: .constant(false)
+  )
 }

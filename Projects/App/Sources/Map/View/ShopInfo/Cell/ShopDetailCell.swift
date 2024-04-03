@@ -13,9 +13,7 @@ struct ShopDetailCell: View {
   @State var presentBusinessHour: Bool = false
   @Binding private var isBookmarked: Bool
   private var shopInfo: ShopMapDTO
-  private var presentBusinessHourAction: (
-    (_ state: Bool) -> Void
-  )
+  private var presentBusinessHourAction: ((_ state: Bool) -> Void)
   
   init(
     shopInfo: ShopMapDTO,
@@ -29,7 +27,11 @@ struct ShopDetailCell: View {
   var body: some View {
     GeometryReader { geometry in
       VStack(spacing: 0) {
-        AsyncImage(url: URL(string: shopInfo.imgUrl)) { phase in
+        AsyncImage(
+          url: URL(
+            string: shopInfo.imgUrl
+          )
+        ) { phase in
           if let image = phase.image {
             image
               .resizable()
@@ -46,14 +48,16 @@ struct ShopDetailCell: View {
               .fill(WineyKitAsset.gray800.swiftUIColor)
           }
         }
-        .frame(width: geometry.size.width, height: 202)
+        .frame(
+          width: geometry.size.width,
+          height: 202
+        )
         .padding(.bottom, 24)
         
         Group {
           ShopMainInfoBlock(
             type: .detail,
-            shopId: shopInfo.shopId,
-            shopMoods: shopInfo.shopMoods,
+            shopInfo: shopInfo,
             isBookmarked: $isBookmarked
           )
           .padding(.bottom, 21)
@@ -122,21 +126,8 @@ struct ShopDetailCell_Previews: PreviewProvider {
   
   static var previews: some View {
     ShopDetailCell(
-      shopInfo: .init(
-        shopId: 0,
-        latitude: 0,
-        longitude: 0,
-        businessHour: "월~화 10:00~19:00",
-        imgUrl: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAyMjBfOTkg%2FMDAxNjc2ODc4OTMyMzQ5.hHZFajUN67R10cw5VrxQgYKUUwyUcqPzKEP9pLc95Mkg.IJHhwoxa3Z_z5wIjb2iR1sKHVQdr3auhVO90KrkY5ysg.JPEG.sky_planet%2F013.jpg&type=sc960_832",
-        address: "송파구 올림픽로 37길 2층",
-        phone: "000-000-0000",
-        name: "",
-        meter: 0,
-        shopType: "",
-        shopMoods: ["양식", "프랑스", "파스타"],
-        like: true
-      ),
-      isBookmarked: $booked, 
+      shopInfo: .dummy,
+      isBookmarked: $booked,
       presentBusinessHourAction: {_ in }
     )
   }

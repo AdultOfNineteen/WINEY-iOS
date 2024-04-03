@@ -13,23 +13,24 @@ struct ShopCategoryListTap: View {
   @Binding var isTappedCategory: ShopCategoryType
   
   var body: some View {
-    HStack {
-      ForEach(
-        ShopCategoryType.allCases,
-        id: \.title
-      ) { category in
-        ShopCategoryTap(
-          categoryType: category,
-          isTappedCategory: $isTappedCategory
-        )
-        .onTapGesture {
-          isTappedCategory = category
-        }
-        if category != .restaurant {
-          Spacer()
+    ScrollView(.horizontal) {
+      HStack {
+        ForEach(
+          ShopCategoryType.allCases,
+          id: \.title
+        ) { category in
+          ShopCategoryTap(
+            categoryType: category,
+            isTappedCategory: $isTappedCategory
+          )
+          .onTapGesture {
+            isTappedCategory = category
+          }
         }
       }
+      .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
     }
+    .scrollIndicators(.hidden)
   }
 }
 
@@ -50,4 +51,10 @@ struct ShopCategoryTap: View {
         .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
     }
   }
+}
+
+#Preview {
+  ShopCategoryListTap(
+    isTappedCategory: .constant(.all)
+  )
 }

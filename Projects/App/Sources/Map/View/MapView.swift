@@ -14,7 +14,6 @@ import WineyKit
 public struct MapView: View {
   private let store: StoreOf<Map>
   @ObservedObject var viewStore: ViewStoreOf<Map>
-  @State var testSheet = false
   
   public init(store: StoreOf<Map>) {
     self.store = store
@@ -30,19 +29,23 @@ public struct MapView: View {
         NaverMapView()
       }
       
-      if viewStore.filterCategory == .all {
+      blackTopGradientBackground
+      
+      if viewStore.filterCategory == .all && !viewStore.mapSheet.isNavigationActive {
         VStack {
           ShopCategoryListTap(
             isTappedCategory:
               viewStore.binding(
                 get: \.filterCategory,
-                send: Map.Action.tapped(category: )
+                send: {
+                  Map.Action.tapped(category: $0)
+                }
               )
           )
           Spacer()
         }
         .padding(.top, 84)
-        .padding(.horizontal, 22)
+        
       } else {
         VStack {
           ZStack(alignment: .bottom) {
@@ -51,7 +54,7 @@ public struct MapView: View {
               HStack {
                 Button(
                   action: {
-                    viewStore.send(.tappedNavigationBackButton)
+                    viewStore.send(.mapSheet(.tappedNavigationBackButton))
                   },
                   label: {
                     WineyAsset.Assets.navigationBackButton.swiftUIImage
@@ -61,12 +64,18 @@ public struct MapView: View {
               }
               .padding(.leading, 17)
               
-              Text(viewStore.filterCategory.title)
-                .wineyFont(.title2)
+              if viewStore.mapSheet.destination == .shopDetail {
+                Text(viewStore.mapSheet.tappedShopInfo?.info.name ?? "음식점")
+                  .wineyFont(.title2)
+              } else {
+                Text(viewStore.filterCategory.title)
+                  .wineyFont(.title2)
+              }
             }
             .frame(height: 68)
           }
-            .frame(height: 118)
+          .frame(height: 118)
+          
           Spacer()
         }
       }
@@ -99,13 +108,6 @@ public struct MapView: View {
     .onAppear {
       viewStore.send(._onAppear)
     }
-    .sheet(
-      isPresented: $testSheet,
-      content: {
-        Text("하이하이")
-      }
-    )
-    
     .shopBottomSheet(
       height: viewStore.binding(
         get: \.sheetHeight,
@@ -116,69 +118,37 @@ public struct MapView: View {
         send: Map.Action._activeProgressView
       ),
       content: {
-        VStack {
-          Spacer()
-            .frame(height: 30)
-          ScrollView {
-            VStack {
-              ForEach(viewStore.shopList.indices) { index in
-                ShopListCell(
-                  viewStore.shopList[index].info,
-                  isBookMarked: viewStore.binding(
-                    get: \.shopList[index].info.like,
-                    send: Map.Action.tappedBookMark(index: index)
-                  )
-                )
-                .onTapGesture {
-                  viewStore.send(.tappedShopListCell)
-                }
-              }
-              .padding(
-                .horizontal,
-                WineyGridRules
-                  .globalHorizontalPadding
-              )
-            }
-            .navigationDestination(
-              isPresented:
-                viewStore.binding(
-                  get: \.moveNavigation,
-                  send: Map.Action._moveNavigationView
-                ),
-              destination: {
-                ZStack {
-                  VStack {
-                    ForEach(viewStore.shopList.indices)
-                    { index in
-                      ShopDetailCell(
-                        shopInfo: viewStore.shopList[index].info,
-                        isBookmarked: viewStore.binding(
-                          get: \.shopList[index].info.like,
-                          send: Map.Action.tappedBookMark(
-                            index: index
-                          )
-                        ),
-                        presentBusinessHourAction: { isTapped in
-                          viewStore.send(
-                            .tappedShopBusinessHour(isTapped)
-                          )
-                        }
-                      )
-                    }
-                    Spacer()
-                  }
-                }
-                .navigationBarBackButtonHidden()
-                .background(
-                  viewStore.sheetHeight == .close ?
-                  WineyKitAsset.gray900.swiftUIColor : WineyKitAsset.gray950.swiftUIColor
-                )
-              }
+        ShopBottomSheetList(
+          store: store
+            .scope(
+              state: \.mapSheet,
+              action: Map.Action.mapSheet
             )
-          }
-        }
+        )
       }
     )
+  }
+}
+
+// MARK: - Extension
+
+extension MapView {
+  var blackTopGradientBackground: some View {
+    VStack {
+      LinearGradient(
+        colors: [
+          .black.opacity(0.40),
+          .black.opacity(0.30),
+          .black.opacity(0.20),
+          .clear
+        ],
+        startPoint: .top,
+        endPoint: .bottom
+      )
+      .frame(height: 140)
+      
+      Spacer()
+    }
   }
   
   var reloadMapButton: some View {

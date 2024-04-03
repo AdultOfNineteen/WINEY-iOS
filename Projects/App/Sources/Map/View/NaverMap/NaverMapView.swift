@@ -15,11 +15,10 @@ public struct NaverMapView: UIViewRepresentable {
   }
   
   public func makeUIView(context: Context) -> NMFNaverMapView {
-    // SwiftUI -> UIKit
     context.coordinator.getNaverMapView()
   }
   
-  public func updateUIView( // SwiftUI -> UIKit
+  public func updateUIView(
     _ uiView: NMFNaverMapView,
     context: Context
   ) { }

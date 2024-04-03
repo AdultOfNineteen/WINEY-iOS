@@ -9,10 +9,6 @@
 import SwiftUI
 import WineyKit
 
-// MARK: - CoverOpacity 주석처리에 따라 바텀시트 높이에 따라 배경 색 변경 미적용
-
-// NavigationView.backgorund(.clear) 불가로 우선 주석처리, 추후 해결
-
 public extension View {
   func shopBottomSheet<
     Content: View
@@ -37,6 +33,13 @@ public extension View {
   }
 }
 
+// MARK: - 수정 사항
+// prgress 상태에 따라 높이 조절 뷰에서 해 주고 싶은데, 추후 수정, 현재 Map Reducer가 조절 중
+// 아래 메서드는 17.0 이상부터 가능
+// .onChange(of: presentProgress) {
+//   height = presentProgress ? .close : .medium
+// }
+
 fileprivate
 extension Animation {
   static var customSpring: Animation {
@@ -49,11 +52,12 @@ struct ShopBottomSheet<Content>: View where Content: View {
   @ViewBuilder var content: () -> Content
   @Binding var height: ShopSheetHeight
   @Binding var presentProgress: Bool
+  @State private var isOnAppear: Bool = false
+  @State private var previousPresentProgress: Bool?
   
   @GestureState private var translation: CGFloat = 0
   @State private var coverOpacity: CGFloat = 1
   private let defaultBackGroundColor = WineyKitAsset.gray950.swiftUIColor
-  private let closedBackGroundColor = WineyKitAsset.gray900.swiftUIColor
   
   private let limitDragGap: CGFloat = 120
   private var dragGesture: some Gesture {
@@ -62,19 +66,6 @@ struct ShopBottomSheet<Content>: View where Content: View {
         guard abs(value.translation.width) < limitDragGap else { return }
         state = value.translation.height
       }
-    //      .onChanged{ value in
-    //        guard abs(value.translation.width) < limitDragGap else { return }
-    //        let verticalMovement = value.translation.height
-    //        let max: CGFloat = ShopSheetHeight.medium.rawValue - ShopSheetHeight.close.rawValue
-    //
-    //        if height == .close && verticalMovement < 0 {
-    //          let delta = 1 - ((value.translation.height * -1) / max)
-    //          coverOpacity = delta > 1 ? 1 : (delta < 0 ? 0 : delta)
-    //        } else if height == .medium && verticalMovement > 0 {
-    //          let delta = (value.translation.height / max)
-    //          coverOpacity = delta > 1 ? 1 : (delta < 0 ? 0 : delta)
-    //        }
-    //      }
       .onEnded { value in
         let verticalMovement = value.translation.height
         
@@ -91,7 +82,6 @@ struct ShopBottomSheet<Content>: View where Content: View {
             height = .large
           }
         }
-        //        coverOpacity = height != .close ? 0 : 1.0
       }
   }
   
@@ -111,12 +101,6 @@ struct ShopBottomSheet<Content>: View where Content: View {
       ZStack {
         Rectangle()
           .fill(defaultBackGroundColor)
-        
-        Rectangle()
-          .fill(closedBackGroundColor)
-          .opacity(coverOpacity)
-        //          .opacity(presentProgress ? 0 : coverOpacity)
-          .disabled(true)
       }
       .frame(height: 25)
       
@@ -128,22 +112,15 @@ struct ShopBottomSheet<Content>: View where Content: View {
   
   var body: some View {
     GeometryReader { geometry in
-      ZStack {
+      ZStack(alignment: .top) {
         VStack(spacing: 0) {
           self.indicator
             .cornerRadius(12, corners: .topLeft)
             .cornerRadius(12, corners: .topRight)
           NavigationStack {
-            ZStack {
+            ZStack(alignment: .top) {
               defaultBackGroundColor
                 .edgesIgnoringSafeArea(.bottom)
-              
-              closedBackGroundColor
-                .edgesIgnoringSafeArea(.bottom)
-                .opacity(coverOpacity)
-              //                  .opacity(presentProgress ? 0 : coverOpacity)
-                .disabled(true)
-              
               if presentProgress {
                 VStack {
                   progressView
@@ -163,16 +140,10 @@ struct ShopBottomSheet<Content>: View where Content: View {
       )
       .frame(height: geometry.size.height, alignment: .bottom)
       .offset(y: max(self.offset + self.translation, 0))
-//      .onChange(of: height) {
-//        coverOpacity = height != .close ? 0 : 1
-//      }
-//      .onChange(of: presentProgress) {
-//        height = presentProgress ? .close : .medium
-//      }
+      .highPriorityGesture(
+        presentProgress ? nil : dragGesture
+      )
     }
-    .highPriorityGesture(
-      presentProgress ? nil : dragGesture
-    )
   }
   
   var progressView: some View {
