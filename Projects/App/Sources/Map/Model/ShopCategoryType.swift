@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum ShopCategoryType: CaseIterable {
+public enum ShopCategoryType: String, CaseIterable {
   case all
   case myPlace
   case bottleShop
@@ -53,5 +53,9 @@ public enum ShopCategoryType: CaseIterable {
     case .cafe:
       return "CAFE"
     }
+  }
+  
+  var imageTitle: String {
+    return "marker_" + self.rawValue
   }
 }

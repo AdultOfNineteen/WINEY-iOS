@@ -18,7 +18,6 @@ public struct Map: Reducer {
     var coordinator: NaverMapCoordinator = NaverMapCoordinator.shared
     
     // MARK: - Visual Data
-    // var shopList: IdentifiedArrayOf<ShopInfoModel> = [.dummy] // 테스트
     @BindingState var filterCategory: ShopCategoryType = .all
     
     // MARK: - BottomSheetState
@@ -37,13 +36,6 @@ public struct Map: Reducer {
     
     // MARK: - User Action
     case tapped(category: ShopCategoryType)
-    //    case sheetAction(PresentationAction<MapSheet.Action>)
-    
-    //    case tappedBookMark(index: Int) // sheet
-    //    case tappedShopBusinessHour(Bool) // sheet
-    //    case tappedNavigationBackButton // sheet
-    //    case tappedShopListCell // sheet
-    
     // Map Navigation
     case tappedCurrentUserLocationMarker
     case tappedListButtonToBottomSheetUp
@@ -66,7 +58,6 @@ public struct Map: Reducer {
   @Dependency(\.map) var mapService
   @Dependency(\.dismiss) var dismiss
   
-  //  public func reduce(into state: inout State, action: Action) -> Effect<Action> {
   public var body: some ReducerOf<Self> {
     BindingReducer()
     
@@ -80,12 +71,7 @@ public struct Map: Reducer {
         state.coordinator.fetchUserLocation()
         return .none
         
-        //    case .tappedShopListCell:
-        //      state.moveNavigation = true
-        //      return .none
-        
       case let .mapSheet(.tappedShopBusinessHour(open)):
-        //        .tappedShopBusinessHour(isTrue):
         state.sheetHeight = open ? .large : .medium
         return .none
         
@@ -113,29 +99,15 @@ public struct Map: Reducer {
         return .none
         
       case .mapSheet(.tappedNavigationBackButton):
-        //        .tappedNavigationBackButton:
-        print("뒤로가기 버튼 눌림")
         switch state.mapSheet.destination {
-        case .shopAll:
-          print("shopAll")
+        case .shopAll: break
         case .shopList:
           state.mapSheet.destination = .shopAll
-          print("shopList")
           return .send(.tapped(category: .all))
         case .shopDetail:
           state.mapSheet.destination = .shopList
           state.mapSheet.isNavigationActive = false
-          print("shopDetail")
         }
-//        
-//        if state.moveNavigation {
-//          print("moveNavigation true")
-//          state.moveNavigation = false
-//        } else {
-//          print("moveNavigation false")
-//          return .send(.tapped(category: .all))
-//        }
-//        
         return .none
         
         
@@ -167,9 +139,7 @@ public struct Map: Reducer {
         return .send(._tabBarHidden)
         
         
-      default:
-        print("map Reducer 액션")
-        return .none
+      default: return .none
       }
     }
     
@@ -178,5 +148,3 @@ public struct Map: Reducer {
     }
   }
 }
-
-

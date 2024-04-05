@@ -26,7 +26,7 @@ struct ShopBottomSheetList: View {
     ZStack(alignment: .top) {
       ScrollView {
         VStack(spacing: 0) {
-          if viewStore.selectedCategory != .all {
+          if viewStore.selectedCategory == .myPlace {
             BottomSheetCategoryTitle(
               title: viewStore.selectedCategory.title,
               savesShopCount: "\(viewStore.shopList.count)"

@@ -102,7 +102,6 @@ public struct MapView: View {
         }
       }
       .padding(.bottom, 169)
-      
     }
     .ignoresSafeArea()
     .onAppear {

@@ -98,7 +98,7 @@ public final class NaverMapCoordinator:
     view.mapView.maxZoomLevel = 17 // 최대 줌 레벨
     
     view.showLocationButton = true
-    // view.showZoomControls = true // 줌 확대, 축소 버튼 활성화
+    view.showZoomControls = false // 줌 확대, 축소 버튼 활성화
     view.showCompass = false
     view.showScaleBar = false
     
@@ -112,6 +112,7 @@ public final class NaverMapCoordinator:
   
   public func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
     // 카메라의 위치가 변경되면 호출되는 함수
+    
   }
   
   var locationManager: CLLocationManager?

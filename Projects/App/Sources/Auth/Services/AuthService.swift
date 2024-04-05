@@ -141,7 +141,7 @@ private struct SocialNetworking {
   @MainActor
   private func googleLogin() async -> String? {
     guard let rootVC =
-      UIApplication
+            UIApplication
       .shared
       .delegate?
       .window??
@@ -191,8 +191,8 @@ class SignInWithAppleCoordinator: NSObject, ASAuthorizationControllerDelegate {
     didCompleteWithAuthorization authorization: ASAuthorization
   ) {
     if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
-       let token = appleIDCredential.identityToken,
-       let tokenString = String(data: token, encoding: .utf8) {
+    let token = appleIDCredential.identityToken,
+    let tokenString = String(data: token, encoding: .utf8) {
       tokenContinuation?.resume(returning: tokenString)
     } else {
       tokenContinuation?.resume(returning: nil)
