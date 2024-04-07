@@ -48,6 +48,7 @@ public struct Map: Reducer {
     case _changeBottomSheet(height: ShopSheetHeight)
     case _activeProgressView(Bool)
     case _moveNavigationView(Bool)
+    
     // MARK: - Inner SetState Action
     case _tabBarHidden
     case _tabBarOpen

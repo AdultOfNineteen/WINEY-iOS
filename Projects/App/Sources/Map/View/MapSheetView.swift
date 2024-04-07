@@ -10,7 +10,7 @@ import ComposableArchitecture
 import SwiftUI
 import WineyKit
 
-struct ShopBottomSheetList: View {
+struct MapSheetView: View {
   private let store: StoreOf<MapSheet>
   @ObservedObject var viewStore: ViewStoreOf<MapSheet>
   
@@ -67,7 +67,6 @@ struct ShopBottomSheetList: View {
             )
           )
         }
-        
         Divider()
       }
       .navigationDestination(
@@ -75,20 +74,17 @@ struct ShopBottomSheetList: View {
         destination: {
           VStack {
             ShopDetailCell(
-              shopInfo: viewStore
-                .tappedShopInfo?
-                .info ?? .dummy,
-              isBookmarked:
-                  .init(
-                    get: {
-                      viewStore.tappedShopInfo?.info.like ?? false
-                    },
-                    set: { _ in
-                      viewStore.send(.tappedBookMark(
-                        index: viewStore.tappedShopInfo?.id ?? 0)
-                      )
-                    }
-                  ),
+              shopInfo: viewStore.tappedShopInfo? .info ?? .dummy,
+              isBookmarked: .init(
+                get: {
+                  viewStore.tappedShopInfo?.info.like ?? false
+                },
+                set: { _ in
+                  viewStore.send(.tappedBookMark(
+                    index: viewStore.tappedShopInfo?.id ?? 0)
+                  )
+                }
+              ),
               presentBusinessHourAction: { isTapped in
                 viewStore.send(
                   .tappedShopBusinessHour(isTapped)
@@ -114,7 +110,7 @@ struct ShopBottomSheetList: View {
 
 #Preview {
   ZStack(alignment: .top) {
-    ShopBottomSheetList(
+    MapSheetView(
       store: .init(
         initialState: MapSheet.State(
           selectedCategory: .bottleShop,

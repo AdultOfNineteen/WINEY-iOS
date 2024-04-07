@@ -117,7 +117,7 @@ public struct MapView: View {
         send: Map.Action._activeProgressView
       ),
       content: {
-        ShopBottomSheetList(
+        MapSheetView(
           store: store
             .scope(
               state: \.mapSheet,
