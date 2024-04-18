@@ -52,18 +52,26 @@ struct MapSheetView: View {
   var cellList: some View {
     VStack(spacing: 0) {
       ForEach(
-        viewStore.shopList.indices,
-        id: \.self
-      ) { index in
+        viewStore.shopList,
+        id: \.self.id
+      ) { shop in
         ShopListCell(
-          info: viewStore.shopList[index].info,
-          isBookMarked: viewStore.$shopList[index].info.like
+          info: shop,
+          isBookMarked:
+            .init(
+              get: { shop.like },
+              set: { _ in
+                store.send(
+                  .tappedBookMark(id: shop.id)
+                )
+              }
+            )
         )
         .frame(height: 158)
         .onTapGesture {
           viewStore.send(
             .tappedShopListCell(
-              id: viewStore.shopList[index].id
+              id: shop.id
             )
           )
         }
@@ -74,17 +82,20 @@ struct MapSheetView: View {
         destination: {
           VStack {
             ShopDetailCell(
-              shopInfo: viewStore.tappedShopInfo? .info ?? .dummy,
+              shopInfo: viewStore.tappedShopInfo ?? .dummy,
               isBookmarked: .init(
                 get: {
-                  viewStore.tappedShopInfo?.info.like ?? false
+                  viewStore.tappedShopInfo?.like ?? false
                 },
                 set: { _ in
                   viewStore.send(.tappedBookMark(
-                    index: viewStore.tappedShopInfo?.id ?? 0)
+                    id: viewStore
+                      .tappedShopInfo?.id ?? 0
+                    )
                   )
                 }
               ),
+              
               presentBusinessHourAction: { isTapped in
                 viewStore.send(
                   .tappedShopBusinessHour(isTapped)

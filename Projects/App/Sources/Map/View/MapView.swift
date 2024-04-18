@@ -15,7 +15,9 @@ public struct MapView: View {
   private let store: StoreOf<Map>
   @ObservedObject var viewStore: ViewStoreOf<Map>
   
-  public init(store: StoreOf<Map>) {
+  public init(
+    store: StoreOf<Map>
+  ) {
     self.store = store
     self.viewStore = ViewStore(
       self.store,
@@ -45,7 +47,6 @@ public struct MapView: View {
           Spacer()
         }
         .padding(.top, 84)
-        
       } else {
         VStack {
           ZStack(alignment: .bottom) {
@@ -54,7 +55,9 @@ public struct MapView: View {
               HStack {
                 Button(
                   action: {
-                    viewStore.send(.mapSheet(.tappedNavigationBackButton))
+                    viewStore.send(
+                      .mapSheet(.tappedNavigationBackButton)
+                    )
                   },
                   label: {
                     WineyAsset.Assets.navigationBackButton.swiftUIImage
@@ -65,11 +68,13 @@ public struct MapView: View {
               .padding(.leading, 17)
               
               if viewStore.mapSheet.destination == .shopDetail {
-                Text(viewStore.mapSheet.tappedShopInfo?.info.name ?? "음식점")
+                Text(viewStore.mapSheet.tappedShopInfo?.name ?? "음식점")
                   .wineyFont(.title2)
               } else {
-                Text(viewStore.filterCategory.title)
-                  .wineyFont(.title2)
+                Text(
+                  viewStore.filterCategory.title
+                )
+                .wineyFont(.title2)
               }
             }
             .frame(height: 68)
@@ -96,7 +101,9 @@ public struct MapView: View {
         Spacer()
         HStack {
           Spacer()
+          
           replacingCameraUserCurrentLocationButton
+          
           Spacer()
             .frame(width: 24)
         }
@@ -104,9 +111,16 @@ public struct MapView: View {
       .padding(.bottom, 169)
     }
     .ignoresSafeArea()
-    .onAppear {
-      viewStore.send(._onAppear)
+    .task {
+      await viewStore
+        .send(._onAppear)
+        .finish()
     }
+    .onDisappear(
+      perform: {
+        viewStore.send(._onDisappear)
+      }
+    )
     .shopBottomSheet(
       height: viewStore.binding(
         get: \.sheetHeight,
@@ -153,7 +167,9 @@ extension MapView {
   var reloadMapButton: some View {
     Button(
       action: {
-        viewStore.send(.tappedReloadCurrentMap)
+        viewStore.send(
+          .tappedReloadCurrentMap
+        )
       },
       label: {
         ZStack {
@@ -176,7 +192,8 @@ extension MapView {
   var shopListBottomSheetUpButton: some View {
     Button(
       action: {
-        viewStore.send(.tappedListButtonToBottomSheetUp)
+        viewStore.send(.tappedListButtonToBottomSheetUp
+        )
       },
       label: {
         ZStack {
