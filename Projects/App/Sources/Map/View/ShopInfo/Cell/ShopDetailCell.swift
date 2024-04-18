@@ -30,6 +30,7 @@ struct ShopDetailCell: View {
         AsyncImage(
           url: URL(
             string: shopInfo.imgUrl
+            
           )
         ) { phase in
           if let image = phase.image {

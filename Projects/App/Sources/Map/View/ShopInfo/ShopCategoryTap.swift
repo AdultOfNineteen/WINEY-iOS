@@ -28,7 +28,9 @@ struct ShopCategoryListTap: View {
           }
         }
       }
-      .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+      .padding(
+        .horizontal, WineyGridRules.globalHorizontalPadding
+      )
     }
     .scrollIndicators(.hidden)
   }

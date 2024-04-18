@@ -23,7 +23,12 @@ struct ShopListCell: View {
   
   var body: some View {
     HStack(spacing: 17) {
-      AsyncImage(url: URL(string: shopInfo.imgUrl)) { phase in
+      AsyncImage(
+        url: URL(
+          string: shopInfo
+            .imgUrl
+        )
+      ) { phase in
         if let image = phase.image {
           image
             .resizable()

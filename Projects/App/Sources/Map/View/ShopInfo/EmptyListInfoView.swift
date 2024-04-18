@@ -23,7 +23,9 @@ struct EmptyListInfoView: View {
           .wineyFont(.bodyM2)
       }
     }
-    .foregroundStyle(WineyKitAsset.gray800.swiftUIColor)
+    .foregroundStyle(
+      WineyKitAsset.gray800.swiftUIColor
+    )
   }
 }
 
