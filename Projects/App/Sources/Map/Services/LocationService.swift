@@ -6,85 +6,97 @@
 //
 
 import CoreLocation
-import Combine
-import Foundation
+import Dependencies
 
-//final class LocationDataManager: NSObject {
-//  
-//  // MARK: - Properties
-//  
-//  private let locationManager = CLLocationManager()
-//  
-//  // 권한 상태
-//  var authorizationStatus: CLAuthorizationStatus {
-//    locationManager.authorizationStatus
-//  }
-//  
-//  // 사용자의 현재 위치
-//  var currentCoordinates: Coordinates? {
-//    guard let location = locationManager.location else { return nil }
-//    
-//    return Coordinates(
-//      latitude: location.coordinate.latitude,
-//      longitude: location.coordinate.longitude
-//    )
-//  }
-//  
-//  // 권한 변경 publisher
-//  let didChangeAuthorization = PassthroughSubject<CLAuthorizationStatus, Never>()
-//  
-//  // MARK: - Singleton
-//  
-//  static let shared = LocationDataManager()
-//  
-//  private override init() {
-//    super.init()
-//    locationManager.delegate = self
-//  }
-//}
-//
-//// MARK: - CLLocationManagerDelegate
-//
-//extension LocationDataManager: CLLocationManagerDelegate {
-//  func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-//    if case .notDetermined = manager.authorizationStatus {
-//      locationManager.requestWhenInUseAuthorization()
-//      return
-//    }
-//    
-//    didChangeAuthorization.send(manager.authorizationStatus)
-//  }
-//}
+struct LocationService {
+  var checkIfLocationServiceIsEnabled: () async -> (Bool)
+  var userLocation: () -> (lat: Double, lng: Double)?
+  
+}
 
-//class LocationManager: NSObject, CLLocationManagerDelegate {
-//  static let shared = LocationManager()
-//  let locationManager = CLLocationManager() // private 처리 할 것 
-//  private var authorizationContinuation: CheckedContinuation<String?, Never>?
-//  
-//  private override init() {
-//    super.init()
-//    locationManager.delegate = self
-//  }
-//  
-//  func requestLocationAuthorization() { // 권한 요청 
-//    locationManager.requestWhenInUseAuthorization()
-//  }
-//  
-//  
-//  func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-//    switch manager.authorizationStatus {
-//    case .authorizedWhenInUse, .authorizedAlways:
-//      // 권한이 허용된 경우의 처리
-//      break
-//    case .denied, .restricted:
-//      // 권한이 거부된 경우의 처리
-//      break
-//    case .notDetermined:
-//      locationManager.startUpdatingLocation()
-//      // 권한이 아직 결정되지 않은 경우의 처리
-//      break
-//    default:
-//      break
-//    }
-//  }
-//}
+extension LocationService {
+  static let live = {
+    let locationManager = LocationManager.shared
+    
+    return Self(
+      checkIfLocationServiceIsEnabled: {
+        return await locationManager.checkIfLocationServiceIsEnabled()
+      }, 
+      userLocation: {
+        return locationManager.getUserLocation()
+      }
+    )
+  }()
+}
+
+extension LocationService: DependencyKey {
+  public static var liveValue = Self.live
+}
+
+extension DependencyValues {
+  var location: LocationService {
+    get { self[LocationService.self] }
+    set { self[LocationService.self] = newValue }
+  }
+}
+
+class LocationManager: NSObject, CLLocationManagerDelegate {
+  static let shared = LocationManager()
+  private var locationManager: CLLocationManager?
+  
+  private override init() {
+    super.init()
+  }
+  
+  // Coordinator 클래스 안의 코드
+  func checkIfLocationServiceIsEnabled() async -> Bool { // 최초실행 시 한 번
+    return await withCheckedContinuation { continuation in
+      if CLLocationManager.locationServicesEnabled() { // 위치접근 허용인지
+        Task { @MainActor in
+          self.locationManager = CLLocationManager()
+          self.locationManager?.delegate = self
+          let result =  await self.checkLocationAuthorization() // 허용이라면 어떤 단계인지
+          continuation.resume(returning: result)
+        }
+      }
+      else {
+        print("Show an alert letting them know this is off and to go turn i on")
+        continuation.resume(returning: false)
+      }
+    }
+  }
+  
+  func getUserLocation() -> (lat: Double, lng: Double)? {
+    if let locationManager = locationManager,
+    let location = locationManager.location
+    {
+      let coordinate = location.coordinate
+      return (coordinate.latitude, coordinate.longitude)
+    } else {
+      return nil
+    }
+  }
+  
+  // MARK: - 위치 정보 동의 확인
+  private func checkLocationAuthorization() async -> Bool {
+    guard let locationManager = locationManager else { return false }
+    return await withCheckedContinuation { continuation in
+      switch locationManager.authorizationStatus {
+      case .notDetermined:
+        locationManager.requestWhenInUseAuthorization()
+      case .restricted:
+        print("위치 정보 접근이 제한되었습니다.")
+      case .denied:
+        print("위치 정보 접근을 거절했습니다. 설정에 가서 변경하세요.")
+      case .authorizedAlways, .authorizedWhenInUse:
+        print("Success")
+        continuation.resume(returning: true)
+        return
+      @unknown default: break
+      }
+      continuation.resume(returning: false)
+    }
+  }
+  
+  
+}
