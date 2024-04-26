@@ -40,6 +40,7 @@ public struct WineSearch: Reducer {
   }
   
   @Dependency(\.note) var noteService
+  @Dependency(\.mainQueue) var mainQueue
   
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
@@ -93,6 +94,7 @@ public struct WineSearch: Reducer {
             await send(._failureSocialNetworking(error))
           }
         }
+        .debounce(id: CancelID.mapMarker, for: 0.5, scheduler: self.mainQueue)
         
       case ._fetchNextWinePage:
         guard let wineData = state.wineCards else {
