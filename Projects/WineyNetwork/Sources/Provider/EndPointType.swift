@@ -43,7 +43,6 @@ public extension EndPointType {
     }
     
     if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-      urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
       urlRequest.setValue(accessToken, forHTTPHeaderField: "X-AUTH-TOKEN")
     }
     
@@ -73,6 +72,11 @@ public extension EndPointType {
       
     case let .requestMultipartData(parameters, images):
       request = try EncodingType.multiPart.encode(request, with: parameters, images: images)
+      
+    case .requestAccessTokenViasRefreshToken:
+      if let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") {
+        request.setValue(refreshToken, forHTTPHeaderField: "X-REFRESH-TOKEN")
+      }
     }
     
     return request

@@ -10,12 +10,11 @@ import Combine
 import ComposableArchitecture
 import Foundation
 import TCACoordinators
+import WineyKit
 
 public struct AppCoordinator: Reducer {
   
-  init() {
-    print("AppCoordinator 생성됌")
-  }
+  init() { }
   
   public struct State: Equatable, IndexedRouterState {
     static let initialState = State(
@@ -28,12 +27,28 @@ public struct AppCoordinator: Reducer {
   public enum Action: IndexedRouterAction {
     case routeAction(Int, action: AppScreen.Action)
     case updateRoutes([Route<AppScreen.State>])
+    case auth
     case home
   }
   
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
+        
+      case .routeAction(_, action: .splash(._onAppear)):
+        return .run { send in
+          Task {
+            for await notification in NotificationCenter.default.notifications(named: .userDidLogin) {
+              if let loginState = notification.userInfo?["userDidLogin"] as? Bool {
+                if loginState {
+                  await send(.routeAction(0, action: .splash(._moveToHome)))
+                } else {
+                  await send(.routeAction(0, action: .splash(._moveToAuth)))
+                }
+              }
+            }
+          }
+        }
         
       case let .routeAction(
         _, action: .auth(
@@ -101,28 +116,32 @@ public struct AppCoordinator: Reducer {
         ]
         return .none
         
-      case .routeAction(_, action:
+      case .routeAction(
+        _,
+        action:
           .tabBar(
             .userInfo(
               .routeAction(_, action: .userSetting(._moveToHome))
             )
-          )):
-        state.routes = [.root(.auth(.initialState))]
-//        state.routes = [.root(.splash(.init()))]
-        return .none
+          )
+      ):
+      state.routes = [.root(.auth(.initialState))]
+        //        state.routes = [.root(.splash(.init()))]
+      return .none
         
-      case .routeAction(_, action:
+      case .routeAction(
+        _,
+        action:
           .tabBar(
             .userInfo(
               .routeAction(_, action: .signOutConfirm(.tappedConfirmButton))
             )
-          )):
-        state.routes = [.root(.splash(.init()))]
-        return .none
-        
+          )
+      ):
+      state.routes = [.root(.splash(.init()))]
+      return .none
       default:
-        return .none
-        
+      return .none
       }
     }
     .forEachRoute {
