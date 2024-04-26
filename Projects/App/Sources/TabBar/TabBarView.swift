@@ -90,6 +90,9 @@ public struct TabBarView: View {
         )
       }
     }
+    .task {
+      store.send(._onSetting)
+    }
     .navigationBarHidden(true)
   }
 }

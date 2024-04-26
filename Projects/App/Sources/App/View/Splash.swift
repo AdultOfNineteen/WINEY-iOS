@@ -23,30 +23,35 @@ public struct Splash: Reducer {
     case _checkConnectHistory
     case _moveToHome
     case _moveToAuth
+    
+    case _setLoginState
   }
   
   @Dependency(\.userDefaults) var userDefaultsService
   @Dependency(\.continuousClock) var clock
+  @Dependency(\.userDefaults) var userDefaults
+  @Dependency(\.user) var userService
   
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case ._onAppear:
       return .run { send in
-        userDefaultsService.saveFlag(.isPopGestureEnabled, true)
-        try await self.clock.sleep(for: .milliseconds(1500))
-        await send(._checkConnectHistory)
+        switch await userService.info() {
+        case .success:
+          await send(._checkConnectHistory)
+        case .failure:
+          break // 실패 시 자동 처리
+        }
       }
       
     case ._checkConnectHistory:
-      return .send(._moveToAuth) // 임시
-
-    case ._moveToHome:
-      print("_moveToHome")
-      return .none
-      
-    case ._moveToAuth:
-      print("_moveToAuth")
-      return .none
+      if let hasLaunched = userDefaults.loadFalg(.hasLaunched),
+      hasLaunched {
+        return .send(._moveToHome)
+      } else {
+        return .send(._moveToAuth)
+      }
+    default: return .none
     }
   }
 }

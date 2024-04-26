@@ -10,7 +10,6 @@ import Combine
 import ComposableArchitecture
 import Foundation
 import SwiftUI
-import UserDomain
 import WineyNetwork
 
 public enum FlavorSubject: Int {

@@ -44,8 +44,5 @@ public struct WineAnalysisCoordinatorView: View {
       }
     }
     .navigationBarHidden(true)
-    .onAppear{
-      print("WineAnalysisCoordinatorView 생성")
-    }
   }
 }

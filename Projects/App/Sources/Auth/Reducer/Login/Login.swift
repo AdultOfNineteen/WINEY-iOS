@@ -6,10 +6,8 @@
 //  Copyright © 2023 com.adultOfNineteen. All rights reserved.
 //
 
-import Combine
 import ComposableArchitecture
 import Foundation
-import UserDomain
 
 public struct Login: Reducer {
   
@@ -23,7 +21,7 @@ public struct Login: Reducer {
     case tappedTermsOfUse
     
     // MARK: - Inner Business Action
-    case _onAppear
+    case _onAppear 
     case _checkLoginHistory
     case _socialLogin(path: LoginPathType, accessToken: String?)
     
@@ -107,6 +105,7 @@ public struct Login: Reducer {
     self.userDefaultsService.saveValue(.accessToken, data.accessToken)
     self.userDefaultsService.saveValue(.refreshToken, data.refreshToken)
     self.userDefaultsService.saveValue(.userID, String(data.userId))
+    self.userDefaultsService.saveFlag(.hasLaunched, true)
   }
   
   private func routeBasedOnLoginStatus(data: LoginUserDTO) -> LoginProcessType {

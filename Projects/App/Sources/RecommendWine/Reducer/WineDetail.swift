@@ -50,10 +50,8 @@ public struct WineDetail: Reducer {
         switch await wineService.winesDetail(id) {
         case let .success(dto):
           await send(._setDetailData(dto))
-          print("success")
         case let .failure(error):
           await send(._failureSocialNetworking(error))
-          print("fail")
         }
       })
       

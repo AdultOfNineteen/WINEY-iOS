@@ -10,15 +10,6 @@
       }
     },
     {
-      "identity" : "combine-schedulers",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/combine-schedulers",
-      "state" : {
-        "revision" : "4cf088c29a20f52be0f2ca54992b492c54e0076b",
-        "version" : "0.5.3"
-      }
-    },
-    {
       "identity" : "googlesignin-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleSignIn-iOS",
@@ -43,15 +34,6 @@
       "state" : {
         "revision" : "41aba100f28395ebe842cd66e5d371cdd46c6792",
         "version" : "4.0.0"
-      }
-    },
-    {
-      "identity" : "xctest-dynamic-overlay",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
-      "state" : {
-        "revision" : "50843cbb8551db836adec2290bb4bc6bac5c1865",
-        "version" : "0.9.0"
       }
     }
   ],

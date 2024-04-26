@@ -17,6 +17,7 @@ final class NetworkLogger: NSObject {
     debugPrint("  📮 [Method] : \(request.httpMethod ?? "")")
     debugPrint("  📮 [Headers] : \(request.allHTTPHeaderFields ?? [:])")
     
+    
     if let body = request.httpBody?.toPrettyPrintedString {
       debugPrint("  📮 [Body]: \(body)")
     } else {

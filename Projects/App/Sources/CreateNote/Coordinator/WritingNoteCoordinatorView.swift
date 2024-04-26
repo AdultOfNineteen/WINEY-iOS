@@ -25,71 +25,71 @@ public struct WritingNoteCoordinatorView: View {
         case .wineSearch:
           CaseLet(
             /WritingNoteScreen.State.wineSearch,
-             action: WritingNoteScreen.Action.wineSearch,
-             then: WineSearchView.init
+           action: WritingNoteScreen.Action.wineSearch,
+           then: WineSearchView.init
           )
           
         case .wineConfirm:
           CaseLet(
             /WritingNoteScreen.State.wineConfirm,
-             action: WritingNoteScreen.Action.wineConfirm,
-             then: WineConfirmView.init
+           action: WritingNoteScreen.Action.wineConfirm,
+           then: WineConfirmView.init
           )
           
         case .setAlcohol:
           CaseLet(
             /WritingNoteScreen.State.setAlcohol,
-             action: WritingNoteScreen.Action.setAlcohol,
-             then: SettingAlcoholView.init
+           action: WritingNoteScreen.Action.setAlcohol,
+           then: SettingAlcoholView.init
           )
           
         case .setVintage:
           CaseLet(
             /WritingNoteScreen.State.setVintage,
-             action: WritingNoteScreen.Action.setVintage,
-             then: SettingVintageView.init
+           action: WritingNoteScreen.Action.setVintage,
+           then: SettingVintageView.init
           )
           
         case .setColorSmell:
           CaseLet(
             /WritingNoteScreen.State.setColorSmell,
-             action: WritingNoteScreen.Action.setColorSmell,
-             then: SettingColorSmellView.init
+           action: WritingNoteScreen.Action.setColorSmell,
+           then: SettingColorSmellView.init
           )
           
         case .helpSmell:
           CaseLet(
             /WritingNoteScreen.State.helpSmell,
-             action: WritingNoteScreen.Action.helpSmell,
-             then: HelpSmellView.init
+           action: WritingNoteScreen.Action.helpSmell,
+           then: HelpSmellView.init
           )
           
         case .setTaste:
           CaseLet(
             /WritingNoteScreen.State.setTaste,
-             action: WritingNoteScreen.Action.setTaste,
-             then: SettingTasteView.init
+           action: WritingNoteScreen.Action.setTaste,
+           then: SettingTasteView.init
           )
           
         case .helpTaste:
           CaseLet(
             /WritingNoteScreen.State.helpTaste,
-             action: WritingNoteScreen.Action.helpTaste,
-             then: HelpTasteView.init
+           action: WritingNoteScreen.Action.helpTaste,
+           then: HelpTasteView.init
           )
           
         case .setMemo:
           CaseLet(
             /WritingNoteScreen.State.setMemo,
-             action: WritingNoteScreen.Action.setMemo,
-             then: SettingMemoView.init
+           action: WritingNoteScreen.Action.setMemo,
+           then: SettingMemoView.init
           )
           
         case .noteDone:
           CaseLet(
             /WritingNoteScreen.State.noteDone,
-             action: WritingNoteScreen.Action.noteDone,
-             then: NoteDoneView.init
+           action: WritingNoteScreen.Action.noteDone,
+           then: NoteDoneView.init
           )
         }
       }

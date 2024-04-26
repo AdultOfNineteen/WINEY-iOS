@@ -16,6 +16,7 @@ public struct TabBar: Reducer {
     var map: MapCoordinator.State?
     var note: NoteCoordinator.State?
     var userInfo: UserInfoCoordinator.State?
+
     public var selectedTab: TabBarItem = .main
     public var isTabHidden: Bool = false
     
@@ -40,8 +41,10 @@ public struct TabBar: Reducer {
     
     // MARK: - Inner Business Action
     case _setTabHiddenStatus(Bool)
+    case _onSetting
     
     // MARK: - Inner SetState Action
+    case _mapStreamConnect(TabBarItem)
     
     // MARK: - Child Action
     case main(MainCoordinator.Action)
@@ -50,12 +53,23 @@ public struct TabBar: Reducer {
     case userInfo(UserInfoCoordinator.Action)
   }
   
+  @Dependency(\.tap) var tapService
+  var cancellables = Set<AnyCancellable>()
+  
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
+      case ._onSetting:
+        return .run { send in
+          tapService.adaptivePresentationControl()
+        }
+        
       case let.tabSelected(tab):
         state.selectedTab = tab
-        return .none
+        return .send(._mapStreamConnect(tab))
+        
+      case let ._mapStreamConnect(tab):
+        return .send(.map(.routeAction(0, action: .map(._tappedMapTabBarItem(tab == .map)))))
         
       case .main(.routeAction(_, action: .main(._viewWillAppear))):
         return .send(._setTabHiddenStatus(false))

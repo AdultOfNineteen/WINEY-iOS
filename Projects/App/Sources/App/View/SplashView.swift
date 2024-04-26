@@ -22,7 +22,7 @@ public struct SplashView: View {
       WineyKitAsset.mainBackground.swiftUIColor.ignoresSafeArea()
       
       mainLogoSpace
-        .onAppear {
+        .task {
           store.send(._onAppear)
         }
     }

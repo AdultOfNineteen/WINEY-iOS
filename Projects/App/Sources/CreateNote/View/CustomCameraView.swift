@@ -21,7 +21,7 @@ final class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePicker
   
   func imagePickerController(
     _ picker: UIImagePickerController,
-    didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+    didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
   ) {
     if let selectedImage = info[.originalImage] as? UIImage {
       viewStore.send(.savePhoto(selectedImage))

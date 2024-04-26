@@ -15,11 +15,11 @@ let spm = SwiftPackageManagerDependencies(
     ),
     .remote(
       url: "https://github.com/pointfreeco/swift-composable-architecture.git",
-      requirement: .range(from: "1.0", to: "2.0")
+      requirement: .exact("1.5.0")
     ),
     .remote(
       url: "https://github.com/johnpatrickmorgan/TCACoordinators.git",
-      requirement: .exact("0.6.0")
+      requirement: .exact("0.8.0")
     ),
     .remote(
       url: "https://github.com/kakao/kakao-ios-sdk",

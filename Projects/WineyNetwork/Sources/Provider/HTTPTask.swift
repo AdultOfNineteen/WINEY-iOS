@@ -21,4 +21,7 @@ public enum HTTPTask {
   case requestCompositeParameters(urlParameters: [String: Any], bodyParameters: [String: Any])
   /// Multipart 요청 시.
   case requestMultipartData(parameters: [String: Any], images: [UIImage])
+  
+  case requestAccessTokenViasRefreshToken
+
 }

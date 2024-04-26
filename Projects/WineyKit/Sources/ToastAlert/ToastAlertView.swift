@@ -8,8 +8,6 @@
 
 import SwiftUI
 
-
-// SwiftUI 토스트 뷰
 public struct ToastAlertView: View {
   private var message: String
   

@@ -16,6 +16,7 @@ public struct ProviderError: Error {
     case failedRequest // 인터넷 불안정
     case isNotSuccessful // 통신 결과 실패
     case failedDecode // 프론트 잘못
+    case authenticationFailed
   }
   
   public init(

@@ -139,7 +139,6 @@ struct LoginView: View {
   private var loginPathButtonSpace: some View {
     HStack(spacing: 21) {
       Button {
-        print("View에서 버튼 터치 인지")
         viewStore.send(.tappedLogin(.kakao))
       } label: {
         Image("kakao_button")

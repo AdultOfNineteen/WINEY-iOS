@@ -33,7 +33,8 @@ public struct NoteCardScrollView: View {
                   viewStore.send(.tappedNoteCard(noteId: note.noteId, country: note.country))
                 }
                 .onAppear {
-                  if viewStore.noteCards.contents[viewStore.noteCards.contents.count - 1] == note && !viewStore.noteCards.isLast {
+                  if viewStore.noteCards.contents[viewStore.noteCards.contents.count - 1] == note 
+                      && !viewStore.noteCards.isLast {
                     viewStore.send(._fetchNextNotePage)
                   }
                 }
