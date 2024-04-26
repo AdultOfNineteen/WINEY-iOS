@@ -15,7 +15,6 @@ public struct UserInfoView: View {
   private let store: StoreOf<UserInfo>
   @ObservedObject var viewStore: ViewStoreOf<UserInfo>
   @State private var sliderValue: Double = 0.5
-  private let infoListTitles = ["서비스 이용약관", "개인정보 처리방침"]
   private let questionListTitles = ["1:1 문의", "FAQ"]
   
   public init(store: StoreOf<UserInfo>) {
@@ -47,7 +46,8 @@ public struct UserInfoView: View {
           .padding(.bottom, 15)
         
         VStack(spacing: 0) {
-          infoListSpace
+          policySection(viewType: .termsPolicy)
+          policySection(viewType: .personalPolicy)
           
           Divider()
             .background(Color.gray)
@@ -239,26 +239,20 @@ public struct UserInfoView: View {
     }
   }
   
-  private var infoListSpace: some View {
-    ForEach(infoListTitles, id: \.self) { title in
-      HStack {
-        Text(title)
-          .wineyFont(.bodyM1)
-          .foregroundColor(WineyKitAsset.gray400.swiftUIColor)
-        Spacer()
-        Image(systemName: "chevron.right")
-          .foregroundColor(WineyKitAsset.gray400.swiftUIColor)
-          .wineyFont(.title2)
-      }
-      .background(WineyKitAsset.mainBackground.swiftUIColor)
-      .padding(.vertical, 12)
-      .onTapGesture {
-        if title == "서비스 이용약관" {
-          viewStore.send(.tappedTermsPolicy)
-        } else if title == "개인정보 처리방침" {
-          viewStore.send(.tappedPersonalInfoPolicy)
-        }
-      }
+  private func policySection(viewType: WineyPolicyViewType) -> some View {
+    HStack {
+      Text(viewType.navTitle)
+        .wineyFont(.bodyM1)
+        .foregroundColor(WineyKitAsset.gray400.swiftUIColor)
+      Spacer()
+      Image(systemName: "chevron.right")
+        .foregroundColor(WineyKitAsset.gray400.swiftUIColor)
+        .wineyFont(.title2)
+    }
+    .background(WineyKitAsset.mainBackground.swiftUIColor)
+    .padding(.vertical, 12)
+    .onTapGesture {
+      viewStore.send(.tappedPolicySection(viewType))
     }
   }
   

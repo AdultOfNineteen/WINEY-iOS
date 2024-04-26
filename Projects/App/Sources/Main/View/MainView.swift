@@ -46,7 +46,6 @@ public struct MainView: View {
       viewStore.send(._tipCardWillAppear)
     }
     .background(WineyKitAsset.mainBackground.swiftUIColor)
-    .navigationViewStyle(StackNavigationViewStyle())
     .navigationBarHidden(true)
   }
 }
@@ -152,20 +151,14 @@ extension MainView {
       viewStore.send(.tappedTipArrow)
     }
     
-    if let tipCards = viewStore.tipCards {
-      LazyVGrid(columns: columns) {
-        ForEach(tipCards.contents, id: \.wineTipId) { tipCard in
-          TipCardImage(tipCardInfo: tipCard)
-            .onTapGesture {
-              viewStore.send(.tappedTipCard(url: tipCard.url))
-            }
-        }
-      }
-      .padding(.top, 25)
-      .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-    } else {
-      ProgressView()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    IfLetStore(
+      self.store.scope(
+        state: \.wineTipState,
+        action: Main.Action.wineTip
+      )
+    ) {
+      TipCardView(store: $0)
+        .padding(.top, 25)
     }
   }
 }

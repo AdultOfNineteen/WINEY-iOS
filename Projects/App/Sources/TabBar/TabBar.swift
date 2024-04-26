@@ -57,91 +57,13 @@ public struct TabBar: Reducer {
         state.selectedTab = tab
         return .none
         
-      case .main(.routeAction(_, action: .main(._navigateToAnalysis))):
-        return .send(._setTabHiddenStatus(true))
-        
       case .main(.routeAction(_, action: .main(._viewWillAppear))):
         return .send(._setTabHiddenStatus(false))
-        
-      case .main(.routeAction(_, action: .main(.wineCardScroll(.wineCard(id: _, action: _))))):
-        return .send(._setTabHiddenStatus(true))
-        
-      case .main(.routeAction(_, action: .main(._navigateToTipCard))):
-        return .send(._setTabHiddenStatus(true))
-        
-      case .main(.routeAction(_, action: .main(.tappedTipCard))):
-        return .send(._setTabHiddenStatus(true))
-        
-      case .note(.routeAction(_, action: .note(.filteredNote(.noteCardScroll(.tappedNoteCard))))):
-        return .send(._setTabHiddenStatus(true))
-        
-      case .note(.routeAction(_, action: .note(.filteredNote(.tappedFilterButton)))):
-        return .send(._setTabHiddenStatus(true))
-        
-      case .note(.routeAction(_, action: .note(.tappedNoteWriteButton))):
-        return .send(._setTabHiddenStatus(true))
-        
-      case .note(.routeAction(_, action: .createNote(.routeAction(_, action: .wineSearch(.tappedBackButton))))):
-        return .send(._setTabHiddenStatus(false))
-        
-      case .main(.routeAction(_, action: .tipCard(.tappedBackButton))):
-        return .send(._setTabHiddenStatus(false))
-        
-      case .main(.routeAction(_, action: .analysis(.routeAction(_, action: .wineAnaylsis(.tappedBackButton))))):
-        return .send(._setTabHiddenStatus(false))
-        
-      case .main(.routeAction(_, action: .wineDetail(.tappedBackButton))):
-        return .send(._setTabHiddenStatus(false))
-        
-      case .note(.routeAction(_, action: .noteDetail(.tappedBackButton))):
-        return .send(._setTabHiddenStatus(false))
-      
-      case .note(.routeAction(_, action: .filterDetail(.tappedBackButton))):
-        return .send(._setTabHiddenStatus(false))
-        
-      case .note(.routeAction(_, action: .note(._navigateToAnalysis))):
-        return .send(._setTabHiddenStatus(true))
-        
-      case .note(.routeAction(_, action: .analysis(.routeAction(_, action: .wineAnaylsis(.tappedBackButton))))):
-        return .send(._setTabHiddenStatus(false))
-        
-      case .note(.routeAction(_, action: .createNote(.routeAction(_, action: .noteDone(.tappedButton))))):
-        return .send(._setTabHiddenStatus(false))
-        
-      case .note(.routeAction(_, action: .createNote(.routeAction(_, action: .setMemo(._backToNoteDetail))))):
-        return .send(._setTabHiddenStatus(true))
         
       case .map(.routeAction(_, action: .map(._tabBarHidden))):
         return .send(._setTabHiddenStatus(true))
         
       case .map(.routeAction(_, action: .map(._tabBarOpen))):
-        return .send(._setTabHiddenStatus(false))
-        
-      case .note:
-        return .none
-        
-      case .userInfo(.routeAction(_, action: .userBadge(._viewWillAppear))):
-        return .send(._setTabHiddenStatus(true))
-        
-      case .userInfo(.routeAction(_, action: .userBadge(.tappedBackButton))):
-        return .send(._setTabHiddenStatus(false))
-        
-      case .userInfo(.routeAction(_, action: .userInfo(.tappedTermsPolicy))):
-        return .send(._setTabHiddenStatus(true))
-        
-      case .userInfo(.routeAction(_, action: .termsPolicy(.tappedBackButton))):
-        return .send(._setTabHiddenStatus(false))
-        
-      case .userInfo(.routeAction(_, action: .userInfo(.tappedPersonalInfoPolicy))):
-        return .send(._setTabHiddenStatus(true))
-        
-      case .userInfo(.routeAction(_, action: .personalPolicy(.tappedBackButton))):
-        return .send(._setTabHiddenStatus(false))
-        
-      case .userInfo(.routeAction(_, action: .userInfo(.userSettingTapped))):
-        return .send(._setTabHiddenStatus(true))
-        
-      case .userInfo(.routeAction(_, action: .userSetting(.tappedBackButton))):
         return .send(._setTabHiddenStatus(false))
         
       case ._setTabHiddenStatus(let status):

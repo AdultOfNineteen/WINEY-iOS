@@ -64,13 +64,7 @@ public struct SettingAlcohol: Reducer {
         }
         
       case .tappedBackButton:
-        switch CreateNoteManager.shared.mode {
-        case .create:
-          return .send(._presentBottomSheet(true))
-        case .patch:
-          CreateNoteManager.shared.initData()
-          return .send(._backToNoteDetail)
-        }
+        return .send(._presentBottomSheet(true))
         
       case .tappedSkipButton:
         return .send(._moveNextPage)
@@ -97,8 +91,16 @@ public struct SettingAlcohol: Reducer {
         return .send(._moveNextPage)
         
       case ._deleteNote:
+        let mode = CreateNoteManager.shared.mode
+        
         CreateNoteManager.shared.initData()
-        return .send(._backToWineSearch)
+        
+        switch mode {
+        case .create:
+          return .send(._backToWineSearch)
+        case .patch:
+          return .send(._backToNoteDetail)
+        }
         
       case .tapPicker:
         return .send(._tooltipHide)

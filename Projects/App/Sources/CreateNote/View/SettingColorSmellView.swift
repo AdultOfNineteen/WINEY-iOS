@@ -30,7 +30,7 @@ public struct SettingColorSmellView: View {
       )
       
       ScrollView {
-        VStack(spacing: 45) {
+        LazyVStack(spacing: 45) {
           wineColorSetting()
           wineSmellSetting()
         }
@@ -177,7 +177,7 @@ extension SettingColorSmellView {
         .foregroundStyle(WineyKitAsset.gray500.swiftUIColor)
       
       ScrollView(.horizontal, showsIndicators: false) {
-        HStack(spacing: 7) {
+        LazyHStack(spacing: 7) {
           ForEach(category.list, id: \.codeName) { category in
             CapsuleButton(
               title: category.korName,

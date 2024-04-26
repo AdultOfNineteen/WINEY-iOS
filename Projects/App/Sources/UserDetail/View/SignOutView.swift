@@ -29,7 +29,7 @@ public struct SignOutView: View {
       navigationBarSpacer
       
       ScrollView(showsIndicators: false) {
-        VStack(alignment: .leading, spacing: 0) {
+        LazyVStack(alignment: .leading, spacing: 0) {
           signOutDescription
           
           signOutReason

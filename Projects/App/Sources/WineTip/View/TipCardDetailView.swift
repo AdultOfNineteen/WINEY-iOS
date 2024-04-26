@@ -34,6 +34,7 @@ public struct TipCardDetailView: View {
       
       WineyWebView(url: viewStore.url)
     }
+    .navigationBarHidden(true)
     .background(
       WineyKitAsset.mainBackground.swiftUIColor
     )

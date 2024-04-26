@@ -92,6 +92,11 @@ extension CustomGalleryView {
         
         ForEach(viewStore.userGalleryImage, id: \.self) { image in
           imageBox(image: image)
+            .onAppear {
+              if image == viewStore.userGalleryImage[viewStore.userGalleryImage.count - 1] {
+                viewStore.send(._paginationImageData)
+              }
+            }
         }
       }
     }
@@ -138,11 +143,6 @@ extension CustomGalleryView {
       )
     }
     .frame(height: UIScreen.main.bounds.width / 3 - 8)
-    .onAppear {
-      if image == viewStore.userGalleryImage.last {
-        viewStore.send(._paginationImageData)
-      }
-    }
     .onTapGesture {
       viewStore.send(.tappedImage(image))
     }

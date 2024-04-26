@@ -39,6 +39,7 @@ public struct WineAnalysisView: View {
           text1: "재구매 의사가 담긴",
           text2: "테이스팅 노트가 있는 경우에 볼 수 있어요!"
         )
+        .popGestureDisabled()
       },
       bottomArea: {
         HStack {

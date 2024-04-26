@@ -25,12 +25,14 @@ public struct Splash: Reducer {
     case _moveToAuth
   }
   
+  @Dependency(\.userDefaults) var userDefaultsService
   @Dependency(\.continuousClock) var clock
   
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case ._onAppear:
       return .run { send in
+        userDefaultsService.saveFlag(.isPopGestureEnabled, true)
         try await self.clock.sleep(for: .milliseconds(1500))
         await send(._checkConnectHistory)
       }

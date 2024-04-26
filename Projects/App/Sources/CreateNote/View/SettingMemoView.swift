@@ -28,7 +28,7 @@ public struct SettingMemoView: View {
       navigation()
       
       ScrollView {
-        VStack(alignment: .leading, spacing: 0) {
+        LazyVStack(alignment: .leading, spacing: 0) {
           header()
           
           attachPhotoButton()

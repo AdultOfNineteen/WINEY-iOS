@@ -36,50 +36,6 @@ public struct MainCoordinator: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
-      case let .routeAction(
-        _,
-        action: .main(
-          .wineCardScroll(
-            .wineCard(id: _, action: ._navigateToCardDetail(id, wineData))
-          )
-        )
-      ):
-        state.routes.append(.push(
-          .wineDetail(.init(windId: id, wineCardData: wineData))
-        ))
-        return .none
-        
-      case .routeAction(_, action: .wineDetail(.tappedBackButton)):
-        state.routes.pop()
-        return .none
-        
-      case .routeAction(_, action: .main(._navigateToTipCard)):
-        state.routes.append(.push(.tipCard(.init())))
-        return .none
-        
-      case let .routeAction(_, action: .main(.tappedTipCard(url: url))):
-        state.routes.append(.push(.tipCardDetail(.init(url: url))))
-        return .none
-        
-      case .routeAction(_, action: .tipCard(.tappedBackButton)):
-        state.routes.pop()
-        return .none
-        
-      case let .routeAction(_, action: .tipCard(.tappedTipCard(url: url))):
-        state.routes.append(.push(.tipCardDetail(.init(url: url))))
-        return .none
-        
-      case .routeAction(_, action: .tipCardDetail(.tappedBackButton)):
-        state.routes.pop()
-        return .none
-        
-      case .routeAction(_, action: .main(._navigateToAnalysis)):
-        state.routes.append(.push(.analysis(.initialState)))
-        return .none
-        
-      case .routeAction(_, action: .analysis(.routeAction(_, action: .wineAnaylsis(.tappedBackButton)))):
-        state.routes.pop()
-        return .none
         
       default:
         return .none

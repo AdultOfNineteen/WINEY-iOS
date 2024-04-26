@@ -34,7 +34,7 @@ public struct FilterDetailView: View {
         )
         
         ScrollView(.horizontal) {
-          HStack(spacing: 5) {
+          LazyHStack(spacing: 5) {
             ForEach(viewStore.rebuyFilterBuffer.sorted(), id: \.self) { filter in
               selectedFilter(title: filter, type: .rebuy)
             }
@@ -58,7 +58,7 @@ public struct FilterDetailView: View {
           .overlay(WineyKitAsset.gray900.swiftUIColor)
         
         ScrollView {
-          VStack(alignment: .leading, spacing: 28) {
+          LazyVStack(alignment: .leading, spacing: 28) {
             filterList(title: "재구매", list: viewStore.rebuyFilter, buffer: viewStore.rebuyFilterBuffer)
             filterList(title: "와인종류", list: viewStore.typeFilter, buffer: viewStore.typeFilterBuffer)
             filterList(title: "생산지", list: viewStore.countryFilter, buffer: viewStore.countryFilterBuffer)
@@ -89,7 +89,7 @@ extension FilterDetailView {
         .wineyFont(.bodyB1)
       
       ScrollView(showsIndicators: false) {
-        VStack(alignment: .leading, spacing: 10) {
+        LazyVStack(alignment: .leading, spacing: 10) {
           ForEach(filterRows(list: list), id: \.self) { filters in
             HStack(spacing: 5) {
               ForEach(filters, id: \.title) { filter in

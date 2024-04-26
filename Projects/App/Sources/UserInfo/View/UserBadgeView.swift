@@ -41,7 +41,7 @@ public struct UserBadgeView: View {
           .offset(y: -68)
       } else {
         ScrollView {
-          VStack(spacing: 20) {
+          LazyVStack(spacing: 20) {
             BadgeSectionTitle(
               title: .sommelier,
               count: viewStore.sommelierBadgeList.filter({ $0.acquiredAt != nil }).count
@@ -57,9 +57,9 @@ public struct UserBadgeView: View {
                 ForEach(viewStore.state.sommelierBadgeList, id: \.badgeId) { badge in
                   BadgeBlock(
                     title: badge.name,
-                    date: extractDate(badge.acquiredAt) ?? "미취득 뱃지",
+                    date: badge.acquiredAt ?? "미취득 뱃지",
                     isRead: badge.isRead ?? true,
-                    imgUrl: extractDate(badge.acquiredAt) != nil ? badge.imgUrl : badge.unActivatedImgUrl
+                    imgUrl: badge.acquiredAt != nil ? badge.imgUrl : badge.unActivatedImgUrl
                   )
                   .onTapGesture {
                     viewStore.send(.tappedBadge(badge))
@@ -77,7 +77,7 @@ public struct UserBadgeView: View {
             )
             .padding(.vertical, 20)
           
-          VStack(spacing: 20) {
+          LazyVStack(spacing: 20) {
             BadgeSectionTitle(
               title: .activity,
               count: viewStore.activityBadgeList.filter({ $0.acquiredAt != nil }).count
@@ -93,9 +93,9 @@ public struct UserBadgeView: View {
                 ForEach(viewStore.state.activityBadgeList, id: \.badgeId) { badge in
                   BadgeBlock(
                     title: badge.name,
-                    date: extractDate(badge.acquiredAt) ?? "미취득 뱃지",
+                    date: badge.acquiredAt ?? "미취득 뱃지",
                     isRead: badge.isRead ?? true,
-                    imgUrl: extractDate(badge.acquiredAt) != nil ? badge.imgUrl : badge.unActivatedImgUrl
+                    imgUrl: badge.acquiredAt != nil ? badge.imgUrl : badge.unActivatedImgUrl
                   )
                   .onTapGesture {
                     viewStore.send(.tappedBadge(badge))
@@ -138,24 +138,6 @@ public struct UserBadgeView: View {
       viewStore.send(._viewWillAppear)
     }
     .navigationBarHidden(true)
-  }
-  
-  private func extractDate(_ dateString: String?) -> String? {
-    if let dateString = dateString {
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-      dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-      
-      if let date = dateFormatter.date(from: dateString) {
-        let outputDateFormatter = DateFormatter()
-        outputDateFormatter.dateFormat = "yyyy-MM-dd"
-        return outputDateFormatter.string(from: date)
-      } else {
-        return nil
-      }
-    } else {
-      return nil
-    }
   }
 }
 
