@@ -35,53 +35,6 @@ public struct NoteCoordinator: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
-      case let .routeAction(_, action: .note(.filteredNote(.noteCardScroll(.tappedNoteCard(noteId, country))))):
-        state.routes.append(.push(.noteDetail(.init(noteId: noteId, country: country))))
-        return .none
-        
-      case .routeAction(_, action: .note(.filteredNote(.tappedFilterButton))):
-        state.routes.append(.push(.filterDetail(.init())))
-        return .none
-        
-      case .routeAction(_, action: .note(.tappedNoteWriteButton)):
-        state.routes.append(.push(.creatNote(.createState)))
-        return .none
-        
-      case .routeAction(_, action: .createNote(.routeAction(_, action: .wineSearch(.tappedBackButton)))):
-        state.routes.pop()
-        return .none
-        
-      case .routeAction(_, action: .createNote(.routeAction(_, action: .setAlcohol(._backToNoteDetail)))):
-        state.routes.pop()
-        return .none
-        
-      case .routeAction(_, action: .createNote(.routeAction(_, action: .noteDone(.tappedButton)))):
-        state.routes.pop()
-        return .none
-        
-      case .routeAction(_, action: .createNote(.routeAction(_, action: .setMemo(._backToNoteDetail)))):
-        state.routes.pop()
-        return .none
-        
-      case .routeAction(_, action: .noteDetail(.tappedBackButton)):
-        state.routes.pop()
-        return .none
-        
-      case .routeAction(_, action: .noteDetail(._patchNote)):
-        state.routes.append(.push(.creatNote(.patchState)))
-        return .none
-        
-      case .routeAction(_, action: .filterDetail(.tappedBackButton)):
-        state.routes.pop()
-        return .none
-        
-      case .routeAction(_, action: .note(._navigateToAnalysis)):
-        state.routes.append(.push(.analysis(.initialState)))
-        return .none
-        
-      case .routeAction(_, action: .analysis(.routeAction(_, action: .wineAnaylsis(.tappedBackButton)))):
-        state.routes.pop()
-        return .none
         
       default:
         return .none

@@ -1,19 +1,20 @@
 //
-//  PersonalInfoPolicyView.swift
-//  MyPageFeature
+//  WineyPolicyView.swift
+//  Winey
 //
-//  Created by 정도현 on 2/1/24.
+//  Created by 정도현 on 4/1/24.
+//  Copyright © 2024 Winey. All rights reserved.
 //
 
 import ComposableArchitecture
 import SwiftUI
 import WineyKit
 
-public struct PersonalInfoPolicyView: View {
-  private let store: StoreOf<PersonalInfoPolicy>
-  @ObservedObject var viewStore: ViewStoreOf<PersonalInfoPolicy>
+public struct WineyPolicyView: View {
+  private let store: StoreOf<WineyPolicy>
+  @ObservedObject var viewStore: ViewStoreOf<WineyPolicy>
   
-  public init(store: StoreOf<PersonalInfoPolicy>) {
+  public init(store: StoreOf<WineyPolicy>) {
     self.store = store
     self.viewStore = ViewStore(
       self.store,
@@ -24,7 +25,7 @@ public struct PersonalInfoPolicyView: View {
   public var body: some View {
     VStack(spacing: 0) {
       NavigationBar(
-        title: "개인정보 처리방침",
+        title: viewStore.viewType.navTitle,
         leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
         leftIconButtonAction: {
           viewStore.send(.tappedBackButton)
@@ -33,7 +34,7 @@ public struct PersonalInfoPolicyView: View {
       )
       
       WineyWebView(
-        url: "http://winey-api-dev-env.eba-atefsiev.ap-northeast-2.elasticbeanstalk.com/docs/privacy-policy.html"
+        url: viewStore.viewType.url
       )
     }
     .background(
@@ -45,11 +46,11 @@ public struct PersonalInfoPolicyView: View {
 }
 
 #Preview {
-  PersonalInfoPolicyView(
+  WineyPolicyView(
     store: .init(
-      initialState: PersonalInfoPolicy.State(),
+      initialState: WineyPolicy.State(viewType: .termsPolicy),
       reducer: {
-        PersonalInfoPolicy()
+        WineyPolicy()
       }
     )
   )

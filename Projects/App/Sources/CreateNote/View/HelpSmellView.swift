@@ -63,7 +63,7 @@ extension HelpSmellView {
   @ViewBuilder
   private func wineScrollContent() -> some View {
     ScrollView {
-      VStack(alignment: .leading, spacing: 50) {
+      LazyVStack(alignment: .leading, spacing: 50) {
         smellCategory(type: .red)
         smellCategory(type: .white)
       }

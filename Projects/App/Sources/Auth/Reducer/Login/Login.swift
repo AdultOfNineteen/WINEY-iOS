@@ -39,7 +39,9 @@ public struct Login: Reducer {
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case ._onAppear:
-      return .send(._checkLoginHistory)
+      return .run { send in
+        await send(._checkLoginHistory)
+      }
       
     case ._checkLoginHistory:
       if let path = userDefaultsService.loadValue(.socialLoginPath) {
@@ -48,7 +50,7 @@ public struct Login: Reducer {
           return .send(._setLoginPath(.kakao))
         case "google":
           return .send(._setLoginPath(.google))
-        case "APPLE":
+        case "apple":
           return .send(._setLoginPath(.apple))
         default: break
         }
@@ -57,7 +59,6 @@ public struct Login: Reducer {
       return .none
       
     case .tappedLogin(let path):
-      
       return .run { send in
         if let token = await authService.socialLogin(path) {
           await send(._socialLogin(path: path, accessToken: token))

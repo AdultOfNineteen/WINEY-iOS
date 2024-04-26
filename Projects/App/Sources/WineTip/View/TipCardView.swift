@@ -22,8 +22,8 @@ public struct TipCardView: View {
   let columns = [GridItem(.flexible(), spacing: 17), GridItem(.flexible())]
   
   public var body: some View {
-    GeometryReader { geometry in
-      VStack(spacing: 0) {
+    VStack(spacing: 0) {
+      if viewStore.isShowNavigationBar {
         NavigationBar(
           title: "와인 초보를 위한",
           coloredTitle: "TIP",
@@ -33,34 +33,35 @@ public struct TipCardView: View {
           },
           backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
         )
-        
-        if let tipCards = viewStore.tipCards {
-          ScrollView {
-            LazyVGrid(columns: columns, spacing: 2) {
-              ForEach(tipCards.contents, id: \.wineTipId) { tipCard in
-                TipCardImage(tipCardInfo: tipCard)
-                  .onTapGesture {
-                    viewStore.send(.tappedTipCard(url: tipCard.url))
+      }
+      
+      if let tipCards = viewStore.tipCards {
+        ScrollView {
+          LazyVGrid(columns: columns, spacing: 2) {
+            ForEach(tipCards.contents, id: \.wineTipId) { tipCard in
+              TipCardImage(tipCardInfo: tipCard)
+                .onTapGesture {
+                  viewStore.send(.tappedTipCard(url: tipCard.url))
+                }
+                .onAppear {
+                  if tipCards.contents[tipCards.contents.count - 1] == tipCard && !tipCards.isLast {
+                    viewStore.send(._fetchNextTipCardPage)
                   }
-                  .onAppear {
-                    if tipCards.contents[tipCards.contents.count - 1] == tipCard && !tipCards.isLast {
-                      viewStore.send(._fetchNextTipCardPage)
-                    }
-                  }
-              }
+                }
             }
           }
-          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-        } else {
-          ProgressView()
-            .frame(maxWidth: .infinity, maxHeight: .infinity) // TODO: 에러처리.
         }
+        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+      } else {
+        ProgressView()
+          .frame(maxWidth: .infinity, maxHeight: .infinity) // TODO: 에러처리.
       }
-      .background(WineyKitAsset.mainBackground.swiftUIColor)
     }
+    .background(WineyKitAsset.mainBackground.swiftUIColor)
     .onAppear {
       viewStore.send(._viewWillAppear)
     }
+    .navigationBarHidden(true)
   }
 }
 

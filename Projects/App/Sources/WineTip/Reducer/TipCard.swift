@@ -13,10 +13,19 @@ import WineyKit
 
 public struct TipCard: Reducer {
   public struct State: Equatable {
+    public var isShowNavigationBar: Bool = true
+    
     public var tipCards: WineTipDTO?
     
     public var searchPage: Int = 0
     public var searchSize: Int = 10
+    
+    public init(isShowNavigationBar: Bool = true, tipCards: WineTipDTO? = nil, searchPage: Int = 0, searchSize: Int = 10) {
+      self.isShowNavigationBar = isShowNavigationBar
+      self.tipCards = tipCards
+      self.searchPage = searchPage
+      self.searchSize = searchSize
+    }
   }
   
   public enum Action {

@@ -159,7 +159,7 @@ public extension View {
             .Chaviera
             .regular
             .swiftUIFont(size: 11)
-        ).lineSpacing(7)
+        ).lineSpacing(2)
       
     case .display1:
       return self

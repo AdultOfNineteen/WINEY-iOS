@@ -27,6 +27,7 @@ public struct Splash: Reducer {
     case _setLoginState
   }
   
+  @Dependency(\.userDefaults) var userDefaultsService
   @Dependency(\.continuousClock) var clock
   @Dependency(\.userDefaults) var userDefaults
   @Dependency(\.user) var userService

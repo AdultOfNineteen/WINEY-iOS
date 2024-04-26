@@ -88,13 +88,19 @@ public struct NoteDetail: Reducer {
       case .modify:
         CreateNoteManager.shared.mode = .patch
         
-        // TODO: NoteCardData nil 처리
-        CreateNoteManager.shared.fetchData(noteData: state.noteCardData!)
-        CreateNoteManager.shared.noteId = state.noteId
-        
-        return .run { send in
-          await send(._presentBottomSheet(false))
-          await send(._patchNote)
+        if let noteData = state.noteCardData {
+          CreateNoteManager.shared.fetchData(noteData: noteData)
+          CreateNoteManager.shared.noteId = state.noteId
+          
+          return .run { send in
+            await CreateNoteManager.shared.loadNoteImage()
+            await send(._presentBottomSheet(false))
+            await send(._patchNote)
+          }
+        } else {
+          return .run { send in
+            await send(._presentBottomSheet(false))
+          }
         }
       }
       

@@ -38,7 +38,7 @@ public struct NoteDetailSmellFeatureView: View {
           .overlay(WineyKitAsset.gray900.swiftUIColor)
         
         ScrollView(.horizontal, showsIndicators: false) {
-          HStack {
+          LazyHStack {
             ForEach(smellKeywordList, id: \.self) { smell in
               Text(smell)
                 .wineyFont(.captionB1)
