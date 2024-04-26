@@ -116,30 +116,125 @@ public struct AppCoordinator: Reducer {
         ]
         return .none
         
-      case .routeAction(
-        _,
-        action:
-          .tabBar(
-            .userInfo(
-              .routeAction(_, action: .userSetting(._moveToHome))
-            )
-          )
-      ):
-      state.routes = [.root(.auth(.initialState))]
-        //        state.routes = [.root(.splash(.init()))]
-      return .none
+      /// 추천 와인 관련 Action
+      case let .routeAction(_, action: .tabBar(.main(.routeAction(_, action: .main(.wineCardScroll(.wineCard(id: _, action: ._navigateToCardDetail(id, data)))))))):
+        state.routes.append(.push(.recommendWine(.wineDetail(id: id, data: data))))
+        return .none
         
-      case .routeAction(
-        _,
-        action:
-          .tabBar(
-            .userInfo(
-              .routeAction(_, action: .signOutConfirm(.tappedConfirmButton))
-            )
-          )
-      ):
-      state.routes = [.root(.splash(.init()))]
-      return .none
+      case .routeAction(_, action: .recommendWine(.routeAction(_, action: .wineDetail(.tappedBackButton)))):
+        state.routes.pop()
+        return .none
+        
+      /// 와인 팁 관련 Action
+      case .routeAction(_, action: .tabBar(.main(.routeAction(_, action: .main(._navigateToTipCard))))):
+        state.routes.append(.push(.wineTip(.tipList)))
+        return .none
+        
+      case let .routeAction(_, action: .tabBar(.main(.routeAction(_, action: .main(.wineTip(.tappedTipCard(url: url))))))):
+        state.routes.append(.push(.wineTip(.tipDetail(url: url))))
+        return .none
+        
+      case .routeAction(_, action: .wineTip(.routeAction(_, action: .tipCardList(.tappedBackButton)))):
+        state.routes.pop()
+        return .none
+        
+      case .routeAction(_, action: .wineTip(.routeAction(_, action: .tipCardDetail(._moveToMain)))):
+        state.routes.pop()
+        return .none
+      
+      /// 와인 분석 관련 Action
+      case .routeAction(_, action: .tabBar(.main(.routeAction(_, action: .main(._navigateToAnalysis))))):
+        state.routes.append(.push(.analysis(.initialState)))
+        return .none
+        
+      case .routeAction(_, action: .tabBar(.note(.routeAction(_, action: .note(._navigateToAnalysis))))):
+        state.routes.append(.push(.analysis(.initialState)))
+        return .none
+        
+      case .routeAction(_, action: .analysis(.routeAction(_, action: .wineAnaylsis(.tappedBackButton)))):
+        state.routes.pop()
+        return .none
+        
+      /// Note 작성 관련 Action
+      case .routeAction(_, action: .tabBar(.note(.routeAction(_, action: .note(.tappedNoteWriteButton))))):
+        state.routes.append(.push(.createNote(.createState)))
+        return .none
+        
+      case .routeAction(_, action: .createNote(.routeAction(_, action: .wineSearch(.tappedBackButton)))):
+        state.routes.pop()
+        return .none
+        
+      case .routeAction(_, action: .createNote(.routeAction(_, action: .noteDone(.tappedButton)))):
+        state.routes.pop()
+        return .none
+        
+      /// 노트 상세보기 관련 Action
+      case let .routeAction(_, action: .tabBar(.note(.routeAction(_, action: .note(.filteredNote(.noteCardScroll(.tappedNoteCard(noteId: noteId, country: country)))))))):
+        state.routes.append(.push(.noteDetail(.init(noteId: noteId, country: country))))
+        return .none
+        
+      case .routeAction(_, action: .noteDetail(._patchNote)):
+        state.routes.append(.push(.createNote(.patchState)))
+        return .none
+        
+      case .routeAction(_, action: .noteDetail(.tappedBackButton)):
+        state.routes.pop()
+        return .none
+        
+      case .routeAction(_, action: .createNote(.routeAction(_, action: .setAlcohol(._backToNoteDetail)))):
+        state.routes.pop()
+        return .none
+        
+      case .routeAction(_, action: .createNote(.routeAction(_, action: .setMemo(._backToNoteDetail)))):
+        state.routes.pop()
+        return .none
+        
+      /// 노트 필터 관련 Action
+      case .routeAction(_, action: .tabBar(.note(.routeAction(_, action: .note(.filteredNote(.tappedFilterButton)))))):
+        state.routes.append(.push(.noteFilter(.init())))
+        return .none
+        
+      case .routeAction(_, action: .noteFilter(.tappedBackButton)):
+        state.routes.pop()
+        return .none
+        
+      /// 유저 정보 관련 Action
+      case let .routeAction(_, action: .tabBar(.userInfo(.routeAction(_, action: .userInfo(._moveToUserInfo(userId)))))):
+        state.routes.append(.push(.userSetting(.userSetting(userId: userId))))
+        return .none
+
+      case .routeAction(_, action: .userSetting(.routeAction(_, action: .settingMain(.tappedBackButton)))):
+        state.routes.pop()
+        return .none
+        
+      case .routeAction(_, action: .userSetting(.routeAction(_, action: .settingMain(._moveToHome)))):
+        state.routes.pop()
+        state.routes = [.root(.splash(.initialState))]
+        return .none
+        
+      case .routeAction(_, action: .userSetting(.routeAction(_, action: .signOutConfirm(.tappedConfirmButton)))):
+        state.routes.pop()
+        state.routes = [.root(.splash(.initialState))]
+        return .none
+        
+      /// 유저 뱃지 관련 Action
+      case let .routeAction(_, action: .tabBar(.userInfo(.routeAction(_, action: .userInfo(._moveToBadgeTap(userId)))))):
+        state.routes.append(.push( .userBadge(.init(userId: userId) )))
+        return .none
+        
+      case .routeAction(_, action: .userBadge(.tappedBackButton)):
+        state.routes.pop()
+        return .none
+        
+      /// 약관 관련 Action
+      case let .routeAction(_, action: .tabBar(.userInfo(.routeAction(_, action: .userInfo(.tappedPolicySection(type)))))):
+        state.routes.append(.push(.policy(.init(viewType: type))))
+        return .none
+        
+      case .routeAction(_, action: .policy(.tappedBackButton)):
+        state.routes.pop()
+        return .none
+        
       default:
       return .none
       }
