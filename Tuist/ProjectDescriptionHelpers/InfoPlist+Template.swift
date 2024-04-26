@@ -45,8 +45,9 @@ public extension InfoPlist {
     ],
     "CFBundleDisplayName": .string("WINEY"),
     "CFBundleName": .string("WINEY"),
-    "NSLocationWhenInUseUsageDescription" : .string("앱이 위치 기반 기능을 제공하기 위해 사용자의 위치 정보가 필요합니다."),
-    "NSPhotoLibraryUsageDescription": .string("앱에서 사용자의 사진을 선택할 수 있도록 사진 갤러리에 접근 권한이 필요합니다."),
+    "NSLocationWhenInUseUsageDescription" : .string("사용자의 위치 기반으로 와인 상점 정보를 제공하기 위해 사용자의 위치 정보가 필요합니다."),
+    "NSPhotoLibraryUsageDescription": .string("와인 후기를 남기기 위해 사용자의 사진을 선택할 수 있도록 사진 갤러리에 접근 권한이 필요합니다."),
+    "NSCameraUsageDescription" : .string("와인 후기를 남기기 위한 용도의 촬영을 위해 앱에서 사용자의 카메라에 접근할 수 있도록 접근 권한이 필요합니다."),
     "GIDClientID":
         .string(APIKeys.GOOGLE_API_KEY),
     "com.apple.developer.applesignin": ["Default"],
