@@ -8,8 +8,8 @@
 
 import Dependencies
 import Foundation
-import WineyNetwork
 import UIKit
+import WineyNetwork
 
 public struct NoteService {
   public var notes: (_ page: Int, _ size: Int, _ order: Int, _ country: Set<String>, _ wineType: Set<String>, _  buyAgain: Int?) async -> Result<NoteDTO, Error>

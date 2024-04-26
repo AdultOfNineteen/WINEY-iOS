@@ -47,6 +47,7 @@ public struct MapView: View {
           Spacer()
         }
         .padding(.top, 84)
+        
       } else {
         VStack {
           ZStack(alignment: .bottom) {
@@ -111,16 +112,6 @@ public struct MapView: View {
       .padding(.bottom, 169)
     }
     .ignoresSafeArea()
-    .task {
-      await viewStore
-        .send(._onAppear)
-        .finish()
-    }
-    .onDisappear(
-      perform: {
-        viewStore.send(._onDisappear)
-      }
-    )
     .shopBottomSheet(
       height: viewStore.binding(
         get: \.sheetHeight,
@@ -167,9 +158,7 @@ extension MapView {
   var reloadMapButton: some View {
     Button(
       action: {
-        viewStore.send(
-          .tappedReloadCurrentMap
-        )
+        viewStore.send(.tappedReloadCurrentMap)
       },
       label: {
         ZStack {

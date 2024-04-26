@@ -38,9 +38,16 @@ struct MapSheetView: View {
           }
           
           if viewStore.shopList.isEmpty {
-            EmptyListInfoView()
+            VStack {
+              Spacer()
+                .frame(height: viewStore.selectedCategory == .myPlace ? 31.5 : 128)
+              
+              EmptyListInfoView(type: viewStore.selectedCategory == .myPlace ? .bookmark : .shop)
+              Spacer()
+            }
           } else {
             cellList
+              .padding(.bottom, 100)
           }
         }
       }
@@ -80,7 +87,9 @@ struct MapSheetView: View {
       .navigationDestination(
         isPresented: viewStore.$isNavigationActive,
         destination: {
-          VStack {
+          VStack(spacing: 0) {
+            Spacer()
+              .frame(height: 25)
             ShopDetailCell(
               shopInfo: viewStore.tappedShopInfo ?? .dummy,
               isBookmarked: .init(

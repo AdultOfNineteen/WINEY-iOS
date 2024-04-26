@@ -91,7 +91,6 @@ public struct Main: Reducer {
         
         
       case .tappedAnalysisButton:
-        print("Go to Analysis")
         return .send(._navigateToAnalysis)
         
       case .tappedTipArrow:

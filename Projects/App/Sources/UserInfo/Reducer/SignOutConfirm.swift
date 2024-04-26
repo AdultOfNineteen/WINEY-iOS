@@ -66,11 +66,12 @@ public struct SignOutConfirm: Reducer {
     case .tappedConfirmButton:
       return .send(._setSheetState(false))
     
-    case ._signOutUser(let data):
+    case ._signOutUser:
       userDefaultsService.deleteValue(.accessToken)
       userDefaultsService.deleteValue(.refreshToken)
       userDefaultsService.deleteValue(.userID)
       userDefaultsService.deleteValue(.socialLoginPath)
+      userDefaultsService.saveFlag(.hasLaunched, true)
       return .send(._setSheetState(true))
       
     case ._setSheetState(let bool):

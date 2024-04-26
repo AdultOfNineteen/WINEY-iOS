@@ -140,8 +140,7 @@ private struct SocialNetworking {
   
   @MainActor
   private func googleLogin() async -> String? {
-    guard let rootVC =
-            UIApplication
+    guard let rootVC = UIApplication
       .shared
       .delegate?
       .window??

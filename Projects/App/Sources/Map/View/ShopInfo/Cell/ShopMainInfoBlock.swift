@@ -43,6 +43,7 @@ struct ShopMainInfoBlock: View {
             .foregroundColor(
               WineyKitAsset.gray50.swiftUIColor
             )
+            .frame(height: 23)
           
           Text(shopInfo.shopType)
             .wineyFont(.captionM1)
@@ -110,6 +111,8 @@ struct ShopMainInfoBlock: View {
               )
           }
         }
+        .padding(.leading, 1)
+        .frame(height: 26)
       }
       
       Spacer()

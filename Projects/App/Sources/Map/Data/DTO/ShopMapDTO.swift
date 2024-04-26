@@ -165,7 +165,7 @@ extension ShopMapDTO {
     businessHour: "월~화 10:00~19:00",
     address: "송파구 올림픽로 37길 2층",
     phone: "000-000-0000",
-    name: "모이니 와인바1",
+    name: "The 술 세계주류 할인점",
     shopType: "와인바",
     shopMoods: ["양식", "프랑스", "파스타", "랄라", "고라니"],
     like: true

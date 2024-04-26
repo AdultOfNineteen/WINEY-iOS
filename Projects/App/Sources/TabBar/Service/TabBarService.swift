@@ -34,12 +34,10 @@ public class AdaptivePresentationManager: AdaptivePresentationControllerDelegate
   }
   
   public func presentationControllerDidDismiss() -> PassthroughSubject<Void, Never> {
-    print("2️⃣2️⃣2️⃣2️⃣2️⃣2️⃣2️⃣2️⃣2️⃣2️⃣2️⃣2️⃣2️⃣2️⃣2️⃣2️⃣")
     return disappearSignal
   }
   
   public func adaptPresentationControllerDidDismiss() {
-    print("3️⃣3️⃣3️⃣3️⃣3️⃣3️⃣3️⃣3️⃣3️⃣3️⃣3️⃣3️⃣3️⃣3️⃣3️⃣3️⃣")
     disappearSignal.send(())
   }
 }

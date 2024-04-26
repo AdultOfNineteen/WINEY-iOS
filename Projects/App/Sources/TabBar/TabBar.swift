@@ -44,6 +44,7 @@ public struct TabBar: Reducer {
     case _onSetting
     
     // MARK: - Inner SetState Action
+    case _mapStreamConnect(TabBarItem)
     
     // MARK: - Child Action
     case main(MainCoordinator.Action)
@@ -59,22 +60,16 @@ public struct TabBar: Reducer {
     Reduce { state, action in
       switch action {
       case ._onSetting:
-        print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
-        print("_onSetting")
-        print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
         return .run { send in
-          print("1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣")
           tapService.adaptivePresentationControl()
-            .sink {
-              print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
-              print("뷰 사라질 때 마다 반응하는거 TabReducer에서 받고 있음")
-              print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
-            }
         }
         
       case let.tabSelected(tab):
         state.selectedTab = tab
-        return .none
+        return .send(._mapStreamConnect(tab))
+        
+      case let ._mapStreamConnect(tab):
+        return .send(.map(.routeAction(0, action: .map(._tappedMapTabBarItem(tab == .map)))))
         
       case .main(.routeAction(_, action: .main(._navigateToAnalysis))):
         return .send(._setTabHiddenStatus(true))

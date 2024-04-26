@@ -53,10 +53,10 @@ struct ShopBottomSheet<Content>: View where Content: View {
   @Binding var height: ShopSheetHeight
   @Binding var presentProgress: Bool
   @State private var isOnAppear: Bool = false
-  @State private var previousPresentProgress: Bool?
+  //  @State private var previousPresentProgress: Bool?
   
   @GestureState private var translation: CGFloat = 0
-  @State private var coverOpacity: CGFloat = 1
+  //  @State private var coverOpacity: CGFloat = 1
   private let defaultBackGroundColor = WineyKitAsset.gray950.swiftUIColor
   
   private let limitDragGap: CGFloat = 120
@@ -102,7 +102,7 @@ struct ShopBottomSheet<Content>: View where Content: View {
         Rectangle()
           .fill(defaultBackGroundColor)
       }
-      .frame(height: 25)
+      .frame(height: 30) // 25
       
       RoundedRectangle(cornerRadius: 6)
         .fill(WineyKitAsset.gray800.swiftUIColor)
@@ -117,6 +117,7 @@ struct ShopBottomSheet<Content>: View where Content: View {
           self.indicator
             .cornerRadius(12, corners: .topLeft)
             .cornerRadius(12, corners: .topRight)
+            .offset(y: 5)
           NavigationStack {
             ZStack(alignment: .top) {
               defaultBackGroundColor
@@ -129,6 +130,7 @@ struct ShopBottomSheet<Content>: View where Content: View {
                 }
               } else {
                 self.content()
+                //                  .animation(.none)
               }
             }
           }
@@ -140,6 +142,7 @@ struct ShopBottomSheet<Content>: View where Content: View {
       )
       .frame(height: geometry.size.height, alignment: .bottom)
       .offset(y: max(self.offset + self.translation, 0))
+      //      .offset(y: max(30, 0))
       .highPriorityGesture(
         presentProgress ? nil : dragGesture
       )
@@ -166,7 +169,7 @@ struct ShopBottomSheet<Content>: View where Content: View {
 }
 
 public enum ShopSheetHeight: Double, Equatable {
-  case close = 115
+  case close = 100 // 120 정도
   case medium = 526
-  case large = 676
+  case large = 660
 }
