@@ -46,6 +46,7 @@ struct ShopListCell: View {
             .cornerRadius(10, corners: .allCorners)
         }
       }
+      .frame(width: 109, height: 98)
       
       ShopMainInfoBlock(
         type: .short,

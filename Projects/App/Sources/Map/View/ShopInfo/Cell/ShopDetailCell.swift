@@ -13,6 +13,7 @@ struct ShopDetailCell: View {
   @State var presentBusinessHour: Bool = false
   @Binding private var isBookmarked: Bool
   private var shopInfo: ShopMapDTO
+  private let shopBusinessHour: [Substring]
   private var presentBusinessHourAction: ((_ state: Bool) -> Void)
   
   init(
@@ -21,6 +22,7 @@ struct ShopDetailCell: View {
     presentBusinessHourAction: @escaping (_ state: Bool) -> Void
   ) {
     self.shopInfo = shopInfo
+    self.shopBusinessHour = shopInfo.businessHour.split(separator: "\n")
     self._isBookmarked = isBookmarked
     self.presentBusinessHourAction = presentBusinessHourAction
   }
@@ -67,7 +69,7 @@ struct ShopDetailCell: View {
             VStack(alignment: .leading, spacing: 6) {
               HStack(spacing: 10) {
                 WineyAsset.Assets.infoClock.swiftUIImage
-                Text(shopInfo.businessHour)
+                Text(shopBusinessHour.first ?? "월~화 10:00~19:00") // ⭐️
                   .padding(.trailing, 10)
                 Button(
                   action: {
@@ -84,24 +86,28 @@ struct ShopDetailCell: View {
               }
               
               if presentBusinessHour {
-                Group {
-                  Text("요기 하드코딩 된 상태입니다")
-                  Text("월~화 10:00~19:00")
-                  Text("오스틴 시간을 배열로 내려주실 수 있나요...")
-                  Text("혹싀..........")
-                    .padding(.bottom, 8)
+                VStack(alignment: .leading, spacing: 0) {
+                  if shopBusinessHour.count > 1 {
+                    VStack(alignment: .leading, spacing: 0) {
+                      ForEach(shopBusinessHour, id: \.self) { hour in
+                        Text(hour)
+                          .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
+                          .padding(.bottom, 8)
+                      }
+                    }
+                    .padding(.leading, 35)
+                  }
                 }
-                .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
-                .padding(.leading, 35)
               }
             }
+            
             VStack {
               HStack(spacing: 10) {
                 WineyAsset.Assets.infoMark.swiftUIImage
                 Text(shopInfo.address)
                   .padding(.trailing, 10)
                 
-                Text("\(shopInfo.meter)m")
+                Text("\(Int(shopInfo.meter))m")
                   .foregroundColor(WineyKitAsset.gray800.swiftUIColor)
                 Spacer()
               }
