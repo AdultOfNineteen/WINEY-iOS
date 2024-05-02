@@ -20,7 +20,7 @@ public struct Splash: Reducer {
   public enum Action {
     // MARK: - Inner Business Action
     case _onAppear
-    case _checkConnectHistory
+    case _checkConnectHistory(_ status: Bool)
     case _moveToHome
     case _moveToAuth
     
@@ -37,16 +37,15 @@ public struct Splash: Reducer {
     case ._onAppear:
       return .run { send in
         switch await userService.info() {
-        case .success:
-          await send(._checkConnectHistory)
+        case .success(let data):
+          await send(._checkConnectHistory(data.status == "ACTIVE"))
         case .failure:
           break // 실패 시 자동 처리
         }
       }
       
-    case ._checkConnectHistory:
-      if let hasLaunched = userDefaults.loadFalg(.hasLaunched),
-      hasLaunched {
+    case ._checkConnectHistory(let status):
+      if status {
         return .send(._moveToHome)
       } else {
         return .send(._moveToAuth)
