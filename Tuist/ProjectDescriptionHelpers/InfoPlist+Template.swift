@@ -7,13 +7,12 @@
 
 import ProjectDescription
 import EnvPlugin
+import Foundation
 
 public extension InfoPlist {
   private static let basic: [String: Plist.Value] = [
-    "CFBundleShortVersionString": "1.0",
-    "CFBundleVersion": "1",
+    "CFBundleShortVersionString": "0.10",
     "CFBundleDevelopmentRegion": "ko_KR",
-    "UIUserInterfaceStyle": "Dark",
     "UIAppFonts": [
       "Item 0": "Pretendard-Medium.otf",
       "Item 1": "Pretendard-Bold.otf"
@@ -30,21 +29,19 @@ public extension InfoPlist {
         ]
       ]
     ],
-    "CFBundleShortVersionString": "1.0",
-    "CFBundleVersion": "1",
-    "CFBundleDevelopmentRegion": "ko_KR",
+    "CFBundleVersion": .string(dynamicBuildNumber()),
     "UIUserInterfaceStyle": "Dark",
-    "UILaunchStoryboardName":"LaunchScreen",
-    "UIAppFonts": [
-      "Item 0": "Pretendard-Medium.otf",
-      "Item 1": "Pretendard-Bold.otf"
+    "UISupportedInterfaceOrientations": [
+      "Item 0": "UIInterfaceOrientationPortrait"
     ],
+    "UILaunchStoryboardName":"LaunchScreen",
     "LSApplicationQueriesSchemes": [
       "kakaokompassauth",
       "kakaolink"
     ],
     "CFBundleDisplayName": .string("WINEY"),
     "CFBundleName": .string("WINEY"),
+    "ITSAppUsesNonExemptEncryption": false, // 수출 규정
     "NSLocationWhenInUseUsageDescription" : .string("사용자의 위치 기반으로 와인 상점 정보를 제공하기 위해 사용자의 위치 정보가 필요합니다."),
     "NSPhotoLibraryUsageDescription": .string("와인 후기를 남기기 위해 사용자의 사진을 선택할 수 있도록 사진 갤러리에 접근 권한이 필요합니다."),
     "NSCameraUsageDescription" : .string("와인 후기를 남기기 위한 용도의 촬영을 위해 앱에서 사용자의 카메라에 접근할 수 있도록 접근 권한이 필요합니다."),
@@ -82,5 +79,13 @@ public extension InfoPlist {
     }
     
     return .extendingDefault(with: infoPlist)
+  }
+  
+  static func dynamicBuildNumber() -> String {
+    let date = Date()
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyyMMdd"
+    let dateStr = dateFormatter.string(from: date)
+    return dateStr
   }
 }
