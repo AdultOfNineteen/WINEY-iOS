@@ -48,15 +48,15 @@ struct LoginView: View {
       }
       .padding(.bottom, 30)
       
-      Button( // 추후 삭제
-        action: {
-          viewStore
-            .send(._gotoMain)
-        },
-        label: {
-          Text("홈으로 이동")
-        }
-      )
+//      Button( // 추후 삭제
+//        action: {
+//          viewStore
+//            .send(._gotoMain)
+//        },
+//        label: {
+//          Text("홈으로 이동")
+//        }
+//      )
       
       loginPathButtonSpace
         .padding(.bottom, 36)
