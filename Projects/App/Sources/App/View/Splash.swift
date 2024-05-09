@@ -35,6 +35,9 @@ public struct Splash: Reducer {
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case ._onAppear:
+      // Swipe Gesture 처리
+      userDefaultsService.saveFlag(.isPopGestureEnabled, true)
+      
       return .run { send in
         switch await userService.info() {
         case .success(let data):

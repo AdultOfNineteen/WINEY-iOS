@@ -10,7 +10,7 @@ import Dependencies
 import SwiftUI
 
 extension View {
-  /// 스와이프로 네비게이션 가능을 해당 뷰에서만 끔
+  /// 해당 뷰의 Swipe Gesture 기능 제거
   func popGestureDisabled() -> some View {
     modifier(PopGestureDisabledViewModifier())
   }
