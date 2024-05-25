@@ -62,6 +62,7 @@ public struct BottomSheet<
   private var backgroundColor: BackgroundColor
   @Binding private var isPresented: Bool
   private var headerArea: HeaderArea
+  private var spacingBottomSafeArea: Bool
   private var content: Content
   private var bottomArea: BottomArea
   private let activeOutsideTouch: Bool
@@ -74,6 +75,7 @@ public struct BottomSheet<
   public init(
     backgroundColor: BackgroundColor,
     isPresented: Binding<Bool>,
+    spacingBottomSafeArea: Bool = true,
     activeOutsideTouch: Bool = false,
     @ViewBuilder headerArea: () -> HeaderArea,
     @ViewBuilder content: () -> Content,
@@ -81,6 +83,7 @@ public struct BottomSheet<
   ) {
     self.backgroundColor = backgroundColor
     self._isPresented = isPresented
+    self.spacingBottomSafeArea = spacingBottomSafeArea
     self.activeOutsideTouch = activeOutsideTouch
     self.headerArea = headerArea()
     self.content = content()
@@ -105,8 +108,10 @@ public struct BottomSheet<
       bottomArea
         .padding(.bottom, 20)
       
-      Spacer()
-        .frame(height: keyWindow?.safeAreaInsets.bottom)
+      if self.spacingBottomSafeArea {
+        Spacer()
+          .frame(height: keyWindow?.safeAreaInsets.bottom)
+      }
     }
     .frame(maxHeight: 393)
     .background(backgroundColor)
