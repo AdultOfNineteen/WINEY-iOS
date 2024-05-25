@@ -10,6 +10,7 @@ import Combine
 import ComposableArchitecture
 import SwiftUI
 import TCACoordinators
+import WineyKit
 
 public struct AppCoordinatorView: View {
   let store: StoreOf<AppCoordinator>
@@ -104,6 +105,20 @@ public struct AppCoordinatorView: View {
             /AppScreen.State.tabBar,
             action: AppScreen.Action.tabBar,
             then: TabBarView.init
+          )
+          
+        case .twoSectionSheet:
+          CaseLet(
+            /AppScreen.State.twoSectionSheet,
+            action: AppScreen.Action.twoSectionSheet,
+            then: TwoSectionBottomSheetView.init
+          )
+          
+        case .noteRemoveBottomSheet:
+          CaseLet(
+            /AppScreen.State.noteRemoveBottomSheet,
+            action: AppScreen.Action.noteRemoveBottomSheet,
+            then: NoteRemoveBottomSheetView.init
           )
         }
       }

@@ -31,6 +31,8 @@ public struct AppCoordinator: Reducer {
     case home
   }
   
+  @Dependency(\.continuousClock) var clock
+  
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
@@ -173,8 +175,33 @@ public struct AppCoordinator: Reducer {
         state.routes.append(.push(.noteDetail(.init(noteId: noteId, country: country))))
         return .none
         
-      case .routeAction(_, action: .noteDetail(._patchNote)):
+      case let .routeAction(_, action: .noteDetail(._activateBottomSheet(.setting, data))):
+        state.routes.presentSheet(
+          .twoSectionSheet(.init(sheetMode: .noteDetail(data)))
+        )
+        return .none
+    
+      case .routeAction(_, action: .twoSectionSheet(.noteDetail(._patchNote))):
+        state.routes.dismiss()
         state.routes.append(.push(.createNote(.patchState)))
+        return .none
+        
+      case .patchNote:
+        state.routes.append(.push(.createNote(.patchState)))
+        return .none
+        
+      case let .routeAction(_, action: .twoSectionSheet(.noteDetail(._activateBottomSheet(.remove, data)))):
+        state.routes.dismiss()
+        state.routes.presentSheet(.noteRemoveBottomSheet(.init(noteDetail: data)))
+        return .none
+        
+      case .routeAction(_, action: .noteRemoveBottomSheet(.noteDetail(.tappedBackButton))):
+        state.routes.dismiss()
+        state.routes.pop()
+        return .none
+        
+      case .routeAction(_, action: .noteRemoveBottomSheet(._dismissScreen)):
+        state.routes.dismissAll()
         return .none
         
       case .routeAction(_, action: .noteDetail(.tappedBackButton)):
@@ -182,10 +209,6 @@ public struct AppCoordinator: Reducer {
         return .none
         
       case .routeAction(_, action: .createNote(.routeAction(_, action: .setAlcohol(._backToNoteDetail)))):
-        state.routes.pop()
-        return .none
-        
-      case .routeAction(_, action: .createNote(.routeAction(_, action: .setMemo(._backToNoteDetail)))):
         state.routes.pop()
         return .none
         
