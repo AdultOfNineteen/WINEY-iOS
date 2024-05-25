@@ -48,6 +48,7 @@ public struct TwoSectionBottomSheet: Reducer {
     
     // MARK: - Inner Business Action
     case _onAppear
+    case _onDisappear
     
     // MARK: - Inner SetState Action
     

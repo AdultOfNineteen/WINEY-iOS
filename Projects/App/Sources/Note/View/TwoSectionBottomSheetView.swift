@@ -29,6 +29,9 @@ public struct TwoSectionBottomSheetView: View {
     .onAppear {
       viewStore.send(._onAppear)
     }
+    .onDisappear {
+      viewStore.send(._onDisappear)
+    }
   }
 }
 
