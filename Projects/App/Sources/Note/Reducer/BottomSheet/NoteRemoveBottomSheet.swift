@@ -9,7 +9,6 @@
 import CombineExt
 import ComposableArchitecture
 import Foundation
-import SwiftUI
 
 public struct NoteRemoveBottomSheet: Reducer {
   public struct State: Equatable {

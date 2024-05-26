@@ -10,7 +10,6 @@ import Combine
 import ComposableArchitecture
 import Foundation
 import TCACoordinators
-import WineyKit
 
 public enum NoteSheetOption: Equatable {
   case patchNote
@@ -37,8 +36,6 @@ public struct AppCoordinator: Reducer {
     case auth
     case home
   }
-  
-  @Dependency(\.continuousClock) var clock
   
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in

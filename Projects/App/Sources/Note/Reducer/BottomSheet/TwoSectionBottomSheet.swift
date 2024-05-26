@@ -9,7 +9,6 @@
 import CombineExt
 import ComposableArchitecture
 import Foundation
-import SwiftUI
 
 public enum TwoSectionBottomSheetMode: Equatable {
   case noteDetail(NoteDetail.State)
