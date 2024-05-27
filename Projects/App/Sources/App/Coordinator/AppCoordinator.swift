@@ -10,7 +10,11 @@ import Combine
 import ComposableArchitecture
 import Foundation
 import TCACoordinators
-import WineyKit
+
+public enum NoteSheetOption: Equatable {
+  case patchNote
+  case removeSheet(NoteDetail.State)
+}
 
 public struct AppCoordinator: Reducer {
   
@@ -22,6 +26,8 @@ public struct AppCoordinator: Reducer {
     )
     
     public var routes: [Route<AppScreen.State>]
+    
+    public var noteMode: NoteSheetOption? = nil  // 노트 바텀시트에 대한 로직 처리
   }
   
   public enum Action: IndexedRouterAction {
@@ -173,8 +179,43 @@ public struct AppCoordinator: Reducer {
         state.routes.append(.push(.noteDetail(.init(noteId: noteId, country: country))))
         return .none
         
-      case .routeAction(_, action: .noteDetail(._patchNote)):
-        state.routes.append(.push(.createNote(.patchState)))
+      case let .routeAction(_, action: .noteDetail(._activateBottomSheet(.setting, data))):
+        state.routes.presentSheet(
+          .twoSectionSheet(.init(sheetMode: .noteDetail(data)))
+        )
+        return .none
+        
+      case .routeAction(_, action: .twoSectionSheet(.noteDetail(._patchNote))):
+        state.routes.dismiss()
+        state.noteMode = .patchNote
+        return .none
+        
+      case .routeAction(_, action: .twoSectionSheet(._onDisappear)):
+        if let noteMode = state.noteMode {
+          switch noteMode {
+          case .patchNote:
+            state.routes.append(.push(.createNote(.patchState)))
+            
+          case let .removeSheet(data):
+            state.routes.presentSheet(.noteRemoveBottomSheet(.init(noteDetail: data)))
+          }
+        }
+        
+        state.noteMode = nil
+        return .none
+        
+      case let .routeAction(_, action: .twoSectionSheet(.noteDetail(._activateBottomSheet(.remove, data)))):
+        state.routes.dismiss()
+        state.noteMode = .removeSheet(data)
+        return .none
+        
+      case .routeAction(_, action: .noteRemoveBottomSheet(.noteDetail(.tappedBackButton))):
+        state.routes.dismiss()
+        state.routes.pop()
+        return .none
+        
+      case .routeAction(_, action: .noteRemoveBottomSheet(._dismissScreen)):
+        state.routes.dismissAll()
         return .none
         
       case .routeAction(_, action: .noteDetail(.tappedBackButton)):

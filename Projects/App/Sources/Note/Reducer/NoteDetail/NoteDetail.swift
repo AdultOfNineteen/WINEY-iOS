@@ -14,16 +14,20 @@ public enum NoteDetailOption: String {
   case modify = "수정하기"
 }
 
+// Bottom Sheet 구분
+public enum NoteDetailBottomSheet: String {
+  case setting
+  case remove
+}
+
 public struct NoteDetail: Reducer {
   public struct State: Equatable {
+    
     let noteId: Int
     let country: String
     
     public var noteCardData: NoteDetailDTO?
-    
-    public var selectOption: NoteDetailOption? = nil
-    public var isPresentedBottomSheet: Bool = false
-    public var isPresentedRemoveSheet: Bool = false
+    public var selectOption: NoteDetailOption?
     
     public init(noteId: Int, country: String) {
       self.noteId = noteId
@@ -36,14 +40,12 @@ public struct NoteDetail: Reducer {
     case tappedBackButton
     case tappedSettingButton
     case tappedOption(NoteDetailOption)
-    case tappedOutsideOfBottomSheet
     case tappedNoteDelete(Int)
     
     // MARK: - Inner Business Action
-    case _presentBottomSheet(Bool)
-    case _presentRemoveSheet(Bool)
     case _viewWillAppear
     case _patchNote
+    case _activateBottomSheet(mode: NoteDetailBottomSheet, data: NoteDetail.State)
     
     // MARK: - Inner SetState Action
     case _setDetailNotes(data: NoteDetailDTO)
@@ -54,76 +56,64 @@ public struct NoteDetail: Reducer {
   
   @Dependency(\.note) var noteService
   
-  public func reduce(into state: inout State, action: Action) -> Effect<Action> {
-    switch action {
-    case ._viewWillAppear:
-      let id = state.noteId
-      
-      return .run { send in
-        switch await noteService.noteDetail(id) {
-        case let .success(data):
-          await send(._setDetailNotes(data: data))
-        case let .failure(error):
-          await send(._failureSocialNetworking(error))
+  public var body: some ReducerOf<Self> {
+    Reduce { state, action in
+      switch action {
+      case ._viewWillAppear:
+        let id = state.noteId
+        
+        return .run { send in
+          switch await noteService.noteDetail(id) {
+          case let .success(data):
+            await send(._setDetailNotes(data: data))
+          case let .failure(error):
+            await send(._failureSocialNetworking(error))
+          }
         }
-      }
-      
-    case let ._setDetailNotes(data: data):
-      state.noteCardData = data
-      return .none
-      
-    case .tappedSettingButton:
-      return .send(._presentBottomSheet(true))
-      
-    case .tappedOutsideOfBottomSheet:
-      return .send(._presentBottomSheet(false))
-      
-    case .tappedOption(let option):
-      state.selectOption = option
-      
-      switch option {
-      case .remove:
-        return .send(._presentRemoveSheet(true))
         
-      case .modify:
-        CreateNoteManager.shared.mode = .patch
+      case let ._setDetailNotes(data: data):
+        state.noteCardData = data
+        return .none
         
-        if let noteData = state.noteCardData {
-          CreateNoteManager.shared.fetchData(noteData: noteData)
-          CreateNoteManager.shared.noteId = state.noteId
+      case .tappedSettingButton:
+        return .send(._activateBottomSheet(mode: .setting, data: state))
+        
+      case .tappedOption(let option):
+        state.selectOption = option
+        
+        switch option {
+        case .modify:
+          CreateNoteManager.shared.mode = .patch
           
-          return .run { send in
-            await CreateNoteManager.shared.loadNoteImage()
-            await send(._presentBottomSheet(false))
-            await send(._patchNote)
+          if let noteData = state.noteCardData {
+            CreateNoteManager.shared.fetchData(noteData: noteData)
+            CreateNoteManager.shared.noteId = state.noteId
+            
+            return .run { send in
+              await CreateNoteManager.shared.loadNoteImage()
+              await send(._patchNote)
+            }
+          } else {
+            return .none
           }
-        } else {
-          return .run { send in
-            await send(._presentBottomSheet(false))
+          
+        case .remove:
+          return .send(._activateBottomSheet(mode: .remove, data: state))
+        }
+        
+      case .tappedNoteDelete(let noteId):
+        return .run { send in
+          switch await noteService.deleteNote(noteId) {
+          case .success:
+            await send(.tappedBackButton)
+          case let .failure(error):
+            await send(._failureSocialNetworking(error))
           }
         }
+        
+      default:
+        return .none
       }
-      
-    case ._presentBottomSheet(let bool):
-      state.isPresentedBottomSheet = bool
-      return .none
-      
-    case ._presentRemoveSheet(let bool):
-      state.isPresentedRemoveSheet = bool
-      return .send(._presentBottomSheet(false))
-      
-    case .tappedNoteDelete(let noteId):
-      return .run { send in
-        switch await noteService.deleteNote(noteId) {
-        case let .success(data):
-          await send(.tappedBackButton)
-        case let .failure(error):
-          await send(._failureSocialNetworking(error))
-        }
-      }
-      
-    default:
-      return .none
     }
   }
 }
