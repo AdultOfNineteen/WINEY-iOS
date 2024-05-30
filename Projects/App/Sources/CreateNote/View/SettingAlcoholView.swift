@@ -81,7 +81,7 @@ extension SettingAlcoholView {
   
   @ViewBuilder
   private func topView() -> some View {
-    VStack {
+    VStack(spacing: 0) {
       NavigationBar(
         title: "와인 정보 입력",
         leftIcon: Image("navigationBack_button"),
@@ -91,7 +91,7 @@ extension SettingAlcoholView {
       
       Spacer()
       
-      VStack(spacing: 9) {
+      VStack(spacing: 10) {
         Text("와인의 기본 정보를 알려주세요!")
           .foregroundStyle(WineyKitAsset.gray400.swiftUIColor)
           .wineyFont(.bodyB1)
