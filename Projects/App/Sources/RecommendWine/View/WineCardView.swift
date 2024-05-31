@@ -29,11 +29,22 @@ public struct WineCardView: View {
         )
         
         RoundedRectangle(cornerRadius: 5.4)
-          .stroke(
+          .foregroundStyle(.ultraThinMaterial)
+        
+        RoundedRectangle(cornerRadius: 5.4)
+          .fill(
+            .white.opacity(
+              viewStore.recommendWineData.wineType == .red || 
+              viewStore.recommendWineData.wineType == .rose ? 0.00 : 0.12
+            )
+          )
+        
+        RoundedRectangle(cornerRadius: 5.4)
+          .strokeBorder(
             LinearGradient(
               colors: [
-                viewStore.recommendWineData.wineType.lineColor.opacity(0.8),
-                viewStore.recommendWineData.wineType.lineColor.opacity(0.1)
+                .white.opacity(0.8),
+                .white.opacity(0.1)
               ],
               startPoint: .topLeading,
               endPoint: .bottomTrailing
@@ -189,6 +200,7 @@ public struct WineCardView: View {
       .onTapGesture {
         viewStore.send(.wineCardTapped)
       }
+      .frame(width: geo.size.width, height: 393)
     }
   }
 }

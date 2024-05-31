@@ -72,7 +72,6 @@ public struct Main: Reducer {
             }
         )
         state.wineCardListState = WineCardScroll.State.init(wineCards: wineCardState)
-        
         return .none
         
       case ._tipCardWillAppear:

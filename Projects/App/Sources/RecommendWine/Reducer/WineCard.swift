@@ -12,9 +12,14 @@ import Foundation
 
 public struct WineCard: Reducer {
   public struct State: Equatable, Identifiable {
-    var index: Int
-    var recommendWineData: RecommendWineData
     public var id: Int { self.index }
+    private(set) var index: Int
+    private(set) var recommendWineData: RecommendWineData
+    
+    public init(index: Int, recommendWineData: RecommendWineData) {
+      self.index = index
+      self.recommendWineData = recommendWineData
+    }
   }
   
   public enum Action {
@@ -35,8 +40,6 @@ public struct WineCard: Reducer {
       return .send(._navigateToCardDetail(state.recommendWineData.id, state.recommendWineData))
       
     case ._navigateToCardDetail:
-      return .none
-    default:
       return .none
     }
   }
