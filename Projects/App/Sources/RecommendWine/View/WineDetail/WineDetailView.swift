@@ -38,7 +38,7 @@ public struct WineDetailView: View {
           divider()
           
           if let wineDetailData = viewStore.windDetailData {
-            WineDetailInfoMiddle(
+            WineDetailInfoMiddleView(
               wineType: WineType.changeType(at: wineDetailData.type),
               nationalAnthems: wineDetailData.country,
               varities: wineDetailData.varietal,
@@ -245,18 +245,11 @@ public struct WineDetailInfoSum: View {
 
 // MARK: WINE INFO ILLUST
 public struct WineDetailIllust: View {
-  private  let illustImage: Image
-  private  let circleBorderColor: Color
-  private  let secondaryColor: Color
   
-  public init(
-    illustImage: Image,
-    circleBorderColor: Color,
-    secondaryColor: Color
-  ) {
-    self.illustImage = illustImage
-    self.circleBorderColor = circleBorderColor
-    self.secondaryColor = secondaryColor
+  let wineType: WineType
+  
+  public init(wineType: WineType) {
+    self.wineType = wineType
   }
   
   public var body: some View {
@@ -265,24 +258,28 @@ public struct WineDetailIllust: View {
         .fill(
           LinearGradient(
             gradient: Gradient(
-              colors: [secondaryColor, secondaryColor.opacity(0)]
+              colors: [wineType.backgroundColor.secondCircle, wineType.backgroundColor.secondCircle.opacity(0)]
             ),
-            startPoint: .top, endPoint: .bottom
+            startPoint: .top,
+            endPoint: .bottom
           )
         )
-        .background(
+        .overlay(
           Circle()
-            .stroke(
+            .strokeBorder(
               LinearGradient(
-                colors: [circleBorderColor, circleBorderColor.opacity(0)],
+                colors: [wineType.circleBorderColor, wineType.circleBorderColor.opacity(0.2), wineType.circleBorderColor.opacity(0)],
                 startPoint: .top, endPoint: .bottom
-              )
+              ),
+              lineWidth: 1
             )
         )
-        .aspectRatio(contentMode: .fit)
-        .frame(width: UIScreen.main.bounds.width / 2.5)
-      
-      illustImage
+        .overlay(
+          wineType.illustImage
+            .resizable()
+            .scaledToFit()
+            .padding(.vertical, wineType == .red || wineType == .etc ? 26 : 18)
+        )
     }
   }
 }

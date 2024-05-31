@@ -67,7 +67,7 @@ extension NoteDetailView {
           .padding(.bottom, 40)
         
         // MARK: Wine Info
-        WineDetailInfoMiddle(
+        WineDetailInfoMiddleView(
           wineType: WineType.changeType(at: noteData.wineType),
           nationalAnthems: viewStore.country,
           varities: noteData.varietal,

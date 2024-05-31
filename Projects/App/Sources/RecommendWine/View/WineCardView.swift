@@ -199,3 +199,22 @@ extension String {
     return self.replacingOccurrences(of: " ", with: "\u{202F}\u{202F}")
   }
 }
+
+#Preview {
+  WineCardView(
+    store: StoreOf<WineCard>(
+      initialState: .init(
+        index: 1,
+        recommendWineData: RecommendWineData(
+          id: 1,
+          wineType: .red,
+          name: "test",
+          country: "test",
+          varietal: "Test",
+          price: 1000
+        )
+      ),
+      reducer: { WineCard() }
+    )
+  )
+}
