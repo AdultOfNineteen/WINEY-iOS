@@ -94,12 +94,12 @@ extension MainView {
   private func todaysWineDescription() -> some View {
     HStack {
       VStack(alignment: .leading, spacing: 12) {
-        HStack(spacing: 0) {
+        HStack(spacing: 2) {
           Text("오늘의 와인")
             .wineyFont(.title1)
             .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
           
-          WineyAsset.Assets.wineIcon.swiftUIImage
+          WineyAsset.Assets.activeWineIcon.swiftUIImage
             .resizable()
             .frame(width: 30, height: 30)
         }

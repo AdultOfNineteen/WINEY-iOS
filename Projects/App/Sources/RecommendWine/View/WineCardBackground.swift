@@ -19,10 +19,6 @@ struct WineCardBackground: View {
           .foregroundStyle(
             wineBackgroundComponent.backgroundColor
           )
-          .overlay(
-            RoundedRectangle(cornerRadius: 5.4)
-              .foregroundStyle(.ultraThinMaterial)
-          )
         
         Circle()
           .fill(
@@ -40,7 +36,6 @@ struct WineCardBackground: View {
           )
           .frame(width: geo.size.width / 2, height: geo.size.width / 2)
           .offset(x: -30, y: -50)
-          .blur(radius: 40)
         
         Circle()
           .fill(
@@ -48,9 +43,9 @@ struct WineCardBackground: View {
           )
           .frame(width: geo.size.width / 2, height: geo.size.width / 2)
           .offset(x: 30, y: 50)
-          .blur(radius: 30)
+        
       }
-      .frame(width: geo.size.width, height: 393)
+      .padding(.horizontal, 18)
     }
   }
 }

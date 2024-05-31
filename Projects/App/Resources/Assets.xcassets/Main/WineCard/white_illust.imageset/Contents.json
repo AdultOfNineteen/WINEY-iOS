@@ -6,12 +6,12 @@
       "scale" : "1x"
     },
     {
-      "filename" : "white_illust 1.png",
+      "filename" : "white_illust@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "white_illust 2.png",
+      "filename" : "white_illust@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

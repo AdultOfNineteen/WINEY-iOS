@@ -1,5 +1,5 @@
 //
-//  WineDetailInfoMiddle.swift
+//  WineDetailInfoMiddleView.swift
 //  Winey
 //
 //  Created by 정도현 on 10/19/23.
@@ -14,7 +14,7 @@ public enum DetailMode {
   case recommendWine
 }
 
-public struct WineDetailInfoMiddle: View {
+public struct WineDetailInfoMiddleView: View {
   public let wineType: WineType
   public let nationalAnthems: String
   public let varities: String
@@ -49,12 +49,11 @@ public struct WineDetailInfoMiddle: View {
   
   public var body: some View {
     HStack(alignment: .top) {
-      VStack {
+      VStack(spacing: 0) {
         WineDetailIllust(
-          illustImage: wineType.illustImage,
-          circleBorderColor: wineType.cirlcleBorderColor,
-          secondaryColor: wineType.backgroundColor.secondCircle
+          wineType: wineType
         )
+        .frame(width: UIScreen.main.bounds.width / 2.5)
         
         Spacer()
           .frame(height: 25)
@@ -136,7 +135,7 @@ public struct WineDetailInfoMiddle: View {
   }
 }
 
-extension WineDetailInfoMiddle {
+extension WineDetailInfoMiddleView {
   
   @ViewBuilder
   private func wineInfoTable(title: String, contents: String) -> some View {
