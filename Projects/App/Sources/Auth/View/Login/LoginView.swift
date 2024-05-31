@@ -25,11 +25,8 @@ struct LoginView: View {
     ZStack {
       WineyKitAsset.mainBackground.swiftUIColor.ignoresSafeArea()
       
-      mainLogoSpace
-      
-      searchWineTextSpace
-        .offset(y: -150) // mainLogoSpace로부터 위로 150
-      
+      centerSpace
+   
       bottomSpace // 로그인 경로 Text부터 서비스 이용약관까지
         .offset(y: -20) // 화면 최 하단으로부터 위로 20
     }
@@ -43,6 +40,7 @@ struct LoginView: View {
   private var bottomSpace: some View {
     VStack { // 로그인 경로 Text부터 서비스 이용약관까지
       Spacer()
+      
       VStack(spacing: 0) {
         loginPathTextSpace
       }
@@ -63,6 +61,23 @@ struct LoginView: View {
       
       serviceInfoTextSpace
         .padding(.bottom, WineyGridRules.bottomButtonPadding)
+    }
+  }
+  
+  private var centerSpace: some View {
+    VStack(spacing: 42) {
+      Spacer()
+        .frame(maxHeight: 200)
+      
+      searchWineTextSpace
+      
+      mainLogoSpace
+      
+      Spacer()
+    }
+    .background {
+      RadientCircleBackgroundView(backgroundType: .login)
+        .offset(y: -30)
     }
   }
   
@@ -159,12 +174,8 @@ struct LoginView: View {
   }
   
   private var mainLogoSpace: some View {
-    VStack(spacing: 21) {
+    VStack(spacing: 24) {
       Image("logo_imge")
-        .background {
-          RadientCircleBackgroundView()
-            .offset(y: -15)
-        }
       
       Image("logoText_imge")
     }
