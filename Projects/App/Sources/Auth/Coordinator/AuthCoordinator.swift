@@ -76,8 +76,9 @@ public struct AuthCoordinator: Reducer {
         }
         return .none
       
-      case .routeAction(_, action: .setFlavorSignUp(._moveWelcomeSignUpView)):
-        state.routes.append( .push( .setWelcomeSignUp(.init())))
+      // MARK: - 큐시즘 쇼케이스 코드
+      case let .routeAction(_, action: .setFlavorSignUp(._moveWelcomeSignUpView(wineType))):
+        state.routes.append( .push( .setWelcomeSignUp(.init(showcaseType: wineType))))
         return .none
         
       default:
