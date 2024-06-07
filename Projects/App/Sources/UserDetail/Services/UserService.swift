@@ -15,6 +15,7 @@ public struct UserService {
   public var patchNickname: (_ nickname: String) async -> Result<VoidResponse, Error>
   public var signOut: (_ userId: Int, _ reason: String) async -> Result<SignOutDTO, Error>
   public var logout: (_ deviceId: String) async -> Result<String, Error>
+  public var connections: () async -> Result<VoidResponse, Error>
 }
 
 extension UserService {
@@ -98,6 +99,14 @@ extension UserService {
         case let .failure(error):
           return .failure(error)
         }
+      }, 
+      connections: {
+        return await Provider<UserAPI>
+          .init()
+          .request(
+            UserAPI.connections,
+            type: VoidResponse.self
+          )
       }
     )
   }()

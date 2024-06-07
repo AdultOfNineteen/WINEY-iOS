@@ -61,6 +61,7 @@ public struct FlavorSignUp: Reducer {
   
   @Dependency(\.userDefaults) var userDefaultsService
   @Dependency(\.preference) var preferenceService
+  @Dependency(\.user) var userService
   
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
@@ -118,7 +119,11 @@ public struct FlavorSignUp: Reducer {
       return .send(._requestSignUp)
       
     case ._handlePreferenceSettingResponse(.success):
-      return .send(._moveWelcomeSignUpView(state.userCheck.chocolate == .dark ? .sour : .scent)) // 큐시즘
+      let userChoice = state.userCheck.chocolate
+      return .run { send in
+        _ = await userService.connections() // API 연결 
+        await send(._moveWelcomeSignUpView(userChoice == .dark ? .sour : .scent)) // 큐시즘
+      }
       
     case ._handlePreferenceSettingResponse(.failure):
       return .none
