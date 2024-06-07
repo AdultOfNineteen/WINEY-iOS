@@ -23,6 +23,7 @@ public struct NoteDoneView: View {
   public var body: some View {
     ZStack {
       colorBackground()
+        .ignoresSafeArea(edges: .top)
       
       contents()
     }
@@ -45,35 +46,40 @@ extension NoteDoneView {
   @ViewBuilder
   private func contents() -> some View {
     VStack(spacing: 0) {
-      Text("테이스팅 노트 작성이\n완료 되었어요!")
-        .wineyFont(.bodyB1)
-        .foregroundStyle(.white)
-        .multilineTextAlignment(.center)
-        .padding(.top, 264)
-        .padding(.horizontal, 49)
-        .padding(.bottom, 48)
-        .background(
-          RoundedRectangle(cornerRadius: 7)
-            .fill(
-              Color(red: 63/255, green: 63/255, blue: 63/255).opacity(0.4)
-            )
-            .background(
-              RoundedRectangle(cornerRadius: 7)
-                .stroke(
-                  LinearGradient(
-                    colors: [
-                      Color(red: 134/255, green: 124/255, blue: 162/255),
-                      Color(red: 150/255, green: 113/255, blue: 1).opacity(0.5),
-                      Color(red: 150/255, green: 113/255, blue: 1).opacity(0.1)
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                  ),
-                  lineWidth: 1
-                )
-            )
-        )
-        .padding(.top, 136)
+      Spacer()
+      
+      ZStack {
+        RoundedRectangle(cornerRadius: 7)
+          .fill(
+            Color(red: 63/255, green: 63/255, blue: 63/255).opacity(0.4)
+          )
+          .background(
+            RoundedRectangle(cornerRadius: 7)
+              .stroke(
+                LinearGradient(
+                  colors: [
+                    Color(red: 134/255, green: 124/255, blue: 162/255),
+                    Color(red: 150/255, green: 113/255, blue: 1).opacity(0.5),
+                    Color(red: 150/255, green: 113/255, blue: 1).opacity(0.1)
+                  ],
+                  startPoint: .topLeading,
+                  endPoint: .bottomTrailing
+                ),
+                lineWidth: 1
+              )
+          )
+          .frame(width: 242, height: 360)
+        
+        VStack(spacing: 41) {
+          
+          WineyAsset.Assets.completeNote.swiftUIImage
+          
+          Text("테이스팅 노트 작성이\n완료 되었어요!")
+            .wineyFont(.bodyB1)
+            .foregroundStyle(.white)
+            .multilineTextAlignment(.center)
+        }
+      }
       
       Spacer()
       

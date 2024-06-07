@@ -9,5 +9,11 @@
 import Foundation
 
 public extension String {
-  static let baseURL = "http://winey-api-dev-env.eba-atefsiev.ap-northeast-2.elasticbeanstalk.com"
+  static var baseURL: String {
+#if DEBUG
+  return "https://dev.winey.shop"
+#else
+  return "https://prod.winey.shop"
+#endif
+  }
 }

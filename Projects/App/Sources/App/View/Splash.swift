@@ -21,6 +21,7 @@ public struct Splash: Reducer {
     // MARK: - Inner Business Action
     case _onAppear
     case _checkConnectHistory(_ status: Bool)
+    case _serverConnection
     case _moveToHome
     case _moveToAuth
     
@@ -49,10 +50,17 @@ public struct Splash: Reducer {
       
     case ._checkConnectHistory(let status):
       if status {
-        return .send(._moveToHome)
+        return .send(._serverConnection)
       } else {
         return .send(._moveToAuth)
       }
+      
+    case ._serverConnection:
+      return .run { send in
+        _ = await userService.connections()
+        await send(._moveToHome)
+      }
+      
     default: return .none
     }
   }

@@ -11,7 +11,14 @@ import ComposableArchitecture
 import Foundation
 
 public struct WelcomeSignUp: Reducer {
-  public struct State: Equatable {}
+  public enum ShowCaseType {
+    case sour
+    case scent
+  }
+  
+  public struct State: Equatable {
+    let showcaseType: ShowCaseType
+  }
   
   public enum Action: Equatable {
     // MARK: - User Action
