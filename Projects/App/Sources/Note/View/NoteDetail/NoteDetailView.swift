@@ -117,7 +117,7 @@ extension NoteDetailView {
   private func noteHeader(noteData: NoteDetailDTO) -> some View {
     HStack(spacing: 0) {
       Text("No.")
-      Text(noteData.noteId < 10 ? "0" + noteData.noteId.description : noteData.noteId.description)
+      Text(noteData.tastingNoteNo < 10 ? "0" + noteData.tastingNoteNo.description : noteData.tastingNoteNo.description)
         .foregroundColor(WineyKitAsset.main3.swiftUIColor)
       
       Spacer()
