@@ -25,6 +25,8 @@ public struct AppScreen: Reducer {
     case userBadge(UserBadge.State)
     case policy(WineyPolicy.State)
     case tabBar(TabBar.State)
+    case twoSectionSheet(TwoSectionBottomSheet.State)
+    case noteRemoveBottomSheet(NoteRemoveBottomSheet.State)
   }
 
   public enum Action {
@@ -40,6 +42,8 @@ public struct AppScreen: Reducer {
     case userBadge(UserBadge.Action)
     case policy(WineyPolicy.Action)
     case tabBar(TabBar.Action)
+    case twoSectionSheet(TwoSectionBottomSheet.Action)
+    case noteRemoveBottomSheet(NoteRemoveBottomSheet.Action)
   }
   
   public var body: some ReducerOf<Self> {
@@ -78,6 +82,12 @@ public struct AppScreen: Reducer {
     }
     Scope(state: /State.tabBar, action: /Action.tabBar) {
       TabBar()
+    }
+    Scope(state: /State.twoSectionSheet, action: /Action.twoSectionSheet) {
+      TwoSectionBottomSheet()
+    }
+    Scope(state: /State.noteRemoveBottomSheet, action: /Action.noteRemoveBottomSheet) {
+      NoteRemoveBottomSheet()
     }
   }
 }

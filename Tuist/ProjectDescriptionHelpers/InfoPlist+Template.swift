@@ -11,7 +11,7 @@ import Foundation
 
 public extension InfoPlist {
   private static let basic: [String: Plist.Value] = [
-    "CFBundleShortVersionString": "0.10",
+    "CFBundleShortVersionString": "0.22",
     "CFBundleDevelopmentRegion": "ko_KR",
     "UIAppFonts": [
       "Item 0": "Pretendard-Medium.otf",
@@ -31,9 +31,8 @@ public extension InfoPlist {
     ],
     "CFBundleVersion": .string(dynamicBuildNumber()),
     "UIUserInterfaceStyle": "Dark",
-    "UISupportedInterfaceOrientations": [
-      "Item 0": "UIInterfaceOrientationPortrait"
-    ],
+    "UISupportedInterfaceOrientations": ["UIInterfaceOrientationPortrait"],
+    "UISupportedInterfaceOrientations~ipad": ["UIInterfaceOrientationPortrait"],
     "UILaunchStoryboardName":"LaunchScreen",
     "LSApplicationQueriesSchemes": [
       "kakaokompassauth",

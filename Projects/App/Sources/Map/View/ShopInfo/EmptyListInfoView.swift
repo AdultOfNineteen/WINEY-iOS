@@ -14,8 +14,17 @@ struct EmptyListInfoView: View {
   
   var body: some View {
     VStack(spacing: 0) {
-      WineyAsset.Assets.blankNote.swiftUIImage
-        .padding(.bottom, 13)
+      if type == .shop {
+        WineyAsset.Assets.blankShopListBackground
+          .swiftUIImage
+      } else {
+        WineyAsset.Assets
+          .blankLikeListBackground
+          .swiftUIImage
+      }
+      
+      Spacer()
+        .frame(height: 13)
       
       VStack(spacing: 6) {
         Text(type.title)

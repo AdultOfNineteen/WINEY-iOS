@@ -22,7 +22,7 @@ public struct WineCardScrollView: View {
   
   public var body: some View {
     GeometryReader { geo in
-      let width = geo.size.width - (95 - 14)   // 22는 trailing Space
+      let width = geo.size.width - (95 - 14)
       
       // 카드 축소 반영 spacing
       HStack(spacing: 14) {

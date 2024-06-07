@@ -18,6 +18,7 @@ public enum UserAPI {
   case patchNickname(nickname: String)
   case signOut(userId: Int, reason: String)
   case logout(deviceId: String)
+  case connections
 }
 
 extension UserAPI: EndPointType {
@@ -43,6 +44,8 @@ extension UserAPI: EndPointType {
       return "/users/\(userId)"
     case let .logout(deviceId: deviceId):
       return "/users/logout"
+    case .connections:
+      return "/connections"
     }
   }
   
@@ -59,6 +62,8 @@ extension UserAPI: EndPointType {
     case .signOut:
       return .delete
     case .logout:
+      return .get
+    case .connections:
       return .get
     }
   }
@@ -112,6 +117,8 @@ extension UserAPI: EndPointType {
         ],
         encoding: .queryString
       )
+    case .connections:
+      return .requestPlain
     }
   }
 }

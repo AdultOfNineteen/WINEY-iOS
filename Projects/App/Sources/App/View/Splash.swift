@@ -21,6 +21,7 @@ public struct Splash: Reducer {
     // MARK: - Inner Business Action
     case _onAppear
     case _checkConnectHistory(_ status: Bool)
+    case _serverConnection
     case _moveToHome
     case _moveToAuth
     
@@ -35,6 +36,9 @@ public struct Splash: Reducer {
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case ._onAppear:
+      // Swipe Gesture 처리
+      userDefaultsService.saveFlag(.isPopGestureEnabled, true)
+      
       return .run { send in
         switch await userService.info() {
         case .success(let data):
@@ -46,10 +50,17 @@ public struct Splash: Reducer {
       
     case ._checkConnectHistory(let status):
       if status {
-        return .send(._moveToHome)
+        return .send(._serverConnection)
       } else {
         return .send(._moveToAuth)
       }
+      
+    case ._serverConnection:
+      return .run { send in
+        _ = await userService.connections()
+        await send(._moveToHome)
+      }
+      
     default: return .none
     }
   }

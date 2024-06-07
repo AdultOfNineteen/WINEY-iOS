@@ -31,14 +31,25 @@ public struct SplashView: View {
   }
   
   private var mainLogoSpace: some View {
-    VStack(spacing: 21) {
+    VStack(spacing: 24) {
       Image("logo_imge")
-        .background {
-          RadientCircleBackgroundView()
-            .offset(y: -15)
-        }
       
       Image("logoText_imge")
     }
+    .background {
+      RadientCircleBackgroundView(backgroundType: .splash)
+        .offset(y: -10)
+    }
   }
+}
+
+#Preview {
+  SplashView(
+    store: Store(
+      initialState: Splash.State(),
+      reducer: {
+        Splash()
+      }
+    )
+  )
 }

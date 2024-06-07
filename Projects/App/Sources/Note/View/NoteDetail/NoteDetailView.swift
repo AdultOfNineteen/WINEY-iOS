@@ -35,47 +35,15 @@ public struct NoteDetailView: View {
       )
       
       if let noteData = viewStore.noteCardData {
-        noteDetail(noteData: noteData)
+        noteDetail(noteData: noteData)     
       } else {
-        VStack {
-          Spacer()
-          ProgressView()
-          Spacer()
-        }
+        ProgressView()
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
     }
     .onAppear {
       viewStore.send(._viewWillAppear)
     }
-    .sheet(
-      isPresented: viewStore.binding(
-        get: \.isPresentedBottomSheet,
-        send: .tappedOutsideOfBottomSheet
-      ), content: {
-        ZStack {
-          WineyKitAsset.gray950.swiftUIColor.ignoresSafeArea(edges: .all)
-          selectOptionView()
-        }
-        .presentationDetents([.height(187)])
-        .presentationDragIndicator(.visible)
-      }
-    )
-    .bottomSheet(
-      backgroundColor: WineyKitAsset.gray950.swiftUIColor,
-      isPresented: viewStore.binding(
-        get: \.isPresentedRemoveSheet,
-        send: .tappedOutsideOfBottomSheet
-      ),
-      headerArea: {
-        WineyAsset.Assets.noteColorImage.swiftUIImage
-      },
-      content: {
-        bottomSheetContent()
-      },
-      bottomArea: {
-        bottomSheetFooter()
-      }
-    )
     .background(WineyKitAsset.mainBackground.swiftUIColor)
     .navigationBarHidden(true)
   }
@@ -99,7 +67,7 @@ extension NoteDetailView {
           .padding(.bottom, 40)
         
         // MARK: Wine Info
-        WineDetailInfoMiddle(
+        WineDetailInfoMiddleView(
           wineType: WineType.changeType(at: noteData.wineType),
           nationalAnthems: viewStore.country,
           varities: noteData.varietal,
@@ -221,63 +189,6 @@ extension NoteDetailView {
         .padding(.top, 36)
     }
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-  }
-  
-  @ViewBuilder
-  private func selectOptionView() -> some View {
-    VStack(spacing: 0) {
-      selectOptionListCard(option: .remove)
-      
-      Divider()
-        .overlay(
-          WineyKitAsset.gray900.swiftUIColor
-        )
-      
-      selectOptionListCard(option: .modify)
-    }
-  }
-  
-  @ViewBuilder
-  private func selectOptionListCard(option: NoteDetailOption) -> some View {
-    HStack {
-      Text(option.rawValue)
-        .wineyFont(.bodyB1)
-        .foregroundStyle(.white)
-      
-      Spacer()
-    }
-    .padding(.vertical, 20)
-    .frame(height: 64)
-    .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-    .background(WineyKitAsset.gray950.swiftUIColor)
-    .onTapGesture {
-      viewStore.send(.tappedOption(option))
-    }
-  }
-  
-  @ViewBuilder
-  private func bottomSheetContent() -> some View {
-    VStack(spacing: 4) {
-      Text("테이스팅 노트를 삭제하시겠어요?")
-        .foregroundStyle(WineyKitAsset.gray200.swiftUIColor)
-      
-      Text("삭제한 노트는 복구할 수 없어요 :(")
-        .foregroundStyle(WineyKitAsset.gray600.swiftUIColor)
-    }
-    .wineyFont(.bodyB1)
-  }
-  
-  @ViewBuilder
-  private func bottomSheetFooter() -> some View {
-    TwoOptionSelectorButtonView(
-      leftTitle: "아니오",
-      leftAction: { viewStore.send(._presentRemoveSheet(false)) }
-      ,
-      rightTitle: "네, 지울래요",
-      rightAction: {
-        viewStore.send(.tappedNoteDelete(viewStore.noteId))
-      }
-    )
   }
 }
 

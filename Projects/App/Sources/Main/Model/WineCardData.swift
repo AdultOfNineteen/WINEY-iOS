@@ -118,7 +118,7 @@ public enum WineType: String, CaseIterable {
     }
   }
   
-  var cirlcleBorderColor: Color {
+  var circleBorderColor: Color {
     switch self {
     case .red:
       return Color(red: 184/255, green: 74/255, blue: 74/255)
@@ -134,7 +134,6 @@ public enum WineType: String, CaseIterable {
       return Color(red: 145/255, green: 177/255, blue: 126/255)
     }
   }
-  
   
   var backgroundColor: WineBackgroundColor {
     switch self {
@@ -188,7 +187,6 @@ public enum WineType: String, CaseIterable {
     }
   }
   
-  
   var illustImage: Image {
     switch self {
     case .red:
@@ -223,6 +221,19 @@ public enum WineType: String, CaseIterable {
       fallthrough
     default:
       return .etc
+    }
+  }
+  
+  var smallCardSpacer: CGFloat {
+    switch self {
+    case .red, .port:
+      return 10
+    case .rose:
+      return 0
+    case .etc:
+      return 12
+    default:
+      return 6
     }
   }
 }
