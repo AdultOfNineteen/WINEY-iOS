@@ -32,7 +32,7 @@ public struct FilteredNote: Reducer {
     public var sortState: SortState = .latest
     public var isPresentedBottomSheet: Bool = false
     
-    public var noteCardList: NoteCardScroll.State?
+    public var noteCardList: NoteCardScroll.State? = NoteManager.shared.noteList
     
     public var noteSearchPage: Int = 0
     public var noteSearchSize: Int = 10
@@ -75,7 +75,8 @@ public struct FilteredNote: Reducer {
         state.typeFilter = FilterManager.shared.typeFilter
         state.countryFilter = FilterManager.shared.countryFilter
         
-        let searchPage = state.noteSearchPage
+        state.noteCardList = NoteManager.shared.noteList
+        
         let searchSize = state.noteSearchSize
         
         let sortState = state.sortState.rawValue
@@ -83,17 +84,24 @@ public struct FilteredNote: Reducer {
         let countries = state.countryFilter
         let types = state.typeFilter.setmap(transform: { filterRequestString(forValue: $0) })
         
-        return .run { send in
-          switch await noteService.notes(searchPage, searchSize, sortState, countries, types, rebuy) {
-          case let .success(data):
-            await send(._setNotes(data: data))
-          case let .failure(error):
-            await send(._failureSocialNetworking(error))
+        if let noteList = state.noteCardList {
+          return .none
+        } else {
+          state.noteSearchPage = 0
+          let searchPage = state.noteSearchPage
+          return .run { send in
+            switch await noteService.notes(searchPage, searchSize, sortState, countries, types, rebuy) {
+            case let .success(data):
+              await send(._setNotes(data: data))
+            case let .failure(error):
+              await send(._failureSocialNetworking(error))
+            }
           }
         }
         
       case let ._setNotes(data):
-        state.noteCardList = NoteCardScroll.State.init(noteCards: data)
+        NoteManager.shared.noteList = NoteCardScroll.State.init(noteCards: data)
+        state.noteCardList = NoteManager.shared.noteList
         return .none
         
       case .tappedSortButton(let sortOption):
@@ -135,7 +143,6 @@ public struct FilteredNote: Reducer {
         state.isPresentedBottomSheet = bool
         return .none
         
-       
       case .noteCardScroll(._fetchNextNotePage):
         guard let noteData = state.noteCardList else {
           return .none
@@ -176,8 +183,8 @@ public struct FilteredNote: Reducer {
         originNoteData.isLast = data.isLast
         originNoteData.totalCnt = data.totalCnt
         
-        state.noteCardList?.noteCards = originNoteData
-        
+        NoteManager.shared.noteList?.noteCards = originNoteData
+        state.noteCardList = NoteManager.shared.noteList
         return .none
         
       default:

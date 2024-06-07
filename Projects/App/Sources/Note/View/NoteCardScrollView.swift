@@ -29,14 +29,14 @@ public struct NoteCardScrollView: View {
           LazyVGrid(columns: columns, spacing: 24) {
             ForEach(viewStore.noteCards.contents, id: \.noteId) { note in
               noteCard(noteData: note)
-                .onTapGesture {
-                  viewStore.send(.tappedNoteCard(noteId: note.noteId, country: note.country))
-                }
                 .onAppear {
-                  if viewStore.noteCards.contents[viewStore.noteCards.contents.count - 1] == note 
+                  if viewStore.noteCards.contents[viewStore.noteCards.contents.count - 1] == note
                       && !viewStore.noteCards.isLast {
                     viewStore.send(._fetchNextNotePage)
                   }
+                }
+                .onTapGesture {
+                  viewStore.send(.tappedNoteCard(noteId: note.noteId, country: note.country))
                 }
             }
           }
