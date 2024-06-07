@@ -11,7 +11,7 @@ import Foundation
 
 public extension InfoPlist {
   private static let basic: [String: Plist.Value] = [
-    "CFBundleShortVersionString": "0.21",
+    "CFBundleShortVersionString": "0.22",
     "CFBundleDevelopmentRegion": "ko_KR",
     "UIAppFonts": [
       "Item 0": "Pretendard-Medium.otf",
