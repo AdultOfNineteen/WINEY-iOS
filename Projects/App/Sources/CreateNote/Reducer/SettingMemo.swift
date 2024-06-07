@@ -105,6 +105,7 @@ public struct SettingMemo: Reducer {
         return .send(._makeNotes)
         
       case ._makeNotes:
+        NoteManager.shared.noteList = nil
         if CreateNoteManager.shared.mode == .create {
           let createNoteData = CreateNoteManager.shared.createNote()
           

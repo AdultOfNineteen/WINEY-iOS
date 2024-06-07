@@ -105,6 +105,7 @@ public struct NoteDetail: Reducer {
         return .run { send in
           switch await noteService.deleteNote(noteId) {
           case .success:
+            NoteManager.shared.noteList = nil
             await send(.tappedBackButton)
           case let .failure(error):
             await send(._failureSocialNetworking(error))

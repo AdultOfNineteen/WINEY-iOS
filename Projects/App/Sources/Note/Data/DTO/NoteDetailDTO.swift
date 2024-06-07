@@ -10,6 +10,7 @@ import Foundation
 
 public struct NoteDetailDTO: Codable, Equatable {
   public let noteId: Int
+  public let tastingNoteNo: Int
   public let noteDate: String
   public let wineType: String
   public let wineName: String

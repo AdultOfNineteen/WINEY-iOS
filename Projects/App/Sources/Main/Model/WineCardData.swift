@@ -213,7 +213,7 @@ public enum WineType: String, CaseIterable {
       return .white
     case "ROSE":
       return .rose
-    case "SPARKL":
+    case "SPARKLING":
       return .sparkl
     case "PORT":
       return .port
