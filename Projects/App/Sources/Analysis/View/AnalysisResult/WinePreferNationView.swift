@@ -31,7 +31,8 @@ public struct WinePreferNationView: View {
           WineBottle(
             nationName: wine.nationName,
             count: wine.count,
-            rank: wine.id
+            countSum: viewStore.countSum,
+            isHighest: wine.id == viewStore.highestCountryIdx
           )
           
           if wine.id < viewStore.winePreferNationList.count - 1 {
@@ -53,18 +54,28 @@ public struct WineBottle: View {
   
   public var nationName: String
   public var count: Int
-  public var rank: Int
+  public var countSum: Int
+  public var isHighest: Bool
+  
+  public init(countAnimation: Int = 0, nationName: String, count: Int, countSum: Int, isHighest: Bool) {
+    self.countAnimation = countAnimation
+    self.nationName = nationName
+    self.count = count
+    self.countSum = countSum
+    self.isHighest = isHighest
+  }
   
   public var body: some View {
     ZStack(alignment: .center) {
       WineyAsset.Assets.wineBottle.swiftUIImage
       
+      // maxheight: 140
       VStack(spacing: 0) {
         Spacer()
         
         Rectangle()
           .fill(
-            rank == 1 ?
+            isHighest ?
             LinearGradient(
               colors: [
                 WineyKitAsset.main1.swiftUIColor,
@@ -80,7 +91,7 @@ public struct WineBottle: View {
                 endPoint: .bottom)
           )
           .padding(.horizontal, 6)
-          .frame(width: 53, height: CGFloat(countAnimation * 40))
+          .frame(width: 53, height: CGFloat(countAnimation))
           .padding(.bottom, 16)
         
         Text("\(nationName)(\(count)회)")
@@ -93,7 +104,7 @@ public struct WineBottle: View {
     }
     .onAppear {
       withAnimation(.easeIn(duration: 1.0)) {
-        countAnimation = count
+        countAnimation = Int(Double(count) / Double(countSum) * 140)
       }
     }
   }
@@ -122,7 +133,11 @@ public struct WinePreferNationView_Previews: PreviewProvider {
       store: Store(
         initialState:
           WinePreferNation.State.init(
-            preferNationList: []),
+            preferNationList: [
+              TopCountry(country: "test", count: 11),
+              TopCountry(country: "test", count: 2)
+            ]
+          ),
         reducer: {
           WinePreferNation()
         }

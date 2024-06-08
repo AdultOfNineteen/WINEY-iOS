@@ -21,6 +21,8 @@ public struct WinePreferNation: Reducer {
   public struct State: Equatable {
     let titleName = "선호 국가"
     let winePreferNationList: IdentifiedArrayOf<WinePreferNationData>
+    var highestCountryIdx = 0
+    var countSum = 0
     
     public init(preferNationList: [TopCountry]) {
       winePreferNationList = IdentifiedArrayOf(
@@ -33,6 +35,8 @@ public struct WinePreferNation: Reducer {
             )
           }
       )
+      highestCountryIdx = winePreferNationList.isEmpty ? 0 : winePreferNationList.sorted { $0.count > $1.count }[0].id
+      countSum = winePreferNationList.reduce(0){ $0 + $1.count }
     }
   }
   
@@ -48,6 +52,7 @@ public struct WinePreferNation: Reducer {
   
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
+      
     default:
       return .none
     }
