@@ -227,7 +227,7 @@ public enum SmellCategory: CaseIterable {
       ]
     case .natural:
       return [
-        WineSmell(korName: "꽃향", codeName: "NATURAL"),
+        WineSmell(korName: "꽃향", codeName: "FLOWER"),
         WineSmell(korName: "풀/나무", codeName: "GRASSWOOD"),
         WineSmell(korName: "허브향", codeName: "HERB")
       ]
