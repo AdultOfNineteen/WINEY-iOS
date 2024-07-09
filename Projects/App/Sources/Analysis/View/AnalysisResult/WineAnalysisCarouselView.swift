@@ -86,6 +86,7 @@ public struct WineAnalysisCarouselView: View {
               .id(5)
             }
           }
+          .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
           .scrollDisabled(true)
           .simultaneousGesture(
             DragGesture()
@@ -145,6 +146,7 @@ public struct PreView: PreviewProvider {
     ),
     avgPrice: 30000
   )
+  
   public static var previews: some View {
     WineAnalysisCarouselView(
       store: Store(
