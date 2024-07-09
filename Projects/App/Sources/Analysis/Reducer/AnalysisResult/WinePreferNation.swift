@@ -11,7 +11,9 @@ import ComposableArchitecture
 import Foundation
 
 public struct WinePreferNationData: Equatable, Identifiable {
-  public var id: Int
+  public var id: String {
+    self.nationName
+  }
   var nationName: String
   var count: Int
 }
@@ -21,22 +23,24 @@ public struct WinePreferNation: Reducer {
   public struct State: Equatable {
     let titleName = "선호 국가"
     let winePreferNationList: IdentifiedArrayOf<WinePreferNationData>
-    var highestCountryIdx = 0
-    var countSum = 0
+    let countSum: Int
+    var rankDict: [String: Int] = [:]
     
     public init(preferNationList: [TopCountry]) {
       winePreferNationList = IdentifiedArrayOf(
         uniqueElements:
           (preferNationList.indices).map {
             WinePreferNationData(
-              id: $0,
               nationName: preferNationList[$0].country,
               count: preferNationList[$0].count
             )
           }
       )
-      highestCountryIdx = winePreferNationList.isEmpty ? 0 : winePreferNationList.sorted { $0.count > $1.count }[0].id
       countSum = winePreferNationList.reduce(0){ $0 + $1.count }
+      
+      for (index, country) in preferNationList.sorted(by: { $0.count > $1.count }).enumerated() {
+        rankDict[country.country] = index
+      }
     }
   }
   

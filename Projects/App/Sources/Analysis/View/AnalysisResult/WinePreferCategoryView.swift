@@ -21,7 +21,7 @@ public struct WinePreferCategoryView: View {
   
   public var body: some View {
     VStack(spacing: 0) {
-      WineAnalysisTitle(title: viewStore.title)
+      WineAnalysisCategoryTitle(title: viewStore.title)
         .padding(.top, 66)
       
       WinePreferTasteCirlcePositionView(wineData: viewStore.state.wines)

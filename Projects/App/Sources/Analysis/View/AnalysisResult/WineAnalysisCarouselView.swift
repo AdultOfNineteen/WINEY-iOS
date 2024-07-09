@@ -8,6 +8,7 @@
 
 import ComposableArchitecture
 import SwiftUI
+import WineyKit
 
 public struct WineAnalysisCarouselView: View {
   private let store: StoreOf<WineAnalysisCarousel>
@@ -86,6 +87,7 @@ public struct WineAnalysisCarouselView: View {
               .id(5)
             }
           }
+          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
           .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
           .scrollDisabled(true)
           .simultaneousGesture(

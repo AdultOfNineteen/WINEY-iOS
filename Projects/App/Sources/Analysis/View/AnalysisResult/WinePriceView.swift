@@ -21,7 +21,7 @@ struct WinePriceView: View {
   
   public var body: some View {
     VStack(spacing: 0) {
-      WineAnalysisTitle(title: viewStore.title)
+      WineAnalysisCategoryTitle(title: viewStore.title)
         .wineyFont(.title2)
         .padding(.top, 66)
       
