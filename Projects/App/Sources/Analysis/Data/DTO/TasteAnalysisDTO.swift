@@ -56,9 +56,13 @@ public struct TasteAnalysisDTO: Codable, Equatable {
   }
 }
 
-public struct TopType: Codable, Equatable {
+public struct TopType: Codable, Equatable, Identifiable {
   let type: String
   let percent: Int
+  
+  public var id: String {
+    self.type
+  }
 }
 
 public struct TopCountry: Codable, Equatable {

@@ -20,53 +20,41 @@ public struct WineAnalysisResultView: View {
   }
   
   public var body: some View {
-    GeometryReader { geo in
-      ZStack {
-        VStack {
-          Spacer()
-          
-          WineAnalysisCarouselView(
-            store: Store(
-              initialState: viewStore.carouselList,
-              reducer: {
-                WineAnalysisCarousel()
-              }
-            )
-          )
-          .frame(width: geo.size.width, height: geo.size.height - 221)
-        }
+    VStack(spacing: 0) {
+      NavigationBar(
+        leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
+        leftIconButtonAction: {
+          viewStore.send(.tappedBackButton)
+        },
+        backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
+      )
+      
+      VStack(spacing: 0) {
+        Text("이런 와인은 어때요?")
+          .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
         
-        VStack(spacing: 0) {
-          NavigationBar(
-            leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
-            leftIconButtonAction: {
-              viewStore.send(.tappedBackButton)
-            },
-            backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
-          )
-          
-          VStack(spacing: 0) {
-            Text("이런 와인은 어때요?")
-              .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
-            
-            if let country = viewStore.recommendCountry, 
-                let varietal = viewStore.recommendVarietal,
-               let type = viewStore.recommendWineType {
-              Text("\"" + "\(country)의 \(varietal) 품종으로 만든\n\(WineType.changeType(at: type).korName) 와인" + "\"")
-                .multilineTextAlignment(.center)
-                .padding(.top, 39)
-                .foregroundStyle(WineyKitAsset.main3.swiftUIColor)
-            }
-          }
-          .wineyFont(.title2)
-          .padding(.top, 39)
-          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-          .background(WineyKitAsset.mainBackground.swiftUIColor)
-    
-          Rectangle()
-            .opacity(0)
+        if let country = viewStore.recommendCountry,
+          let varietal = viewStore.recommendVarietal,
+          let type = viewStore.recommendWineType {
+          Text("\"" + "\(country)의 \(varietal) 품종으로 만든 \(WineType.changeType(at: type).korName) 와인" + "\"")
+            .multilineTextAlignment(.center)
+            .padding(.top, 39)
+            .foregroundStyle(WineyKitAsset.main3.swiftUIColor)
         }
       }
+      .wineyFont(.title2)
+      .padding(.top, 39)
+      .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+      .background(WineyKitAsset.mainBackground.swiftUIColor)
+      
+      WineAnalysisCarouselView(
+        store: Store(
+          initialState: viewStore.carouselList,
+          reducer: {
+            WineAnalysisCarousel()
+          }
+        )
+      )
     }
     .background(WineyKitAsset.mainBackground.swiftUIColor)
     .edgesIgnoringSafeArea(.bottom)
