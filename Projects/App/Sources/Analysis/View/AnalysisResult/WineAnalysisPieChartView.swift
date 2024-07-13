@@ -26,9 +26,8 @@ public struct WineAnalysisPieChartView: View {
       description()
       
       pieGraph()
-        .padding(.bottom, 100)
     }
-    .padding(.top, 24)
+    .padding(.top, 22)
   }
 }
 
@@ -69,6 +68,7 @@ private extension WineAnalysisPieChartView {
       }
       .position(x: geo.size.width / 2, y: geo.size.height / 2)
     }
+    .frame(maxHeight: .infinity)
     .onAppear {
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
         withAnimation(.easeIn(duration: 1.0)) {

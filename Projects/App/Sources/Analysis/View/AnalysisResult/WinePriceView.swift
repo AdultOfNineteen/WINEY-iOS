@@ -23,12 +23,12 @@ struct WinePriceView: View {
     VStack(spacing: 0) {
       WineAnalysisCategoryTitle(title: viewStore.title)
         .wineyFont(.title2)
-        .padding(.top, 66)
       
       contents()
-      
-      Spacer()
+        .frame(maxHeight: .infinity)
+        .padding(.bottom, 60)
     }
+    .padding(.top, 66)
   }
 }
 
@@ -48,14 +48,13 @@ extension WinePriceView {
         
         Text(viewStore.average == 0 ? "가격 정보가 없어요 :(" : "\(viewStore.average) 원")
           .wineyFont(viewStore.average == 0 ? .title2 : .title1)
-          .foregroundColor(viewStore.average == 0 ? WineyKitAsset.gray600.swiftUIColor : WineyKitAsset.gray50.swiftUIColor)
+          .foregroundColor(
+            viewStore.average == 0 ? WineyKitAsset.gray600.swiftUIColor : WineyKitAsset.gray50.swiftUIColor
+          )
           .padding(.top, 6)
       }
     }
-    .frame(height: 324)
-    .frame(maxWidth: .infinity)
     .opacity(viewStore.opacity)
-    .padding(.top, 16)
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
     .onAppear {
       viewStore.send(._onAppear, animation: .easeIn(duration: 1.0))
@@ -66,9 +65,19 @@ extension WinePriceView {
   private func background() -> some View {
     ZStack {
       Circle()
-        .fill(Color(red: 81/225, green: 35/225, blue: 223/225).opacity(0.5))
-        .frame(width: UIScreen.main.bounds.width / 3)
-        .blur(radius: 40)
+        .fill(
+          RadialGradient(
+            gradient: Gradient(stops: [
+              .init(color: Color(red: 81/225, green: 35/225, blue: 223/225).opacity(0.5), location: 0.0),
+              .init(color: Color(red: 81/225, green: 35/225, blue: 223/225).opacity(0.2), location: 0.2),
+              .init(color: Color(red: 34/225, green: 3/225, blue: 49/225).opacity(0.1), location: 0.7),
+              .init(color: .clear, location: 1)
+            ]),
+            center: .center,
+            startRadius: 0,
+            endRadius: UIScreen.main.bounds.width / 2.5
+          )
+        )
     }
   }
 }
@@ -85,5 +94,6 @@ struct WinePriceView_Previews: PreviewProvider {
           WinePrice()
         })
     )
+    .background(WineyKitAsset.mainBackground.swiftUIColor)
   }
 }

@@ -20,75 +20,37 @@ public struct WineAnalysisCarouselView: View {
   }
   
   public var body: some View {
-    GeometryReader { geometry in
-      ScrollViewReader { proxy in
-        ZStack {
+    ScrollViewReader { proxy in
+      VStack(spacing: 0) {
+        GeometryReader { geometry in
           ScrollView {
             LazyVStack(spacing: 0) {
-              WineAnalysisPieChartView(
-                store: Store(
-                  initialState: viewStore.state.winePieChart,
-                  reducer: {
-                    WineAnalysisPieChart()
-                  }
-                ))
-              .frame(width: geometry.size.width, height: geometry.size.height)
-              .id(0)
+              wineRebuyView()
+                .frame(width: geometry.size.width, height: geometry.size.height)
+                .id(0)
               
-              WinePreferNationView(
-                store: Store(
-                  initialState: viewStore.state.wineNation,
-                  reducer: {
-                    WinePreferNation()
-                  }
-                )
-              )
-              .frame(width: geometry.size.width, height: geometry.size.height)
-              .id(1)
+              winePreferNationView()
+                .frame(width: geometry.size.width, height: geometry.size.height)
+                .id(1)
               
-              WinePreferCategoryView(
-                store: Store(
-                  initialState: viewStore.state.wineCategory,
-                  reducer: {
-                    WinePreferCategory()
-                  })
-              )
-              .frame(width: geometry.size.width, height: geometry.size.height)
-              .id(2)
+              winePreferCategoryView()
+                .frame(width: geometry.size.width, height: geometry.size.height)
+                .id(2)
               
-              WinePreferTasteView(
-                store: Store(
-                  initialState: viewStore.state.wineTaste,
-                  reducer: {
-                    WinePreferTaste()
-                  })
-              )
-              .frame(width: geometry.size.width, height: geometry.size.height)
-              .id(3)
+              winePreferTasteView()
+                .frame(width: geometry.size.width, height: geometry.size.height)
+                .id(3)
               
-              WinePreferSmellView(
-                store: Store(
-                  initialState: viewStore.state.wineSmell,
-                  reducer: {
-                    WinePreferSmell()
-                  })
-              )
-              .frame(width: geometry.size.width, height: geometry.size.height)
-              .id(4)
+              winePreferSmellView()
+                .frame(width: geometry.size.width, height: geometry.size.height)
+                .id(4)
               
-              WinePriceView(
-                store: Store(
-                  initialState: viewStore.state.winePrice,
-                  reducer: {
-                    WinePrice()
-                  })
-              )
-              .frame(width: geometry.size.width, height: geometry.size.height)
-              .id(5)
+              winePriceView()
+                .frame(width: geometry.size.width, height: geometry.size.height)
+                .id(5)
             }
           }
           .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-          .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
           .scrollDisabled(true)
           .simultaneousGesture(
             DragGesture()
@@ -97,25 +59,95 @@ public struct WineAnalysisCarouselView: View {
                 proxy.scrollTo(viewStore.state.pageIndex, anchor: .center)
               }
           )
-          
-          bottomArrow()
-            .onTapGesture {
-              viewStore.send(.tappedArrow)
-              proxy.scrollTo(viewStore.state.pageIndex, anchor: .center)
-            }
         }
+        
+        bottomArrow()
+          .onTapGesture {
+            viewStore.send(.tappedArrow)
+            proxy.scrollTo(viewStore.state.pageIndex, anchor: .center)
+          }
       }
     }
   }
+  
 }
 
-extension WineAnalysisCarouselView {
+private extension WineAnalysisCarouselView {
   
   @ViewBuilder
-  private func bottomArrow() -> some View {
-    VStack {
-      Spacer()
-      
+  func wineRebuyView() -> some View {
+    WineAnalysisPieChartView(
+      store: Store(
+        initialState: viewStore.state.winePieChart,
+        reducer: {
+          WineAnalysisPieChart()
+        }
+      ))
+  }
+  
+  @ViewBuilder
+  func winePreferNationView() -> some View {
+    WinePreferNationView(
+      store: Store(
+        initialState: viewStore.state.wineNation,
+        reducer: {
+          WinePreferNation()
+        }
+      )
+    )
+  }
+  
+  @ViewBuilder
+  func winePreferCategoryView() -> some View {
+    WinePreferCategoryView(
+      store: Store(
+        initialState: viewStore.state.wineCategory,
+        reducer: {
+          WinePreferCategory()
+        }
+      )
+    )
+  }
+  
+  @ViewBuilder
+  func winePreferTasteView() -> some View {
+    WinePreferTasteView(
+      store: Store(
+        initialState: viewStore.state.wineTaste,
+        reducer: {
+          WinePreferTaste()
+        }
+      )
+    )
+  }
+  
+  @ViewBuilder
+  func winePreferSmellView() -> some View {
+    WinePreferSmellView(
+      store: Store(
+        initialState: viewStore.state.wineSmell,
+        reducer: {
+          WinePreferSmell()
+        }
+      )
+    )
+  }
+  
+  @ViewBuilder
+  func winePriceView() -> some View {
+    WinePriceView(
+      store: Store(
+        initialState: viewStore.state.winePrice,
+        reducer: {
+          WinePrice()
+        }
+      )
+    )
+  }
+  
+  @ViewBuilder
+  func bottomArrow() -> some View {
+    Group {
       if viewStore.pageIndex == 5 {
         WineyAsset.Assets.arrowTop.swiftUIImage
       } else {

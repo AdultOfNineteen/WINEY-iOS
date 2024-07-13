@@ -24,52 +24,28 @@ public struct WinePreferTasteView: View {
       WineAnalysisCategoryTitle(title: viewStore.title)
         .padding(.top, 66)
       
-      HexagonGraphDataView(store: store)
-      
-      Spacer()
+      hexagonGraphSection()
     }
   }
 }
 
-public struct HexagonGraphDataView: View {
-  private let store: StoreOf<WinePreferTaste>
-  @ObservedObject var viewStore: ViewStoreOf<WinePreferTaste>
+private extension WinePreferTasteView {
   
-  public init(store: StoreOf<WinePreferTaste>) {
-    self.store = store
-    self.viewStore = ViewStore(self.store, observe: { $0 })
-  }
-  
-  public var body: some View {
-    ZStack {
+  @ViewBuilder
+  func hexagonGraphSection() -> some View {
+    ZStack(alignment: .top) {
       HexagonBackgroundView(topTaste: viewStore.topTaste)
       
-      HexagonDataView(
-        store: store,
-        hexagonSize: UIScreen.main.bounds.width / 22
-      )
+      hexagonDataView()
     }
-    .frame(height: 324)
-    .padding(.top, 16)
-  }
-}
-
-public struct HexagonDataView: View {
-  private let store: StoreOf<WinePreferTaste>
-  @ObservedObject var viewStore: ViewStoreOf<WinePreferTaste>
-  
-  public var hexagonSize: CGFloat
-  
-  public init(store: StoreOf<WinePreferTaste>, hexagonSize: CGFloat) {
-    self.store = store
-    self.viewStore = ViewStore(self.store, observe: { $0 })
-    self.hexagonSize = hexagonSize
   }
   
-  public var body: some View {
+  /// 사용자 데이터에 해당하는 육각 그래프를 생성합니다.
+  @ViewBuilder
+  func hexagonDataView() -> some View {
     GeometryReader { geometry in
       Path { path in
-        let size: CGFloat = hexagonSize
+        let size: CGFloat = UIScreen.main.bounds.width / 22
         let sideLength = size / 2 * sqrt(3)
         
         let centerX = geometry.size.width / 2
@@ -93,7 +69,6 @@ public struct HexagonDataView: View {
     }
   }
 }
-
 
 public struct HexagonView: View {
   let hexagonSize: CGFloat
@@ -172,6 +147,26 @@ public struct HexagonBackgroundView: View {
         .foregroundStyle(topTaste == "탄닌" ? .white : WineyKitAsset.gray600.swiftUIColor)
     }
     .wineyFont(.captionB1)
-    .frame(height: 324)
   }
+}
+
+#Preview {
+  WinePreferTasteView(
+    store: Store(
+      initialState: WinePreferTaste.State.init(
+        preferTastes:
+          Taste(
+            sweetness: 1, 
+            acidity: 1,
+            alcohol: 1,
+            body: 2,
+            tannin: 3,
+            finish: 1
+          )
+      ),
+      reducer: {
+        WinePreferTaste()
+      }
+    )
+  )
 }

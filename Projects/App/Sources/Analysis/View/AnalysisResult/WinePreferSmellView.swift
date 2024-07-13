@@ -25,8 +25,8 @@ public struct WinePreferSmellView: View {
         .padding(.top, 66)
       
       smellContents()
-      
-      Spacer()
+        .frame(maxHeight: .infinity)
+        .padding(.bottom, 60)
     }
   }
 }
@@ -47,19 +47,41 @@ extension WinePreferSmellView {
           ForEach(viewStore.topSevenSmells.indices, id: \.self) { index in
             Text(viewStore.topSevenSmells[index].smell)
               .wineyFont(index == 0 ? .title2 : .bodyB1)
-              .foregroundColor(index == 0 ? WineyKitAsset.main3.swiftUIColor : index == 2 ? WineyKitAsset.gray300.swiftUIColor : WineyKitAsset.gray600.swiftUIColor)
+              .foregroundColor(
+                index == 0 ? WineyKitAsset.main3.swiftUIColor :
+                  index == 2 ? WineyKitAsset.gray300.swiftUIColor : WineyKitAsset.gray600.swiftUIColor
+              )
               .offset(x: getGrid(index: index, geo: geo).xGrid, y: getGrid(index: index, geo: geo).yGrid)
           }
         }
       }
-      .frame(height: 324)
-      .frame(maxWidth: .infinity)
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
       .opacity(viewStore.opacity)
       .padding(.top, 16)
       .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
       .onAppear {
         viewStore.send(._onAppear, animation: .easeIn(duration: 1.0))
       }
+    }
+  }
+  
+  @ViewBuilder
+  private func background() -> some View {
+    ZStack {
+      Circle()
+        .fill(
+          RadialGradient(
+            gradient: Gradient(stops: [
+              .init(color: Color(red: 81/225, green: 35/225, blue: 223/225).opacity(0.5), location: 0.0),
+              .init(color: Color(red: 81/225, green: 35/225, blue: 223/225).opacity(0.2), location: 0.2),
+              .init(color: Color(red: 34/225, green: 3/225, blue: 49/225).opacity(0.1), location: 0.7),
+              .init(color: .clear, location: 1)
+            ]),
+            center: .center,
+            startRadius: 0,
+            endRadius: UIScreen.main.bounds.width / 2.5
+          )
+        )
     }
   }
 }
@@ -88,16 +110,6 @@ extension WinePreferSmellView {
       return SmellGrid(xGrid: -geo.size.width / 2.8, yGrid: 30)
     default:
       return SmellGrid(xGrid: 0, yGrid: 0)
-    }
-  }
-  
-  @ViewBuilder
-  private func background() -> some View {
-    ZStack {
-      Circle()
-        .fill(Color(red: 81/225, green: 35/225, blue: 223/225).opacity(0.5))
-        .frame(width: UIScreen.main.bounds.width / 3)
-        .blur(radius: 40)
     }
   }
 }
