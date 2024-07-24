@@ -9,6 +9,11 @@
 import AmplitudeSwift
 import Foundation
 
+/// Ampltiude Event에 필요한 case를 정의합니다.
+public enum AmplitudeEvent: String {
+  case tappedAnalysis
+}
+
 final class AmplitudeProvider: ObservableObject {
   
   /// AmplitudeProvider의 싱글톤 객체. AmplitudeProvider를 사용하기 전 우선적으로 초기화되어야 합니다.
@@ -35,7 +40,7 @@ final class AmplitudeProvider: ObservableObject {
   }
   
   /// 특정 이벤트를 호출합니다.
-  func track(eventName: String) {
-    self.amplitude?.track(eventType: eventName)
+  func track(event: AmplitudeEvent) {
+    self.amplitude?.track(eventType: event.rawValue)
   }
 }
