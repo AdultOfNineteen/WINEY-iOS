@@ -6,6 +6,7 @@
 //  Copyright © 2023 com.adultOfNineteen. All rights reserved.
 //
 
+import AmplitudeSwift
 import Foundation
 import GoogleSignIn
 import KakaoSDKAuth
@@ -40,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     
+    AmplitudeProvider.initProvider(apiKey: APIKeys.amplitudeApiKey)
     KakaoSDK.initSDK(appKey: APIKeys.kakaoAppKey)
     
     self.window = UIWindow(frame: UIScreen.main.bounds)
