@@ -22,6 +22,10 @@ let spm = SwiftPackageManagerDependencies(
       requirement: .exact("0.8.0")
     ),
     .remote(
+      url: "https://github.com/amplitude/Amplitude-Swift.git",
+      requirement: .exact("1.7.0")
+    ),
+    .remote(
       url: "https://github.com/kakao/kakao-ios-sdk",
       requirement: .branch("master")
     ),
