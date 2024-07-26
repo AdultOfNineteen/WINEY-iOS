@@ -53,7 +53,7 @@ public struct FlavorSignUp: Reducer {
     case _backToFirstView
     case _moveSubject(FlavorSubject, Edge)
     case _handlePreferenceSettingResponse(Result<VoidResponse, Error>)
-    case _moveWelcomeSignUpView(WelcomeSignUp.ShowCaseType) // 큐시즘 쇼케이스
+    case _moveWelcomeSignUpView
     case _requestSignUp
 
     // MARK: - Inner SetState Action
@@ -119,10 +119,9 @@ public struct FlavorSignUp: Reducer {
       return .send(._requestSignUp)
       
     case ._handlePreferenceSettingResponse(.success):
-      let userChoice = state.userCheck.chocolate
       return .run { send in
         _ = await userService.connections() // API 연결 
-        await send(._moveWelcomeSignUpView(userChoice == .dark ? .sour : .scent)) // 큐시즘
+        await send(._moveWelcomeSignUpView)
       }
       
     case ._handlePreferenceSettingResponse(.failure):
