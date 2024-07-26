@@ -177,7 +177,10 @@ public struct UserInfoView: View {
             Circle() // 슬라이더의 원
               .frame(width: 14)
               .foregroundColor(WineyKitAsset.main2.swiftUIColor)
-              .offset(x: CGFloat(userWineGrade.threeMonthsNoteCount)/CGFloat(viewStore.hightestGradeCount) * lineGeometry.size.width - 10)
+              .offset(
+                x: userWineGrade.threeMonthsNoteCount > viewStore.hightestGradeCount ? lineGeometry.size.width - 8 :
+                  CGFloat(userWineGrade.threeMonthsNoteCount)/CGFloat(viewStore.hightestGradeCount) * lineGeometry.size.width - 8
+              )
           }
         }
       } else {
@@ -191,14 +194,14 @@ public struct UserInfoView: View {
   private var badgeSpace: some View {
     HStack(spacing: 0) {
       VStack(alignment: .leading, spacing: 2) {
-        Text("BOTTLE") // 임시
+        Text(viewStore.userWineGrade?.expectedNextMonthGrade ?? "등급 정보를 불러올 수 없습니다.")
           .wineyFont(.bodyB2)
           .foregroundColor(WineyKitAsset.gray400.swiftUIColor)
         
         HStack(spacing: 0) {
-          Text("OAK까지 테이스팅 ")
+          Text("\(viewStore.nextWineGrade)까지 테이스팅 ")
             .foregroundColor(WineyKitAsset.gray700.swiftUIColor)
-          Text("노트 2번")
+          Text("노트 \(viewStore.needWriteNoteToNextGrade)번")
             .foregroundColor(WineyKitAsset.main3.swiftUIColor)
         }
         .wineyFont(.captionM2)
@@ -285,7 +288,7 @@ public struct UserInfoView: View {
     HStack {
       Text("앱버전")
       Spacer()
-      Text("v 0.0.1") // 추후 config 수정
+      Text("v 1.0.4") // 추후 config 수정
     }
     .wineyFont(.captionB1)
     .foregroundColor(WineyKitAsset.gray800.swiftUIColor)

@@ -180,6 +180,7 @@ public struct WineDetailGraphMyWineDefaultView: View {
   NoteDetailGraphTabView(
     noteCardData: NoteDetailDTO(
       noteId: 1,
+      tastingNoteNo: 1,
       noteDate: "2023.10.11",
       wineType: "RED",
       wineName: "test",

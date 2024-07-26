@@ -18,6 +18,9 @@ public struct UserInfo: Reducer {
     var userWineGrade: MyWineGradeDTO? = nil
     var hightestGradeCount: Int = 0
     
+    var needWriteNoteToNextGrade: Int = 0
+    var nextWineGrade: String = "GLASS"
+    
     public init() {}
   }
   
@@ -120,6 +123,23 @@ public struct UserInfo: Reducer {
       
     case let ._setUserWineGrade(data):
       state.userWineGrade = data
+      switch data.expectedNextMonthGrade {
+      case "GLASS":
+        state.needWriteNoteToNextGrade = 3 - data.threeMonthsNoteCount
+        state.nextWineGrade = "BOTTLE"
+      case "BOTTLE":
+        state.needWriteNoteToNextGrade = 7 - data.threeMonthsNoteCount
+        state.nextWineGrade = "OAK"
+      case "OAK":
+        state.needWriteNoteToNextGrade = 12 - data.threeMonthsNoteCount
+        state.nextWineGrade = "WINERY"
+      case "WINERY":
+        state.needWriteNoteToNextGrade = 0
+        state.nextWineGrade = "WINERY"
+      default:
+        state.needWriteNoteToNextGrade = 0
+        state.nextWineGrade = "BOTTLE"
+      }
       return .none
       
     case .wineyRatingButtonTapped:

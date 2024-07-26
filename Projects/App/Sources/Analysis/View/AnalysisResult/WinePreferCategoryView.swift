@@ -21,28 +21,21 @@ public struct WinePreferCategoryView: View {
   
   public var body: some View {
     VStack(spacing: 0) {
-      WineAnalysisTitle(title: viewStore.title)
+      WineAnalysisCategoryTitle(title: viewStore.title)
         .padding(.top, 66)
       
-      WinePreferTasteCirlcePositionView(wineData: viewStore.state.wines)
-        .padding(.top, 16)
+      Spacer()
+      
+      ZStack {
+        ForEach(viewStore.state.wines) { wine in
+          WinePreferTasteCirlceView(wine: wine)
+            .offset(x: wine.rank.offsetX, y: wine.rank.offsetY)
+        }
+      }
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
       
       Spacer()
     }
-  }
-}
-
-public struct WinePreferTasteCirlcePositionView: View {
-  public var wineData: [WineRankData]
-  
-  public var body: some View {
-    ZStack {
-      ForEach(wineData) { wine in
-        WinePreferTasteCirlceView(wine: wine)
-          .offset(x: wine.rank.offsetX, y: wine.rank.offsetY)
-      }
-    }
-    .frame(height: 324)
   }
 }
 
@@ -82,4 +75,21 @@ public struct WinePreferTasteCirlceView: View {
       }
     }
   }
+}
+
+#Preview {
+  WinePreferCategoryView(
+    store: Store(
+      initialState: WinePreferCategory.State.init(
+        preferVarieties: [
+          TopVarietal(varietal: "test", percent: 10),
+          TopVarietal(varietal: "test", percent: 30),
+          TopVarietal(varietal: "test", percent: 40)
+        ]
+      ),
+      reducer: {
+        WinePreferCategory()
+      }
+    )
+  )
 }
