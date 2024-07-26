@@ -288,7 +288,7 @@ public struct UserInfoView: View {
     HStack {
       Text("앱버전")
       Spacer()
-      Text("v 0.0.1") // 추후 config 수정
+      Text("v 1.0.4") // 추후 config 수정
     }
     .wineyFont(.captionB1)
     .foregroundColor(WineyKitAsset.gray800.swiftUIColor)
