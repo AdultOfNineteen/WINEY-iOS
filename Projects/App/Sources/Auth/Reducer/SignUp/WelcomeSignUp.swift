@@ -10,15 +10,8 @@ import Combine
 import ComposableArchitecture
 import Foundation
 
-public struct WelcomeSignUp: Reducer {
-  public enum ShowCaseType {
-    case sour
-    case scent
-  }
-  
-  public struct State: Equatable {
-    let showcaseType: ShowCaseType
-  }
+public struct WelcomeSignUp: Reducer {  
+  public struct State: Equatable { }
   
   public enum Action: Equatable {
     // MARK: - User Action
