@@ -51,6 +51,8 @@ public struct Main: Reducer {
     Reduce<State, Action> { state, action in
       switch action {
       case ._viewWillAppear:
+        AmplitudeProvider.shared.track(event: .HOME_ENTER)
+        
         return .run(operation: { send in
           switch await wineService.todaysWines() {
           case let .success(data):
