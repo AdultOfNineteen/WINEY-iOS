@@ -91,6 +91,7 @@ public struct Main: Reducer {
         return .none
         
       case .tappedAnalysisButton:
+        AmplitudeProvider.shared.track(event: .ANALYZE_BUTTON_CLICK)
         return .send(._navigateToAnalysis)
         
       case .tappedTipArrow:
