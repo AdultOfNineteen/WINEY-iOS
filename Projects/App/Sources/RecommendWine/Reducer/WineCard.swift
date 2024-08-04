@@ -37,6 +37,7 @@ public struct WineCard: Reducer {
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case .wineCardTapped:
+      AmplitudeProvider.shared.track(event: .WINE_DETAIL_CLICK)
       return .send(._navigateToCardDetail(state.recommendWineData.id, state.recommendWineData))
       
     case ._navigateToCardDetail:
