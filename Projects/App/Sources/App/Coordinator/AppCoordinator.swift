@@ -136,7 +136,8 @@ public struct AppCoordinator: Reducer {
         state.routes.append(.push(.wineTip(.tipList)))
         return .none
         
-      case let .routeAction(_, action: .tabBar(.main(.routeAction(_, action: .main(.wineTip(.tappedTipCard(url: url))))))):
+      case let .routeAction(_, action: .tabBar(.main(.routeAction(_, action: .main(.wineTip(._moveDetailTipCard(url: url))))))):
+        
         state.routes.append(.push(.wineTip(.tipDetail(url: url))))
         return .none
         
