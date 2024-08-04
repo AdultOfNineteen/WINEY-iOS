@@ -46,7 +46,7 @@ public struct WineTipCoordinator: Reducer {
     Reduce<State, Action> { state, action in
       switch action {
       
-      case let .routeAction(_, action: .tipCardList(.tappedTipCard(url: url))):
+      case let .routeAction(_, action: .tipCardList(._moveDetailTipCard(url: url))):
         state.routes.append(.push(.tipCardDetail(.init(url: url))))
         return .none
         

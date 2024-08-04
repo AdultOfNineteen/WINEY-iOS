@@ -35,6 +35,7 @@ public struct TipCard: Reducer {
     
     // MARK: - Inner Business Action
     case _viewWillAppear
+    case _moveDetailTipCard(url: String)
     case _fetchNextTipCardPage
     case _appendNextTipCardData(WineTipDTO)
     
@@ -65,6 +66,10 @@ public struct TipCard: Reducer {
             await send(._failureSocialNetworking(error))
           }
         })
+        
+      case let .tappedTipCard(url):
+        AmplitudeProvider.shared.track(event: .TIP_POST_CLICK)
+        return .send(._moveDetailTipCard(url: url))
         
       case let ._setTipCards(data: data):
         state.tipCards = data

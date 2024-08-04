@@ -11,7 +11,12 @@ import Foundation
 
 /// Ampltiude Event에 필요한 case를 정의합니다.
 public enum AmplitudeEvent: String {
-  case tappedAnalysis
+  
+  // Home Event
+  case HOME_ENTER
+  case WINE_DETAIL_CLICK
+  case ANALYZE_BUTTON_CLICK
+  case TIP_POST_CLICK
 }
 
 final class AmplitudeProvider: ObservableObject {
