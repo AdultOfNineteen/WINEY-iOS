@@ -88,6 +88,10 @@ public struct SettingColorSmell: Reducer {
       case .tappedBackButton:
         CreateNoteManager.shared.color = state.colorIndicator.toHex() == nil ? nil : "#" + state.colorIndicator.toHex()!
         CreateNoteManager.shared.smellKeywordList = state.selectedSmell
+        
+        if CreateNoteManager.shared.mode == .create {
+          AmplitudeProvider.shared.track(event: .COLOR_SCENT_INPUT_BACK_CLICK)
+        }
         return .send(._moveBackPage)
         
       case .tappedSmellButton(let smell):
@@ -171,6 +175,7 @@ public struct SettingColorSmell: Reducer {
       case .tappedNextButton:
         if CreateNoteManager.shared.mode == .create {
           CreateNoteManager.shared.smellKeywordList = state.selectedSmell
+          AmplitudeProvider.shared.track(event: .COLOR_SCENT_INPUT_NEXT_CLICK)
         } else {
           CreateNoteManager.shared.smellKeywordList = state.selectedSmell.subtracting(CreateNoteManager.shared.originalSmellKeywordList ?? [])
           CreateNoteManager.shared.deleteSmellKeywordList = CreateNoteManager.shared.originalSmellKeywordList?.subtracting(state.selectedSmell)
