@@ -21,6 +21,7 @@ public enum AmplitudeEvent: String {
   // MyPage Event
   case MYPAGE_ENTER
   case WINEY_BADGE_CLICK
+  case YOUNG_BADGE_CLICK
 }
 
 final class AmplitudeProvider: ObservableObject {
