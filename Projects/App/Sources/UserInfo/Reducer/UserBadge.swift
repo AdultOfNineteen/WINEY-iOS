@@ -71,6 +71,10 @@ public struct UserBadge: Reducer {
       let userId = state.userId
       let badgeId = badge.badgeId
       
+      if badge.name == "YOUNG" {
+        AmplitudeProvider.shared.track(event: .YOUNG_BADGE_CLICK)
+      }
+      
       return .run { send in
         switch await badgeService.badgeDetail(userId, badgeId) {
         case let .success(data):
