@@ -67,6 +67,7 @@ public struct SettingAlcohol: Reducer {
         return .send(._presentBottomSheet(true))
         
       case .tappedSkipButton:
+        AmplitudeProvider.shared.track(event: .ALCOHOL_INPUT_SKIP_CLICK)
         return .send(._moveNextPage)
         
       case .selectAlcoholValue(let value):
