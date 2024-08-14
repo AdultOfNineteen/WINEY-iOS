@@ -22,6 +22,7 @@ public enum AmplitudeEvent: String {
   case NOTE_CREATE_BUTTON_CLICK
   case WINE_SELECT_BUTTON_CLICK
   case ALCOHOL_INPUT_SKIP_CLICK
+  case ALCOHOL_INPUT_NEXT_CLICK
   
   // MyPage Event
   case MYPAGE_ENTER

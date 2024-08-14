@@ -89,6 +89,7 @@ public struct SettingAlcohol: Reducer {
         
       case .tappedNextButton:
         CreateNoteManager.shared.officialAlcohol = state.officialAlcohol
+        AmplitudeProvider.shared.track(event: .ALCOHOL_INPUT_NEXT_CLICK)
         return .send(._moveNextPage)
         
       case ._deleteNote:
