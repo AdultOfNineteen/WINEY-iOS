@@ -17,6 +17,9 @@ public enum AmplitudeEvent: String {
   case WINE_DETAIL_CLICK
   case ANALYZE_BUTTON_CLICK
   case TIP_POST_CLICK
+  
+  // MyPage Event
+  case MYPAGE_ENTER
 }
 
 final class AmplitudeProvider: ObservableObject {
