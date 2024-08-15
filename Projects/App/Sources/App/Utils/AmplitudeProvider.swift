@@ -28,6 +28,8 @@ public enum AmplitudeEvent: String {
   case COLOR_SCENT_INPUT_NEXT_CLICK
   case COLOR_SCENT_INPUT_BACK_CLICK
   case SCENT_HELP_CLICK
+  case TASTE_INPUT_NEXT_CLICK
+  case TASTE_INPUT_BACK_CLICK
   
   // MyPage Event
   case MYPAGE_ENTER

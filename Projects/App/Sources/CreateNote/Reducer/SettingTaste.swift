@@ -28,6 +28,7 @@ public struct SettingTaste: Reducer {
     // MARK: - Inner Business Action
     case _viewWillAppear
     case _moveNextPage
+    case _moveBackPage
     
     // MARK: - Inner SetState Action
     case _setSweetness(Int)
@@ -51,6 +52,14 @@ public struct SettingTaste: Reducer {
         state.alcohol = CreateNoteManager.shared.alcohol ?? 0
         state.finish = CreateNoteManager.shared.finish ?? 0
         return .none
+        
+      case .tappedBackButton:
+        if CreateNoteManager.shared.mode == .create {
+          AmplitudeProvider.shared.track(event: .TASTE_INPUT_BACK_CLICK)
+        }
+        
+        return .send(._moveBackPage)
+        
         
       case ._setSweetness(let value):
         state.sweetness = value
@@ -83,6 +92,10 @@ public struct SettingTaste: Reducer {
         return .none
         
       case .tappedNextButton:
+        if CreateNoteManager.shared.mode == .create {
+          AmplitudeProvider.shared.track(event: .TASTE_INPUT_NEXT_CLICK)
+        }
+        
         return .send(._moveNextPage)
         
       default:
