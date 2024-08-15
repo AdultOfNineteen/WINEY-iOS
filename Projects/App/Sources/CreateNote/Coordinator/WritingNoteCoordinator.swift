@@ -77,7 +77,7 @@ public struct WritingNoteCoordinator: Reducer {
         state.routes.append(.push(.setMemo(.init())))
         return .none
         
-      case .routeAction(_, action: .setColorSmell(.tappedHelpSmellButton)):
+      case .routeAction(_, action: .setColorSmell(._moveSmellHelp)):
         state.routes.append(.push(.helpSmell(.init())))
         return .none
         

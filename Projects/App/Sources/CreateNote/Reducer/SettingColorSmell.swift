@@ -54,6 +54,7 @@ public struct SettingColorSmell: Reducer {
     case _viewWillAppear
     case _moveNextPage
     case _moveBackPage
+    case _moveSmellHelp
     
     // MARK: - Inner SetState Action
     case _setMaxValue(GeometryProxy)
@@ -100,6 +101,12 @@ public struct SettingColorSmell: Reducer {
         } else {
           return .send(._addSmell(smell))
         }
+        
+      case .tappedHelpSmellButton:
+        if CreateNoteManager.shared.mode == .create {
+          AmplitudeProvider.shared.track(event: .SCENT_HELP_CLICK)
+        }
+        return .send(._moveSmellHelp)
         
       case ._setMaxValue(let value):
         let maxValue = value.size.width - 11
