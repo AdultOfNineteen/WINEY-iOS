@@ -76,6 +76,11 @@ public struct SettingMemo: Reducer {
         CreateNoteManager.shared.rating = state.rating
         CreateNoteManager.shared.buyAgain = state.buyAgain
         CreateNoteManager.shared.userSelectImages = state.displayImages
+        
+        if CreateNoteManager.shared.mode == .create {
+          AmplitudeProvider.shared.track(event: .REVIEW_COMPLETE_BACK_CLICK)
+        }
+        
         return .send(._moveBackPage)
         
       case ._limitMemo(let value):
@@ -102,6 +107,11 @@ public struct SettingMemo: Reducer {
         CreateNoteManager.shared.rating = state.rating
         CreateNoteManager.shared.buyAgain = state.buyAgain
         CreateNoteManager.shared.userSelectImages = state.displayImages
+        
+        if CreateNoteManager.shared.mode == .create {
+          AmplitudeProvider.shared.track(event: .REVIEW_COMPLETE_CLICK)
+        }
+        
         return .send(._makeNotes)
         
       case ._makeNotes:

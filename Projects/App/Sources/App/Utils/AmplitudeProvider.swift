@@ -31,6 +31,8 @@ public enum AmplitudeEvent: String {
   case TASTE_INPUT_NEXT_CLICK
   case TASTE_INPUT_BACK_CLICK
   case TASTE_HELP_CLICK
+  case REVIEW_COMPLETE_CLICK
+  case REVIEW_COMPLETE_BACK_CLICK
   
   // MyPage Event
   case MYPAGE_ENTER
