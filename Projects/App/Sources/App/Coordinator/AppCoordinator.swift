@@ -163,7 +163,7 @@ public struct AppCoordinator: Reducer {
         return .none
         
       /// Note 작성 관련 Action
-      case .routeAction(_, action: .tabBar(.note(.routeAction(_, action: .note(.tappedNoteWriteButton))))):
+      case .routeAction(_, action: .tabBar(.note(.routeAction(_, action: .note(._navigateToNoteWrite))))):
         state.routes.append(.push(.createNote(.createState)))
         return .none
         

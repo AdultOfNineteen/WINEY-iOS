@@ -118,7 +118,7 @@ extension SettingTasteView {
         .wineyFont(.captionM3)
         .offset(y: 2)
         .onTapGesture {
-          viewStore.send(.tappedHelpButton(wineId: 1))
+          viewStore.send(.tappedHelpButton)
         }
     }
     .padding(.bottom, 15)

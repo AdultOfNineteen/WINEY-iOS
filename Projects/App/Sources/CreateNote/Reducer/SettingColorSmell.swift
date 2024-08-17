@@ -54,6 +54,7 @@ public struct SettingColorSmell: Reducer {
     case _viewWillAppear
     case _moveNextPage
     case _moveBackPage
+    case _moveSmellHelp
     
     // MARK: - Inner SetState Action
     case _setMaxValue(GeometryProxy)
@@ -88,6 +89,10 @@ public struct SettingColorSmell: Reducer {
       case .tappedBackButton:
         CreateNoteManager.shared.color = state.colorIndicator.toHex() == nil ? nil : "#" + state.colorIndicator.toHex()!
         CreateNoteManager.shared.smellKeywordList = state.selectedSmell
+        
+        if CreateNoteManager.shared.mode == .create {
+          AmplitudeProvider.shared.track(event: .COLOR_SCENT_INPUT_BACK_CLICK)
+        }
         return .send(._moveBackPage)
         
       case .tappedSmellButton(let smell):
@@ -96,6 +101,12 @@ public struct SettingColorSmell: Reducer {
         } else {
           return .send(._addSmell(smell))
         }
+        
+      case .tappedHelpSmellButton:
+        if CreateNoteManager.shared.mode == .create {
+          AmplitudeProvider.shared.track(event: .SCENT_HELP_CLICK)
+        }
+        return .send(._moveSmellHelp)
         
       case ._setMaxValue(let value):
         let maxValue = value.size.width - 11
@@ -171,6 +182,7 @@ public struct SettingColorSmell: Reducer {
       case .tappedNextButton:
         if CreateNoteManager.shared.mode == .create {
           CreateNoteManager.shared.smellKeywordList = state.selectedSmell
+          AmplitudeProvider.shared.track(event: .COLOR_SCENT_INPUT_NEXT_CLICK)
         } else {
           CreateNoteManager.shared.smellKeywordList = state.selectedSmell.subtracting(CreateNoteManager.shared.originalSmellKeywordList ?? [])
           CreateNoteManager.shared.deleteSmellKeywordList = CreateNoteManager.shared.originalSmellKeywordList?.subtracting(state.selectedSmell)
