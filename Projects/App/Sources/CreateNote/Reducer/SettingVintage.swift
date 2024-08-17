@@ -83,13 +83,21 @@ public struct SettingVintage: Reducer {
       case .tappedSkipButton:
         CreateNoteManager.shared.vintage = nil
         CreateNoteManager.shared.price = nil
-        AmplitudeProvider.shared.track(event: .VINTAGE_PRICE_INPUT_SKIP_CLICK)
+        
+        if CreateNoteManager.shared.mode == .create {
+          AmplitudeProvider.shared.track(event: .VINTAGE_PRICE_INPUT_SKIP_CLICK)
+        }
+        
         return .send(._moveNextPage)
         
       case .tappedNextButton:
         CreateNoteManager.shared.vintage = state.vintage.isEmpty ? nil : state.vintage
         CreateNoteManager.shared.price = state.price.isEmpty ? nil : state.price
-        AmplitudeProvider.shared.track(event: .VINTAGE_PRICE_INPUT_NEXT_CLICK)
+        
+        if CreateNoteManager.shared.mode == .create {
+          AmplitudeProvider.shared.track(event: .VINTAGE_PRICE_INPUT_NEXT_CLICK)
+        }
+        
         return .send(._moveNextPage)
         
       default:
