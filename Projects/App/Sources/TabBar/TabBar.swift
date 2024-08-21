@@ -21,17 +21,23 @@ public struct TabBar: Reducer {
     public var isTabHidden: Bool = false
     
     public init(
-      main: MainCoordinator.State,
-      map: MapCoordinator.State,
-      note: NoteCoordinator.State,
-      userInfo: UserInfoCoordinator.State,
+      /// Tab을 클릭했을 때 해당 Tab만 로딩되도록 설정.
+      selectedTab: TabBarItem,
       isTabHidden: Bool
     ) {
-      self.main = main
-      self.map = map
-      self.note = note
-      self.userInfo = userInfo
       self.isTabHidden = isTabHidden
+      self.selectedTab = selectedTab
+      
+      switch selectedTab {
+      case .main:
+        self.main = .init()
+      case .map:
+        self.map = .init()
+      case .note:
+        self.note = .init()
+      case .userInfo:
+        self.userInfo = .init()
+      }
     }
   }
   
@@ -42,6 +48,7 @@ public struct TabBar: Reducer {
     // MARK: - Inner Business Action
     case _setTabHiddenStatus(Bool)
     case _onSetting
+    case _loadingTab(TabBarItem)
     
     // MARK: - Inner SetState Action
     case _mapStreamConnect(TabBarItem)
@@ -54,7 +61,6 @@ public struct TabBar: Reducer {
   }
   
   @Dependency(\.tap) var tapService
-  var cancellables = Set<AnyCancellable>()
   
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
@@ -64,9 +70,15 @@ public struct TabBar: Reducer {
           tapService.adaptivePresentationControl()
         }
         
-      case let.tabSelected(tab):
-        state.selectedTab = tab
-        return .send(._mapStreamConnect(tab))
+      case let .tabSelected(tab):
+        if tab == .map {
+          return .concatenate([
+            .send(._mapStreamConnect(tab)),
+            .send(._loadingTab(tab))
+          ])
+        } else {
+          return .send(._loadingTab(tab))
+        }
         
       case let ._mapStreamConnect(tab):
         return .send(.map(.routeAction(0, action: .map(._tappedMapTabBarItem(tab == .map)))))

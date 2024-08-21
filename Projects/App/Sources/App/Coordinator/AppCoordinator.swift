@@ -68,27 +68,7 @@ public struct AppCoordinator: Reducer {
           .root(
             .tabBar(
               .init(
-                main: .init(),
-                map: .init(),
-                note: .init(),
-                userInfo: .init(),
-                isTabHidden: false
-              )
-            ),
-            embedInNavigationView: true
-          )
-        ]
-        return .none
-        
-      case .routeAction(_, action: .splash(._moveToHome)):
-        state.routes = [
-          .root(
-            .tabBar(
-              .init(
-                main: .init(),
-                map: .init(),
-                note: .init(),
-                userInfo: .init(),
+                selectedTab: .main,
                 isTabHidden: false
               )
             ),
@@ -105,15 +85,41 @@ public struct AppCoordinator: Reducer {
         ]
         return .none
         
+      case .routeAction(_, action: .splash(._moveToHome)):
+        state.routes = [
+          .root(
+            .tabBar(
+              .init(
+                selectedTab: .main,
+                isTabHidden: false
+              )
+            ),
+            embedInNavigationView: true
+          )
+        ]
+        return .none
+        
       case .routeAction(_, action: .auth(.routeAction(_, action: .setWelcomeSignUp(.tappedStartButton)))):
         state.routes = [
           .root(
             .tabBar(
               .init(
-                main: .init(),
-                map: .init(),
-                note: .init(),
-                userInfo: .init(),
+                selectedTab: .main,
+                isTabHidden: false
+              )
+            ),
+            embedInNavigationView: true
+          )
+        ]
+        return .none
+      
+      /// 유저가 Tab 클릭 시 해당 Tab으로 이동 및 해당 Tab만 로드되도록 설정
+      case let .routeAction(_, action: .tabBar(._loadingTab(tab))):
+        state.routes = [
+          .root(
+            .tabBar(
+              .init(
+                selectedTab: tab,
                 isTabHidden: false
               )
             ),
