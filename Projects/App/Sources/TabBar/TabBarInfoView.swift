@@ -19,31 +19,25 @@ struct TabBarInfoView: View {
     .first { $0.isKeyWindow }
   
   var body: some View {
-    GeometryReader { geo in
-      VStack {
-        Spacer()
+    VStack {
+      Spacer()
+      
+      HStack(spacing: 0) {
         
-        HStack {
-          Spacer().frame(width: 45)
-          singleTab(tab: TabBarItem.main)
+        ForEach(TabBarItem.allCases, id: \.rawValue) { tab in
+          singleTab(tab: tab)
           
-          Spacer()
-          singleTab(tab: TabBarItem.map)
-          
-          Spacer()
-          singleTab(tab: TabBarItem.note)
-          
-          Spacer()
-          singleTab(tab: TabBarItem.userInfo)
-          
-          Spacer().frame(width: 45)
+          if tab.rawValue != 3 {
+            Spacer()
+          }
         }
-        .padding(.vertical, 12)
-        .background(WineyKitAsset.gray900.swiftUIColor)
-        .cornerRadius(14, corners: [.topLeft, .topRight])
       }
-      .ignoresSafeArea(edges: [.bottom])
+      .padding(.horizontal, 45)
+      .padding(.vertical, 12)
+      .background(WineyKitAsset.gray900.swiftUIColor)
+      .cornerRadius(14, corners: [.topLeft, .topRight])
     }
+    .ignoresSafeArea(edges: [.bottom])
   }
 }
 
