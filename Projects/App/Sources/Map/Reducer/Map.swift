@@ -53,7 +53,7 @@ public struct Map: Reducer {
     // MARK: - Inner SetState Action
     case _tabBarHidden
     case _tabBarOpen
-    case _tappedMapTabBarItem(Bool)
+    case _tappedMapTabBarItem
   }
   
   @Dependency(\.mainQueue) var mainQueue
@@ -72,12 +72,12 @@ public struct Map: Reducer {
         AmplitudeProvider.shared.track(event: .MAP_ENTER)
         return .none
         
-      case let ._tappedMapTabBarItem(isTappedMapTabBarItem):
+      case ._tappedMapTabBarItem:
         guard !state.tappedOpenFirst else {
           state.tappedOpenFirst = false
           return .send(._checkLocation)
         }
-        guard isTappedMapTabBarItem else { return .none }
+        
         return .cancel(id: CancelID.mapMarker)
         
       case ._checkLocation:

@@ -51,7 +51,7 @@ public struct TabBar: Reducer {
     case _loadingTab(TabBarItem)
     
     // MARK: - Inner SetState Action
-    case _mapStreamConnect(TabBarItem)
+    case _mapStreamConnect
     
     // MARK: - Child Action
     case main(MainCoordinator.Action)
@@ -73,15 +73,15 @@ public struct TabBar: Reducer {
       case let .tabSelected(tab):
         if tab == .map {
           return .concatenate([
-            .send(._mapStreamConnect(tab)),
+            .send(._mapStreamConnect),
             .send(._loadingTab(tab))
           ])
         } else {
           return .send(._loadingTab(tab))
         }
-        
-      case let ._mapStreamConnect(tab):
-        return .send(.map(.routeAction(0, action: .map(._tappedMapTabBarItem(tab == .map)))))
+      
+      case ._mapStreamConnect:
+        return .send(.map(.routeAction(0, action: .map(._tappedMapTabBarItem))))
         
       case .main(.routeAction(_, action: .main(._viewWillAppear))):
         return .send(._setTabHiddenStatus(false))
