@@ -111,6 +111,9 @@ public struct MapView: View {
       }
       .padding(.bottom, 169)
     }
+    .onAppear {
+      viewStore.send(._viewWillAppear)
+    }
     .ignoresSafeArea()
     .shopBottomSheet(
       height: viewStore.binding(

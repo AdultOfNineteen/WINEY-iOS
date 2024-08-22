@@ -40,6 +40,7 @@ public struct Map: Reducer {
     case tappedReloadCurrentMap
     
     // MARK: - Inner Business Action
+    case _viewWillAppear
     case _checkLocation
     case _userLocationIsEnabled(Bool) // 미사용
     case _getShopInfo
@@ -52,7 +53,7 @@ public struct Map: Reducer {
     // MARK: - Inner SetState Action
     case _tabBarHidden
     case _tabBarOpen
-    case _tappedMapTabBarItem(Bool)
+    case _tappedMapTabBarItem
   }
   
   @Dependency(\.mainQueue) var mainQueue
@@ -67,12 +68,16 @@ public struct Map: Reducer {
     
     Reduce { state, action in
       switch action {
-      case let ._tappedMapTabBarItem(isTappedMapTabBarItem):
+      case ._viewWillAppear:
+        AmplitudeProvider.shared.track(event: .MAP_ENTER)
+        return .none
+        
+      case ._tappedMapTabBarItem:
         guard !state.tappedOpenFirst else {
           state.tappedOpenFirst = false
           return .send(._checkLocation)
         }
-        guard isTappedMapTabBarItem else { return .none }
+        
         return .cancel(id: CancelID.mapMarker)
         
       case ._checkLocation:
