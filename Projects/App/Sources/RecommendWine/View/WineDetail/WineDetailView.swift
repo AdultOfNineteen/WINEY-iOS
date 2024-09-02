@@ -181,7 +181,7 @@ public struct WineDetailInfoSum: View {
           .fill(WineyKitAsset.main3.swiftUIColor)
           .frame(width: 12, height: 12)
         
-        Text("취향이 비슷한 사람들이 느낀 와인의 맛")
+        Text("테이스팅노트 기반 데이터")
           .wineyFont(.captionM2)
         
       }
