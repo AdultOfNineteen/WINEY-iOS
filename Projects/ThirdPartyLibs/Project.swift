@@ -22,7 +22,8 @@ let project = Project.make(
         .external(name: "ComposableArchitecture"),
         .external(name: "TCACoordinators"),
         .external(name: "CombineExt"),
-        .external(name: "KakaoSDK"),
+        .external(name: "KakaoSDKUser"),
+        
         .external(name: "NMapsMap"),
         .external(name: "AmplitudeSwift")
       ],
