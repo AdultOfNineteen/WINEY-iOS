@@ -10,12 +10,14 @@ import ComposableArchitecture
 import SwiftUI
 
 public enum NoteDetailOption: String {
+  case shared = "공유하기"
   case remove = "삭제하기"
   case modify = "수정하기"
 }
 
 // Bottom Sheet 구분
 public enum NoteDetailBottomSheet: String {
+  case shared
   case setting
   case remove
 }
@@ -25,13 +27,15 @@ public struct NoteDetail: Reducer {
     
     let noteId: Int
     let country: String
+    let isMine: Bool
     
     public var noteCardData: NoteDetailDTO?
     public var selectOption: NoteDetailOption?
     
-    public init(noteId: Int, country: String) {
+    public init(noteId: Int, country: String, isMine: Bool = true) {
       self.noteId = noteId
       self.country = country
+      self.isMine = isMine
     }
   }
   
@@ -61,12 +65,15 @@ public struct NoteDetail: Reducer {
       switch action {
       case ._viewWillAppear:
         let id = state.noteId
-        
+        print("일단 들어오긴 함? \(id)")
         return .run { send in
+          print("Run 되나?")
           switch await noteService.noteDetail(id) {
           case let .success(data):
+            print("성공 \(data)")
             await send(._setDetailNotes(data: data))
           case let .failure(error):
+            print("실패 \(error.localizedDescription)")
             await send(._failureSocialNetworking(error))
           }
         }
@@ -82,6 +89,10 @@ public struct NoteDetail: Reducer {
         state.selectOption = option
         
         switch option {
+        case .shared:
+        // TODO: - 공유하기 기능 만들기
+          return .send(._activateBottomSheet(mode: .shared, data: state))
+          
         case .modify:
           CreateNoteManager.shared.mode = .patch
           
