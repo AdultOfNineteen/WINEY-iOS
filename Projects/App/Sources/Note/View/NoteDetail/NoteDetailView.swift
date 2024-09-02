@@ -22,17 +22,27 @@ public struct NoteDetailView: View {
   public var body: some View {
     VStack(spacing: 0) {
       // MARK: Navigation Bar
-      NavigationBar(
-        leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
-        leftIconButtonAction: {
-          viewStore.send(.tappedBackButton)
-        },
-        rightIcon: WineyAsset.Assets.settingIcon.swiftUIImage,
-        rightIconButtonAction: {
-          viewStore.send(.tappedSettingButton)
-        },
-        backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
-      )
+      if viewStore.isMine {
+        NavigationBar(
+          leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
+          leftIconButtonAction: {
+            viewStore.send(.tappedBackButton)
+          },
+          rightIcon: WineyAsset.Assets.settingIcon.swiftUIImage,
+          rightIconButtonAction: {
+            viewStore.send(.tappedSettingButton)
+          },
+          backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
+        )
+      } else {
+        NavigationBar(
+          leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
+          leftIconButtonAction: {
+            viewStore.send(.tappedBackButton)
+          },
+          backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
+        )
+      }
       
       if let noteData = viewStore.noteCardData {
         noteDetail(noteData: noteData)     
@@ -41,7 +51,7 @@ public struct NoteDetailView: View {
           .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
     }
-    .onAppear {
+    .task {
       viewStore.send(._viewWillAppear)
     }
     .background(WineyKitAsset.mainBackground.swiftUIColor)
