@@ -244,11 +244,11 @@ extension SettingMemoView {
         title: "노트 공개 여부",
         validation: .init(
           get: {
-            viewStore.buyAgain
+            viewStore.isPublic
           },
           set: { state in
             guard let state else { return }
-            viewStore.send(._setBuyAgain(state)) // 수정
+            viewStore.send(._setIsPublic(state)) // 수정
           }
         )
       )
