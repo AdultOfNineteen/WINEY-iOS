@@ -21,7 +21,11 @@ public struct SettingMemoView: View {
     self.viewStore = ViewStore(self.store, observe: { $0 })
   }
   
-  public var columns: [GridItem] = [GridItem(.flexible(), spacing: 9), GridItem(.flexible(), spacing: 4), GridItem(.flexible())]
+  public var columns: [GridItem] = [
+    GridItem(.flexible(), spacing: 9),
+    GridItem(.flexible(), spacing: 4),
+    GridItem(.flexible())
+  ]
   
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
