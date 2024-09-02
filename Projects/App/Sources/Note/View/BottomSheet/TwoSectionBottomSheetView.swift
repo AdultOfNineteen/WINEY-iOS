@@ -24,7 +24,7 @@ public struct TwoSectionBottomSheetView: View {
       WineyKitAsset.gray950.swiftUIColor.ignoresSafeArea(edges: .all)
       selectOptionView()
     }
-    .presentationDetents([.height(187)])
+    .presentationDetents([.height(248)])
     .presentationDragIndicator(.visible)
     .onAppear {
       viewStore.send(._onAppear)
@@ -40,6 +40,18 @@ private extension TwoSectionBottomSheetView {
   @ViewBuilder
   private func selectOptionView() -> some View {
     VStack(spacing: 0) {
+      sectionContainer(
+        title: viewStore.sheetMode.thirdTitle,
+        action: {
+          viewStore.send(.tappedThirdButton)
+        }
+      )
+      
+      Divider()
+      .overlay(
+        WineyKitAsset.gray900.swiftUIColor
+      )
+      
       sectionContainer(
         title: viewStore.sheetMode.firstTitle,
         action: {

@@ -14,17 +14,15 @@ public enum TwoSectionBottomSheetMode: Equatable {
   case noteDetail(NoteDetail.State)
   
   public var firstTitle: String {
-    switch self {
-    case .noteDetail:
       return "삭제하기"
-    }
   }
   
   public var secondTitle: String {
-    switch self {
-    case .noteDetail:
       return "수정하기"
-    }
+  }
+  
+  public var thirdTitle: String {
+    return "공유하기"
   }
 }
 
@@ -44,6 +42,7 @@ public struct TwoSectionBottomSheet: Reducer {
     // MARK: - User Action
     case tappedFirstButton
     case tappedSecondButton
+    case tappedThirdButton
     
     // MARK: - Inner Business Action
     case _onAppear
@@ -75,6 +74,12 @@ public struct TwoSectionBottomSheet: Reducer {
         switch state.sheetMode {
         case .noteDetail:
           return .send(.noteDetail(.tappedOption(.modify)))
+        }
+        
+      case .tappedThirdButton:
+        switch state.sheetMode {
+        case .noteDetail:
+          return .send(.noteDetail(.tappedOption(.shared)))
         }
         
       default:
