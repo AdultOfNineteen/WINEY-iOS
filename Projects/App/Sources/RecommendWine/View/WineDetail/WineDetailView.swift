@@ -287,3 +287,22 @@ public struct WineDetailIllust: View {
     }
   }
 }
+
+#Preview {
+  WineDetailView(
+    store: .init(
+      initialState: WineDetail.State.init(
+        windId: 0,
+        wineCardData: .init(
+          id: 0,
+          wineType: .red,
+          name: "와인이름",
+          country: "와인 생산지",
+          varietal: "배리에이션",
+          price: 30000
+        )
+      ),
+      reducer: { WineDetail() }
+    )
+  )
+}
