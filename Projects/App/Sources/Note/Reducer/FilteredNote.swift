@@ -89,8 +89,10 @@ public struct FilteredNote: Reducer {
         } else {
           state.noteSearchPage = 0
           let searchPage = state.noteSearchPage
+          let wineId: Int? = nil
+          
           return .run { send in
-            switch await noteService.notes(searchPage, searchSize, sortState, countries, types, rebuy) {
+            switch await noteService.notes(searchPage, searchSize, sortState, countries, types, rebuy, wineId) {
             case let .success(data):
               await send(._setNotes(data: data))
             case let .failure(error):
@@ -166,9 +168,9 @@ public struct FilteredNote: Reducer {
         let rebuy = state.rebuyFilter.isEmpty ? nil : 1
         let countries = state.countryFilter
         let types = state.typeFilter.setmap(transform: { filterRequestString(forValue: $0) })
-        
+        let wineId: Int? = nil
         return .run { send in
-          switch await noteService.notes(searchPage, searchSize, sortState, countries, types, rebuy) {
+          switch await noteService.notes(searchPage, searchSize, sortState, countries, types, rebuy, wineId) {
           case let .success(data):
             await send(.noteCardScroll(._appendNotes(noteData, data: data)))
           case let .failure(error):
