@@ -268,7 +268,11 @@ public struct WineDetailIllust: View {
           Circle()
             .strokeBorder(
               LinearGradient(
-                colors: [wineType.circleBorderColor, wineType.circleBorderColor.opacity(0.2), wineType.circleBorderColor.opacity(0)],
+                colors: [
+                  wineType.circleBorderColor,
+                  wineType.circleBorderColor.opacity(0.2),
+                  wineType.circleBorderColor.opacity(0)
+                ],
                 startPoint: .top, endPoint: .bottom
               ),
               lineWidth: 1
