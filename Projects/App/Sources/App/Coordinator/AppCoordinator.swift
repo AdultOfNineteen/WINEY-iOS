@@ -30,9 +30,14 @@ public struct AppCoordinator: Reducer {
     public var noteMode: NoteSheetOption? = nil  // 노트 바텀시트에 대한 로직 처리
   }
   
+  public enum Deeplink {
+    case detailNote(noteId: Int)
+  }
+  
   public enum Action: IndexedRouterAction {
     case routeAction(Int, action: AppScreen.Action)
     case updateRoutes([Route<AppScreen.State>])
+    case deeplinkOpened(Deeplink)
     case auth
     case home
   }
@@ -40,6 +45,10 @@ public struct AppCoordinator: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
+        
+      case let .deeplinkOpened(.detailNote(noteId)):
+        state.routes.append(.push(.noteDetail(.init(noteId: noteId, country: ""))))
+        return .none
         
       case .routeAction(_, action: .splash(._onAppear)):
         return .run { send in
