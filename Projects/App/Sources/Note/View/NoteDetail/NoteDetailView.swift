@@ -45,7 +45,7 @@ public struct NoteDetailView: View {
       }
       
       if let noteData = viewStore.noteCardData {
-        noteDetail(noteData: noteData)     
+        noteDetail(noteData: noteData)
       } else {
         ProgressView()
           .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -126,13 +126,27 @@ extension NoteDetailView {
   @ViewBuilder
   private func noteHeader(noteData: NoteDetailDTO) -> some View {
     HStack(spacing: 0) {
-      Text("No.")
-      Text(noteData.tastingNoteNo < 10 ? "0" + noteData.tastingNoteNo.description : noteData.tastingNoteNo.description)
-        .foregroundColor(WineyKitAsset.main3.swiftUIColor)
+      if viewStore.isMine {
+        Text("No.")
+          .wineyFont(.bodyB1)
+        Text(noteData.tastingNoteNo < 10 ? "0" + noteData.tastingNoteNo.description : noteData.tastingNoteNo.description)
+          .wineyFont(.bodyB1)
+          .foregroundColor(WineyKitAsset.main3.swiftUIColor)
+      } else {
+        Text("Tasted by")
+          .wineyFont(.captionM3)
+          .padding(.trailing, 8)
+          .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+        
+        Text(noteData.userNickname)
+          .wineyFont(.bodyB1)
+          .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+      }
       
       Spacer()
       
       Text(noteData.noteDate)
+        .wineyFont(.bodyB1)
     }
     .wineyFont(.bodyB1)
     .padding(.top, 20)
