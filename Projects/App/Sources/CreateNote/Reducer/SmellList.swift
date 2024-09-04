@@ -51,9 +51,6 @@ public struct SmellList: Reducer {
           state.isOpenList.toggle()
         }
         return .none
-        
-      default:
-        return .none
       }
     }
   }

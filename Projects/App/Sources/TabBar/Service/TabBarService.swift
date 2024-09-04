@@ -67,14 +67,3 @@ extension DependencyValues {
     set { self[TabBarService.self] = newValue }
   }
 }
-
-
-
-
-// 1. 데이터 스트림 발생 위치는 ?
-// 2. Delegate 채택 class의 역할은?
-// 3. TabBarService의 역할은?
-// 4. Reducer의 요청 사항은?
-
-
-

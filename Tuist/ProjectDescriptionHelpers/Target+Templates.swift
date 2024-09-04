@@ -10,18 +10,18 @@ import ProjectDescription
 import EnvPlugin
 import ConfigPlugin
 
-let commonScripts: [TargetScript] = [
-  .pre(
-    script: """
-    ROOT_DIR=\(ProcessInfo.processInfo.environment["TUIST_ROOT_DIR"] ?? "")
-    
-    ${ROOT_DIR}/swiftlint --config ${ROOT_DIR}/.swiftlint.yml
-    
-    """,
-    name: "SwiftLint",
-    basedOnDependencyAnalysis: false
-  )
-]
+//let commonScripts: [TargetScript] = [
+//  .pre(
+//    script: """
+//    ROOT_DIR=\(ProcessInfo.processInfo.environment["TUIST_ROOT_DIR"] ?? "")
+//    
+//    ${ROOT_DIR}/swiftlint --config ${ROOT_DIR}/.swiftlint.yml
+//    
+//    """,
+//    name: "SwiftLint",
+//    basedOnDependencyAnalysis: false
+//  )
+//]
 
 extension Target {
   public static func make(
@@ -49,7 +49,8 @@ extension Target {
       sources: sources,
       resources: resources,
       entitlements: "../../Tuist/Winey.entitlements",
-      scripts: useSwiftLint ? commonScripts + scripts : scripts,
+//      scripts: useSwiftLint ? commonScripts + scripts : scripts,
+      scripts: scripts,
       dependencies: dependencies,
       settings: settings
     )
@@ -111,7 +112,8 @@ public struct TargetFactory {
       self.copyFiles = copyFiles
       self.headers = headers
       self.entitlements = entitlements
-      self.scripts = scripts + commonScripts
+//      self.scripts = scripts + commonScripts
+      self.scripts = scripts
       self.dependencies = dependencies
       self.settings = settings
       self.coreDataModels = coreDataModels

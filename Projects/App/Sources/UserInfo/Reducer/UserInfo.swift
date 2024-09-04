@@ -62,6 +62,8 @@ public struct UserInfo: Reducer {
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case ._viewWillAppear:
+      AmplitudeProvider.shared.track(event: .MYPAGE_ENTER)
+      
       return .run { send in
         await send(._getUserInfo)
         await send(._getNickName)
@@ -168,6 +170,7 @@ public struct UserInfo: Reducer {
       
     case .userBadgeButtonTapped(let userId):
       if let userId = userId {
+        AmplitudeProvider.shared.track(event: .WINEY_BADGE_CLICK)
         return .send(._moveToBadgeTap(userId))
       } else {
         return .none  // TODO: 에러 분기처리

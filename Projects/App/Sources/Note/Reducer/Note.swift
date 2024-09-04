@@ -26,6 +26,7 @@ public struct Note: Reducer {
     
     // MARK: - Inner Business Action
     case _navigateToAnalysis
+    case _navigateToNoteWrite
     
     // MARK: - Inner SetState Action
     
@@ -43,6 +44,10 @@ public struct Note: Reducer {
       switch action {
       case .tappedAnalysisButton:
         return .send(._navigateToAnalysis)
+        
+      case .tappedNoteWriteButton:
+        AmplitudeProvider.shared.track(event: .NOTE_CREATE_BUTTON_CLICK)
+        return .send(._navigateToNoteWrite)
         
       default:
         return .none

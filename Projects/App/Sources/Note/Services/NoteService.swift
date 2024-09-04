@@ -12,7 +12,7 @@ import UIKit
 import WineyNetwork
 
 public struct NoteService {
-  public var notes: (_ page: Int, _ size: Int, _ order: Int, _ country: Set<String>, _ wineType: Set<String>, _  buyAgain: Int?) async -> Result<NoteDTO, Error>
+  public var notes: (_ page: Int, _ size: Int, _ order: Int, _ country: Set<String>, _ wineType: Set<String>, _  buyAgain: Int?, _  wineId: Int?) async -> Result<NoteDTO, Error>
   public var noteDetail: (_ noteId: Int) async -> Result<NoteDetailDTO, Error>
   public var wineSearch: (_ page: Int, _ size: Int, _ content: String) async -> Result<WineSearchDTO, Error>
   public var createNote: (_ createNoteData: CreateNoteRequestDTO, _ images: [UIImage]) async -> Result<VoidResponse, Error>
@@ -25,7 +25,7 @@ public struct NoteService {
 extension NoteService {
   static let live = {
     return Self(
-      notes: { page, size, order, country, wineType, buyAgain in
+      notes: { page, size, order, country, wineType, buyAgain, wineId in
         let dtoResult = await Provider<NoteAPI>
           .init()
           .request(
@@ -35,7 +35,8 @@ extension NoteService {
               order: order,
               country: Array(country),
               wineType: Array(wineType),
-              buyAgain: buyAgain
+              buyAgain: buyAgain, 
+              wineId: wineId
             ),
             type: NoteDTO.self
           )
@@ -169,51 +170,6 @@ extension NoteService {
       }
     )
   }()
-  
-  //  static let mock = {
-  //    return Self(
-  //      notes: { page, size, order, countries, wineTypes, buyAgain in
-  //        return .success(
-  //          NoteDTO(
-  //            isLast: false,
-  //            totalCnt: 1,
-  //            contents: [
-  //              NoteContent(
-  //                noteId: 3,
-  //                wineName: "test",
-  //                country: "test",
-  //                starRating: 3,
-  //                buyAgain: true,
-  //                wineType: "RED"
-  //              )
-  //            ]
-  //          )
-  //        )
-  //      },
-  //      wineSearch: { page, size, content in
-  //        return .success(
-  //          WineSearchDTO(
-  //            isLast: false,
-  //            totalCnt: 1,
-  //            contents: [
-  //              WineSearchContent(
-  //                wineId: 1,
-  //                type: "red",
-  //                country: "test",
-  //                name: "test",
-  //                varietal: "test"
-  //              )
-  //            ]
-  //          )
-  //        )
-  //      },
-  //      createNote: { wineId, vintage, officialAlcohol, price, color, sweetness, acidity, alcohol, body, tannin, finish, memo, buyAgain, rating, smellKeywordList  in
-  //        return .success(
-  //          VoidResponse.self
-  //        )
-  //      }
-  //    )
-  //  }()
 }
 
 extension NoteService: DependencyKey {

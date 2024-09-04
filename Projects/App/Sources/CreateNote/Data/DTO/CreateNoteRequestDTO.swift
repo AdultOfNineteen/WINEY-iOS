@@ -24,6 +24,7 @@ public struct CreateNoteRequestDTO: Encodable, Equatable {
   let buyAgain: Bool
   let rating: Int
   let smellKeywordList: Set<String>?
+  let isPublic: Bool
   
   public init(
     wineId: Int,
@@ -40,7 +41,8 @@ public struct CreateNoteRequestDTO: Encodable, Equatable {
     memo: String,
     buyAgain: Bool,
     rating: Int,
-    smellKeywordList: Set<String>?
+    smellKeywordList: Set<String>?,
+    isPublic: Bool
   ) {
     self.wineId = wineId
     self.vintage = vintage
@@ -57,5 +59,6 @@ public struct CreateNoteRequestDTO: Encodable, Equatable {
     self.buyAgain = buyAgain
     self.rating = rating
     self.smellKeywordList = smellKeywordList
+    self.isPublic = isPublic
   }
 }

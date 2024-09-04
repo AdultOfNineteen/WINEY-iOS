@@ -67,6 +67,9 @@ public struct SettingAlcohol: Reducer {
         return .send(._presentBottomSheet(true))
         
       case .tappedSkipButton:
+        if CreateNoteManager.shared.mode == .create {
+          AmplitudeProvider.shared.track(event: .ALCOHOL_INPUT_SKIP_CLICK)
+        }
         return .send(._moveNextPage)
         
       case .selectAlcoholValue(let value):
@@ -88,6 +91,10 @@ public struct SettingAlcohol: Reducer {
         
       case .tappedNextButton:
         CreateNoteManager.shared.officialAlcohol = state.officialAlcohol
+        
+        if CreateNoteManager.shared.mode == .create {
+          AmplitudeProvider.shared.track(event: .ALCOHOL_INPUT_NEXT_CLICK)
+        }
         return .send(._moveNextPage)
         
       case ._deleteNote:

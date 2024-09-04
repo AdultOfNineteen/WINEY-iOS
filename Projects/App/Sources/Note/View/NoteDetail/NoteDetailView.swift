@@ -22,26 +22,36 @@ public struct NoteDetailView: View {
   public var body: some View {
     VStack(spacing: 0) {
       // MARK: Navigation Bar
-      NavigationBar(
-        leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
-        leftIconButtonAction: {
-          viewStore.send(.tappedBackButton)
-        },
-        rightIcon: WineyAsset.Assets.settingIcon.swiftUIImage,
-        rightIconButtonAction: {
-          viewStore.send(.tappedSettingButton)
-        },
-        backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
-      )
+      if viewStore.isMine {
+        NavigationBar(
+          leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
+          leftIconButtonAction: {
+            viewStore.send(.tappedBackButton)
+          },
+          rightIcon: WineyAsset.Assets.settingIcon.swiftUIImage,
+          rightIconButtonAction: {
+            viewStore.send(.tappedSettingButton)
+          },
+          backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
+        )
+      } else {
+        NavigationBar(
+          leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
+          leftIconButtonAction: {
+            viewStore.send(.tappedBackButton)
+          },
+          backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
+        )
+      }
       
       if let noteData = viewStore.noteCardData {
-        noteDetail(noteData: noteData)     
+        noteDetail(noteData: noteData)
       } else {
         ProgressView()
           .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
     }
-    .onAppear {
+    .task {
       viewStore.send(._viewWillAppear)
     }
     .background(WineyKitAsset.mainBackground.swiftUIColor)
@@ -116,13 +126,27 @@ extension NoteDetailView {
   @ViewBuilder
   private func noteHeader(noteData: NoteDetailDTO) -> some View {
     HStack(spacing: 0) {
-      Text("No.")
-      Text(noteData.tastingNoteNo < 10 ? "0" + noteData.tastingNoteNo.description : noteData.tastingNoteNo.description)
-        .foregroundColor(WineyKitAsset.main3.swiftUIColor)
+      if viewStore.isMine {
+        Text("No.")
+          .wineyFont(.bodyB1)
+        Text(noteData.tastingNoteNo < 10 ? "0" + noteData.tastingNoteNo.description : noteData.tastingNoteNo.description)
+          .wineyFont(.bodyB1)
+          .foregroundColor(WineyKitAsset.main3.swiftUIColor)
+      } else {
+        Text("Tasted by")
+          .wineyFont(.captionM3)
+          .padding(.trailing, 8)
+          .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+        
+        Text(noteData.userNickname)
+          .wineyFont(.bodyB1)
+          .foregroundColor(WineyKitAsset.gray50.swiftUIColor)
+      }
       
       Spacer()
       
       Text(noteData.noteDate)
+        .wineyFont(.bodyB1)
     }
     .wineyFont(.bodyB1)
     .padding(.top, 20)

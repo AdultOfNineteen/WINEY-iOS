@@ -11,7 +11,36 @@ import Foundation
 
 /// Ampltiude Event에 필요한 case를 정의합니다.
 public enum AmplitudeEvent: String {
-  case tappedAnalysis
+  
+  // Home Event
+  case HOME_ENTER
+  case WINE_DETAIL_CLICK
+  case ANALYZE_BUTTON_CLICK
+  case TIP_POST_CLICK
+  
+  // Map event
+  case MAP_ENTER
+  
+  // Note Event
+  case NOTE_CREATE_BUTTON_CLICK
+  case WINE_SELECT_BUTTON_CLICK
+  case ALCOHOL_INPUT_SKIP_CLICK
+  case ALCOHOL_INPUT_NEXT_CLICK
+  case VINTAGE_PRICE_INPUT_SKIP_CLICK
+  case VINTAGE_PRICE_INPUT_NEXT_CLICK
+  case COLOR_SCENT_INPUT_NEXT_CLICK
+  case COLOR_SCENT_INPUT_BACK_CLICK
+  case SCENT_HELP_CLICK
+  case TASTE_INPUT_NEXT_CLICK
+  case TASTE_INPUT_BACK_CLICK
+  case TASTE_HELP_CLICK
+  case REVIEW_COMPLETE_CLICK
+  case REVIEW_COMPLETE_BACK_CLICK
+  
+  // MyPage Event
+  case MYPAGE_ENTER
+  case WINEY_BADGE_CLICK
+  case YOUNG_BADGE_CLICK
 }
 
 final class AmplitudeProvider: ObservableObject {

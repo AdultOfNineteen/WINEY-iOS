@@ -7,6 +7,7 @@
 //
 
 import AmplitudeSwift
+import ComposableArchitecture
 import Foundation
 import GoogleSignIn
 import KakaoSDKAuth
@@ -16,25 +17,10 @@ import UIKit
 import WineyNetwork
 
 
-@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
-  func application(
-    _ app: UIApplication,
-    open url: URL,
-    options: [UIApplication.OpenURLOptionsKey: Any] = [:])
-  -> Bool {
-    if AuthApi.isKakaoTalkLoginUrl(url) {
-      return AuthController.handleOpenUrl(url: url)
-    }
-    
-    if GIDSignIn.sharedInstance.handle(url) {
-      return true
-    }
-    
-    return false
-  }
+  let store = Store(initialState: AppCoordinator.State.initialState, reducer: { AppCoordinator() })
   
   func application(
     _ application: UIApplication,
@@ -43,17 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     AmplitudeProvider.initProvider(apiKey: APIKeys.amplitudeApiKey)
     KakaoSDK.initSDK(appKey: APIKeys.kakaoAppKey)
-    
-    self.window = UIWindow(frame: UIScreen.main.bounds)
-    let appView = AppCoordinatorView(
-      store: .init(
-        initialState: .initialState,
-        reducer: { AppCoordinator() })
-    )
-    
-    window?.rootViewController = UIHostingController(rootView: appView)
-    window?.makeKeyAndVisible()
-    
+
     return true
   }
 }

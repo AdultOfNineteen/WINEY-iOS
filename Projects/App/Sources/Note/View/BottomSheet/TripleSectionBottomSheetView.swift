@@ -10,7 +10,7 @@ import ComposableArchitecture
 import SwiftUI
 import WineyKit
 
-public struct TwoSectionBottomSheetView: View {
+public struct TripleSectionBottomSheetView: View {
   private let store: StoreOf<TwoSectionBottomSheet>
   @ObservedObject var viewStore: ViewStoreOf<TwoSectionBottomSheet>
   
@@ -24,7 +24,7 @@ public struct TwoSectionBottomSheetView: View {
       WineyKitAsset.gray950.swiftUIColor.ignoresSafeArea(edges: .all)
       selectOptionView()
     }
-    .presentationDetents([.height(187)])
+    .presentationDetents([.height(248)])
     .presentationDragIndicator(.visible)
     .onAppear {
       viewStore.send(._onAppear)
@@ -35,11 +35,23 @@ public struct TwoSectionBottomSheetView: View {
   }
 }
 
-private extension TwoSectionBottomSheetView {
+private extension TripleSectionBottomSheetView {
   
   @ViewBuilder
   private func selectOptionView() -> some View {
     VStack(spacing: 0) {
+      sectionContainer(
+        title: viewStore.sheetMode.thirdTitle,
+        action: {
+          viewStore.send(.tappedThirdButton)
+        }
+      )
+      
+      Divider()
+      .overlay(
+        WineyKitAsset.gray900.swiftUIColor
+      )
+      
       sectionContainer(
         title: viewStore.sheetMode.firstTitle,
         action: {

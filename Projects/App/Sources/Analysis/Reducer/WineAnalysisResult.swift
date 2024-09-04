@@ -54,8 +54,6 @@ public struct WineAnalysisResult: Reducer {
         return .none
       case ._viewWillAppear:
         return .none
-      default:
-        return .none
       }
     }
     

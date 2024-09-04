@@ -30,9 +30,14 @@ public struct AppCoordinator: Reducer {
     public var noteMode: NoteSheetOption? = nil  // 노트 바텀시트에 대한 로직 처리
   }
   
+  public enum Deeplink {
+    case detailNote(noteId: Int)
+  }
+  
   public enum Action: IndexedRouterAction {
     case routeAction(Int, action: AppScreen.Action)
     case updateRoutes([Route<AppScreen.State>])
+    case deeplinkOpened(Deeplink)
     case auth
     case home
   }
@@ -40,6 +45,10 @@ public struct AppCoordinator: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
+        
+      case let .deeplinkOpened(.detailNote(noteId)):
+        state.routes.append(.push(.noteDetail(.init(noteId: noteId, country: "", isMine: false))))
+        return .none
         
       case .routeAction(_, action: .splash(._onAppear)):
         return .run { send in
@@ -68,27 +77,7 @@ public struct AppCoordinator: Reducer {
           .root(
             .tabBar(
               .init(
-                main: .init(),
-                map: .init(),
-                note: .init(),
-                userInfo: .init(),
-                isTabHidden: false
-              )
-            ),
-            embedInNavigationView: true
-          )
-        ]
-        return .none
-        
-      case .routeAction(_, action: .splash(._moveToHome)):
-        state.routes = [
-          .root(
-            .tabBar(
-              .init(
-                main: .init(),
-                map: .init(),
-                note: .init(),
-                userInfo: .init(),
+                selectedTab: .main,
                 isTabHidden: false
               )
             ),
@@ -105,15 +94,41 @@ public struct AppCoordinator: Reducer {
         ]
         return .none
         
+      case .routeAction(_, action: .splash(._moveToHome)):
+        state.routes = [
+          .root(
+            .tabBar(
+              .init(
+                selectedTab: .main,
+                isTabHidden: false
+              )
+            ),
+            embedInNavigationView: true
+          )
+        ]
+        return .none
+        
       case .routeAction(_, action: .auth(.routeAction(_, action: .setWelcomeSignUp(.tappedStartButton)))):
         state.routes = [
           .root(
             .tabBar(
               .init(
-                main: .init(),
-                map: .init(),
-                note: .init(),
-                userInfo: .init(),
+                selectedTab: .main,
+                isTabHidden: false
+              )
+            ),
+            embedInNavigationView: true
+          )
+        ]
+        return .none
+      
+      /// 유저가 Tab 클릭 시 해당 Tab으로 이동 및 해당 Tab만 로드되도록 설정
+      case let .routeAction(_, action: .tabBar(._loadingTab(tab))):
+        state.routes = [
+          .root(
+            .tabBar(
+              .init(
+                selectedTab: tab,
                 isTabHidden: false
               )
             ),
@@ -136,7 +151,8 @@ public struct AppCoordinator: Reducer {
         state.routes.append(.push(.wineTip(.tipList)))
         return .none
         
-      case let .routeAction(_, action: .tabBar(.main(.routeAction(_, action: .main(.wineTip(.tappedTipCard(url: url))))))):
+      case let .routeAction(_, action: .tabBar(.main(.routeAction(_, action: .main(.wineTip(._moveDetailTipCard(url: url))))))):
+        
         state.routes.append(.push(.wineTip(.tipDetail(url: url))))
         return .none
         
@@ -162,7 +178,7 @@ public struct AppCoordinator: Reducer {
         return .none
         
       /// Note 작성 관련 Action
-      case .routeAction(_, action: .tabBar(.note(.routeAction(_, action: .note(.tappedNoteWriteButton))))):
+      case .routeAction(_, action: .tabBar(.note(.routeAction(_, action: .note(._navigateToNoteWrite))))):
         state.routes.append(.push(.createNote(.createState)))
         return .none
         
@@ -207,6 +223,10 @@ public struct AppCoordinator: Reducer {
       case let .routeAction(_, action: .twoSectionSheet(.noteDetail(._activateBottomSheet(.remove, data)))):
         state.routes.dismiss()
         state.noteMode = .removeSheet(data)
+        return .none
+        
+      case .routeAction(_, action: .twoSectionSheet(.noteDetail(._activateBottomSheet(.shared, _)))):
+        state.routes.dismiss()
         return .none
         
       case .routeAction(_, action: .noteRemoveBottomSheet(.noteDetail(.tappedBackButton))):

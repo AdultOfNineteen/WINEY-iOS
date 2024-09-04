@@ -40,6 +40,7 @@ public struct WineConfirm: Reducer {
         
       case .tappedWritingButton:
         CreateNoteManager.shared.wineId = state.wineData.wineId
+        AmplitudeProvider.shared.track(event: .WINE_SELECT_BUTTON_CLICK)
         return .send(._moveNextPage)
         
       default:

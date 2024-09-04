@@ -85,8 +85,6 @@ public struct WinePreferTaste: Reducer {
       state.topTaste = taste
       return .none
       
-    default:
-      return .none
     }
   }
 }
