@@ -23,6 +23,8 @@ let project = Project.make(
         .external(name: "TCACoordinators"),
         .external(name: "CombineExt"),
         .external(name: "KakaoSDKUser"),
+        .external(name: "KakaoSDKShare"),
+        .external(name: "KakaoSDKTemplate"),
         
         .external(name: "NMapsMap"),
         .external(name: "AmplitudeSwift")
