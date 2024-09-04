@@ -29,6 +29,7 @@ final class CreateNoteManager: ObservableObject {
   @Published var finish: Int?
   @Published var memo: String?
   @Published var buyAgain: Bool?
+  @Published var isPublic: Bool?
   @Published var rating: Int?
   @Published var smellKeywordList: Set<String>?
   @Published var originalSmellKeywordList: Set<String>?
@@ -54,6 +55,7 @@ final class CreateNoteManager: ObservableObject {
     self.finish = nil
     self.memo = nil
     self.buyAgain = nil
+    self.isPublic = nil
     self.rating = nil
     self.smellKeywordList = nil
     self.originalSmellKeywordList = nil
@@ -77,6 +79,7 @@ final class CreateNoteManager: ObservableObject {
     self.finish = Int(noteData.myWineTaste.finish)
     self.memo = noteData.memo
     self.buyAgain = noteData.buyAgain
+    self.isPublic = noteData.public
     self.rating = noteData.star
     self.originalSmellKeywordList = noteData.smellKeywordList.setmap(transform: ({ getSmellCode(for: $0) ?? "" }))
     self.originalImages = noteData.tastingNoteImage
@@ -98,7 +101,8 @@ final class CreateNoteManager: ObservableObject {
       memo: self.memo!,
       buyAgain: self.buyAgain!,
       rating: self.rating!,
-      smellKeywordList: self.smellKeywordList
+      smellKeywordList: self.smellKeywordList, 
+      isPublic: self.isPublic!
     ), userSelectImages!)
   }
   
@@ -137,7 +141,8 @@ final class CreateNoteManager: ObservableObject {
       rating: self.rating!,
       smellKeywordList: self.smellKeywordList,
       deleteSmellKeywordList: self.deleteSmellKeywordList,
-      deleteImgLists: deleteImageIndex
+      deleteImgLists: deleteImageIndex, 
+      isPublic: self.isPublic!
     ), updateImage)
   }
   

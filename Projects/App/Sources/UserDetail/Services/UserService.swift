@@ -110,30 +110,6 @@ extension UserService {
       }
     )
   }()
-  
-//  static let mock = {
-//    return Self(
-//      info: {
-//        return .success(
-//          UserInfoDTO(userId: 22, status: "ACTIVATE")
-//        )
-//      },
-//      nickname: {
-//        return .success(UserNicknameDTO(nickname: "test"))
-//      },
-//      signOut: { userId, reason in
-//        return .success(
-//          SignOutDTO(userId: 22, deletedAt: "2024-01-30T15:13:22.505Z")
-//        )
-//      },
-//      logout: { deviceId in
-//        return .success(
-//          "Test"
-//        )
-//      }
-//    )
-//  }()
-  //  static let unimplemented = Self(…)
 }
 
 extension UserService: DependencyKey {

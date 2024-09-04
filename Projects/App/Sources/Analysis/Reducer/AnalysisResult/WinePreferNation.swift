@@ -54,11 +54,5 @@ public struct WinePreferNation: Reducer {
     // MARK: - Child Action
   }
   
-  public func reduce(into state: inout State, action: Action) -> Effect<Action> {
-    switch action {
-      
-    default:
-      return .none
-    }
-  }
+  public func reduce(into state: inout State, action: Action) -> Effect<Action> { }
 }

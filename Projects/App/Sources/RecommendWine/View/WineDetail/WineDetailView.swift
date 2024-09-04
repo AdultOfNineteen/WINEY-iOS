@@ -20,54 +20,72 @@ public struct WineDetailView: View {
   }
   
   public var body: some View {
-    VStack(spacing: 0) {
-      NavigationBar(
-        title: "와인 상세정보",
-        leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
-        leftIconButtonAction: {
-          viewStore.send(.tappedBackButton)
-        },
-        backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
+    NavigationStack(
+      path: viewStore.binding(
+        get: \.recommendWineTastingNotesList.path,
+        send: { WineDetail.Action._recommendWineTastingNotesList(.pathChanged($0)) }
       )
-      
-      ScrollView {
-        LazyVStack(spacing: 0) {
-          
-          wineTypeName()
-          
-          divider()
-          
-          if let wineDetailData = viewStore.windDetailData {
-            WineDetailInfoMiddleView(
-              wineType: WineType.changeType(at: wineDetailData.type),
-              nationalAnthems: wineDetailData.country,
-              varities: wineDetailData.varietal,
-              purchasePrice: Int(wineDetailData.wineSummary.avgPrice)
+    ) {
+      VStack(spacing: 0) {
+        NavigationBar(
+          title: "와인 상세정보",
+          leftIcon: WineyAsset.Assets.navigationBackButton.swiftUIImage,
+          leftIconButtonAction: {
+            viewStore.send(.tappedBackButton)
+          },
+          backgroundColor: WineyKitAsset.mainBackground.swiftUIColor
+        )
+        
+        ScrollView {
+          LazyVStack(spacing: 0) {
+            
+            wineTypeName()
+            
+            divider()
+              .padding(.top, 20)
+            
+            if let wineDetailData = viewStore.windDetailData {
+              WineDetailInfoMiddleView(
+                wineType: WineType.changeType(at: wineDetailData.type),
+                nationalAnthems: wineDetailData.country,
+                varities: wineDetailData.varietal,
+                purchasePrice: Int(wineDetailData.wineSummary.avgPrice)
+              )
+              .padding(.top, 42)
+              .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+            } else {
+              ProgressView()
+            }
+            
+            divider()
+              .padding(.top, 20)
+            
+            wineGraph()
+            
+            divider()
+
+            SpecificWineTastingNotesView(
+              store: self.store.scope(
+                state: \.recommendWineTastingNotesList,
+                action: WineDetail.Action._recommendWineTastingNotesList
+              )
             )
-            .padding(.top, 42)
-            .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-          } else {
-            ProgressView()
+            .padding(.top, 20)
+            .padding(.bottom, 50)
           }
-          
-          divider()
-          
-          wineGraph()
         }
-        .padding(.top, 14)
+        .onAppear {
+          viewStore.send(._viewWillAppear)
+        }
       }
-      .onAppear {
-        viewStore.send(._viewWillAppear)
-      }
+      .navigationBarHidden(true)
+      .background(WineyKitAsset.mainBackground.swiftUIColor) 
     }
-    .navigationBarHidden(true)
-    .background(WineyKitAsset.mainBackground.swiftUIColor)
   }
 }
 
 
 extension WineDetailView {
-  
   @ViewBuilder
   private func wineTypeName() -> some View {
     VStack(spacing: 0) {
@@ -109,7 +127,7 @@ extension WineDetailView {
     Divider()
       .frame(height: 0.8)
       .overlay(WineyKitAsset.gray900.swiftUIColor)
-      .padding(.top, 20)
+      .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
   }
 }
 
@@ -181,7 +199,7 @@ public struct WineDetailInfoSum: View {
           .fill(WineyKitAsset.main3.swiftUIColor)
           .frame(width: 12, height: 12)
         
-        Text("취향이 비슷한 사람들이 느낀 와인의 맛")
+        Text("테이스팅 노트 기반 데이터")
           .wineyFont(.captionM2)
         
       }
@@ -268,7 +286,11 @@ public struct WineDetailIllust: View {
           Circle()
             .strokeBorder(
               LinearGradient(
-                colors: [wineType.circleBorderColor, wineType.circleBorderColor.opacity(0.2), wineType.circleBorderColor.opacity(0)],
+                colors: [
+                  wineType.circleBorderColor,
+                  wineType.circleBorderColor.opacity(0.2),
+                  wineType.circleBorderColor.opacity(0)
+                ],
                 startPoint: .top, endPoint: .bottom
               ),
               lineWidth: 1
@@ -282,4 +304,23 @@ public struct WineDetailIllust: View {
         )
     }
   }
+}
+
+#Preview {
+  WineDetailView(
+    store: .init(
+      initialState: WineDetail.State.init(
+        windId: 0,
+        wineCardData: .init(
+          id: 0,
+          wineType: .red,
+          name: "와인이름",
+          country: "와인 생산지",
+          varietal: "배리에이션",
+          price: 30000
+        )
+      ),
+      reducer: { WineDetail() }
+    )
+  )
 }

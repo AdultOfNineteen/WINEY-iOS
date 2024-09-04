@@ -16,6 +16,7 @@ public struct SettingMemo: Reducer {
     public var memo: String = ""
     public var rating: Int = 0
     public var buyAgain: Bool? = nil
+    public var isPublic: Bool? = nil
     
     public var maxPhoto: Int = 3
     public var displayImages: [UIImage] = []
@@ -51,6 +52,7 @@ public struct SettingMemo: Reducer {
     case _limitMemo(String)
     case _setRating(Int)
     case _setBuyAgain(Bool)
+    case _setIsPublic(Bool)
     case _setSheetState(Bool)
     case _failureSocialNetworking(Error) // 후에 경고창 처리
     
@@ -106,6 +108,7 @@ public struct SettingMemo: Reducer {
         CreateNoteManager.shared.memo = state.memo
         CreateNoteManager.shared.rating = state.rating
         CreateNoteManager.shared.buyAgain = state.buyAgain
+        CreateNoteManager.shared.isPublic = state.isPublic
         CreateNoteManager.shared.userSelectImages = state.displayImages
         
         if CreateNoteManager.shared.mode == .create {
@@ -124,7 +127,7 @@ public struct SettingMemo: Reducer {
               createNoteData.0,
               createNoteData.1
             ) {
-            case let .success(data):
+            case .success:
               CreateNoteManager.shared.initData()
               await send(._moveNextPage)
             case let .failure(error):
@@ -139,7 +142,7 @@ public struct SettingMemo: Reducer {
               patchNoteData.0,
               patchNoteData.1
             ) {
-            case let .success(data):
+            case .success:
               CreateNoteManager.shared.initData()
               await send(._backToNoteDetail)
             case let .failure(error):
@@ -164,6 +167,10 @@ public struct SettingMemo: Reducer {
         
       case ._setBuyAgain(let value):
         state.buyAgain = value
+        return .none
+        
+      case ._setIsPublic(let value):
+        state.isPublic = value
         return .none
         
       case ._requestAuthorizationAndFetchPhotos:

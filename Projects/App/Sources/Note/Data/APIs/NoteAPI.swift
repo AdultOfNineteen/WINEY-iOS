@@ -13,7 +13,7 @@ import WineyNetwork
 public enum NoteAPI {
   case wineSearch(page: Int, size: Int, content: String)
   case noteDetailInfo(noteId: Int)
-  case tastingNotes(page: Int, size: Int, order: Int, country: [String], wineType: [String], buyAgain: Int?)
+  case tastingNotes(page: Int, size: Int, order: Int, country: [String], wineType: [String], buyAgain: Int?, wineId: Int?)
   case createNote(createNoteData: CreateNoteRequestDTO, images: [UIImage])
   case patchNote(patchNoteData: PatchNoteRequestDTO, images: [UIImage])
   case deleteNote(noteId: Int)
@@ -82,18 +82,33 @@ extension NoteAPI: EndPointType {
         encoding: .queryString
       )
       
-    case let .tastingNotes(page, size, order, country, wineType, buyAgain):
-      return .requestParameters(
-        parameters: [
-          "page": page,
-          "size": size,
-          "order": order,
-          country.isEmpty ? "" : "countries" : country.joined(separator: ", "),
-          wineType.isEmpty ? "w" : "wineTypes" : wineType.joined(separator: ", "),
-          "buyAgain": buyAgain ?? ""
-        ],
-        encoding: .queryString
-      )
+    case let .tastingNotes(page, size, order, country, wineType, buyAgain, wineId):
+      if let wineId {
+        return .requestParameters(
+          parameters: [
+            "page": page,
+            "size": size,
+            "order": order,
+            country.isEmpty ? "" : "countries" : country.joined(separator: ", "),
+            wineType.isEmpty ? "w" : "wineTypes" : wineType.joined(separator: ", "),
+            "buyAgain": buyAgain ?? "",
+            "wineId": wineId
+          ],
+          encoding: .queryString
+        )
+      } else {
+        return .requestParameters(
+          parameters: [
+            "page": page,
+            "size": size,
+            "order": order,
+            country.isEmpty ? "" : "countries" : country.joined(separator: ", "),
+            wineType.isEmpty ? "w" : "wineTypes" : wineType.joined(separator: ", "),
+            "buyAgain": buyAgain ?? ""
+          ],
+          encoding: .queryString
+        )
+      }
     
     // MARK: MultiPart 추가
     case let .createNote(

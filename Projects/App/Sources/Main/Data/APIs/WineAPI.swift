@@ -26,7 +26,7 @@ extension WineAPI: EndPointType {
       return "/wines/recommend"
     case let .wineDetailInfo(windId):
       return "/wines/\(windId)"
-    case let .wineTip(page: page, size: size):
+    case .wineTip:
       return "/wine-tip"
     }
   }

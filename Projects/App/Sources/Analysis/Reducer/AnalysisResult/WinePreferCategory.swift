@@ -38,9 +38,6 @@ public struct WinePreferCategory: Reducer {
   }
   
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
-    switch action {
-    default:
-      return .none
-    }
+
   }
 }

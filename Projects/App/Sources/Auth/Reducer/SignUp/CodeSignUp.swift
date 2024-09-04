@@ -9,7 +9,6 @@
 import Combine
 import ComposableArchitecture
 import Foundation
-//import UserDomain
 import WineyNetwork
 
 public struct CodeSignUp: Reducer {
@@ -180,7 +179,7 @@ public struct CodeSignUp: Reducer {
       case .success:
         return .send(._changeBottomSheet(type: .sendCode))
         
-      case .failure(let error):
+      case .failure:
         // TODO: 메시지 전송 실패 시.
 //        guard let providerError = error.toProviderError(),
 //        let message = providerError.errorBody?.message,

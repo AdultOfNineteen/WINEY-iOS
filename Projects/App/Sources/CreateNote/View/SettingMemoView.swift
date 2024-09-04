@@ -21,7 +21,11 @@ public struct SettingMemoView: View {
     self.viewStore = ViewStore(self.store, observe: { $0 })
   }
   
-  public var columns: [GridItem] = [GridItem(.flexible(), spacing: 9), GridItem(.flexible(), spacing: 4), GridItem(.flexible())]
+  public var columns: [GridItem] = [
+    GridItem(.flexible(), spacing: 9),
+    GridItem(.flexible(), spacing: 4),
+    GridItem(.flexible())
+  ]
   
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
@@ -223,29 +227,31 @@ extension SettingMemoView {
         }
       }
       
-      HStack(spacing: 8) {
-        Text("재구매 의사")
-          .foregroundStyle(.white)
-          .wineyFont(.bodyB1)
-        
-        Spacer()
-        
-        CapsuleButton(
-          title: "있어요",
-          validation: viewStore.buyAgain ?? false,
-          action: {
-            viewStore.send(._setBuyAgain(true))
+      YesOrNoButton(
+        title: "재구매 의사",
+        validation: .init(
+          get: {
+            viewStore.buyAgain
+          },
+          set: { state in
+            guard let state else { return }
+            viewStore.send(._setBuyAgain(state))
           }
         )
-        
-        CapsuleButton(
-          title: "없어요",
-          validation: !(viewStore.buyAgain ?? true),
-          action: {
-            viewStore.send(._setBuyAgain(false))
+      )
+      
+      YesOrNoButton(
+        title: "노트 공개 여부",
+        validation: .init(
+          get: {
+            viewStore.isPublic
+          },
+          set: { state in
+            guard let state else { return }
+            viewStore.send(._setIsPublic(state)) // 수정
           }
         )
-      }
+      )
     }
     .padding(.top, 30)
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
@@ -267,6 +273,47 @@ extension SettingMemoView {
     .padding(.bottom, WineyGridRules.bottomButtonPadding)
   }
 }
+
+struct YesOrNoButton: View {
+  @Binding var validation: Bool?
+  let title: String
+  
+  init(
+    title: String,
+    validation: Binding<Bool?>
+  ) {
+    self.title = title
+    self._validation = validation
+  }
+  
+  var body: some View {
+    HStack(spacing: 8) {
+      Text(title)
+        .foregroundStyle(.white)
+        .wineyFont(.bodyB1)
+      
+      Spacer()
+      
+      CapsuleButton(
+        title: "있어요",
+        validation: validation ?? false,
+        action: {
+          validation = true
+        }
+      )
+      
+      CapsuleButton(
+        title: "없어요",
+        validation: !(validation ?? true),
+        action: {
+          validation = false
+        }
+      )
+    }
+  }
+}
+
+
 
 #Preview {
   SettingMemoView(

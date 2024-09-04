@@ -86,7 +86,7 @@ public struct ChangeNickname: Reducer {
       case .success:
         return .send(._backToSetting)
         
-      case .failure(let error):
+      case .failure:
         return .none
       }
         

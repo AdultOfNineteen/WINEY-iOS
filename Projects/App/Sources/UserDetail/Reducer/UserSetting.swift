@@ -52,7 +52,7 @@ public struct UserSetting: Reducer {
     case .tappedBottomSheetYesOption:
       return .run { send in
         switch await userService.logout(UIDevice.current.identifierForVendor!.uuidString) {
-        case let .success(data):
+        case .success:
           await send(._removeUserInfo)
         case let .failure(error):
           await send(._failureSocialNetworking(error))
