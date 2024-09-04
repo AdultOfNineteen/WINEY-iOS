@@ -117,11 +117,11 @@ struct SpecificWineTastingNotesView: View {
   
   func tastingNotesListCell(content: NoteContent) -> some View {
     HStack {
-      VStack(alignment: .leading, spacing: 0) {
-        Text("이름")
+      VStack(alignment: .leading, spacing: 3) {
+        Text(content.userNickname)
           .wineyFont(.bodyB1)
           .foregroundStyle(WineyKitAsset.gray50.swiftUIColor)
-        Text("생성날짜")
+        Text(content.noteDate.replacingHyphensWithDots())
           .wineyFont(.captionM2)
           .foregroundStyle(WineyKitAsset.gray700.swiftUIColor)
       }
@@ -135,6 +135,12 @@ struct SpecificWineTastingNotesView: View {
     .frame(height: 48)
   }
   
+}
+
+private extension String {
+  func replacingHyphensWithDots() -> String {
+    return self.replacingOccurrences(of: "-", with: ".")
+  }
 }
 
 #Preview {
