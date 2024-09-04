@@ -27,6 +27,7 @@ public struct NoteDetailDTO: Codable, Equatable {
   public let defaultWineTaste: DefaultWineTaste
   public let tastingNoteImage: [TastingNoteImage]
   public let memo: String
+  public let userNickname: String
   public let `public`: Bool
 }
 

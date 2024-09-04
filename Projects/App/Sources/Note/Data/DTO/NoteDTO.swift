@@ -23,5 +23,7 @@ public struct NoteContent: Codable, Equatable {
   let starRating: Int
   let buyAgain: Bool
   let wineType: String
+  let userNickname : String
+  let noteDate : String
   let `public`: Bool
 }
