@@ -208,7 +208,8 @@ public struct WineDetailGraphMyWineDefaultView: View {
         tannin: 1.4
       ),
       tastingNoteImage: [],
-      memo: "test", 
+      memo: "test",
+      userNickname: "보노", 
       public: true
     )
   )
