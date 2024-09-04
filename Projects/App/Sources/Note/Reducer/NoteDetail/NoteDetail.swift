@@ -59,6 +59,7 @@ public struct NoteDetail: Reducer {
   }
   
   @Dependency(\.note) var noteService
+  @Dependency(\.kakaoShare) var kakaoShare
   
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
@@ -87,8 +88,17 @@ public struct NoteDetail: Reducer {
         
         switch option {
         case .shared:
-        // TODO: - 공유하기 기능 만들기
-          return .send(._activateBottomSheet(mode: .shared, data: state))
+          let state = state
+          guard let kakaoMessage = makeKakaoShareMessage(from: state) else { return .none }
+          
+          return .run { send in
+            do {
+              try await kakaoShare.share(kakaoMessage)
+              await send(._activateBottomSheet(mode: .shared, data: state))
+            } catch {
+              print("🐛 \(error)")
+            }
+          }
           
         case .modify:
           CreateNoteManager.shared.mode = .patch
@@ -124,5 +134,13 @@ public struct NoteDetail: Reducer {
         return .none
       }
     }
+  }
+  
+  func makeKakaoShareMessage(from state: State) -> KakaoShareMessage? {
+    guard let noteCardData = state.noteCardData else { return nil }
+    return KakaoShareMessage(
+      title: "[\(noteCardData.userNickname)] 님의 [\(noteCardData.wineName)] 테이스팅 노트를 확인해보세요!",
+      id: "\(state.noteId)"
+    )
   }
 }
