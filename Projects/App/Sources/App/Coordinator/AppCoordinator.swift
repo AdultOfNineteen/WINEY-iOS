@@ -47,7 +47,7 @@ public struct AppCoordinator: Reducer {
       switch action {
         
       case let .deeplinkOpened(.detailNote(noteId)):
-        state.routes.append(.push(.noteDetail(.init(noteId: noteId, country: ""))))
+        state.routes.append(.push(.noteDetail(.init(noteId: noteId, country: "", isMine: false))))
         return .none
         
       case .routeAction(_, action: .splash(._onAppear)):
