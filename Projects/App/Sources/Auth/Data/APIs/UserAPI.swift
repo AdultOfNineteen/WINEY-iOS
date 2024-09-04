@@ -38,11 +38,11 @@ extension UserAPI: EndPointType {
       return "/info"
     case .nickname:
       return "/nickname"
-    case let .patchNickname(nickname):
+    case .patchNickname:
       return "/nickname"
-    case let .signOut(userId: userId, reason: reason):
+    case let .signOut(userId, _):
       return "/users/\(userId)"
-    case let .logout(deviceId: deviceId):
+    case .logout:
       return "/users/logout"
     case .connections:
       return "/connections"

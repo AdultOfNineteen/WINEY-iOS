@@ -38,9 +38,6 @@ public struct WinePrice: Reducer {
     case ._onAppear:
       state.opacity = 1.0
       return .none
-      
-    default:
-      return .none
     }
   }
 }

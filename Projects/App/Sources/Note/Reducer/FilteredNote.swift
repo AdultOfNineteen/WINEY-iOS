@@ -84,7 +84,7 @@ public struct FilteredNote: Reducer {
         let countries = state.countryFilter
         let types = state.typeFilter.setmap(transform: { filterRequestString(forValue: $0) })
         
-        if let noteList = state.noteCardList {
+        if let _ = state.noteCardList {
           return .none
         } else {
           state.noteSearchPage = 0

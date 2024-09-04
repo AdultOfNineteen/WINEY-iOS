@@ -67,7 +67,7 @@ public struct TabBar: Reducer {
       switch action {
       case ._onSetting:
         return .run { send in
-          tapService.adaptivePresentationControl()
+          _ = tapService.adaptivePresentationControl()
         }
         
       case let .tabSelected(tab):

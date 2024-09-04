@@ -65,15 +65,12 @@ public struct NoteDetail: Reducer {
       switch action {
       case ._viewWillAppear:
         let id = state.noteId
-        print("일단 들어오긴 함? \(id)")
+        
         return .run { send in
-          print("Run 되나?")
           switch await noteService.noteDetail(id) {
           case let .success(data):
-            print("성공 \(data)")
             await send(._setDetailNotes(data: data))
           case let .failure(error):
-            print("실패 \(error.localizedDescription)")
             await send(._failureSocialNetworking(error))
           }
         }

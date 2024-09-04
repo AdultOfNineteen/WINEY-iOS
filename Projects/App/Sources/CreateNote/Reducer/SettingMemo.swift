@@ -127,7 +127,7 @@ public struct SettingMemo: Reducer {
               createNoteData.0,
               createNoteData.1
             ) {
-            case let .success(data):
+            case .success:
               CreateNoteManager.shared.initData()
               await send(._moveNextPage)
             case let .failure(error):
@@ -142,7 +142,7 @@ public struct SettingMemo: Reducer {
               patchNoteData.0,
               patchNoteData.1
             ) {
-            case let .success(data):
+            case .success:
               CreateNoteManager.shared.initData()
               await send(._backToNoteDetail)
             case let .failure(error):
