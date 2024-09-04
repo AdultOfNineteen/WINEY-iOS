@@ -70,7 +70,8 @@ public struct WineDetailView: View {
                 action: WineDetail.Action._recommendWineTastingNotesList
               )
             )
-            .padding(.top, 14)
+            .padding(.top, 20)
+            .padding(.bottom, 50)
           }
         }
         .onAppear {

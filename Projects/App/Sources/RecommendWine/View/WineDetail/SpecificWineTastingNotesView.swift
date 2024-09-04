@@ -50,20 +50,22 @@ struct SpecificWineTastingNotesView: View {
         .padding(.leading, WineyGridRules.globalHorizontalPadding)
         .padding(.trailing, 17)
         
-        Button(
-          action: {
-            viewStore.send(.tappedMoreTastingNote)
-          },
-          label: {
-            HStack(spacing: 0) {
-              Text("더 보러가기")
-                .wineyFont(.bodyM2)
-                .foregroundStyle(WineyKitAsset.gray400.swiftUIColor)
-              
-              WineyAsset.Assets.icArrowRight.swiftUIImage
+        if viewStore.tastingNoteData.totalCnt > 5 {
+          Button(
+            action: {
+              viewStore.send(.tappedMoreTastingNote)
+            },
+            label: {
+              HStack(spacing: 0) {
+                Text("더 보러가기")
+                  .wineyFont(.bodyM2)
+                  .foregroundStyle(WineyKitAsset.gray400.swiftUIColor)
+                
+                WineyAsset.Assets.icArrowRight.swiftUIImage
+              }
             }
-          }
-        )
+          )
+        }
       }
       .navigationDestination(for: OtherTastingNoteNavigationDestination.self) { destination in
         switch destination {
