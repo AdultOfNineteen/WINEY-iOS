@@ -10,7 +10,7 @@ import ComposableArchitecture
 import SwiftUI
 import WineyKit
 
-public struct TwoSectionBottomSheetView: View {
+public struct TripleSectionBottomSheetView: View {
   private let store: StoreOf<TwoSectionBottomSheet>
   @ObservedObject var viewStore: ViewStoreOf<TwoSectionBottomSheet>
   
@@ -35,7 +35,7 @@ public struct TwoSectionBottomSheetView: View {
   }
 }
 
-private extension TwoSectionBottomSheetView {
+private extension TripleSectionBottomSheetView {
   
   @ViewBuilder
   private func selectOptionView() -> some View {

@@ -225,9 +225,8 @@ public struct AppCoordinator: Reducer {
         state.noteMode = .removeSheet(data)
         return .none
         
-      case let .routeAction(_, action: .twoSectionSheet(.noteDetail(._activateBottomSheet(.shared, data)))):
+      case .routeAction(_, action: .twoSectionSheet(.noteDetail(._activateBottomSheet(.shared, _)))):
         state.routes.dismiss()
-        // MARK: - TODO 공유기능
         return .none
         
       case .routeAction(_, action: .noteRemoveBottomSheet(.noteDetail(.tappedBackButton))):
