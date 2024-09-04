@@ -15,7 +15,7 @@ import GoogleSignIn
 import KakaoSDKAuth
 
 @main
-public struct AppCoordinatorView: App {  
+public struct AppCoordinatorView: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
   
   var store: StoreOf<AppCoordinator> { delegate.store }

@@ -50,7 +50,7 @@ private extension Provider {
     }
     
     // 임시
-    responseLogger.logResponse(response: response, data: data)
+//    responseLogger.logResponse(response: response, data: data)
     
     if let httpResponse = response as? HTTPURLResponse,
     httpResponse.statusCode == 401 {

@@ -30,13 +30,14 @@ let spm = SwiftPackageManagerDependencies(
       requirement: .branch("master")
     ),
     .remote(url: "https://github.com/jaemyeong/NMapsMap.git", requirement: .upToNextMajor(from: "3.16.0"))
-  ],
-  baseSettings: .settings(
-        configurations: [
-          .debug(name: .debug),
-          .release(name: .release)
-        ]
-        )
+  ]
+//  ,
+//  baseSettings: .settings(
+//        configurations: [
+//          .debug(name: .debug),
+//          .release(name: .release)
+//        ]
+//        )
 //  ,
 //   baseSettings: .settings(configurations: XCConfig.module)
 )

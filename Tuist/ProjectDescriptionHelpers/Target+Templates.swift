@@ -37,7 +37,8 @@ extension Target {
     settings: Settings? = nil,
 //      .settings(configurations: XCConfig.module),
     scripts: [TargetScript] = [],
-    useSwiftLint: Bool = true
+    useSwiftLint: Bool = true,
+    entitlements: Entitlements? = nil //
   ) -> Target {
     return Target(
       name: name,
@@ -48,7 +49,7 @@ extension Target {
       infoPlist: infoPlist,
       sources: sources,
       resources: resources,
-      entitlements: "../../Tuist/Winey.entitlements",
+      entitlements: entitlements,
 //      scripts: useSwiftLint ? commonScripts + scripts : scripts,
       scripts: scripts,
       dependencies: dependencies,

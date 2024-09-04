@@ -29,7 +29,8 @@ let project = Project.make(
 //        .project(target: "MapFeature", path: "../Feature/MapFeature"),
         
         .package(product: "GoogleSignIn")
-      ]
+      ],
+      entitlements: "../../Tuist/Winey.entitlements"
 //      ,
 //      settings: settings
     )

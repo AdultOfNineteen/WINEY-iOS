@@ -51,7 +51,7 @@ final class NetworkLogger: NSObject {
 extension NetworkLogger: URLSessionTaskDelegate {
   func urlSession(_ session: URLSession, didCreateTask task: URLSessionTask) {
     if let request = task.originalRequest {
-      logRequest(request)
+//      logRequest(request)
     }
   }
   
