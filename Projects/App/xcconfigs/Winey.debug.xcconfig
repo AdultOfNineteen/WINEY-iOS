@@ -1,4 +1,0 @@
-#include "./Winey.shared.xcconfig"
-
-OTHER_SWIFT_FLAGS = $(inherited) -DDEV
-

@@ -1,9 +1,0 @@
-#include "./Winey.shared.xcconfig"
-
-OTHER_SWIFT_FLAGS = $(inherited) -DRELEASE
-
-SWIFT_OPTIMIZATION_LEVEL = -Onone
-DEBUG_INFORMATION_FORMAT = dwarf
-STRIP_STYLE = debugging
-COPY_PHASE_STRIP = NO
-ENABLE_TESTABILITY = YES
