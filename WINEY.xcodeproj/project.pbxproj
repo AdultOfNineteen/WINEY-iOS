@@ -1,0 +1,1967 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F3171F512C971B0B00C14FC5 /* WINEYApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3171F502C971B0B00C14FC5 /* WINEYApp.swift */; };
+		F3171F552C971B0C00C14FC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3171F542C971B0C00C14FC5 /* Assets.xcassets */; };
+		F3171F582C971B0C00C14FC5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3171F572C971B0C00C14FC5 /* Preview Assets.xcassets */; };
+		F3171F742C9723F600C14FC5 /* ThirdPartyLibs in Frameworks */ = {isa = PBXBuildFile; productRef = F3171F732C9723F600C14FC5 /* ThirdPartyLibs */; };
+		F35A65C12C989911005491C5 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65C02C989911005491C5 /* TabBarView.swift */; };
+		F35A65C82C98991D005491C5 /* View + SwipeGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65C22C98991D005491C5 /* View + SwipeGesture.swift */; };
+		F35A65C92C98991D005491C5 /* TabBarInfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65C32C98991D005491C5 /* TabBarInfoContainerView.swift */; };
+		F35A65CA2C98991D005491C5 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65C42C98991D005491C5 /* TabBarItem.swift */; };
+		F35A65CB2C98991D005491C5 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65C52C98991D005491C5 /* TabBar.swift */; };
+		F35A65CC2C98991D005491C5 /* TabBarInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65C62C98991D005491C5 /* TabBarInfoView.swift */; };
+		F35A65CD2C98991D005491C5 /* TabBarPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65C72C98991D005491C5 /* TabBarPreferenceKey.swift */; };
+		F35A65D12C989952005491C5 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65D02C989952005491C5 /* MainView.swift */; };
+		F35A65D32C989BD9005491C5 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65D22C989BD8005491C5 /* Main.swift */; };
+		F35A65DF2C98B81A005491C5 /* AppRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65DE2C98B81A005491C5 /* AppRoot.swift */; };
+		F35A65E12C98B820005491C5 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65E02C98B820005491C5 /* AppRootView.swift */; };
+		F35A65E42C98B897005491C5 /* AppRoot+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65E32C98B897005491C5 /* AppRoot+Navigation.swift */; };
+		F35A65E72C98B903005491C5 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65E62C98B903005491C5 /* Auth.swift */; };
+		F35A65E92C98B907005491C5 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65E82C98B907005491C5 /* AuthView.swift */; };
+		F35A65EB2C98B952005491C5 /* Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65EA2C98B952005491C5 /* Splash.swift */; };
+		F35A65ED2C98B957005491C5 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65EC2C98B957005491C5 /* SplashView.swift */; };
+		F35A66072C98CBB7005491C5 /* Demo_UserInfoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66062C98CBB7005491C5 /* Demo_UserInfoApp.swift */; };
+		F35A66092C98CBB7005491C5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66082C98CBB7005491C5 /* ContentView.swift */; };
+		F35A660B2C98CBB8005491C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F35A660A2C98CBB8005491C5 /* Assets.xcassets */; };
+		F35A660E2C98CBB8005491C5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F35A660D2C98CBB8005491C5 /* Preview Assets.xcassets */; };
+		F35A66182C9957A5005491C5 /* UserInfoPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F35A66172C9957A5005491C5 /* UserInfoPresentation */; };
+		F35A661A2C9957EE005491C5 /* UserInfoData in Frameworks */ = {isa = PBXBuildFile; productRef = F35A66192C9957EE005491C5 /* UserInfoData */; };
+		F35A661C2C995B50005491C5 /* ThirdPartyLibs in Frameworks */ = {isa = PBXBuildFile; productRef = F35A661B2C995B50005491C5 /* ThirdPartyLibs */; };
+		F35A661E2C995B54005491C5 /* UserInfoData in Frameworks */ = {isa = PBXBuildFile; productRef = F35A661D2C995B54005491C5 /* UserInfoData */; };
+		F35A66202C995B58005491C5 /* UserInfoPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F35A661F2C995B58005491C5 /* UserInfoPresentation */; };
+		F35A66222C995B5B005491C5 /* WineyKit in Frameworks */ = {isa = PBXBuildFile; productRef = F35A66212C995B5B005491C5 /* WineyKit */; };
+		F35A66242C995B5F005491C5 /* WineyNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = F35A66232C995B5F005491C5 /* WineyNetwork */; };
+		F35A66382C9967A7005491C5 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66372C9967A6005491C5 /* NoteView.swift */; };
+		F35A663C2C996820005491C5 /* NoteRemoveBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66392C996820005491C5 /* NoteRemoveBottomSheet.swift */; };
+		F35A663D2C996820005491C5 /* TripleSectionBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A663A2C996820005491C5 /* TripleSectionBottomSheet.swift */; };
+		F35A66492C9968A8005491C5 /* TastingNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66442C9968A8005491C5 /* TastingNotes.swift */; };
+		F35A664A2C9968A8005491C5 /* NoteDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66452C9968A8005491C5 /* NoteDetail.swift */; };
+		F35A664B2C9968A8005491C5 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66462C9968A8005491C5 /* Note.swift */; };
+		F35A664C2C9968A8005491C5 /* FilteredNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66472C9968A8005491C5 /* FilteredNotes.swift */; };
+		F35A664D2C9968A8005491C5 /* FilterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66482C9968A8005491C5 /* FilterDetail.swift */; };
+		F35A66502C996969005491C5 /* NoteRemoveBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A664E2C996969005491C5 /* NoteRemoveBottomSheetView.swift */; };
+		F35A66512C996969005491C5 /* TripleSectionBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A664F2C996969005491C5 /* TripleSectionBottomSheetView.swift */; };
+		F35A66532C996DA8005491C5 /* FilteredNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66522C996DA7005491C5 /* FilteredNotesView.swift */; };
+		F35A66562C996DB8005491C5 /* TastingNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66542C996DB8005491C5 /* TastingNotesView.swift */; };
+		F35A66572C996DB8005491C5 /* SmallWineCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66552C996DB8005491C5 /* SmallWineCardView.swift */; };
+		F35A66592C996DC7005491C5 /* FilterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66582C996DC7005491C5 /* FilterDetailView.swift */; };
+		F35A66612C99770F005491C5 /* Note+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66602C99770F005491C5 /* Note+Navigation.swift */; };
+		F35A66682C9981FE005491C5 /* WineInfoDetailSingleGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66642C9981FD005491C5 /* WineInfoDetailSingleGraphView.swift */; };
+		F35A66692C9981FE005491C5 /* NoteDetailGraphTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66652C9981FD005491C5 /* NoteDetailGraphTabView.swift */; };
+		F35A666A2C9981FE005491C5 /* NoteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66662C9981FD005491C5 /* NoteDetailView.swift */; };
+		F35A666B2C9981FE005491C5 /* NoteDetailSmellFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66672C9981FE005491C5 /* NoteDetailSmellFeatureView.swift */; };
+		F35A66882C998870005491C5 /* WineAnalysisCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66712C998870005491C5 /* WineAnalysisCarousel.swift */; };
+		F35A66892C998870005491C5 /* WineAnalysisCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66722C998870005491C5 /* WineAnalysisCarouselView.swift */; };
+		F35A668A2C998870005491C5 /* WineAnalysisCategoryTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66732C998870005491C5 /* WineAnalysisCategoryTitleView.swift */; };
+		F35A668B2C998870005491C5 /* WineAnalysisPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66742C998870005491C5 /* WineAnalysisPieChart.swift */; };
+		F35A668C2C998870005491C5 /* WineAnalysisPieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66752C998870005491C5 /* WineAnalysisPieChartView.swift */; };
+		F35A668D2C998870005491C5 /* WinePreferCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66762C998870005491C5 /* WinePreferCategory.swift */; };
+		F35A668E2C998870005491C5 /* WinePreferCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66772C998870005491C5 /* WinePreferCategoryView.swift */; };
+		F35A668F2C998870005491C5 /* WinePreferNation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66782C998870005491C5 /* WinePreferNation.swift */; };
+		F35A66902C998870005491C5 /* WinePreferNationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66792C998870005491C5 /* WinePreferNationView.swift */; };
+		F35A66912C998870005491C5 /* WinePreferSmell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A667A2C998870005491C5 /* WinePreferSmell.swift */; };
+		F35A66922C998870005491C5 /* WinePreferSmellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A667B2C998870005491C5 /* WinePreferSmellView.swift */; };
+		F35A66932C998870005491C5 /* WinePreferTaste.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A667C2C998870005491C5 /* WinePreferTaste.swift */; };
+		F35A66942C998870005491C5 /* WinePreferTasteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A667D2C998870005491C5 /* WinePreferTasteView.swift */; };
+		F35A66952C998870005491C5 /* WinePrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A667E2C998870005491C5 /* WinePrice.swift */; };
+		F35A66962C998870005491C5 /* WinePriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A667F2C998870005491C5 /* WinePriceView.swift */; };
+		F35A66972C998870005491C5 /* WineyPieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66802C998870005491C5 /* WineyPieChartView.swift */; };
+		F35A66982C998870005491C5 /* WineAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66822C998870005491C5 /* WineAnalysisView.swift */; };
+		F35A66992C998870005491C5 /* WineAnalysisResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66832C998870005491C5 /* WineAnalysisResultView.swift */; };
+		F35A669A2C998870005491C5 /* WineAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66842C998870005491C5 /* WineAnalysis.swift */; };
+		F35A669B2C998870005491C5 /* WineAnalysisLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66852C998870005491C5 /* WineAnalysisLoading.swift */; };
+		F35A669C2C998870005491C5 /* WineAnalysisLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66862C998870005491C5 /* WineAnalysisLoadingView.swift */; };
+		F35A669D2C998870005491C5 /* WineAnalysisResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66872C998870005491C5 /* WineAnalysisResult.swift */; };
+		F35A66DA2C9E9989005491C5 /* SignUpBottomSheetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66CD2C9E9989005491C5 /* SignUpBottomSheetContent.swift */; };
+		F35A66DB2C9E9989005491C5 /* SignUpBottomSheetFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66CE2C9E9989005491C5 /* SignUpBottomSheetFooter.swift */; };
+		F35A66DC2C9E9989005491C5 /* SignUpBottomSheetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66CF2C9E9989005491C5 /* SignUpBottomSheetHeader.swift */; };
+		F35A66DD2C9E9989005491C5 /* SignUpBottomSheetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66D02C9E9989005491C5 /* SignUpBottomSheetType.swift */; };
+		F35A66DE2C9E9989005491C5 /* CodeSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66D22C9E9989005491C5 /* CodeSignUp.swift */; };
+		F35A66DF2C9E9989005491C5 /* FlavorSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66D32C9E9989005491C5 /* FlavorSignUp.swift */; };
+		F35A66E02C9E9989005491C5 /* PhoneSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66D42C9E9989005491C5 /* PhoneSignUp.swift */; };
+		F35A66E12C9E9989005491C5 /* WelcomeSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66D52C9E9989005491C5 /* WelcomeSignUp.swift */; };
+		F35A66E22C9E9989005491C5 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66D72C9E9989005491C5 /* Login.swift */; };
+		F35A66E32C9E9989005491C5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66D82C9E9989005491C5 /* LoginView.swift */; };
+		F35A66E82C9E9A15005491C5 /* CodeSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66E42C9E9A14005491C5 /* CodeSignUpView.swift */; };
+		F35A66E92C9E9A15005491C5 /* FlavorSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66E52C9E9A14005491C5 /* FlavorSignUpView.swift */; };
+		F35A66EA2C9E9A15005491C5 /* PhoneSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66E62C9E9A15005491C5 /* PhoneSignUpView.swift */; };
+		F35A66EB2C9E9A15005491C5 /* WelcomeSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66E72C9E9A15005491C5 /* WelcomeSignUpView.swift */; };
+		F35A66ED2C9EAF31005491C5 /* Auth+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66EC2C9EAF31005491C5 /* Auth+Navigation.swift */; };
+		F35A66EF2C9F4EF9005491C5 /* UserTastingNotesManageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66EE2C9F4EF9005491C5 /* UserTastingNotesManageModel.swift */; };
+		F35A670C2C9F801D005491C5 /* BottomOptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66F02C9F801C005491C5 /* BottomOptionButton.swift */; };
+		F35A670D2C9F801D005491C5 /* CustomCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66F12C9F801C005491C5 /* CustomCamera.swift */; };
+		F35A670E2C9F801D005491C5 /* CustomCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66F22C9F801C005491C5 /* CustomCameraView.swift */; };
+		F35A670F2C9F801D005491C5 /* CustomGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66F32C9F801C005491C5 /* CustomGallery.swift */; };
+		F35A67102C9F801D005491C5 /* CustomGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66F42C9F801C005491C5 /* CustomGalleryView.swift */; };
+		F35A67112C9F801D005491C5 /* HelpSmell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66F52C9F801C005491C5 /* HelpSmell.swift */; };
+		F35A67122C9F801D005491C5 /* HelpSmellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66F62C9F801C005491C5 /* HelpSmellView.swift */; };
+		F35A67132C9F801D005491C5 /* HelpTaste.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66F72C9F801C005491C5 /* HelpTaste.swift */; };
+		F35A67142C9F801D005491C5 /* HelpTasteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66F82C9F801C005491C5 /* HelpTasteView.swift */; };
+		F35A67152C9F801D005491C5 /* NoteDone.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66F92C9F801C005491C5 /* NoteDone.swift */; };
+		F35A67162C9F801D005491C5 /* NoteDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66FA2C9F801C005491C5 /* NoteDoneView.swift */; };
+		F35A67172C9F801D005491C5 /* SettingAlcohol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66FB2C9F801C005491C5 /* SettingAlcohol.swift */; };
+		F35A67182C9F801D005491C5 /* SettingAlcoholView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66FC2C9F801C005491C5 /* SettingAlcoholView.swift */; };
+		F35A67192C9F801D005491C5 /* SettingColorSmell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66FD2C9F801C005491C5 /* SettingColorSmell.swift */; };
+		F35A671A2C9F801D005491C5 /* SettingColorSmellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66FE2C9F801C005491C5 /* SettingColorSmellView.swift */; };
+		F35A671B2C9F801D005491C5 /* SettingMemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66FF2C9F801C005491C5 /* SettingMemo.swift */; };
+		F35A671C2C9F801D005491C5 /* SettingMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67002C9F801C005491C5 /* SettingMemoView.swift */; };
+		F35A671D2C9F801D005491C5 /* SettingTaste.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67012C9F801C005491C5 /* SettingTaste.swift */; };
+		F35A671E2C9F801D005491C5 /* SettingTasteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67022C9F801C005491C5 /* SettingTasteView.swift */; };
+		F35A671F2C9F801D005491C5 /* SettingVintage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67032C9F801C005491C5 /* SettingVintage.swift */; };
+		F35A67202C9F801D005491C5 /* SettingVintageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67042C9F801C005491C5 /* SettingVintageView.swift */; };
+		F35A67212C9F801D005491C5 /* SmellList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67052C9F801C005491C5 /* SmellList.swift */; };
+		F35A67222C9F801D005491C5 /* SmellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67062C9F801C005491C5 /* SmellListView.swift */; };
+		F35A67232C9F801D005491C5 /* WineConfirm.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67072C9F801C005491C5 /* WineConfirm.swift */; };
+		F35A67242C9F801D005491C5 /* WineConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67082C9F801C005491C5 /* WineConfirmView.swift */; };
+		F35A67252C9F801D005491C5 /* WineSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67092C9F801C005491C5 /* WineSearch.swift */; };
+		F35A67262C9F801D005491C5 /* WineSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A670A2C9F801C005491C5 /* WineSearchView.swift */; };
+		F35A67642C9F8C6A005491C5 /* SpecificWineTastingNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67552C9F8C69005491C5 /* SpecificWineTastingNotes.swift */; };
+		F35A67652C9F8C6A005491C5 /* WineDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67562C9F8C69005491C5 /* WineDetail.swift */; };
+		F35A67662C9F8C6A005491C5 /* SpecificWineTastingNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67582C9F8C69005491C5 /* SpecificWineTastingNotesView.swift */; };
+		F35A67672C9F8C6A005491C5 /* WineDetailChartBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67592C9F8C69005491C5 /* WineDetailChartBackground.swift */; };
+		F35A67682C9F8C6A005491C5 /* WineDetailGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A675A2C9F8C69005491C5 /* WineDetailGraph.swift */; };
+		F35A67692C9F8C6A005491C5 /* WineDetailInfoMiddleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A675B2C9F8C69005491C5 /* WineDetailInfoMiddleView.swift */; };
+		F35A676A2C9F8C6A005491C5 /* WineDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A675C2C9F8C69005491C5 /* WineDetailView.swift */; };
+		F35A676B2C9F8C6A005491C5 /* WineCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A675E2C9F8C69005491C5 /* WineCard.swift */; };
+		F35A676C2C9F8C6A005491C5 /* WineCardBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A675F2C9F8C69005491C5 /* WineCardBackground.swift */; };
+		F35A676D2C9F8C6A005491C5 /* WineCardScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67602C9F8C69005491C5 /* WineCardScroll.swift */; };
+		F35A676E2C9F8C6A005491C5 /* WineCardScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67612C9F8C69005491C5 /* WineCardScrollView.swift */; };
+		F35A676F2C9F8C6A005491C5 /* WineCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67622C9F8C69005491C5 /* WineCardView.swift */; };
+		F35A67862C9F90AB005491C5 /* TappedMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67702C9F90AB005491C5 /* TappedMarker.swift */; };
+		F35A67872C9F90AB005491C5 /* NaverMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67722C9F90AB005491C5 /* NaverMapView.swift */; };
+		F35A67882C9F90AB005491C5 /* ShopBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67742C9F90AB005491C5 /* ShopBottomSheet.swift */; };
+		F35A67892C9F90AB005491C5 /* BottomSheetCategoryTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67762C9F90AB005491C5 /* BottomSheetCategoryTitle.swift */; };
+		F35A678A2C9F90AB005491C5 /* ShopDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67782C9F90AB005491C5 /* ShopDetailCell.swift */; };
+		F35A678B2C9F90AB005491C5 /* ShopListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67792C9F90AB005491C5 /* ShopListCell.swift */; };
+		F35A678C2C9F90AB005491C5 /* ShopMainInfoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A677A2C9F90AB005491C5 /* ShopMainInfoBlock.swift */; };
+		F35A678D2C9F90AB005491C5 /* EmptyListInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A677C2C9F90AB005491C5 /* EmptyListInfoView.swift */; };
+		F35A678E2C9F90AB005491C5 /* ShopCategoryTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A677D2C9F90AB005491C5 /* ShopCategoryTap.swift */; };
+		F35A678F2C9F90AB005491C5 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A677F2C9F90AB005491C5 /* Map.swift */; };
+		F35A67912C9F90AB005491C5 /* MapSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67812C9F90AB005491C5 /* MapSheet.swift */; };
+		F35A67922C9F90AB005491C5 /* MapSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67822C9F90AB005491C5 /* MapSheetView.swift */; };
+		F35A67932C9F90AB005491C5 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67832C9F90AB005491C5 /* MapView.swift */; };
+		F35A679B2C9F911F005491C5 /* TipCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67952C9F911E005491C5 /* TipCard.swift */; };
+		F35A679C2C9F911F005491C5 /* TipCardDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67962C9F911E005491C5 /* TipCardDetail.swift */; };
+		F35A679D2C9F911F005491C5 /* TipCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67972C9F911E005491C5 /* TipCardDetailView.swift */; };
+		F35A679E2C9F911F005491C5 /* TipCardImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67982C9F911E005491C5 /* TipCardImage.swift */; };
+		F35A679F2C9F911F005491C5 /* TipCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67992C9F911E005491C5 /* TipCardView.swift */; };
+		F3C206DA2CA027A6006D11B4 /* NoteDetail+SheetDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C206D92CA027A6006D11B4 /* NoteDetail+SheetDestination.swift */; };
+		F3C206DE2CA06648006D11B4 /* Main+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C206DD2CA06648006D11B4 /* Main+Navigation.swift */; };
+		F3EFC7B52C97575D00BC6DC9 /* WineyKit in Frameworks */ = {isa = PBXBuildFile; productRef = F3EFC7B42C97575D00BC6DC9 /* WineyKit */; };
+		F3EFC7B72C97576200BC6DC9 /* WineyNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = F3EFC7B62C97576200BC6DC9 /* WineyNetwork */; };
+		F3EFC8602C975B3C00BC6DC9 /* PreferenceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC7E32C975B3C00BC6DC9 /* PreferenceAPI.swift */; };
+		F3EFC8652C975B3C00BC6DC9 /* AuthMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC7EB2C975B3C00BC6DC9 /* AuthMockData.swift */; };
+		F3EFC8662C975B3C00BC6DC9 /* FirstFlavorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC7EE2C975B3C00BC6DC9 /* FirstFlavorType.swift */; };
+		F3EFC8672C975B3C00BC6DC9 /* FlavorInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC7EF2C975B3C00BC6DC9 /* FlavorInfoType.swift */; };
+		F3EFC8682C975B3C00BC6DC9 /* LoginPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC7F02C975B3C00BC6DC9 /* LoginPathType.swift */; };
+		F3EFC8692C975B3C00BC6DC9 /* LoginProcessType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC7F12C975B3C00BC6DC9 /* LoginProcessType.swift */; };
+		F3EFC86A2C975B3C00BC6DC9 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC7F42C975B3C00BC6DC9 /* LoginService.swift */; };
+		F3EFC86B2C975B3C00BC6DC9 /* SignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC7F52C975B3C00BC6DC9 /* SignUpService.swift */; };
+		F3EFC86C2C975B3C00BC6DC9 /* NoteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC7F82C975B3C00BC6DC9 /* NoteAPI.swift */; };
+		F3EFC86D2C975B3C00BC6DC9 /* NoteCheckDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC7FA2C975B3C00BC6DC9 /* NoteCheckDTO.swift */; };
+		F3EFC86E2C975B3C00BC6DC9 /* NoteDetailDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC7FB2C975B3C00BC6DC9 /* NoteDetailDTO.swift */; };
+		F3EFC86F2C975B3C00BC6DC9 /* NoteDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC7FC2C975B3C00BC6DC9 /* NoteDTO.swift */; };
+		F3EFC8702C975B3C00BC6DC9 /* NoteFilterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC7FD2C975B3C00BC6DC9 /* NoteFilterDTO.swift */; };
+		F3EFC8712C975B3C00BC6DC9 /* PatchNoteRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC7FE2C975B3C00BC6DC9 /* PatchNoteRequestDTO.swift */; };
+		F3EFC8722C975B3C00BC6DC9 /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8012C975B3C00BC6DC9 /* FilterType.swift */; };
+		F3EFC8742C975B3C00BC6DC9 /* NoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8042C975B3C00BC6DC9 /* NoteService.swift */; };
+		F3EFC8752C975B3C00BC6DC9 /* CreateNoteDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8072C975B3C00BC6DC9 /* CreateNoteDTO.swift */; };
+		F3EFC8762C975B3C00BC6DC9 /* CreateNoteRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8082C975B3C00BC6DC9 /* CreateNoteRequestDTO.swift */; };
+		F3EFC8772C975B3C00BC6DC9 /* WineSearchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8092C975B3C00BC6DC9 /* WineSearchDTO.swift */; };
+		F3EFC8782C975B3C00BC6DC9 /* CreateNoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC80C2C975B3C00BC6DC9 /* CreateNoteManager.swift */; };
+		F3EFC8792C975B3C00BC6DC9 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC80E2C975B3C00BC6DC9 /* PhotoManager.swift */; };
+		F3EFC87A2C975B3C00BC6DC9 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC80F2C975B3C00BC6DC9 /* PhotoService.swift */; };
+		F3EFC87B2C975B3C00BC6DC9 /* KakaoSharedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8122C975B3C00BC6DC9 /* KakaoSharedService.swift */; };
+		F3EFC87C2C975B3C00BC6DC9 /* KakaoShareMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8132C975B3C00BC6DC9 /* KakaoShareMessage.swift */; };
+		F3EFC87E2C975B3C00BC6DC9 /* Print + Override.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8162C975B3C00BC6DC9 /* Print + Override.swift */; };
+		F3EFC87F2C975B3C00BC6DC9 /* MapAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8192C975B3C00BC6DC9 /* MapAPI.swift */; };
+		F3EFC8802C975B3C00BC6DC9 /* ShopMapDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC81B2C975B3C00BC6DC9 /* ShopMapDTO.swift */; };
+		F3EFC8812C975B3C00BC6DC9 /* CancelID.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC81E2C975B3C00BC6DC9 /* CancelID.swift */; };
+		F3EFC8822C975B3C00BC6DC9 /* MapCameraAnglePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC81F2C975B3C00BC6DC9 /* MapCameraAnglePosition.swift */; };
+		F3EFC8832C975B3C00BC6DC9 /* MapPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8202C975B3C00BC6DC9 /* MapPosition.swift */; };
+		F3EFC8842C975B3C00BC6DC9 /* ShopCategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8212C975B3C00BC6DC9 /* ShopCategoryType.swift */; };
+		F3EFC8862C975B3C00BC6DC9 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8242C975B3C00BC6DC9 /* LocationService.swift */; };
+		F3EFC8872C975B3C00BC6DC9 /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8252C975B3C00BC6DC9 /* MapService.swift */; };
+		F3EFC8882C975B3C00BC6DC9 /* NaverMapCoordinatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8262C975B3C00BC6DC9 /* NaverMapCoordinatorService.swift */; };
+		F3EFC88A2C975B3C00BC6DC9 /* TabBarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC82A2C975B3C00BC6DC9 /* TabBarService.swift */; };
+		F3EFC8952C975B3C00BC6DC9 /* WineAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC83D2C975B3C00BC6DC9 /* WineAPI.swift */; };
+		F3EFC8962C975B3C00BC6DC9 /* RecommendWineData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8402C975B3C00BC6DC9 /* RecommendWineData.swift */; };
+		F3EFC8972C975B3C00BC6DC9 /* WineCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8412C975B3C00BC6DC9 /* WineCardData.swift */; };
+		F3EFC8982C975B3C00BC6DC9 /* WineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8432C975B3C00BC6DC9 /* WineService.swift */; };
+		F3EFC8992C975B3C00BC6DC9 /* RecommendWineDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8462C975B3C00BC6DC9 /* RecommendWineDTO.swift */; };
+		F3EFC89A2C975B3C00BC6DC9 /* WineDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8472C975B3C00BC6DC9 /* WineDTO.swift */; };
+		F3EFC89E2C975B3C00BC6DC9 /* TastingNotesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8522C975B3C00BC6DC9 /* TastingNotesAPI.swift */; };
+		F3EFC89F2C975B3C00BC6DC9 /* TasteAnalysisDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8542C975B3C00BC6DC9 /* TasteAnalysisDTO.swift */; };
+		F3EFC8A02C975B3C00BC6DC9 /* WineRankData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8572C975B3C00BC6DC9 /* WineRankData.swift */; };
+		F3EFC8A12C975B3C00BC6DC9 /* TasteAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8592C975B3C00BC6DC9 /* TasteAnalysisService.swift */; };
+		F3EFC8A22C975B3C00BC6DC9 /* WineTipDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC85C2C975B3C00BC6DC9 /* WineTipDTO.swift */; };
+		F3EFC8AB2C975FA200BC6DC9 /* SmellCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC8AA2C975FA200BC6DC9 /* SmellCategory.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F3171F502C971B0B00C14FC5 /* WINEYApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WINEYApp.swift; sourceTree = "<group>"; };
+		F3171F542C971B0C00C14FC5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F3171F572C971B0C00C14FC5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F3171F712C971C8300C14FC5 /* ThirdPartyLibs */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ThirdPartyLibs; path = WINEY/ThirdPartyLibs; sourceTree = "<group>"; };
+		F3171F772C9727DB00C14FC5 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = OURTEAM; };
+		F3171F782C9727F000C14FC5 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = OURTEAM; };
+		F3171F792C9727FB00C14FC5 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = OURTEAM; };
+		F3171F7D2C9728E200C14FC5 /* WINEY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WINEY.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3171F802C972D0D00C14FC5 /* WINEY.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WINEY.entitlements; sourceTree = "<group>"; };
+		F3171F812C972DD100C14FC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3171F832C9738C000C14FC5 /* WineyKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WineyKit; path = WINEY/WineyKit; sourceTree = "<group>"; };
+		F35A65C02C989911005491C5 /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		F35A65C22C98991D005491C5 /* View + SwipeGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View + SwipeGesture.swift"; sourceTree = "<group>"; };
+		F35A65C32C98991D005491C5 /* TabBarInfoContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarInfoContainerView.swift; sourceTree = "<group>"; };
+		F35A65C42C98991D005491C5 /* TabBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
+		F35A65C52C98991D005491C5 /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		F35A65C62C98991D005491C5 /* TabBarInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarInfoView.swift; sourceTree = "<group>"; };
+		F35A65C72C98991D005491C5 /* TabBarPreferenceKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarPreferenceKey.swift; sourceTree = "<group>"; };
+		F35A65D02C989952005491C5 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		F35A65D22C989BD8005491C5 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		F35A65DE2C98B81A005491C5 /* AppRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoot.swift; sourceTree = "<group>"; };
+		F35A65E02C98B820005491C5 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
+		F35A65E32C98B897005491C5 /* AppRoot+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppRoot+Navigation.swift"; sourceTree = "<group>"; };
+		F35A65E62C98B903005491C5 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		F35A65E82C98B907005491C5 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		F35A65EA2C98B952005491C5 /* Splash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Splash.swift; sourceTree = "<group>"; };
+		F35A65EC2C98B957005491C5 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		F35A66042C98CBB7005491C5 /* Demo-UserInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-UserInfo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F35A66062C98CBB7005491C5 /* Demo_UserInfoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo_UserInfoApp.swift; sourceTree = "<group>"; };
+		F35A66082C98CBB7005491C5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F35A660A2C98CBB8005491C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F35A660D2C98CBB8005491C5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F35A66142C98CC97005491C5 /* UserFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = UserFeature; path = WINEY/UserFeature; sourceTree = "<group>"; };
+		F35A66252C995D00005491C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F35A66372C9967A6005491C5 /* NoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
+		F35A66392C996820005491C5 /* NoteRemoveBottomSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteRemoveBottomSheet.swift; sourceTree = "<group>"; };
+		F35A663A2C996820005491C5 /* TripleSectionBottomSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripleSectionBottomSheet.swift; sourceTree = "<group>"; };
+		F35A66442C9968A8005491C5 /* TastingNotes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingNotes.swift; sourceTree = "<group>"; };
+		F35A66452C9968A8005491C5 /* NoteDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteDetail.swift; sourceTree = "<group>"; };
+		F35A66462C9968A8005491C5 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		F35A66472C9968A8005491C5 /* FilteredNotes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredNotes.swift; sourceTree = "<group>"; };
+		F35A66482C9968A8005491C5 /* FilterDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterDetail.swift; sourceTree = "<group>"; };
+		F35A664E2C996969005491C5 /* NoteRemoveBottomSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteRemoveBottomSheetView.swift; sourceTree = "<group>"; };
+		F35A664F2C996969005491C5 /* TripleSectionBottomSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripleSectionBottomSheetView.swift; sourceTree = "<group>"; };
+		F35A66522C996DA7005491C5 /* FilteredNotesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredNotesView.swift; sourceTree = "<group>"; };
+		F35A66542C996DB8005491C5 /* TastingNotesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingNotesView.swift; sourceTree = "<group>"; };
+		F35A66552C996DB8005491C5 /* SmallWineCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallWineCardView.swift; sourceTree = "<group>"; };
+		F35A66582C996DC7005491C5 /* FilterDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterDetailView.swift; sourceTree = "<group>"; };
+		F35A66602C99770F005491C5 /* Note+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+Navigation.swift"; sourceTree = "<group>"; };
+		F35A66642C9981FD005491C5 /* WineInfoDetailSingleGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineInfoDetailSingleGraphView.swift; sourceTree = "<group>"; };
+		F35A66652C9981FD005491C5 /* NoteDetailGraphTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteDetailGraphTabView.swift; sourceTree = "<group>"; };
+		F35A66662C9981FD005491C5 /* NoteDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteDetailView.swift; sourceTree = "<group>"; };
+		F35A66672C9981FE005491C5 /* NoteDetailSmellFeatureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteDetailSmellFeatureView.swift; sourceTree = "<group>"; };
+		F35A66712C998870005491C5 /* WineAnalysisCarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineAnalysisCarousel.swift; sourceTree = "<group>"; };
+		F35A66722C998870005491C5 /* WineAnalysisCarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineAnalysisCarouselView.swift; sourceTree = "<group>"; };
+		F35A66732C998870005491C5 /* WineAnalysisCategoryTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineAnalysisCategoryTitleView.swift; sourceTree = "<group>"; };
+		F35A66742C998870005491C5 /* WineAnalysisPieChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineAnalysisPieChart.swift; sourceTree = "<group>"; };
+		F35A66752C998870005491C5 /* WineAnalysisPieChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineAnalysisPieChartView.swift; sourceTree = "<group>"; };
+		F35A66762C998870005491C5 /* WinePreferCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinePreferCategory.swift; sourceTree = "<group>"; };
+		F35A66772C998870005491C5 /* WinePreferCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinePreferCategoryView.swift; sourceTree = "<group>"; };
+		F35A66782C998870005491C5 /* WinePreferNation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinePreferNation.swift; sourceTree = "<group>"; };
+		F35A66792C998870005491C5 /* WinePreferNationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinePreferNationView.swift; sourceTree = "<group>"; };
+		F35A667A2C998870005491C5 /* WinePreferSmell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinePreferSmell.swift; sourceTree = "<group>"; };
+		F35A667B2C998870005491C5 /* WinePreferSmellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinePreferSmellView.swift; sourceTree = "<group>"; };
+		F35A667C2C998870005491C5 /* WinePreferTaste.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinePreferTaste.swift; sourceTree = "<group>"; };
+		F35A667D2C998870005491C5 /* WinePreferTasteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinePreferTasteView.swift; sourceTree = "<group>"; };
+		F35A667E2C998870005491C5 /* WinePrice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinePrice.swift; sourceTree = "<group>"; };
+		F35A667F2C998870005491C5 /* WinePriceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinePriceView.swift; sourceTree = "<group>"; };
+		F35A66802C998870005491C5 /* WineyPieChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineyPieChartView.swift; sourceTree = "<group>"; };
+		F35A66822C998870005491C5 /* WineAnalysisView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineAnalysisView.swift; sourceTree = "<group>"; };
+		F35A66832C998870005491C5 /* WineAnalysisResultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineAnalysisResultView.swift; sourceTree = "<group>"; };
+		F35A66842C998870005491C5 /* WineAnalysis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineAnalysis.swift; sourceTree = "<group>"; };
+		F35A66852C998870005491C5 /* WineAnalysisLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineAnalysisLoading.swift; sourceTree = "<group>"; };
+		F35A66862C998870005491C5 /* WineAnalysisLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineAnalysisLoadingView.swift; sourceTree = "<group>"; };
+		F35A66872C998870005491C5 /* WineAnalysisResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineAnalysisResult.swift; sourceTree = "<group>"; };
+		F35A66CD2C9E9989005491C5 /* SignUpBottomSheetContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpBottomSheetContent.swift; sourceTree = "<group>"; };
+		F35A66CE2C9E9989005491C5 /* SignUpBottomSheetFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpBottomSheetFooter.swift; sourceTree = "<group>"; };
+		F35A66CF2C9E9989005491C5 /* SignUpBottomSheetHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpBottomSheetHeader.swift; sourceTree = "<group>"; };
+		F35A66D02C9E9989005491C5 /* SignUpBottomSheetType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpBottomSheetType.swift; sourceTree = "<group>"; };
+		F35A66D22C9E9989005491C5 /* CodeSignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeSignUp.swift; sourceTree = "<group>"; };
+		F35A66D32C9E9989005491C5 /* FlavorSignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlavorSignUp.swift; sourceTree = "<group>"; };
+		F35A66D42C9E9989005491C5 /* PhoneSignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneSignUp.swift; sourceTree = "<group>"; };
+		F35A66D52C9E9989005491C5 /* WelcomeSignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeSignUp.swift; sourceTree = "<group>"; };
+		F35A66D72C9E9989005491C5 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		F35A66D82C9E9989005491C5 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		F35A66E42C9E9A14005491C5 /* CodeSignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeSignUpView.swift; sourceTree = "<group>"; };
+		F35A66E52C9E9A14005491C5 /* FlavorSignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlavorSignUpView.swift; sourceTree = "<group>"; };
+		F35A66E62C9E9A15005491C5 /* PhoneSignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneSignUpView.swift; sourceTree = "<group>"; };
+		F35A66E72C9E9A15005491C5 /* WelcomeSignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeSignUpView.swift; sourceTree = "<group>"; };
+		F35A66EC2C9EAF31005491C5 /* Auth+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Auth+Navigation.swift"; sourceTree = "<group>"; };
+		F35A66EE2C9F4EF9005491C5 /* UserTastingNotesManageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTastingNotesManageModel.swift; sourceTree = "<group>"; };
+		F35A66F02C9F801C005491C5 /* BottomOptionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomOptionButton.swift; sourceTree = "<group>"; };
+		F35A66F12C9F801C005491C5 /* CustomCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCamera.swift; sourceTree = "<group>"; };
+		F35A66F22C9F801C005491C5 /* CustomCameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCameraView.swift; sourceTree = "<group>"; };
+		F35A66F32C9F801C005491C5 /* CustomGallery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomGallery.swift; sourceTree = "<group>"; };
+		F35A66F42C9F801C005491C5 /* CustomGalleryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomGalleryView.swift; sourceTree = "<group>"; };
+		F35A66F52C9F801C005491C5 /* HelpSmell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpSmell.swift; sourceTree = "<group>"; };
+		F35A66F62C9F801C005491C5 /* HelpSmellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpSmellView.swift; sourceTree = "<group>"; };
+		F35A66F72C9F801C005491C5 /* HelpTaste.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpTaste.swift; sourceTree = "<group>"; };
+		F35A66F82C9F801C005491C5 /* HelpTasteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpTasteView.swift; sourceTree = "<group>"; };
+		F35A66F92C9F801C005491C5 /* NoteDone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteDone.swift; sourceTree = "<group>"; };
+		F35A66FA2C9F801C005491C5 /* NoteDoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteDoneView.swift; sourceTree = "<group>"; };
+		F35A66FB2C9F801C005491C5 /* SettingAlcohol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingAlcohol.swift; sourceTree = "<group>"; };
+		F35A66FC2C9F801C005491C5 /* SettingAlcoholView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingAlcoholView.swift; sourceTree = "<group>"; };
+		F35A66FD2C9F801C005491C5 /* SettingColorSmell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingColorSmell.swift; sourceTree = "<group>"; };
+		F35A66FE2C9F801C005491C5 /* SettingColorSmellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingColorSmellView.swift; sourceTree = "<group>"; };
+		F35A66FF2C9F801C005491C5 /* SettingMemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingMemo.swift; sourceTree = "<group>"; };
+		F35A67002C9F801C005491C5 /* SettingMemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingMemoView.swift; sourceTree = "<group>"; };
+		F35A67012C9F801C005491C5 /* SettingTaste.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTaste.swift; sourceTree = "<group>"; };
+		F35A67022C9F801C005491C5 /* SettingTasteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTasteView.swift; sourceTree = "<group>"; };
+		F35A67032C9F801C005491C5 /* SettingVintage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingVintage.swift; sourceTree = "<group>"; };
+		F35A67042C9F801C005491C5 /* SettingVintageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingVintageView.swift; sourceTree = "<group>"; };
+		F35A67052C9F801C005491C5 /* SmellList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmellList.swift; sourceTree = "<group>"; };
+		F35A67062C9F801C005491C5 /* SmellListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmellListView.swift; sourceTree = "<group>"; };
+		F35A67072C9F801C005491C5 /* WineConfirm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineConfirm.swift; sourceTree = "<group>"; };
+		F35A67082C9F801C005491C5 /* WineConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineConfirmView.swift; sourceTree = "<group>"; };
+		F35A67092C9F801C005491C5 /* WineSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineSearch.swift; sourceTree = "<group>"; };
+		F35A670A2C9F801C005491C5 /* WineSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineSearchView.swift; sourceTree = "<group>"; };
+		F35A67552C9F8C69005491C5 /* SpecificWineTastingNotes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificWineTastingNotes.swift; sourceTree = "<group>"; };
+		F35A67562C9F8C69005491C5 /* WineDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineDetail.swift; sourceTree = "<group>"; };
+		F35A67582C9F8C69005491C5 /* SpecificWineTastingNotesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificWineTastingNotesView.swift; sourceTree = "<group>"; };
+		F35A67592C9F8C69005491C5 /* WineDetailChartBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineDetailChartBackground.swift; sourceTree = "<group>"; };
+		F35A675A2C9F8C69005491C5 /* WineDetailGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineDetailGraph.swift; sourceTree = "<group>"; };
+		F35A675B2C9F8C69005491C5 /* WineDetailInfoMiddleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineDetailInfoMiddleView.swift; sourceTree = "<group>"; };
+		F35A675C2C9F8C69005491C5 /* WineDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineDetailView.swift; sourceTree = "<group>"; };
+		F35A675E2C9F8C69005491C5 /* WineCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineCard.swift; sourceTree = "<group>"; };
+		F35A675F2C9F8C69005491C5 /* WineCardBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineCardBackground.swift; sourceTree = "<group>"; };
+		F35A67602C9F8C69005491C5 /* WineCardScroll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineCardScroll.swift; sourceTree = "<group>"; };
+		F35A67612C9F8C69005491C5 /* WineCardScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineCardScrollView.swift; sourceTree = "<group>"; };
+		F35A67622C9F8C69005491C5 /* WineCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineCardView.swift; sourceTree = "<group>"; };
+		F35A67702C9F90AB005491C5 /* TappedMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TappedMarker.swift; sourceTree = "<group>"; };
+		F35A67722C9F90AB005491C5 /* NaverMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NaverMapView.swift; sourceTree = "<group>"; };
+		F35A67742C9F90AB005491C5 /* ShopBottomSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopBottomSheet.swift; sourceTree = "<group>"; };
+		F35A67762C9F90AB005491C5 /* BottomSheetCategoryTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetCategoryTitle.swift; sourceTree = "<group>"; };
+		F35A67782C9F90AB005491C5 /* ShopDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopDetailCell.swift; sourceTree = "<group>"; };
+		F35A67792C9F90AB005491C5 /* ShopListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopListCell.swift; sourceTree = "<group>"; };
+		F35A677A2C9F90AB005491C5 /* ShopMainInfoBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopMainInfoBlock.swift; sourceTree = "<group>"; };
+		F35A677C2C9F90AB005491C5 /* EmptyListInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyListInfoView.swift; sourceTree = "<group>"; };
+		F35A677D2C9F90AB005491C5 /* ShopCategoryTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopCategoryTap.swift; sourceTree = "<group>"; };
+		F35A677F2C9F90AB005491C5 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		F35A67812C9F90AB005491C5 /* MapSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSheet.swift; sourceTree = "<group>"; };
+		F35A67822C9F90AB005491C5 /* MapSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSheetView.swift; sourceTree = "<group>"; };
+		F35A67832C9F90AB005491C5 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		F35A67952C9F911E005491C5 /* TipCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipCard.swift; sourceTree = "<group>"; };
+		F35A67962C9F911E005491C5 /* TipCardDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipCardDetail.swift; sourceTree = "<group>"; };
+		F35A67972C9F911E005491C5 /* TipCardDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipCardDetailView.swift; sourceTree = "<group>"; };
+		F35A67982C9F911E005491C5 /* TipCardImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipCardImage.swift; sourceTree = "<group>"; };
+		F35A67992C9F911E005491C5 /* TipCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipCardView.swift; sourceTree = "<group>"; };
+		F3C206D92CA027A6006D11B4 /* NoteDetail+SheetDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteDetail+SheetDestination.swift"; sourceTree = "<group>"; };
+		F3C206DD2CA06648006D11B4 /* Main+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main+Navigation.swift"; sourceTree = "<group>"; };
+		F3EFC7B12C973F9A00BC6DC9 /* WineyNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WineyNetwork; path = WINEY/WineyNetwork; sourceTree = "<group>"; };
+		F3EFC7E32C975B3C00BC6DC9 /* PreferenceAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceAPI.swift; sourceTree = "<group>"; };
+		F3EFC7E92C975B3C00BC6DC9 /* login_inactive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login_inactive.json; sourceTree = "<group>"; };
+		F3EFC7EB2C975B3C00BC6DC9 /* AuthMockData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMockData.swift; sourceTree = "<group>"; };
+		F3EFC7EE2C975B3C00BC6DC9 /* FirstFlavorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstFlavorType.swift; sourceTree = "<group>"; };
+		F3EFC7EF2C975B3C00BC6DC9 /* FlavorInfoType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlavorInfoType.swift; sourceTree = "<group>"; };
+		F3EFC7F02C975B3C00BC6DC9 /* LoginPathType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPathType.swift; sourceTree = "<group>"; };
+		F3EFC7F12C975B3C00BC6DC9 /* LoginProcessType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginProcessType.swift; sourceTree = "<group>"; };
+		F3EFC7F42C975B3C00BC6DC9 /* LoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
+		F3EFC7F52C975B3C00BC6DC9 /* SignUpService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpService.swift; sourceTree = "<group>"; };
+		F3EFC7F82C975B3C00BC6DC9 /* NoteAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteAPI.swift; sourceTree = "<group>"; };
+		F3EFC7FA2C975B3C00BC6DC9 /* NoteCheckDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteCheckDTO.swift; sourceTree = "<group>"; };
+		F3EFC7FB2C975B3C00BC6DC9 /* NoteDetailDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteDetailDTO.swift; sourceTree = "<group>"; };
+		F3EFC7FC2C975B3C00BC6DC9 /* NoteDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteDTO.swift; sourceTree = "<group>"; };
+		F3EFC7FD2C975B3C00BC6DC9 /* NoteFilterDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteFilterDTO.swift; sourceTree = "<group>"; };
+		F3EFC7FE2C975B3C00BC6DC9 /* PatchNoteRequestDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatchNoteRequestDTO.swift; sourceTree = "<group>"; };
+		F3EFC8012C975B3C00BC6DC9 /* FilterType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterType.swift; sourceTree = "<group>"; };
+		F3EFC8042C975B3C00BC6DC9 /* NoteService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteService.swift; sourceTree = "<group>"; };
+		F3EFC8072C975B3C00BC6DC9 /* CreateNoteDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateNoteDTO.swift; sourceTree = "<group>"; };
+		F3EFC8082C975B3C00BC6DC9 /* CreateNoteRequestDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateNoteRequestDTO.swift; sourceTree = "<group>"; };
+		F3EFC8092C975B3C00BC6DC9 /* WineSearchDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineSearchDTO.swift; sourceTree = "<group>"; };
+		F3EFC80C2C975B3C00BC6DC9 /* CreateNoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateNoteManager.swift; sourceTree = "<group>"; };
+		F3EFC80E2C975B3C00BC6DC9 /* PhotoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
+		F3EFC80F2C975B3C00BC6DC9 /* PhotoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
+		F3EFC8122C975B3C00BC6DC9 /* KakaoSharedService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoSharedService.swift; sourceTree = "<group>"; };
+		F3EFC8132C975B3C00BC6DC9 /* KakaoShareMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoShareMessage.swift; sourceTree = "<group>"; };
+		F3EFC8162C975B3C00BC6DC9 /* Print + Override.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Print + Override.swift"; sourceTree = "<group>"; };
+		F3EFC8192C975B3C00BC6DC9 /* MapAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAPI.swift; sourceTree = "<group>"; };
+		F3EFC81B2C975B3C00BC6DC9 /* ShopMapDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopMapDTO.swift; sourceTree = "<group>"; };
+		F3EFC81E2C975B3C00BC6DC9 /* CancelID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelID.swift; sourceTree = "<group>"; };
+		F3EFC81F2C975B3C00BC6DC9 /* MapCameraAnglePosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCameraAnglePosition.swift; sourceTree = "<group>"; };
+		F3EFC8202C975B3C00BC6DC9 /* MapPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPosition.swift; sourceTree = "<group>"; };
+		F3EFC8212C975B3C00BC6DC9 /* ShopCategoryType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopCategoryType.swift; sourceTree = "<group>"; };
+		F3EFC8242C975B3C00BC6DC9 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		F3EFC8252C975B3C00BC6DC9 /* MapService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
+		F3EFC8262C975B3C00BC6DC9 /* NaverMapCoordinatorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NaverMapCoordinatorService.swift; sourceTree = "<group>"; };
+		F3EFC82A2C975B3C00BC6DC9 /* TabBarService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarService.swift; sourceTree = "<group>"; };
+		F3EFC83D2C975B3C00BC6DC9 /* WineAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineAPI.swift; sourceTree = "<group>"; };
+		F3EFC8402C975B3C00BC6DC9 /* RecommendWineData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendWineData.swift; sourceTree = "<group>"; };
+		F3EFC8412C975B3C00BC6DC9 /* WineCardData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineCardData.swift; sourceTree = "<group>"; };
+		F3EFC8432C975B3C00BC6DC9 /* WineService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineService.swift; sourceTree = "<group>"; };
+		F3EFC8462C975B3C00BC6DC9 /* RecommendWineDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendWineDTO.swift; sourceTree = "<group>"; };
+		F3EFC8472C975B3C00BC6DC9 /* WineDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineDTO.swift; sourceTree = "<group>"; };
+		F3EFC8522C975B3C00BC6DC9 /* TastingNotesAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TastingNotesAPI.swift; sourceTree = "<group>"; };
+		F3EFC8542C975B3C00BC6DC9 /* TasteAnalysisDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasteAnalysisDTO.swift; sourceTree = "<group>"; };
+		F3EFC8572C975B3C00BC6DC9 /* WineRankData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineRankData.swift; sourceTree = "<group>"; };
+		F3EFC8592C975B3C00BC6DC9 /* TasteAnalysisService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasteAnalysisService.swift; sourceTree = "<group>"; };
+		F3EFC85C2C975B3C00BC6DC9 /* WineTipDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Wine\U0010TipDTO.swift"; sourceTree = "<group>"; };
+		F3EFC8A32C975B9600BC6DC9 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../../../../../Shared/WineySecret/Debug.xcconfig; sourceTree = "<group>"; };
+		F3EFC8A42C975B9600BC6DC9 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../../../../../Shared/WineySecret/Release.xcconfig; sourceTree = "<group>"; };
+		F3EFC8A52C975B9600BC6DC9 /* Shared.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Shared.xcconfig; path = ../../../../../Shared/WineySecret/Shared.xcconfig; sourceTree = "<group>"; };
+		F3EFC8AA2C975FA200BC6DC9 /* SmellCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmellCategory.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F3171F4A2C971B0B00C14FC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3EFC7B52C97575D00BC6DC9 /* WineyKit in Frameworks */,
+				F3171F742C9723F600C14FC5 /* ThirdPartyLibs in Frameworks */,
+				F35A661A2C9957EE005491C5 /* UserInfoData in Frameworks */,
+				F3EFC7B72C97576200BC6DC9 /* WineyNetwork in Frameworks */,
+				F35A66182C9957A5005491C5 /* UserInfoPresentation in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F35A66012C98CBB7005491C5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F35A66222C995B5B005491C5 /* WineyKit in Frameworks */,
+				F35A66242C995B5F005491C5 /* WineyNetwork in Frameworks */,
+				F35A66202C995B58005491C5 /* UserInfoPresentation in Frameworks */,
+				F35A661C2C995B50005491C5 /* ThirdPartyLibs in Frameworks */,
+				F35A661E2C995B54005491C5 /* UserInfoData in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F3171F442C971B0B00C14FC5 = {
+			isa = PBXGroup;
+			children = (
+				F35A66142C98CC97005491C5 /* UserFeature */,
+				F3EFC7B12C973F9A00BC6DC9 /* WineyNetwork */,
+				F3171F832C9738C000C14FC5 /* WineyKit */,
+				F3171F712C971C8300C14FC5 /* ThirdPartyLibs */,
+				F3171F4F2C971B0B00C14FC5 /* WINEY */,
+				F35A66052C98CBB7005491C5 /* Demo-UserInfo */,
+				F3171F722C9723F600C14FC5 /* Frameworks */,
+				F3171F7D2C9728E200C14FC5 /* WINEY.app */,
+				F35A66042C98CBB7005491C5 /* Demo-UserInfo.app */,
+			);
+			sourceTree = "<group>";
+		};
+		F3171F4F2C971B0B00C14FC5 /* WINEY */ = {
+			isa = PBXGroup;
+			children = (
+				F3171F7F2C972CBD00C14FC5 /* Resources */,
+				F3EFC8A32C975B9600BC6DC9 /* Debug.xcconfig */,
+				F3EFC8A42C975B9600BC6DC9 /* Release.xcconfig */,
+				F3EFC8A52C975B9600BC6DC9 /* Shared.xcconfig */,
+				F3EFC7B82C97576900BC6DC9 /* Sources */,
+				F3171F802C972D0D00C14FC5 /* WINEY.entitlements */,
+				F3171F502C971B0B00C14FC5 /* WINEYApp.swift */,
+				F3171F822C9736E500C14FC5 /* Config */,
+			);
+			path = WINEY;
+			sourceTree = "<group>";
+		};
+		F3171F562C971B0C00C14FC5 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				F3171F572C971B0C00C14FC5 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F3171F722C9723F600C14FC5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F3171F7F2C972CBD00C14FC5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F3171F812C972DD100C14FC5 /* Info.plist */,
+				F3171F562C971B0C00C14FC5 /* Preview Content */,
+				F3171F542C971B0C00C14FC5 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F3171F822C9736E500C14FC5 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				F3171F772C9727DB00C14FC5 /* Release.xcconfig */,
+				F3171F782C9727F000C14FC5 /* Debug.xcconfig */,
+				F3171F792C9727FB00C14FC5 /* Shared.xcconfig */,
+			);
+			name = Config;
+			sourceTree = "<group>";
+		};
+		F35A65CE2C989938005491C5 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				F3C206DB2CA06520006D11B4 /* Coordinator */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		F35A65D82C989C72005491C5 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				F35A665C2C9971D2005491C5 /* NoteDetail */,
+				F35A665B2C9971A4005491C5 /* NoteFilter */,
+				F35A665A2C99716D005491C5 /* Coordinator */,
+				F35A663B2C996820005491C5 /* BottomSheet */,
+				F35A66552C996DB8005491C5 /* SmallWineCardView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		F35A65DD2C98B807005491C5 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				F35A65EA2C98B952005491C5 /* Splash.swift */,
+				F35A65EC2C98B957005491C5 /* SplashView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		F35A65E22C98B885005491C5 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				F35A65E02C98B820005491C5 /* AppRootView.swift */,
+				F35A65DE2C98B81A005491C5 /* AppRoot.swift */,
+				F35A65E32C98B897005491C5 /* AppRoot+Navigation.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		F35A65E52C98B8FA005491C5 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				F35A65E82C98B907005491C5 /* AuthView.swift */,
+				F35A65E62C98B903005491C5 /* Auth.swift */,
+				F35A66EC2C9EAF31005491C5 /* Auth+Navigation.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		F35A66052C98CBB7005491C5 /* Demo-UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				F35A66252C995D00005491C5 /* Info.plist */,
+				F35A66062C98CBB7005491C5 /* Demo_UserInfoApp.swift */,
+				F35A66082C98CBB7005491C5 /* ContentView.swift */,
+				F35A660A2C98CBB8005491C5 /* Assets.xcassets */,
+				F35A660C2C98CBB8005491C5 /* Preview Content */,
+			);
+			path = "Demo-UserInfo";
+			sourceTree = "<group>";
+		};
+		F35A660C2C98CBB8005491C5 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				F35A660D2C98CBB8005491C5 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F35A663B2C996820005491C5 /* BottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				F35A664E2C996969005491C5 /* NoteRemoveBottomSheetView.swift */,
+				F35A664F2C996969005491C5 /* TripleSectionBottomSheetView.swift */,
+				F35A66392C996820005491C5 /* NoteRemoveBottomSheet.swift */,
+				F35A663A2C996820005491C5 /* TripleSectionBottomSheet.swift */,
+			);
+			path = BottomSheet;
+			sourceTree = "<group>";
+		};
+		F35A665A2C99716D005491C5 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				F35A66372C9967A6005491C5 /* NoteView.swift */,
+				F35A66462C9968A8005491C5 /* Note.swift */,
+				F35A66602C99770F005491C5 /* Note+Navigation.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		F35A665B2C9971A4005491C5 /* NoteFilter */ = {
+			isa = PBXGroup;
+			children = (
+				F35A66442C9968A8005491C5 /* TastingNotes.swift */,
+				F35A66542C996DB8005491C5 /* TastingNotesView.swift */,
+				F35A66482C9968A8005491C5 /* FilterDetail.swift */,
+				F35A66582C996DC7005491C5 /* FilterDetailView.swift */,
+				F35A66472C9968A8005491C5 /* FilteredNotes.swift */,
+				F35A66522C996DA7005491C5 /* FilteredNotesView.swift */,
+			);
+			path = NoteFilter;
+			sourceTree = "<group>";
+		};
+		F35A665C2C9971D2005491C5 /* NoteDetail */ = {
+			isa = PBXGroup;
+			children = (
+				F35A66652C9981FD005491C5 /* NoteDetailGraphTabView.swift */,
+				F35A66672C9981FE005491C5 /* NoteDetailSmellFeatureView.swift */,
+				F35A66662C9981FD005491C5 /* NoteDetailView.swift */,
+				F35A66452C9968A8005491C5 /* NoteDetail.swift */,
+				F3C206D92CA027A6006D11B4 /* NoteDetail+SheetDestination.swift */,
+				F35A66642C9981FD005491C5 /* WineInfoDetailSingleGraphView.swift */,
+			);
+			path = NoteDetail;
+			sourceTree = "<group>";
+		};
+		F35A66702C99882E005491C5 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				F35A66812C998870005491C5 /* AnalysisResult */,
+				F35A66842C998870005491C5 /* WineAnalysis.swift */,
+				F35A66852C998870005491C5 /* WineAnalysisLoading.swift */,
+				F35A66862C998870005491C5 /* WineAnalysisLoadingView.swift */,
+				F35A66872C998870005491C5 /* WineAnalysisResult.swift */,
+				F35A66832C998870005491C5 /* WineAnalysisResultView.swift */,
+				F35A66822C998870005491C5 /* WineAnalysisView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		F35A66812C998870005491C5 /* AnalysisResult */ = {
+			isa = PBXGroup;
+			children = (
+				F35A66712C998870005491C5 /* WineAnalysisCarousel.swift */,
+				F35A66722C998870005491C5 /* WineAnalysisCarouselView.swift */,
+				F35A66732C998870005491C5 /* WineAnalysisCategoryTitleView.swift */,
+				F35A66742C998870005491C5 /* WineAnalysisPieChart.swift */,
+				F35A66752C998870005491C5 /* WineAnalysisPieChartView.swift */,
+				F35A66762C998870005491C5 /* WinePreferCategory.swift */,
+				F35A66772C998870005491C5 /* WinePreferCategoryView.swift */,
+				F35A66782C998870005491C5 /* WinePreferNation.swift */,
+				F35A66792C998870005491C5 /* WinePreferNationView.swift */,
+				F35A667A2C998870005491C5 /* WinePreferSmell.swift */,
+				F35A667B2C998870005491C5 /* WinePreferSmellView.swift */,
+				F35A667C2C998870005491C5 /* WinePreferTaste.swift */,
+				F35A667D2C998870005491C5 /* WinePreferTasteView.swift */,
+				F35A667E2C998870005491C5 /* WinePrice.swift */,
+				F35A667F2C998870005491C5 /* WinePriceView.swift */,
+				F35A66802C998870005491C5 /* WineyPieChartView.swift */,
+			);
+			path = AnalysisResult;
+			sourceTree = "<group>";
+		};
+		F35A66CC2C9E9915005491C5 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				F35A66D12C9E9989005491C5 /* BottomSheet */,
+				F35A66D92C9E9989005491C5 /* Login */,
+				F35A66D62C9E9989005491C5 /* SignUp */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		F35A66D12C9E9989005491C5 /* BottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				F35A66CD2C9E9989005491C5 /* SignUpBottomSheetContent.swift */,
+				F35A66CE2C9E9989005491C5 /* SignUpBottomSheetFooter.swift */,
+				F35A66CF2C9E9989005491C5 /* SignUpBottomSheetHeader.swift */,
+				F35A66D02C9E9989005491C5 /* SignUpBottomSheetType.swift */,
+			);
+			path = BottomSheet;
+			sourceTree = "<group>";
+		};
+		F35A66D62C9E9989005491C5 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				F35A66D22C9E9989005491C5 /* CodeSignUp.swift */,
+				F35A66E42C9E9A14005491C5 /* CodeSignUpView.swift */,
+				F35A66D32C9E9989005491C5 /* FlavorSignUp.swift */,
+				F35A66E52C9E9A14005491C5 /* FlavorSignUpView.swift */,
+				F35A66D42C9E9989005491C5 /* PhoneSignUp.swift */,
+				F35A66E62C9E9A15005491C5 /* PhoneSignUpView.swift */,
+				F35A66D52C9E9989005491C5 /* WelcomeSignUp.swift */,
+				F35A66E72C9E9A15005491C5 /* WelcomeSignUpView.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		F35A66D92C9E9989005491C5 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				F35A66D72C9E9989005491C5 /* Login.swift */,
+				F35A66D82C9E9989005491C5 /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		F35A670B2C9F801C005491C5 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				F35A66F02C9F801C005491C5 /* BottomOptionButton.swift */,
+				F35A66F12C9F801C005491C5 /* CustomCamera.swift */,
+				F35A66F22C9F801C005491C5 /* CustomCameraView.swift */,
+				F35A66F32C9F801C005491C5 /* CustomGallery.swift */,
+				F35A66F42C9F801C005491C5 /* CustomGalleryView.swift */,
+				F35A66F52C9F801C005491C5 /* HelpSmell.swift */,
+				F35A66F62C9F801C005491C5 /* HelpSmellView.swift */,
+				F35A66F72C9F801C005491C5 /* HelpTaste.swift */,
+				F35A66F82C9F801C005491C5 /* HelpTasteView.swift */,
+				F35A66F92C9F801C005491C5 /* NoteDone.swift */,
+				F35A66FA2C9F801C005491C5 /* NoteDoneView.swift */,
+				F35A66FB2C9F801C005491C5 /* SettingAlcohol.swift */,
+				F35A66FC2C9F801C005491C5 /* SettingAlcoholView.swift */,
+				F35A66FD2C9F801C005491C5 /* SettingColorSmell.swift */,
+				F35A66FE2C9F801C005491C5 /* SettingColorSmellView.swift */,
+				F35A66FF2C9F801C005491C5 /* SettingMemo.swift */,
+				F35A67002C9F801C005491C5 /* SettingMemoView.swift */,
+				F35A67012C9F801C005491C5 /* SettingTaste.swift */,
+				F35A67022C9F801C005491C5 /* SettingTasteView.swift */,
+				F35A67032C9F801C005491C5 /* SettingVintage.swift */,
+				F35A67042C9F801C005491C5 /* SettingVintageView.swift */,
+				F35A67052C9F801C005491C5 /* SmellList.swift */,
+				F35A67062C9F801C005491C5 /* SmellListView.swift */,
+				F35A67072C9F801C005491C5 /* WineConfirm.swift */,
+				F35A67082C9F801C005491C5 /* WineConfirmView.swift */,
+				F35A67092C9F801C005491C5 /* WineSearch.swift */,
+				F35A670A2C9F801C005491C5 /* WineSearchView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		F35A675D2C9F8C69005491C5 /* WineDetail */ = {
+			isa = PBXGroup;
+			children = (
+				F35A67552C9F8C69005491C5 /* SpecificWineTastingNotes.swift */,
+				F35A67582C9F8C69005491C5 /* SpecificWineTastingNotesView.swift */,
+				F35A67562C9F8C69005491C5 /* WineDetail.swift */,
+				F35A675C2C9F8C69005491C5 /* WineDetailView.swift */,
+				F35A675B2C9F8C69005491C5 /* WineDetailInfoMiddleView.swift */,
+				F35A67592C9F8C69005491C5 /* WineDetailChartBackground.swift */,
+				F35A675A2C9F8C69005491C5 /* WineDetailGraph.swift */,
+			);
+			path = WineDetail;
+			sourceTree = "<group>";
+		};
+		F35A67632C9F8C69005491C5 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				F35A675D2C9F8C69005491C5 /* WineDetail */,
+				F35A675E2C9F8C69005491C5 /* WineCard.swift */,
+				F35A675F2C9F8C69005491C5 /* WineCardBackground.swift */,
+				F35A67602C9F8C69005491C5 /* WineCardScroll.swift */,
+				F35A67612C9F8C69005491C5 /* WineCardScrollView.swift */,
+				F35A67622C9F8C69005491C5 /* WineCardView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		F35A67712C9F90AB005491C5 /* Marker */ = {
+			isa = PBXGroup;
+			children = (
+				F35A67702C9F90AB005491C5 /* TappedMarker.swift */,
+			);
+			path = Marker;
+			sourceTree = "<group>";
+		};
+		F35A67732C9F90AB005491C5 /* NaverMap */ = {
+			isa = PBXGroup;
+			children = (
+				F35A67722C9F90AB005491C5 /* NaverMapView.swift */,
+			);
+			path = NaverMap;
+			sourceTree = "<group>";
+		};
+		F35A67752C9F90AB005491C5 /* ShopBottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				F35A67742C9F90AB005491C5 /* ShopBottomSheet.swift */,
+			);
+			path = ShopBottomSheet;
+			sourceTree = "<group>";
+		};
+		F35A67772C9F90AB005491C5 /* Block */ = {
+			isa = PBXGroup;
+			children = (
+				F35A67762C9F90AB005491C5 /* BottomSheetCategoryTitle.swift */,
+			);
+			path = Block;
+			sourceTree = "<group>";
+		};
+		F35A677B2C9F90AB005491C5 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F35A67772C9F90AB005491C5 /* Block */,
+				F35A67782C9F90AB005491C5 /* ShopDetailCell.swift */,
+				F35A67792C9F90AB005491C5 /* ShopListCell.swift */,
+				F35A677A2C9F90AB005491C5 /* ShopMainInfoBlock.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		F35A677E2C9F90AB005491C5 /* ShopInfo */ = {
+			isa = PBXGroup;
+			children = (
+				F35A677B2C9F90AB005491C5 /* Cell */,
+				F35A677C2C9F90AB005491C5 /* EmptyListInfoView.swift */,
+				F35A677D2C9F90AB005491C5 /* ShopCategoryTap.swift */,
+			);
+			path = ShopInfo;
+			sourceTree = "<group>";
+		};
+		F35A67852C9F90AB005491C5 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				F35A67712C9F90AB005491C5 /* Marker */,
+				F35A67732C9F90AB005491C5 /* NaverMap */,
+				F35A67752C9F90AB005491C5 /* ShopBottomSheet */,
+				F35A677E2C9F90AB005491C5 /* ShopInfo */,
+				F35A677F2C9F90AB005491C5 /* Map.swift */,
+				F35A67812C9F90AB005491C5 /* MapSheet.swift */,
+				F35A67822C9F90AB005491C5 /* MapSheetView.swift */,
+				F35A67832C9F90AB005491C5 /* MapView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		F35A679A2C9F911E005491C5 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				F35A67952C9F911E005491C5 /* TipCard.swift */,
+				F35A67962C9F911E005491C5 /* TipCardDetail.swift */,
+				F35A67972C9F911E005491C5 /* TipCardDetailView.swift */,
+				F35A67982C9F911E005491C5 /* TipCardImage.swift */,
+				F35A67992C9F911E005491C5 /* TipCardView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		F3C206DB2CA06520006D11B4 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				F35A65D02C989952005491C5 /* MainView.swift */,
+				F35A65D22C989BD8005491C5 /* Main.swift */,
+				F3C206DD2CA06648006D11B4 /* Main+Navigation.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		F3EFC7B82C97576900BC6DC9 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC85B2C975B3C00BC6DC9 /* Analysis */,
+				F3EFC8182C975B3C00BC6DC9 /* App */,
+				F3EFC7F72C975B3C00BC6DC9 /* Auth */,
+				F3EFC8452C975B3C00BC6DC9 /* Main */,
+				F3EFC8282C975B3C00BC6DC9 /* Map */,
+				F3EFC8062C975B3C00BC6DC9 /* Note */,
+				F3EFC8112C975B3C00BC6DC9 /* CreateNote */,
+				F3EFC84A2C975B3C00BC6DC9 /* RecommendWine */,
+				F3EFC82C2C975B3C00BC6DC9 /* TabBar */,
+				F3EFC85F2C975B3C00BC6DC9 /* WineTip */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		F3EFC7E52C975B3C00BC6DC9 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC7E32C975B3C00BC6DC9 /* PreferenceAPI.swift */,
+			);
+			path = APIs;
+			sourceTree = "<group>";
+		};
+		F3EFC7E82C975B3C00BC6DC9 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		F3EFC7EA2C975B3C00BC6DC9 /* Dummy */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC7E92C975B3C00BC6DC9 /* login_inactive.json */,
+			);
+			path = Dummy;
+			sourceTree = "<group>";
+		};
+		F3EFC7EC2C975B3C00BC6DC9 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC7EB2C975B3C00BC6DC9 /* AuthMockData.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		F3EFC7ED2C975B3C00BC6DC9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC7E52C975B3C00BC6DC9 /* APIs */,
+				F3EFC7E82C975B3C00BC6DC9 /* DTO */,
+				F3EFC7EA2C975B3C00BC6DC9 /* Dummy */,
+				F3EFC7EC2C975B3C00BC6DC9 /* Mock */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		F3EFC7F22C975B3C00BC6DC9 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC7EE2C975B3C00BC6DC9 /* FirstFlavorType.swift */,
+				F3EFC7EF2C975B3C00BC6DC9 /* FlavorInfoType.swift */,
+				F3EFC7F02C975B3C00BC6DC9 /* LoginPathType.swift */,
+				F3EFC7F12C975B3C00BC6DC9 /* LoginProcessType.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		F3EFC7F32C975B3C00BC6DC9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC7F22C975B3C00BC6DC9 /* Helpers */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F3EFC7F62C975B3C00BC6DC9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC7F42C975B3C00BC6DC9 /* LoginService.swift */,
+				F3EFC7F52C975B3C00BC6DC9 /* SignUpService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F3EFC7F72C975B3C00BC6DC9 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				F35A66CC2C9E9915005491C5 /* Screens */,
+				F35A65E52C98B8FA005491C5 /* Coordinator */,
+				F3EFC7ED2C975B3C00BC6DC9 /* Data */,
+				F3EFC7F32C975B3C00BC6DC9 /* Model */,
+				F3EFC7F62C975B3C00BC6DC9 /* Services */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		F3EFC7F92C975B3C00BC6DC9 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC7F82C975B3C00BC6DC9 /* NoteAPI.swift */,
+			);
+			path = APIs;
+			sourceTree = "<group>";
+		};
+		F3EFC7FF2C975B3C00BC6DC9 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC7FA2C975B3C00BC6DC9 /* NoteCheckDTO.swift */,
+				F3EFC7FB2C975B3C00BC6DC9 /* NoteDetailDTO.swift */,
+				F3EFC7FC2C975B3C00BC6DC9 /* NoteDTO.swift */,
+				F3EFC7FD2C975B3C00BC6DC9 /* NoteFilterDTO.swift */,
+				F3EFC7FE2C975B3C00BC6DC9 /* PatchNoteRequestDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		F3EFC8002C975B3C00BC6DC9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC7F92C975B3C00BC6DC9 /* APIs */,
+				F3EFC7FF2C975B3C00BC6DC9 /* DTO */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		F3EFC8032C975B3C00BC6DC9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC8012C975B3C00BC6DC9 /* FilterType.swift */,
+				F35A66EE2C9F4EF9005491C5 /* UserTastingNotesManageModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F3EFC8052C975B3C00BC6DC9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC8042C975B3C00BC6DC9 /* NoteService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F3EFC8062C975B3C00BC6DC9 /* Note */ = {
+			isa = PBXGroup;
+			children = (
+				F35A65D82C989C72005491C5 /* Screens */,
+				F3EFC8002C975B3C00BC6DC9 /* Data */,
+				F3EFC8032C975B3C00BC6DC9 /* Model */,
+				F3EFC8052C975B3C00BC6DC9 /* Services */,
+			);
+			path = Note;
+			sourceTree = "<group>";
+		};
+		F3EFC80A2C975B3C00BC6DC9 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC8072C975B3C00BC6DC9 /* CreateNoteDTO.swift */,
+				F3EFC8082C975B3C00BC6DC9 /* CreateNoteRequestDTO.swift */,
+				F3EFC8092C975B3C00BC6DC9 /* WineSearchDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		F3EFC80B2C975B3C00BC6DC9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC80A2C975B3C00BC6DC9 /* DTO */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		F3EFC80D2C975B3C00BC6DC9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC80C2C975B3C00BC6DC9 /* CreateNoteManager.swift */,
+				F3EFC8AA2C975FA200BC6DC9 /* SmellCategory.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F3EFC8102C975B3C00BC6DC9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC80E2C975B3C00BC6DC9 /* PhotoManager.swift */,
+				F3EFC80F2C975B3C00BC6DC9 /* PhotoService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F3EFC8112C975B3C00BC6DC9 /* CreateNote */ = {
+			isa = PBXGroup;
+			children = (
+				F35A670B2C9F801C005491C5 /* Screens */,
+				F3EFC80B2C975B3C00BC6DC9 /* Data */,
+				F3EFC80D2C975B3C00BC6DC9 /* Model */,
+				F3EFC8102C975B3C00BC6DC9 /* Services */,
+			);
+			path = CreateNote;
+			sourceTree = "<group>";
+		};
+		F3EFC8142C975B3C00BC6DC9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC8122C975B3C00BC6DC9 /* KakaoSharedService.swift */,
+				F3EFC8132C975B3C00BC6DC9 /* KakaoShareMessage.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F3EFC8172C975B3C00BC6DC9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC8162C975B3C00BC6DC9 /* Print + Override.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		F3EFC8182C975B3C00BC6DC9 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F35A65E22C98B885005491C5 /* Coordinator */,
+				F35A65DD2C98B807005491C5 /* Screens */,
+				F3EFC8142C975B3C00BC6DC9 /* Services */,
+				F3EFC8172C975B3C00BC6DC9 /* Utils */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		F3EFC81A2C975B3C00BC6DC9 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC8192C975B3C00BC6DC9 /* MapAPI.swift */,
+			);
+			path = APIs;
+			sourceTree = "<group>";
+		};
+		F3EFC81C2C975B3C00BC6DC9 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC81B2C975B3C00BC6DC9 /* ShopMapDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		F3EFC81D2C975B3C00BC6DC9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC81A2C975B3C00BC6DC9 /* APIs */,
+				F3EFC81C2C975B3C00BC6DC9 /* DTO */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		F3EFC8222C975B3C00BC6DC9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC81E2C975B3C00BC6DC9 /* CancelID.swift */,
+				F3EFC81F2C975B3C00BC6DC9 /* MapCameraAnglePosition.swift */,
+				F3EFC8202C975B3C00BC6DC9 /* MapPosition.swift */,
+				F3EFC8212C975B3C00BC6DC9 /* ShopCategoryType.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F3EFC8272C975B3C00BC6DC9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC8242C975B3C00BC6DC9 /* LocationService.swift */,
+				F3EFC8252C975B3C00BC6DC9 /* MapService.swift */,
+				F3EFC8262C975B3C00BC6DC9 /* NaverMapCoordinatorService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F3EFC8282C975B3C00BC6DC9 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				F35A67852C9F90AB005491C5 /* Screens */,
+				F3EFC81D2C975B3C00BC6DC9 /* Data */,
+				F3EFC8222C975B3C00BC6DC9 /* Model */,
+				F3EFC8272C975B3C00BC6DC9 /* Services */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		F3EFC82B2C975B3C00BC6DC9 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC82A2C975B3C00BC6DC9 /* TabBarService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		F3EFC82C2C975B3C00BC6DC9 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				F35A65C52C98991D005491C5 /* TabBar.swift */,
+				F35A65C02C989911005491C5 /* TabBarView.swift */,
+				F35A65C32C98991D005491C5 /* TabBarInfoContainerView.swift */,
+				F35A65C62C98991D005491C5 /* TabBarInfoView.swift */,
+				F35A65C42C98991D005491C5 /* TabBarItem.swift */,
+				F35A65C72C98991D005491C5 /* TabBarPreferenceKey.swift */,
+				F35A65C22C98991D005491C5 /* View + SwipeGesture.swift */,
+				F3EFC82B2C975B3C00BC6DC9 /* Service */,
+			);
+			path = "\U0010T\U0010abBar";
+			sourceTree = "<group>";
+		};
+		F3EFC83E2C975B3C00BC6DC9 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC83D2C975B3C00BC6DC9 /* WineAPI.swift */,
+			);
+			path = APIs;
+			sourceTree = "<group>";
+		};
+		F3EFC83F2C975B3C00BC6DC9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC83E2C975B3C00BC6DC9 /* APIs */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		F3EFC8422C975B3C00BC6DC9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC8402C975B3C00BC6DC9 /* RecommendWineData.swift */,
+				F3EFC8412C975B3C00BC6DC9 /* WineCardData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F3EFC8442C975B3C00BC6DC9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC8432C975B3C00BC6DC9 /* WineService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F3EFC8452C975B3C00BC6DC9 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				F35A65CE2C989938005491C5 /* Screens */,
+				F3EFC83F2C975B3C00BC6DC9 /* Data */,
+				F3EFC8422C975B3C00BC6DC9 /* Model */,
+				F3EFC8442C975B3C00BC6DC9 /* Services */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		F3EFC8482C975B3C00BC6DC9 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC8462C975B3C00BC6DC9 /* RecommendWineDTO.swift */,
+				F3EFC8472C975B3C00BC6DC9 /* WineDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		F3EFC8492C975B3C00BC6DC9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC8482C975B3C00BC6DC9 /* DTO */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		F3EFC84A2C975B3C00BC6DC9 /* RecommendWine */ = {
+			isa = PBXGroup;
+			children = (
+				F35A67632C9F8C69005491C5 /* Screens */,
+				F3EFC8492C975B3C00BC6DC9 /* Data */,
+			);
+			path = RecommendWine;
+			sourceTree = "<group>";
+		};
+		F3EFC8532C975B3C00BC6DC9 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC8522C975B3C00BC6DC9 /* TastingNotesAPI.swift */,
+			);
+			path = APIs;
+			sourceTree = "<group>";
+		};
+		F3EFC8552C975B3C00BC6DC9 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC8542C975B3C00BC6DC9 /* TasteAnalysisDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		F3EFC8562C975B3C00BC6DC9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC8532C975B3C00BC6DC9 /* APIs */,
+				F3EFC8552C975B3C00BC6DC9 /* DTO */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		F3EFC8582C975B3C00BC6DC9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC8572C975B3C00BC6DC9 /* WineRankData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F3EFC85A2C975B3C00BC6DC9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC8592C975B3C00BC6DC9 /* TasteAnalysisService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F3EFC85B2C975B3C00BC6DC9 /* Analysis */ = {
+			isa = PBXGroup;
+			children = (
+				F35A66702C99882E005491C5 /* Screens */,
+				F3EFC8562C975B3C00BC6DC9 /* Data */,
+				F3EFC8582C975B3C00BC6DC9 /* Model */,
+				F3EFC85A2C975B3C00BC6DC9 /* Services */,
+			);
+			path = Analysis;
+			sourceTree = "<group>";
+		};
+		F3EFC85D2C975B3C00BC6DC9 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC85C2C975B3C00BC6DC9 /* WineTipDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		F3EFC85E2C975B3C00BC6DC9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFC85D2C975B3C00BC6DC9 /* DTO */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		F3EFC85F2C975B3C00BC6DC9 /* WineTip */ = {
+			isa = PBXGroup;
+			children = (
+				F35A679A2C9F911E005491C5 /* Screens */,
+				F3EFC85E2C975B3C00BC6DC9 /* Data */,
+			);
+			path = WineTip;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F3171F4C2C971B0B00C14FC5 /* WINEY */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F3171F5B2C971B0C00C14FC5 /* Build configuration list for PBXNativeTarget "WINEY" */;
+			buildPhases = (
+				F3171F492C971B0B00C14FC5 /* Sources */,
+				F3171F4A2C971B0B00C14FC5 /* Frameworks */,
+				F3171F4B2C971B0B00C14FC5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WINEY;
+			packageProductDependencies = (
+				F3171F732C9723F600C14FC5 /* ThirdPartyLibs */,
+				F3EFC7B42C97575D00BC6DC9 /* WineyKit */,
+				F3EFC7B62C97576200BC6DC9 /* WineyNetwork */,
+				F35A66172C9957A5005491C5 /* UserInfoPresentation */,
+				F35A66192C9957EE005491C5 /* UserInfoData */,
+			);
+			productName = WINEY;
+			productReference = F3171F7D2C9728E200C14FC5 /* WINEY.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F35A66032C98CBB7005491C5 /* Demo-UserInfo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F35A660F2C98CBB8005491C5 /* Build configuration list for PBXNativeTarget "Demo-UserInfo" */;
+			buildPhases = (
+				F35A66002C98CBB7005491C5 /* Sources */,
+				F35A66012C98CBB7005491C5 /* Frameworks */,
+				F35A66022C98CBB7005491C5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Demo-UserInfo";
+			packageProductDependencies = (
+				F35A661B2C995B50005491C5 /* ThirdPartyLibs */,
+				F35A661D2C995B54005491C5 /* UserInfoData */,
+				F35A661F2C995B58005491C5 /* UserInfoPresentation */,
+				F35A66212C995B5B005491C5 /* WineyKit */,
+				F35A66232C995B5F005491C5 /* WineyNetwork */,
+			);
+			productName = "Demo-UserInfo";
+			productReference = F35A66042C98CBB7005491C5 /* Demo-UserInfo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F3171F452C971B0B00C14FC5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					F3171F4C2C971B0B00C14FC5 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					F35A66032C98CBB7005491C5 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = F3171F482C971B0B00C14FC5 /* Build configuration list for PBXProject "WINEY" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F3171F442C971B0B00C14FC5;
+			productRefGroup = F3171F442C971B0B00C14FC5;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F3171F4C2C971B0B00C14FC5 /* WINEY */,
+				F35A66032C98CBB7005491C5 /* Demo-UserInfo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F3171F4B2C971B0B00C14FC5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3171F582C971B0C00C14FC5 /* Preview Assets.xcassets in Resources */,
+				F3171F552C971B0C00C14FC5 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F35A66022C98CBB7005491C5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F35A660E2C98CBB8005491C5 /* Preview Assets.xcassets in Resources */,
+				F35A660B2C98CBB8005491C5 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F3171F492C971B0B00C14FC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3EFC8882C975B3C00BC6DC9 /* NaverMapCoordinatorService.swift in Sources */,
+				F3EFC89A2C975B3C00BC6DC9 /* WineDTO.swift in Sources */,
+				F3EFC8602C975B3C00BC6DC9 /* PreferenceAPI.swift in Sources */,
+				F35A67252C9F801D005491C5 /* WineSearch.swift in Sources */,
+				F3EFC8862C975B3C00BC6DC9 /* LocationService.swift in Sources */,
+				F35A666A2C9981FE005491C5 /* NoteDetailView.swift in Sources */,
+				F35A65E92C98B907005491C5 /* AuthView.swift in Sources */,
+				F3EFC8992C975B3C00BC6DC9 /* RecommendWineDTO.swift in Sources */,
+				F3EFC8772C975B3C00BC6DC9 /* WineSearchDTO.swift in Sources */,
+				F35A668A2C998870005491C5 /* WineAnalysisCategoryTitleView.swift in Sources */,
+				F35A668D2C998870005491C5 /* WinePreferCategory.swift in Sources */,
+				F35A66922C998870005491C5 /* WinePreferSmellView.swift in Sources */,
+				F3EFC8742C975B3C00BC6DC9 /* NoteService.swift in Sources */,
+				F35A66DC2C9E9989005491C5 /* SignUpBottomSheetHeader.swift in Sources */,
+				F3EFC8672C975B3C00BC6DC9 /* FlavorInfoType.swift in Sources */,
+				F3EFC86B2C975B3C00BC6DC9 /* SignUpService.swift in Sources */,
+				F3EFC86A2C975B3C00BC6DC9 /* LoginService.swift in Sources */,
+				F3EFC8652C975B3C00BC6DC9 /* AuthMockData.swift in Sources */,
+				F35A678B2C9F90AB005491C5 /* ShopListCell.swift in Sources */,
+				F3EFC8A12C975B3C00BC6DC9 /* TasteAnalysisService.swift in Sources */,
+				F35A66882C998870005491C5 /* WineAnalysisCarousel.swift in Sources */,
+				F3EFC8952C975B3C00BC6DC9 /* WineAPI.swift in Sources */,
+				F3EFC8962C975B3C00BC6DC9 /* RecommendWineData.swift in Sources */,
+				F3EFC87E2C975B3C00BC6DC9 /* Print + Override.swift in Sources */,
+				F3C206DA2CA027A6006D11B4 /* NoteDetail+SheetDestination.swift in Sources */,
+				F3EFC8802C975B3C00BC6DC9 /* ShopMapDTO.swift in Sources */,
+				F35A65EB2C98B952005491C5 /* Splash.swift in Sources */,
+				F35A663D2C996820005491C5 /* TripleSectionBottomSheet.swift in Sources */,
+				F3EFC8982C975B3C00BC6DC9 /* WineService.swift in Sources */,
+				F35A65CA2C98991D005491C5 /* TabBarItem.swift in Sources */,
+				F3EFC87C2C975B3C00BC6DC9 /* KakaoShareMessage.swift in Sources */,
+				F3EFC8662C975B3C00BC6DC9 /* FirstFlavorType.swift in Sources */,
+				F35A66DF2C9E9989005491C5 /* FlavorSignUp.swift in Sources */,
+				F3EFC8872C975B3C00BC6DC9 /* MapService.swift in Sources */,
+				F35A66492C9968A8005491C5 /* TastingNotes.swift in Sources */,
+				F35A671B2C9F801D005491C5 /* SettingMemo.swift in Sources */,
+				F35A66952C998870005491C5 /* WinePrice.swift in Sources */,
+				F35A67122C9F801D005491C5 /* HelpSmellView.swift in Sources */,
+				F35A66512C996969005491C5 /* TripleSectionBottomSheetView.swift in Sources */,
+				F35A669C2C998870005491C5 /* WineAnalysisLoadingView.swift in Sources */,
+				F35A678C2C9F90AB005491C5 /* ShopMainInfoBlock.swift in Sources */,
+				F35A65DF2C98B81A005491C5 /* AppRoot.swift in Sources */,
+				F3EFC8812C975B3C00BC6DC9 /* CancelID.swift in Sources */,
+				F35A670E2C9F801D005491C5 /* CustomCameraView.swift in Sources */,
+				F35A66E02C9E9989005491C5 /* PhoneSignUp.swift in Sources */,
+				F3EFC86C2C975B3C00BC6DC9 /* NoteAPI.swift in Sources */,
+				F35A66E32C9E9989005491C5 /* LoginView.swift in Sources */,
+				F35A66E22C9E9989005491C5 /* Login.swift in Sources */,
+				F35A676A2C9F8C6A005491C5 /* WineDetailView.swift in Sources */,
+				F35A670F2C9F801D005491C5 /* CustomGallery.swift in Sources */,
+				F35A66DA2C9E9989005491C5 /* SignUpBottomSheetContent.swift in Sources */,
+				F35A66682C9981FE005491C5 /* WineInfoDetailSingleGraphView.swift in Sources */,
+				F35A65C12C989911005491C5 /* TabBarView.swift in Sources */,
+				F35A66DD2C9E9989005491C5 /* SignUpBottomSheetType.swift in Sources */,
+				F35A67912C9F90AB005491C5 /* MapSheet.swift in Sources */,
+				F35A66932C998870005491C5 /* WinePreferTaste.swift in Sources */,
+				F35A67142C9F801D005491C5 /* HelpTasteView.swift in Sources */,
+				F35A670D2C9F801D005491C5 /* CustomCamera.swift in Sources */,
+				F35A671C2C9F801D005491C5 /* SettingMemoView.swift in Sources */,
+				F35A668E2C998870005491C5 /* WinePreferCategoryView.swift in Sources */,
+				F35A66DB2C9E9989005491C5 /* SignUpBottomSheetFooter.swift in Sources */,
+				F35A67102C9F801D005491C5 /* CustomGalleryView.swift in Sources */,
+				F35A67652C9F8C6A005491C5 /* WineDetail.swift in Sources */,
+				F35A67872C9F90AB005491C5 /* NaverMapView.swift in Sources */,
+				F3EFC86F2C975B3C00BC6DC9 /* NoteDTO.swift in Sources */,
+				F35A67112C9F801D005491C5 /* HelpSmell.swift in Sources */,
+				F35A66E82C9E9A15005491C5 /* CodeSignUpView.swift in Sources */,
+				F3EFC8822C975B3C00BC6DC9 /* MapCameraAnglePosition.swift in Sources */,
+				F35A676B2C9F8C6A005491C5 /* WineCard.swift in Sources */,
+				F35A65CB2C98991D005491C5 /* TabBar.swift in Sources */,
+				F35A664A2C9968A8005491C5 /* NoteDetail.swift in Sources */,
+				F35A66962C998870005491C5 /* WinePriceView.swift in Sources */,
+				F35A66692C9981FE005491C5 /* NoteDetailGraphTabView.swift in Sources */,
+				F35A66E12C9E9989005491C5 /* WelcomeSignUp.swift in Sources */,
+				F35A65CD2C98991D005491C5 /* TabBarPreferenceKey.swift in Sources */,
+				F35A676C2C9F8C6A005491C5 /* WineCardBackground.swift in Sources */,
+				F3EFC8832C975B3C00BC6DC9 /* MapPosition.swift in Sources */,
+				F35A67672C9F8C6A005491C5 /* WineDetailChartBackground.swift in Sources */,
+				F35A67162C9F801D005491C5 /* NoteDoneView.swift in Sources */,
+				F3C206DE2CA06648006D11B4 /* Main+Navigation.swift in Sources */,
+				F35A65E42C98B897005491C5 /* AppRoot+Navigation.swift in Sources */,
+				F3EFC87B2C975B3C00BC6DC9 /* KakaoSharedService.swift in Sources */,
+				F3EFC8842C975B3C00BC6DC9 /* ShopCategoryType.swift in Sources */,
+				F35A65C82C98991D005491C5 /* View + SwipeGesture.swift in Sources */,
+				F35A679B2C9F911F005491C5 /* TipCard.swift in Sources */,
+				F3EFC8972C975B3C00BC6DC9 /* WineCardData.swift in Sources */,
+				F35A66DE2C9E9989005491C5 /* CodeSignUp.swift in Sources */,
+				F35A668B2C998870005491C5 /* WineAnalysisPieChart.swift in Sources */,
+				F3EFC8682C975B3C00BC6DC9 /* LoginPathType.swift in Sources */,
+				F35A66912C998870005491C5 /* WinePreferSmell.swift in Sources */,
+				F35A67682C9F8C6A005491C5 /* WineDetailGraph.swift in Sources */,
+				F35A669B2C998870005491C5 /* WineAnalysisLoading.swift in Sources */,
+				F35A668C2C998870005491C5 /* WineAnalysisPieChartView.swift in Sources */,
+				F35A679F2C9F911F005491C5 /* TipCardView.swift in Sources */,
+				F35A676E2C9F8C6A005491C5 /* WineCardScrollView.swift in Sources */,
+				F35A664C2C9968A8005491C5 /* FilteredNotes.swift in Sources */,
+				F35A66382C9967A7005491C5 /* NoteView.swift in Sources */,
+				F35A671F2C9F801D005491C5 /* SettingVintage.swift in Sources */,
+				F3EFC86D2C975B3C00BC6DC9 /* NoteCheckDTO.swift in Sources */,
+				F35A67862C9F90AB005491C5 /* TappedMarker.swift in Sources */,
+				F3EFC89E2C975B3C00BC6DC9 /* TastingNotesAPI.swift in Sources */,
+				F35A67932C9F90AB005491C5 /* MapView.swift in Sources */,
+				F3EFC8AB2C975FA200BC6DC9 /* SmellCategory.swift in Sources */,
+				F35A66E92C9E9A15005491C5 /* FlavorSignUpView.swift in Sources */,
+				F35A67172C9F801D005491C5 /* SettingAlcohol.swift in Sources */,
+				F35A66EB2C9E9A15005491C5 /* WelcomeSignUpView.swift in Sources */,
+				F35A67692C9F8C6A005491C5 /* WineDetailInfoMiddleView.swift in Sources */,
+				F35A671A2C9F801D005491C5 /* SettingColorSmellView.swift in Sources */,
+				F35A65E72C98B903005491C5 /* Auth.swift in Sources */,
+				F35A66902C998870005491C5 /* WinePreferNationView.swift in Sources */,
+				F3EFC8712C975B3C00BC6DC9 /* PatchNoteRequestDTO.swift in Sources */,
+				F35A66892C998870005491C5 /* WineAnalysisCarouselView.swift in Sources */,
+				F35A65D32C989BD9005491C5 /* Main.swift in Sources */,
+				F3EFC8722C975B3C00BC6DC9 /* FilterType.swift in Sources */,
+				F35A66562C996DB8005491C5 /* TastingNotesView.swift in Sources */,
+				F35A678D2C9F90AB005491C5 /* EmptyListInfoView.swift in Sources */,
+				F35A676D2C9F8C6A005491C5 /* WineCardScroll.swift in Sources */,
+				F35A67882C9F90AB005491C5 /* ShopBottomSheet.swift in Sources */,
+				F35A67892C9F90AB005491C5 /* BottomSheetCategoryTitle.swift in Sources */,
+				F35A66612C99770F005491C5 /* Note+Navigation.swift in Sources */,
+				F35A670C2C9F801D005491C5 /* BottomOptionButton.swift in Sources */,
+				F3EFC8692C975B3C00BC6DC9 /* LoginProcessType.swift in Sources */,
+				F35A669D2C998870005491C5 /* WineAnalysisResult.swift in Sources */,
+				F35A66EA2C9E9A15005491C5 /* PhoneSignUpView.swift in Sources */,
+				F35A67202C9F801D005491C5 /* SettingVintageView.swift in Sources */,
+				F35A67222C9F801D005491C5 /* SmellListView.swift in Sources */,
+				F35A668F2C998870005491C5 /* WinePreferNation.swift in Sources */,
+				F35A65CC2C98991D005491C5 /* TabBarInfoView.swift in Sources */,
+				F35A66502C996969005491C5 /* NoteRemoveBottomSheetView.swift in Sources */,
+				F35A666B2C9981FE005491C5 /* NoteDetailSmellFeatureView.swift in Sources */,
+				F35A664D2C9968A8005491C5 /* FilterDetail.swift in Sources */,
+				F35A678A2C9F90AB005491C5 /* ShopDetailCell.swift in Sources */,
+				F35A65D12C989952005491C5 /* MainView.swift in Sources */,
+				F3EFC87F2C975B3C00BC6DC9 /* MapAPI.swift in Sources */,
+				F35A67192C9F801D005491C5 /* SettingColorSmell.swift in Sources */,
+				F35A66ED2C9EAF31005491C5 /* Auth+Navigation.swift in Sources */,
+				F35A676F2C9F8C6A005491C5 /* WineCardView.swift in Sources */,
+				F3EFC87A2C975B3C00BC6DC9 /* PhotoService.swift in Sources */,
+				F35A66942C998870005491C5 /* WinePreferTasteView.swift in Sources */,
+				F35A67152C9F801D005491C5 /* NoteDone.swift in Sources */,
+				F35A67182C9F801D005491C5 /* SettingAlcoholView.swift in Sources */,
+				F35A669A2C998870005491C5 /* WineAnalysis.swift in Sources */,
+				F35A67232C9F801D005491C5 /* WineConfirm.swift in Sources */,
+				F35A65C92C98991D005491C5 /* TabBarInfoContainerView.swift in Sources */,
+				F35A663C2C996820005491C5 /* NoteRemoveBottomSheet.swift in Sources */,
+				F35A66982C998870005491C5 /* WineAnalysisView.swift in Sources */,
+				F35A66572C996DB8005491C5 /* SmallWineCardView.swift in Sources */,
+				F35A66532C996DA8005491C5 /* FilteredNotesView.swift in Sources */,
+				F3EFC8A22C975B3C00BC6DC9 /* WineTipDTO.swift in Sources */,
+				F35A67212C9F801D005491C5 /* SmellList.swift in Sources */,
+				F3EFC86E2C975B3C00BC6DC9 /* NoteDetailDTO.swift in Sources */,
+				F35A67262C9F801D005491C5 /* WineSearchView.swift in Sources */,
+				F3EFC8792C975B3C00BC6DC9 /* PhotoManager.swift in Sources */,
+				F35A67132C9F801D005491C5 /* HelpTaste.swift in Sources */,
+				F35A66972C998870005491C5 /* WineyPieChartView.swift in Sources */,
+				F35A65ED2C98B957005491C5 /* SplashView.swift in Sources */,
+				F35A678E2C9F90AB005491C5 /* ShopCategoryTap.swift in Sources */,
+				F35A679D2C9F911F005491C5 /* TipCardDetailView.swift in Sources */,
+				F3171F512C971B0B00C14FC5 /* WINEYApp.swift in Sources */,
+				F3EFC88A2C975B3C00BC6DC9 /* TabBarService.swift in Sources */,
+				F35A678F2C9F90AB005491C5 /* Map.swift in Sources */,
+				F35A67922C9F90AB005491C5 /* MapSheetView.swift in Sources */,
+				F35A66EF2C9F4EF9005491C5 /* UserTastingNotesManageModel.swift in Sources */,
+				F35A664B2C9968A8005491C5 /* Note.swift in Sources */,
+				F35A679E2C9F911F005491C5 /* TipCardImage.swift in Sources */,
+				F3EFC8702C975B3C00BC6DC9 /* NoteFilterDTO.swift in Sources */,
+				F35A66992C998870005491C5 /* WineAnalysisResultView.swift in Sources */,
+				F35A67662C9F8C6A005491C5 /* SpecificWineTastingNotesView.swift in Sources */,
+				F35A67642C9F8C6A005491C5 /* SpecificWineTastingNotes.swift in Sources */,
+				F35A66592C996DC7005491C5 /* FilterDetailView.swift in Sources */,
+				F3EFC8A02C975B3C00BC6DC9 /* WineRankData.swift in Sources */,
+				F3EFC8782C975B3C00BC6DC9 /* CreateNoteManager.swift in Sources */,
+				F3EFC89F2C975B3C00BC6DC9 /* TasteAnalysisDTO.swift in Sources */,
+				F35A679C2C9F911F005491C5 /* TipCardDetail.swift in Sources */,
+				F35A671D2C9F801D005491C5 /* SettingTaste.swift in Sources */,
+				F35A65E12C98B820005491C5 /* AppRootView.swift in Sources */,
+				F3EFC8752C975B3C00BC6DC9 /* CreateNoteDTO.swift in Sources */,
+				F35A67242C9F801D005491C5 /* WineConfirmView.swift in Sources */,
+				F35A671E2C9F801D005491C5 /* SettingTasteView.swift in Sources */,
+				F3EFC8762C975B3C00BC6DC9 /* CreateNoteRequestDTO.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F35A66002C98CBB7005491C5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F35A66092C98CBB7005491C5 /* ContentView.swift in Sources */,
+				F35A66072C98CBB7005491C5 /* Demo_UserInfoApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F3171F592C971B0C00C14FC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3EFC8A32C975B9600BC6DC9 /* Debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F3171F5A2C971B0C00C14FC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3171F772C9727DB00C14FC5 /* Release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F3171F5C2C971B0C00C14FC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3EFC8A32C975B9600BC6DC9 /* Debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WINEY/WINEY.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = WINEY/Resources/Assets.xcassets;
+				DEVELOPMENT_TEAM = QVX6L7QGV2;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = WINEY/Resources/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.winey.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F3171F5D2C971B0C00C14FC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3171F772C9727DB00C14FC5 /* Release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WINEY/WINEY.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = WINEY/Resources/Assets.xcassets;
+				DEVELOPMENT_TEAM = QVX6L7QGV2;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = WINEY/Resources/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.winey.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		F35A66102C98CBB8005491C5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3171F782C9727F000C14FC5 /* Debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Demo-UserInfo/Preview Content\"";
+				DEVELOPMENT_TEAM = QVX6L7QGV2;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Demo-UserInfo/Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.winey.Demo-UserInfo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F35A66112C98CBB8005491C5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3EFC8A42C975B9600BC6DC9 /* Release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Demo-UserInfo/Preview Content\"";
+				DEVELOPMENT_TEAM = QVX6L7QGV2;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Demo-UserInfo/Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.winey.Demo-UserInfo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F3171F482C971B0B00C14FC5 /* Build configuration list for PBXProject "WINEY" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3171F592C971B0C00C14FC5 /* Debug */,
+				F3171F5A2C971B0C00C14FC5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F3171F5B2C971B0C00C14FC5 /* Build configuration list for PBXNativeTarget "WINEY" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3171F5C2C971B0C00C14FC5 /* Debug */,
+				F3171F5D2C971B0C00C14FC5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F35A660F2C98CBB8005491C5 /* Build configuration list for PBXNativeTarget "Demo-UserInfo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F35A66102C98CBB8005491C5 /* Debug */,
+				F35A66112C98CBB8005491C5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F3171F732C9723F600C14FC5 /* ThirdPartyLibs */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ThirdPartyLibs;
+		};
+		F35A66172C9957A5005491C5 /* UserInfoPresentation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UserInfoPresentation;
+		};
+		F35A66192C9957EE005491C5 /* UserInfoData */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UserInfoData;
+		};
+		F35A661B2C995B50005491C5 /* ThirdPartyLibs */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ThirdPartyLibs;
+		};
+		F35A661D2C995B54005491C5 /* UserInfoData */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UserInfoData;
+		};
+		F35A661F2C995B58005491C5 /* UserInfoPresentation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UserInfoPresentation;
+		};
+		F35A66212C995B5B005491C5 /* WineyKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WineyKit;
+		};
+		F35A66232C995B5F005491C5 /* WineyNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WineyNetwork;
+		};
+		F3EFC7B42C97575D00BC6DC9 /* WineyKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WineyKit;
+		};
+		F3EFC7B62C97576200BC6DC9 /* WineyNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WineyNetwork;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = F3171F452C971B0B00C14FC5 /* Project object */;
+}
