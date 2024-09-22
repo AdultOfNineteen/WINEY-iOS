@@ -136,28 +136,28 @@ struct LoginView: View {
       Button {
         store.send(.tappedLogin(.kakao))
       } label: {
-        Image("kakao_button")
+        Image(.kakao_buttonW)
       }
       
       Button {
         store.send(.tappedLogin(.apple))
       } label: {
-        Image("apple_button")
+        Image(.apple_buttonW)
       }
       
       Button {
         store.send(.tappedLogin(.google))
       } label: {
-        Image("google_button")
+        Image(.google_buttonW)
       }
     }
   }
   
   private var mainLogoSpace: some View {
     VStack(spacing: 24) {
-      Image("logo_imge")
+      Image(.logo_imgeW)
       
-      Image("logoText_imge")
+      Image(.logoText_imgeW)
     }
   }
 }

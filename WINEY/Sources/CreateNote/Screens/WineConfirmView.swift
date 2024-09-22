@@ -48,7 +48,7 @@ extension WineConfirmView {
   
   @ViewBuilder
   private func background() -> some View {
-    Image("noteBackground")
+    Image(.noteBackgroundW)
       .resizable()
       .scaledToFit()
   }
@@ -56,7 +56,7 @@ extension WineConfirmView {
   @ViewBuilder
   private func navigation() -> some View {
     NavigationBar(
-      leftIcon: Image("navigationBack_button"),
+      leftIcon: Image(.navigationBack_buttonW),
       leftIconButtonAction: { store.send(.tappedBackButton) },
       backgroundColor: .clear
     )

@@ -23,7 +23,7 @@ struct CodeSignUpView: View {
     GeometryReader {_ in
       VStack(spacing: 0) {
         NavigationBar(
-          leftIcon: Image("navigationBack_button"),
+          leftIcon: Image(.navigationBack_buttonW),
           leftIconButtonAction: {
             store.send(.tappedBackButton)
           },

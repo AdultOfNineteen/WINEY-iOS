@@ -95,7 +95,7 @@ struct FlavorSignUpView: View {
         set: { _ in store.send(.tappedOutsideOfBottomSheet)}
       ),
       headerArea: {
-        Image("rock_image")
+        Image(.rock_imageW)
       },
       content: {
         CustomVStack(text1: "진행을 중단하고 처음으로", text2: "되돌아가시겠어요?")

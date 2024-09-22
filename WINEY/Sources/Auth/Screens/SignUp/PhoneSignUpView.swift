@@ -21,7 +21,7 @@ struct PhoneSignUpView: View {
     GeometryReader { geometry in
       VStack(spacing: 0) {
         NavigationBar(
-          leftIcon: Image("navigationBack_button")
+          leftIcon: Image(.navigationBack_buttonW)
           ,
           leftIconButtonAction: {
             store.send(.tappedBackButton)
@@ -51,7 +51,7 @@ struct PhoneSignUpView: View {
           textStyle: formatPhoneNumber(_:),
           maximumInputCount: 11,
           completeCondition: store.inputPhoneNumber.count == 11, 
-          textDeleteButton: Image("text_delete_icon"),
+          textDeleteButton: Image(.text_delete_iconW),
           keyboardType: .numberPad,
           onEditingChange: { }
         )

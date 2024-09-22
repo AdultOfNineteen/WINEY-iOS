@@ -130,7 +130,7 @@ extension FilteredNotesView {
         .wineyFont(.captionB1)
         .foregroundStyle(.wineyGray200)
       
-      Image("reloadIcon")
+      Image(.reloadIconW)
         .foregroundStyle(.wineyGray500)
     }
     .padding(.horizontal, 10)
@@ -172,12 +172,12 @@ extension FilteredNotesView {
       .wineyFont(.captionB1)
       
       if list.count == 1 {
-        Image("filterXIcon")
+        Image(.filterXIconW)
           .onTapGesture {
             store.send(.tappedFilterRemoveButton(type, list[0]))
           }
       } else {
-        Image("filterArrow")
+        Image(.filterArrowW)
       }
     }
     .foregroundStyle(.wineyGray200)
@@ -201,7 +201,7 @@ extension FilteredNotesView {
       Text(text)
         .wineyFont(.captionB1)
       
-      Image("filterArrow")
+      Image(.filterArrowW)
     }
     .foregroundStyle(.wineyGray700)
     .padding(10)

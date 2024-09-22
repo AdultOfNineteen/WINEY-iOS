@@ -32,7 +32,7 @@ public struct SignOutConfirmView: View {
         store.send(.tappedOutsideSheet)
       }),
       headerArea: {
-        Image("analysisNoteIcon")
+        Image(.analysisNoteIconW)
       },
       content: {
         Text("탈퇴가 완료되었어요\n언젠가 다시 만나요!")

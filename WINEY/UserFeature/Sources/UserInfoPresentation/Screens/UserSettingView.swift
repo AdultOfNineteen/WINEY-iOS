@@ -50,7 +50,7 @@ public struct UserSettingView: View {
         store.send(.tappedBottomSheetNoOption)
       }),
       headerArea: {
-        Image("analysisNoteIcon")
+        Image(.analysisNoteIconW)
       },
       content: {
         LogoutBottomSheetContent()

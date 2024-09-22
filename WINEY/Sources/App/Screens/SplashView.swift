@@ -29,9 +29,9 @@ public struct SplashView: View {
   
   private var mainLogoSpace: some View {
     VStack(spacing: 24) {
-      Image("logo_imge")
+      Image(.logo_imgeW)
       
-      Image("logoText_imge")
+      Image(.logoText_imgeW)
     }
     .background {
       RadientCircleBackgroundView(backgroundType: .splash)

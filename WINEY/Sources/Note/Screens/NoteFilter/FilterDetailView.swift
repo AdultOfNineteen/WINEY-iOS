@@ -144,7 +144,7 @@ extension FilterDetailView {
     HStack(alignment: .center, spacing: 0) {
       Text(title)
       
-      Image("filterXIcon")
+      Image(.filterXIconW)
         .onTapGesture {
           store.send(.tappedFilterRemoveButton(title, type))
         }

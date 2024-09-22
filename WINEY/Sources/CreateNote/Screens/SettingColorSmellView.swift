@@ -22,7 +22,7 @@ public struct SettingColorSmellView: View {
     VStack(spacing: 0) {
       NavigationBar(
         title: "와인 정보 입력",
-        leftIcon: Image("navigationBack_button"),
+        leftIcon: Image(.navigationBack_buttonW),
         leftIconButtonAction: { store.send(.tappedBackButton) },
         backgroundColor: .clear
       )

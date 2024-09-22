@@ -37,7 +37,7 @@ extension NoteDoneView {
   
   @ViewBuilder
   private func colorBackground() -> some View {
-    Image("noteDoneBackground")
+    Image(.noteDoneBackgroundW)
       .resizable()
   }
   

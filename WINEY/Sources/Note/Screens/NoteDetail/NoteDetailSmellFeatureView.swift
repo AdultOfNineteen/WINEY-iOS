@@ -58,8 +58,8 @@ public struct NoteDetailSmellFeatureView: View {
       .padding(.top, 20)
       
       HStack(spacing: -6) {
-        Image("noteDetailArrowBody")
-        Image("noteDetailArrowHeader")
+        Image(.noteDetailArrowBodyW)
+        Image(.noteDetailArrowHeaderW)
       }
       .padding(.top, 8)
       .padding(.leading, 20)

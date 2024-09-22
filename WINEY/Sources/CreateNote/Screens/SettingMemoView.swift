@@ -78,7 +78,7 @@ extension SettingMemoView {
   private func navigation() -> some View {
     NavigationBar(
       title: "와인 정보 입력",
-      leftIcon: Image("navigationBack_button"),
+      leftIcon: Image(.navigationBack_buttonW),
       leftIconButtonAction: {
         store.send(.tappedBackButton)
       },
@@ -128,7 +128,7 @@ extension SettingMemoView {
                 Button(action: {
                   store.send(.tappedDelImage(image))
                 }, label: {
-                  Image("imageX")
+                  Image(.imageXW)
                 })
               }
               .padding(.trailing, 9)

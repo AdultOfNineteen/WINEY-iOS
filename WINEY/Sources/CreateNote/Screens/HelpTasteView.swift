@@ -21,7 +21,7 @@ public struct HelpTasteView: View {
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
       NavigationBar(
-        leftIcon: Image("navigationBack_button"),
+        leftIcon: Image(.navigationBack_buttonW),
         leftIconButtonAction: {
           store.send(.tappedBackButton)
         },
