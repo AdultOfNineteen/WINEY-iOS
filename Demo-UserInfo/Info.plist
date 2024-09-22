@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BaseURL</key>
+	<string>$(BASE_URL)</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Dark</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.winey.demo-userInfo</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(BUNDLE_VERSION_SHORT)</string>
+	<key>CFBundleVersion</key>
+	<string>$(BUNDLE_VERSION_STRING)</string>
+	<key>CFBundleName</key>
+	<string>Demo-UserInfo</string>
+	<key>FakeUserID</key>
+	<string>$(FAKE_USER_ID)</string>
+	<key>FakeUserToken</key>
+	<string>$(FAKE_USER_TOKEN)</string>
+</dict>
+</plist>
