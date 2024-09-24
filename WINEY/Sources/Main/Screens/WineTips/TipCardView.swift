@@ -1,20 +1,24 @@
 //
-//  TipCardImage.swift
+//  TipCardView.swift
 //  Winey
 //
 //  Created by 정도현 on 12/23/23.
 //  Copyright © 2023 Winey. All rights reserved.
 //
 
+import ComposableArchitecture
 import SwiftUI
 import WineyKit
 
-public struct TipCardImage: View {
+public struct TipCardView: View {
+  private let store: StoreOf<TipCard>
   
-  public var tipCardInfo: WineTipContent
+  public init(store: StoreOf<TipCard>) {
+    self.store = store
+  }
   
   public var body: some View {
-    AsyncImage(url: URL(string: tipCardInfo.thumbNail)) { image in
+    AsyncImage(url: URL(string: store.data.thumbNail)) { image in
       ZStack {
         image.resizable()
           .clipShape(
@@ -24,7 +28,7 @@ public struct TipCardImage: View {
         VStack {
           Spacer()
           
-          Text(tipCardInfo.title)
+          Text(store.data.title)
             .wineyFont(.captionB1)
             .lineLimit(2)
             .frame(alignment: .leading)
@@ -36,6 +40,9 @@ public struct TipCardImage: View {
       .frame(height: 140)
     } placeholder: {
       ProgressView()
+    }
+    .onTapGesture {
+      store.send(.tappedCard)
     }
   }
 }

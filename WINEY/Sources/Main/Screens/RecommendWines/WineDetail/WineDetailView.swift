@@ -18,67 +18,61 @@ public struct WineDetailView: View {
   }
   
   public var body: some View {
-    NavigationStack(
-      path:  .init(
-        get: { store.recommendWineTastingNotesList.path },
-        set: { path in store.send(._recommendWineTastingNotesList(.pathChanged(path))) }
+    VStack(spacing: 0) {
+      NavigationBar(
+        title: "와인 상세정보",
+        leftIcon: Image(.navigationBack_buttonW),
+        leftIconButtonAction: {
+          store.send(.tappedBackButton)
+        },
+        backgroundColor: Color.wineyMainBackground
       )
-    ) {
-      VStack(spacing: 0) {
-        NavigationBar(
-          title: "와인 상세정보",
-          leftIcon: Image(.navigationBack_buttonW),
-          leftIconButtonAction: {
-             store.send(.tappedBackButton)
-          },
-          backgroundColor: Color.wineyMainBackground
-        )
-        
-        ScrollView {
-          LazyVStack(spacing: 0) {
-            
-            wineTypeName()
-            
-            divider()
-              .padding(.top, 20)
-            
-            if let wineDetailData =  store.windDetailData {
-              WineDetailInfoMiddleView(
-                wineType: WineType.changeType(at: wineDetailData.type),
-                nationalAnthems: wineDetailData.country,
-                varities: wineDetailData.varietal,
-                purchasePrice: Int(wineDetailData.wineSummary.avgPrice)
-              )
-              .padding(.top, 42)
-              .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-            } else {
-              ProgressView()
-            }
-            
-            divider()
-              .padding(.top, 20)
-            
-            wineGraph()
-            
-            divider()
-
-            SpecificWineTastingNotesView(
-              store: self.store.scope(
-                state: \.recommendWineTastingNotesList,
-                action: \._recommendWineTastingNotesList
-              )
-            )
+      
+      ScrollView {
+        LazyVStack(spacing: 0) {
+          
+          wineTypeName()
+          
+          divider()
             .padding(.top, 20)
-            .padding(.bottom, 50)
+          
+          if let wineDetailData =  store.windDetailData {
+            WineDetailInfoMiddleView(
+              wineType: WineType.changeType(at: wineDetailData.type),
+              nationalAnthems: wineDetailData.country,
+              varities: wineDetailData.varietal,
+              purchasePrice: Int(wineDetailData.wineSummary.avgPrice)
+            )
+            .padding(.top, 42)
+            .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+          } else {
+            ProgressView()
           }
-        }
-        .onAppear {
-           store.send(._viewWillAppear)
+          
+          divider()
+            .padding(.top, 20)
+          
+          wineGraph()
+          
+          divider()
+          
+          SpecificWineTastingNotesView(
+            store: self.store.scope(
+              state: \.recommendWineTastingNotesList,
+              action: \._recommendWineTastingNotesList
+            )
+          )
+          .padding(.top, 20)
+          .padding(.bottom, 50)
         }
       }
-      .navigationBarHidden(true)
-      .background(.wineyMainBackground) 
+      .onAppear {
+        store.send(._viewWillAppear)
+      }
     }
+    .navigationBarHidden(true)
+    .background(.wineyMainBackground)
+    
   }
 }
 
@@ -144,8 +138,8 @@ public struct WineDetailTabView: View {
         originalStatistic: Double(detail.sweetness),
         peopleStatistic: Double(
           detail
-          .wineSummary
-          .avgSweetness
+            .wineSummary
+            .avgSweetness
         )
       )
       WineDetailGraph(
@@ -153,8 +147,8 @@ public struct WineDetailTabView: View {
         originalStatistic: Double(detail.acidity),
         peopleStatistic: Double(
           detail
-          .wineSummary
-          .avgAcidity
+            .wineSummary
+            .avgAcidity
         )
       )
       WineDetailGraph(
@@ -162,8 +156,8 @@ public struct WineDetailTabView: View {
         originalStatistic: Double(detail.body),
         peopleStatistic: Double(
           detail
-          .wineSummary
-          .avgBody
+            .wineSummary
+            .avgBody
         )
       )
       WineDetailGraph(
@@ -171,8 +165,8 @@ public struct WineDetailTabView: View {
         originalStatistic: Double(detail.tannins),
         peopleStatistic: Double(
           detail
-          .wineSummary
-          .avgTannins
+            .wineSummary
+            .avgTannins
         )
       )
     }
@@ -218,8 +212,8 @@ public struct WineDetailInfoSum: View {
         WineInfoDetailGraph(
           peopleStatistic: Double(
             detail
-            .wineSummary
-            .avgSweetness
+              .wineSummary
+              .avgSweetness
           ),
           originalStatistic: Double(detail.sweetness),
           infoCategory: "당도"
@@ -227,8 +221,8 @@ public struct WineDetailInfoSum: View {
         WineInfoDetailGraph(
           peopleStatistic: Double(
             detail
-            .wineSummary
-            .avgAcidity
+              .wineSummary
+              .avgAcidity
           ),
           originalStatistic: Double(detail.acidity),
           infoCategory: "산도"
@@ -236,8 +230,8 @@ public struct WineDetailInfoSum: View {
         WineInfoDetailGraph(
           peopleStatistic: Double(
             detail
-            .wineSummary
-            .avgBody
+              .wineSummary
+              .avgBody
           ),
           originalStatistic: Double(detail.body),
           infoCategory: "바디"
@@ -245,8 +239,8 @@ public struct WineDetailInfoSum: View {
         WineInfoDetailGraph(
           peopleStatistic: Double(
             detail
-            .wineSummary
-            .avgTannins
+              .wineSummary
+              .avgTannins
           ),
           originalStatistic: Double(detail.tannins),
           infoCategory: "탄닌"

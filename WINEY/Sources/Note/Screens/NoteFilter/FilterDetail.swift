@@ -57,7 +57,6 @@ public struct FilterDetail {
     Reduce<State, Action> { state, action in
       switch action {
       case ._detailViewWillAppear:
-
         return .run { send in
           switch await noteService.noteFilter() {
           case let .success(data):
