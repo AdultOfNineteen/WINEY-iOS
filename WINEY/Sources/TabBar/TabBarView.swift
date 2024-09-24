@@ -17,59 +17,58 @@ public struct TabBarView: View {
   public init(store: StoreOf<TabBar>) { self.store = store }
   
   public var body: some View { // 홈, 노트, 노트모음, 마이페이지 Coordinator
-    NavigationStack {
-      TabBarInfoContainerView(
-        selection: .init(
-          get: { store.selectedTab },
-          set: { isSelected in store.send(.tabSelected(isSelected))}
-        ), isHidden: .init(
-          get: { store.isTabHidden },
-          set: { isBool in store.send( ._setTabHiddenStatus(isBool) )}
-        )
-      ) {
-        switch store.selectedTab {
-        case .main:
-          let mainStore = store.scope(state: \.main, action: \.main)
-          MainView(store: mainStore)
-            .tabBarItem(
-              tab: .main,
-              selection: .init(
-                get: { store.selectedTab },
-                set: { tabSelect in store.send(.tabSelected(tabSelect)) }
-              )
+
+    TabBarInfoContainerView(
+      selection: .init(
+        get: { store.selectedTab },
+        set: { isSelected in store.send(.tabSelected(isSelected))}
+      ), isHidden: .init(
+        get: { store.isTabHidden },
+        set: { isBool in store.send( ._setTabHiddenStatus(isBool) )}
+      )
+    ) {
+      switch store.selectedTab {
+      case .main:
+        let mainStore = store.scope(state: \.main, action: \.main)
+        MainView(store: mainStore)
+          .tabBarItem(
+            tab: .main,
+            selection: .init(
+              get: { store.selectedTab },
+              set: { tabSelect in store.send(.tabSelected(tabSelect)) }
             )
-            
-        case .map:
-          let mapStore = store.scope(state: \.map, action: \.map)
-          MapView(store: mapStore)
-            .tabBarItem(
-              tab: .map,
-              selection: .init(
-                get: { store.selectedTab },
-                set: { tabSelect in store.send(.tabSelected(tabSelect)) }
-              )
+          )
+        
+      case .map:
+        let mapStore = store.scope(state: \.map, action: \.map)
+        MapView(store: mapStore)
+          .tabBarItem(
+            tab: .map,
+            selection: .init(
+              get: { store.selectedTab },
+              set: { tabSelect in store.send(.tabSelected(tabSelect)) }
             )
-        case .note:
-          let noteStore = store.scope(state: \.note, action: \.note)
-          NoteView(store: noteStore)
-            .tabBarItem(
-              tab: .note,
-              selection: .init(
-                get: { store.selectedTab },
-                set: { tabSelect in store.send(.tabSelected(tabSelect)) }
-              )
+          )
+      case .note:
+        let noteStore = store.scope(state: \.note, action: \.note)
+        NoteView(store: noteStore)
+          .tabBarItem(
+            tab: .note,
+            selection: .init(
+              get: { store.selectedTab },
+              set: { tabSelect in store.send(.tabSelected(tabSelect)) }
             )
-        case .userInfo:
-          let userInfoStore = store.scope(state: \.userInfo, action: \.userInfo)
-          UserInfoView(store: userInfoStore)
-            .tabBarItem(
-              tab: .userInfo,
-              selection: .init(
-                get: { store.selectedTab },
-                set: { tabSelect in store.send(.tabSelected(tabSelect)) }
-              )
+          )
+      case .userInfo:
+        let userInfoStore = store.scope(state: \.userInfo, action: \.userInfo)
+        UserInfoView(store: userInfoStore)
+          .tabBarItem(
+            tab: .userInfo,
+            selection: .init(
+              get: { store.selectedTab },
+              set: { tabSelect in store.send(.tabSelected(tabSelect)) }
             )
-        }
+          )
       }
     }
     .onOpenURL { url in
