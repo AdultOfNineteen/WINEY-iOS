@@ -163,7 +163,6 @@ extension Note {
           state.path.pop(from: id)
           return .none
           
-
       // MARK: - 노트 작성 화면 내 로직
         case let .element(_, action: .wineSearch(.tappedWineCard(wineCard))):
           state.path.append(.wineConfirm(.init(wineData: wineCard)))
@@ -235,6 +234,10 @@ extension Note {
           
         case let .element(id, action: .setMemo(._moveBackPage)):
           state.path.pop(from: id)
+          return .none
+          
+        case let .element(id, action: .noteDone(.tappedButton)):
+          state.path.removeAll()
           return .none
 
         default: return .none
