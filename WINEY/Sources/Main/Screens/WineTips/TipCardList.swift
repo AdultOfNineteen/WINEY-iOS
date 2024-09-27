@@ -41,6 +41,7 @@ public struct TipCardList {
     // MARK: - Inner Business Action
     case _viewWillAppear
     case _moveDetailTipCard(url: String)
+    case _checkPagination(data: WineTipContent)
     case _fetchNextTipCardPage
     case _appendNextTipCardData
     
@@ -100,6 +101,23 @@ public struct TipCardList {
           return .none
         } else {
           return .send(._appendNextTipCardData)
+        }
+        
+      case let ._checkPagination(data):
+        guard let lastData = state.tipCard.last else {
+          return .none
+        }
+        
+        let checkData = TipCard.State(data: data)
+        
+        if lastData == checkData {
+          if state.isLast {
+            return .none
+          } else {
+            return .send(._fetchNextTipCardPage)
+          }
+        } else {
+          return .none
         }
         
       case ._appendNextTipCardData:

@@ -41,10 +41,7 @@ public struct TipCardListView: View {
             ) { store in
               TipCardView(store: store)
                 .onAppear {
-                  // TODO: Pagination
-                  //              if self.store.tipCard.contents[self.store.tipCard.contents.count - 1] == store.data {
-                  //                store.send(._fetchNextTipCardPage)
-                  //              }
+                  self.store.send(._checkPagination(data: store.data))
                 }
             }
           }
