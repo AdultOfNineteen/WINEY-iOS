@@ -883,13 +883,6 @@
 			path = APIs;
 			sourceTree = "<group>";
 		};
-		F3EFC7E82C975B3C00BC6DC9 /* DTO */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DTO;
-			sourceTree = "<group>";
-		};
 		F3EFC7EA2C975B3C00BC6DC9 /* Dummy */ = {
 			isa = PBXGroup;
 			children = (
@@ -910,7 +903,6 @@
 			isa = PBXGroup;
 			children = (
 				F3EFC7E52C975B3C00BC6DC9 /* APIs */,
-				F3EFC7E82C975B3C00BC6DC9 /* DTO */,
 				F3EFC7EA2C975B3C00BC6DC9 /* Dummy */,
 				F3EFC7EC2C975B3C00BC6DC9 /* Mock */,
 			);
