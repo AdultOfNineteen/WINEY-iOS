@@ -96,7 +96,7 @@ public struct WineDetailInfoMiddleView: View {
           if let abv = abv {
             wineInfoTable(
               title: "ABV",
-              contents: Int(abv).description + "%"
+              contents: (round(abv * 10) / 10).description + "%"
             )
           } else {
             wineInfoTable(
