@@ -17,6 +17,8 @@ public struct SettingAlcoholView: View {
     self.store = store
   }
   
+  @State var selectedNumber: Int = 3
+  
   public var body: some View {
     VStack(spacing: 0) {
       topView()
@@ -111,25 +113,30 @@ extension SettingAlcoholView {
   
   @ViewBuilder
   private func alcoholValueView() -> some View {
-    VStack(spacing: 20) {
+    VStack(spacing: 30) {
       Text("도수를 입력해주세요!")
         .wineyFont(.bodyB1)
       
-      Picker(
-        "",
-        selection: .init(
-          get: { store.alcoholValue },
-          set: { value in store.send(.selectAlcoholValue(value)) }
-        )
-      ) {
-        ForEach(store.alcoholValueRange, id: \.self) { number in
-          Text("\(number)")
-            .wineyFont(.title1)
-        }
-      }
-      .pickerStyle(WheelPickerStyle())
-      .frame(height: store.pickerHeight)
-      .overlay(
+      HStack(spacing: 8) {
+        CustomWheelPickerView(
+          store.alcoholValueRange,
+          .init(
+            get: { store.alcoholValue },
+            set: { value in store.send(.selectAlcoholValue(value)) }
+          ))
+        
+        Circle()
+          .fill(.white)
+          .frame(height: 3)
+          .offset(y: 8)
+        
+        CustomWheelPickerView(
+          store.alcoholPointValueRange,
+          .init(
+            get: { store.alcoholPointValue },
+            set: { value in store.send(.selectAlcoholPointValue(value)) }
+          ))
+        
         Circle()
           .fill(.wineyGray500)
           .frame(width: 7)
@@ -138,11 +145,10 @@ extension SettingAlcoholView {
               .fill(.wineyMainBackground)
               .frame(width: 3)
           )
-          .padding(.leading, 50)
-          .padding(.bottom, 12)
-      )
+          .offset(y: -8)
+      }
     }
-    .padding(.top, 49)
+    .padding(.top, 50)
   }
   
   @ViewBuilder
