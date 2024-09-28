@@ -15,11 +15,9 @@ public struct TipCardDetail {
   
   @ObservableState
   public struct State: Equatable {
-    public var isEnterMainView: Bool = false
     public var url: String
     
-    public init(isEnterMainView: Bool = false, url: String) {
-      self.isEnterMainView = isEnterMainView
+    public init(url: String) {
       self.url = url
     }
   }
@@ -29,8 +27,6 @@ public struct TipCardDetail {
     case tappedBackButton
     
     // MARK: - Inner Business Action
-    case _moveToList
-    case _moveToMain
     
     // MARK: - Inner SetState Action
     
@@ -42,12 +38,6 @@ public struct TipCardDetail {
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
-      case .tappedBackButton:
-        if !state.isEnterMainView {
-          return .send(._moveToList)
-        } else {
-          return .send(._moveToMain)
-        }
         
       default:
         return .none

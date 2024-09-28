@@ -60,6 +60,7 @@ public struct FilteredNotes {
     Reduce<State, Action> { state, action in
       switch action {
       case ._onAppear:
+        state.nowSearchPage = 0
         return .send(._fetchNotes)
         
       case ._fetchNotes:
