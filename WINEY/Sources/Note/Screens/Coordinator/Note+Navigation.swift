@@ -236,7 +236,11 @@ extension Note {
           state.path.pop(from: id)
           return .none
           
-        case let .element(id, action: .noteDone(.tappedButton)):
+        case .element(_, action: .setMemo(._backToNoteDetail)):
+          state.path.pop(to: state.path.ids.first!)
+          return .none
+          
+        case .element(_, action: .noteDone(.tappedButton)):
           state.path.removeAll()
           return .none
 
