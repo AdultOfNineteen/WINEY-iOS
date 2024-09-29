@@ -38,6 +38,7 @@ extension NoteDetail {
         
       case .sheetDestination(.presented(.tripleSectionSheet(.tappedSecondButton))):
         return .send(.tappedOption(.remove))
+        
       case .sheetDestination(.presented(.tripleSectionSheet(.tappedThirdButton))):
         return .send(.tappedOption(.modify))
         
@@ -59,15 +60,16 @@ extension NoteDetail {
           }
           
         case .modify:
-//          CreateNoteManager.shared.mode = .patch
-//
+          CreateNoteManager.shared.mode = .patch
+          
           state.sheetDestination = nil
+          
           if let noteData = state.noteCardData {
-//            CreateNoteManager.shared.fetchData(noteData: noteData)
-//            CreateNoteManager.shared.noteId = state.noteId
+            CreateNoteManager.shared.fetchData(noteData: noteData)
+            CreateNoteManager.shared.noteId = state.noteId
             
             return .run { send in
-//              await CreateNoteManager.shared.loadNoteImage()
+              await CreateNoteManager.shared.loadNoteImage()
               await send(.sheetDestination(.dismiss))
               await send(.delegate(.patchNote))
             }
@@ -89,7 +91,6 @@ extension NoteDetail {
             await send(._failureSocialNetworking(error))
           }
         }
-        
         
       default: return .none
       }

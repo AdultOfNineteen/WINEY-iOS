@@ -264,7 +264,7 @@ extension SettingMemoView {
   private func bottomButton() -> some View {
     WineyConfirmButton(
       title: "작성완료",
-      validBy: store.buyAgain != nil && store.rating > 0
+      validBy: store.buyAgain != nil && store.rating > 0 && store.isPublic != nil
     ) {
       store.send(.tappedDoneButton)
     }

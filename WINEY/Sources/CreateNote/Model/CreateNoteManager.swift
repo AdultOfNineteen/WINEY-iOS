@@ -18,7 +18,7 @@ final class CreateNoteManager: ObservableObject {
   @Published var noteId: Int?
   @Published var wineId: Int?
   @Published var vintage: String?
-  @Published var officialAlcohol: Int?
+  @Published var officialAlcohol: Double?
   @Published var price: String?
   @Published var color: String?
   @Published var sweetness: Int?
@@ -68,7 +68,7 @@ final class CreateNoteManager: ObservableObject {
   
   func fetchData(noteData: NoteDetailDTO) {
     self.vintage = noteData.vintage?.description
-    self.officialAlcohol = noteData.officialAlcohol != nil ? Int(noteData.officialAlcohol!) : nil
+    self.officialAlcohol = noteData.officialAlcohol != nil ? noteData.officialAlcohol! : nil
     self.price = noteData.price == nil ? nil : noteData.price! == 0 ? nil : noteData.price?.description
     self.color = noteData.color
     self.sweetness = Int(noteData.myWineTaste.sweetness)
@@ -83,6 +83,7 @@ final class CreateNoteManager: ObservableObject {
     self.rating = noteData.star
     self.originalSmellKeywordList = noteData.smellKeywordList.setmap(transform: ({ getSmellCode(for: $0) ?? "" }))
     self.originalImages = noteData.tastingNoteImage
+    self.isPublic = noteData.public
   }
   
   func createNote() -> (CreateNoteRequestDTO, [UIImage]) {

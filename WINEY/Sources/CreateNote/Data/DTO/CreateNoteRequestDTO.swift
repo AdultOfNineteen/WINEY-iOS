@@ -11,7 +11,7 @@ import Foundation
 public struct CreateNoteRequestDTO: Encodable, Equatable {
   let wineId: Int
   let vintage: String?
-  let officialAlcohol: Int?
+  let officialAlcohol: Double?
   let price: String?
   let color: String
   let sweetness: Int
@@ -29,7 +29,7 @@ public struct CreateNoteRequestDTO: Encodable, Equatable {
   public init(
     wineId: Int,
     vintage: String?,
-    officialAlcohol: Int?,
+    officialAlcohol: Double?,
     price: String?,
     color: String,
     sweetness: Int,
