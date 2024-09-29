@@ -15,7 +15,7 @@ public struct SettingAlcohol {
   
   @ObservableState
   public struct State: Equatable {
-    public var officialAlcohol: Double? = nil  // 유저가 실제로 선택한 값.
+    public var officialAlcohol: Double? = 12.0  // 유저가 실제로 선택한 값.
     
     public var alcoholValue: Int = 12
     public var alcoholValueRange: Array = Array(0...20)
@@ -26,7 +26,6 @@ public struct SettingAlcohol {
     public var pickerHeight: CGFloat = 150
     public var viewHeight: CGFloat = 362
     
-    public var buttonState: Bool = false
     public var tooltipVisible: Bool = true
     
     public var isPresentedBottomSheet: Bool = false
@@ -46,7 +45,6 @@ public struct SettingAlcohol {
     case _viewWillAppear
     case _setAlcoholValue(Int)
     case _setAlcoholPointValue(Int)
-    case _setButtonState(Bool)
     case _tooltipHide
     case _moveNextPage
     case _backToNoteDetail
@@ -71,11 +69,7 @@ public struct SettingAlcohol {
           state.alcoholPointValue = Int(modf(officialAlcohol).1 * 10)
         }
         
-        if CreateNoteManager.shared.officialAlcohol != nil {
-          return .send(._setButtonState(true))
-        } else {
-          return .none
-        }
+        return .none
         
       case .tappedBackButton:
         return .send(._presentBottomSheet(true))
@@ -95,15 +89,11 @@ public struct SettingAlcohol {
       case ._setAlcoholValue(let value):
         state.tooltipVisible = false
         state.alcoholValue = value
-        return .send(._setButtonState(true))
+        return .none
         
       case ._setAlcoholPointValue(let value):
         state.tooltipVisible = false
         state.alcoholPointValue = value
-        return .send(._setButtonState(true))
-        
-      case ._setButtonState(let bool):
-        state.buttonState = bool
         return .none
         
       case ._presentBottomSheet(let bool):

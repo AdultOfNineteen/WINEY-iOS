@@ -34,7 +34,7 @@ public struct SettingAlcoholView: View {
       Spacer()
       
       BottomOptionButton(
-        validation: store.buttonState,
+        validation: true,
         tooltipVisible: store.tooltipVisible,
         action: { store.send(.tappedNextButton) },
         skipAction: { store.send(.tappedSkipButton) }
