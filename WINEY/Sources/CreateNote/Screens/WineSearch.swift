@@ -13,32 +13,34 @@ import SwiftUI
 public struct WineSearch {
   @ObservableState
   public struct State: Equatable {
-    public var wineCards: WineSearchDTO?
+    public var searchCard: IdentifiedArrayOf<WineSearchCard.State> = []
     
-    public var wineSearchPage: Int = 0
-    public var wineSearchSize: Int = 10
     public var userSearch: String = ""
+    
+    public var searchPage: Int = 0
+    public var searchSize: Int = 10
+    public var isLast = false
+    public var totalCnt = 0
   }
   
   public enum Action {
     // MARK: - User Action
     case tappedBackButton
-    case tappedWineCard(WineSearchContent)
     
     // MARK: - Inner Business Action
     case _viewWillAppear
     case _settingSearchString(String)
-    case _focusing
-    case _unfocusing
-    case _fetchNextWinePage
-    case _appendNextWineData(WineSearchDTO)
+    case _checkPagination(data: WineSearchContent)
+    case _fetchNextSearchPage
+    case _appendNextSearchData
     
     // MARK: - Inner SetState Action
-    case _setWines(data: WineSearchDTO)
-    case _appendWines(WineSearchDTO, data: WineSearchDTO)
+    case _setSearchData(data: WineSearchDTO)
+    case _appendSearchData(newData: WineSearchDTO)
     case _failureSocialNetworking(Error)
     
     // MARK: - Child Action
+    case searchCard(IdentifiedActionOf<WineSearchCard>)
   }
   
   @Dependency(\.note) var noteService
@@ -49,14 +51,14 @@ public struct WineSearch {
       switch action {
       case ._viewWillAppear:
         let userInput = state.userSearch
-        let searchPage = state.wineSearchPage
-        let searchSize = state.wineSearchSize
+        let searchPage = state.searchPage
+        let searchSize = state.searchSize
         
         if searchPage == 0 {
           return .run { send in
             switch await noteService.wineSearch(searchPage, searchSize, userInput) {
             case let .success(data):
-              await send(._setWines(data: data))
+              await send(._setSearchData(data: data))
             case let .failure(error):
               await send(._failureSocialNetworking(error))
             }
@@ -65,18 +67,54 @@ public struct WineSearch {
           return .none
         }
         
-      case let ._setWines(data):
-        state.wineCards = data
+      case let ._setSearchData(data):
+        state.searchCard = IdentifiedArrayOf(
+          uniqueElements: data.contents
+            .enumerated()
+            .map {
+              WineSearchCard.State(
+                data: $0.element,
+                searchString: state.userSearch
+              )
+            }
+        )
+        
+        state.totalCnt = data.totalCnt
+        state.isLast = data.isLast
+        
         return .none
         
-      case let ._appendWines(wineData, data):
-        var originWineData = wineData
-        originWineData.contents.append(contentsOf: data.contents)
-        originWineData.isLast = data.isLast
-        originWineData.totalCnt = data.totalCnt
+      case let ._checkPagination(data):
+        guard let lastData = state.searchCard.last else {
+          return .none
+        }
         
-        state.wineCards = originWineData
+        if lastData.data.wineId == data.wineId {
+          if state.isLast {
+            return .none
+          } else {
+            return .send(._fetchNextSearchPage)
+          }
+        } else {
+          return .none
+        }
         
+      case let ._appendSearchData(newData):
+        var originSearchData = state.searchCard
+        
+        originSearchData.append(
+          contentsOf: newData.contents
+            .enumerated()
+            .map {
+              WineSearchCard.State(
+                data: $0.element,
+                searchString: state.userSearch
+              )
+            }
+        )
+        
+        state.isLast = newData.isLast
+        state.searchCard = originSearchData
         return .none
         
       case let ._settingSearchString(text):
@@ -84,42 +122,40 @@ public struct WineSearch {
         
         let userInput = state.userSearch
         
-        state.wineSearchPage = 0
-        let searchPage = state.wineSearchPage
-        let searchSize = state.wineSearchSize
+        state.searchPage = 0
+        
+        let searchPage = state.searchPage
+        let searchSize = state.searchSize
         
         return .run { send in
           switch await noteService.wineSearch(searchPage, searchSize, userInput) {
           case let .success(data):
-            await send(._setWines(data: data))
+            await send(._setSearchData(data: data))
           case let .failure(error):
             await send(._failureSocialNetworking(error))
           }
         }
         .debounce(id: CancelID.mapMarker, for: 0.5, scheduler: self.mainQueue)
         
-      case ._fetchNextWinePage:
-        guard let wineData = state.wineCards else {
-          return .none
-        }
-        
-        if wineData.isLast {
+      case ._fetchNextSearchPage:
+        if state.isLast {
           return .none
         } else {
-          return .send(._appendNextWineData(wineData))
+          return .send(._appendNextSearchData)
         }
         
-      case let ._appendNextWineData(wineData):
+      case ._appendNextSearchData:
         let userInput = state.userSearch
         
-        state.wineSearchPage += 1
-        let searchPage = state.wineSearchPage
-        let searchSize = state.wineSearchSize
+        state.searchPage += 1
+        
+        let searchPage = state.searchPage
+        let searchSize = state.searchSize
         
         return .run { send in
           switch await noteService.wineSearch(searchPage, searchSize, userInput) {
           case let .success(data):
-            await send(._appendWines(wineData, data: data))
+            await send(._appendSearchData(newData: data))
           case let .failure(error):
             await send(._failureSocialNetworking(error))
           }
@@ -128,6 +164,9 @@ public struct WineSearch {
       default:
         return .none
       }
+    }
+    .forEach(\.searchCard, action: \.searchCard) {
+      WineSearchCard()
     }
   }
 }

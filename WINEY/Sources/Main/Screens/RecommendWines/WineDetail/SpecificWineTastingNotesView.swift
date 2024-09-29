@@ -22,6 +22,7 @@ struct SpecificWineTastingNotesView: View {
       HStack(spacing: 0) {
         Text("\( store.tastingNoteData.totalCnt)개")
           .foregroundStyle(.wineyMain3)
+        
         Text("의 테이스팅 노트가 있어요!")
           .foregroundStyle(.white)
       }
@@ -65,21 +66,21 @@ struct SpecificWineTastingNotesView: View {
           )
         }
       }
-      .navigationDestination(for: OtherTastingNoteNavigationDestination.self) { destination in
-        switch destination {
-        case .allTastingNotesList:
-          allTastingNotesView
-          
-        case .tastingNoteDetail:
-          IfLetStore(
-            self.store.scope(
-              state: \.noteDetail,
-              action: SpecificWineTastingNotes.Action.noteDetail
-            ),
-            then: NoteDetailView.init
-          )
-        }
-      }
+//      .navigationDestination(for: OtherTastingNoteNavigationDestination.self) { destination in
+//        switch destination {
+//        case .allTastingNotesList:
+//          allTastingNotesView
+//          
+//        case .tastingNoteDetail:
+//          IfLetStore(
+//            self.store.scope(
+//              state: \.noteDetail,
+//              action: SpecificWineTastingNotes.Action.noteDetail
+//            ),
+//            then: NoteDetailView.init
+//          )
+//        }
+//      }
     }
     .task {
        store.send(._viewWillAppear)

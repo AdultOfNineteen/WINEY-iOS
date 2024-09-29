@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD706FF12CA937B7000FE7F0 /* WineSearchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD706FF02CA937B7000FE7F0 /* WineSearchCardView.swift */; };
+		CD706FF32CA937F9000FE7F0 /* WineSearchCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD706FF22CA937F9000FE7F0 /* WineSearchCard.swift */; };
 		CDA994E52CA2A5DC0068063E /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CDA994E22CA2A5DC0068063E /* Release.xcconfig */; };
 		CDA994E62CA2A5DC0068063E /* Shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CDA994E32CA2A5DC0068063E /* Shared.xcconfig */; };
 		CDA994E72CA2A5DC0068063E /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CDA994E42CA2A5DC0068063E /* Debug.xcconfig */; };
@@ -210,6 +212,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CD706FF02CA937B7000FE7F0 /* WineSearchCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineSearchCardView.swift; sourceTree = "<group>"; };
+		CD706FF22CA937F9000FE7F0 /* WineSearchCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineSearchCard.swift; sourceTree = "<group>"; };
 		CDA994E22CA2A5DC0068063E /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		CDA994E32CA2A5DC0068063E /* Shared.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		CDA994E42CA2A5DC0068063E /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
@@ -764,6 +768,8 @@
 				F35A67082C9F801C005491C5 /* WineConfirmView.swift */,
 				F35A67092C9F801C005491C5 /* WineSearch.swift */,
 				F35A670A2C9F801C005491C5 /* WineSearchView.swift */,
+				CD706FF02CA937B7000FE7F0 /* WineSearchCardView.swift */,
+				CD706FF22CA937F9000FE7F0 /* WineSearchCard.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -1407,6 +1413,7 @@
 				F3EFC8A12C975B3C00BC6DC9 /* TasteAnalysisService.swift in Sources */,
 				F35A66882C998870005491C5 /* WineAnalysisCarousel.swift in Sources */,
 				F3EFC8952C975B3C00BC6DC9 /* WineAPI.swift in Sources */,
+				CD706FF32CA937F9000FE7F0 /* WineSearchCard.swift in Sources */,
 				F3EFC8962C975B3C00BC6DC9 /* RecommendWineData.swift in Sources */,
 				F3EFC87E2C975B3C00BC6DC9 /* Print + Override.swift in Sources */,
 				F3C206DA2CA027A6006D11B4 /* NoteDetail+SheetDestination.swift in Sources */,
@@ -1482,6 +1489,7 @@
 				F35A676E2C9F8C6A005491C5 /* WineCardCarouselView.swift in Sources */,
 				F35A664C2C9968A8005491C5 /* FilteredNotes.swift in Sources */,
 				F35A66382C9967A7005491C5 /* NoteView.swift in Sources */,
+				CD706FF12CA937B7000FE7F0 /* WineSearchCardView.swift in Sources */,
 				F35A671F2C9F801D005491C5 /* SettingVintage.swift in Sources */,
 				F3EFC86D2C975B3C00BC6DC9 /* NoteCheckDTO.swift in Sources */,
 				F35A67862C9F90AB005491C5 /* TappedMarker.swift in Sources */,
