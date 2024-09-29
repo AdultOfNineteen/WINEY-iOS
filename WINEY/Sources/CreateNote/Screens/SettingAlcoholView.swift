@@ -120,10 +120,12 @@ extension SettingAlcoholView {
       HStack(spacing: 8) {
         CustomWheelPickerView(
           store.alcoholValueRange,
+          .trailing,
           .init(
             get: { store.alcoholValue },
             set: { value in store.send(.selectAlcoholValue(value)) }
-          ))
+          )
+        )
         
         Circle()
           .fill(.white)
@@ -132,10 +134,12 @@ extension SettingAlcoholView {
         
         CustomWheelPickerView(
           store.alcoholPointValueRange,
+          .center,
           .init(
             get: { store.alcoholPointValue },
             set: { value in store.send(.selectAlcoholPointValue(value)) }
-          ))
+          )
+        )
         
         Circle()
           .fill(.wineyGray500)

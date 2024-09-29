@@ -12,6 +12,7 @@ import SwiftUI
 public struct CustomWheelPickerView<T: Equatable>: View {
   
   private let options: [T]
+  private let alignment: Alignment
   
   @Binding var selectedValue: T
   @State private var dragValue: Double = 0
@@ -21,10 +22,12 @@ public struct CustomWheelPickerView<T: Equatable>: View {
   
   public init(
     _ options: [T],
+    _ alignment: Alignment,
     _ selectedValue: Binding<T>,
     _ text: @escaping (T) -> String = {"\($0)"}
   ) {
     self.options = options
+    self.alignment = alignment
     self._selectedValue = selectedValue
     self.text = text
   }
@@ -38,7 +41,8 @@ public struct CustomWheelPickerView<T: Equatable>: View {
         
         CustomWheelPickerCell(
           data: text(data),
-          angle: Double(index - selectedIndex) * cellAngles + dragValue
+          angle: Double(index - selectedIndex) * cellAngles + dragValue,
+          alignment: alignment
         )
       }
     }
@@ -75,22 +79,23 @@ private struct CustomWheelPickerCell: View {
   
   let data: String
   let angle: Double
+  let alignment: Alignment
 
-  init(data: String, angle: Double) {
+  init(data: String, angle: Double, alignment: Alignment) {
     self.data = data
     self.angle = angle
+    self.alignment = alignment
   }
   
   var body: some View {
     if abs(angle) > 90 {
       EmptyView()
-    }
-    
-    else {
+    } else {
       let sinValue = sin(radian(angle))
       let cosValue = cos(radian(angle))
       
       Text(data)
+        .frame(width: alignment == . trailing ? 36 : nil, alignment: alignment)
         .wineyFont(.title1)
         .foregroundColor(.white)
         .scaleEffect(y: cosValue)
