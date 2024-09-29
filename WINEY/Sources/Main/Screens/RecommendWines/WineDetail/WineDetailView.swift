@@ -30,13 +30,12 @@ public struct WineDetailView: View {
       
       ScrollView {
         LazyVStack(spacing: 0) {
-          
           wineTypeName()
           
           divider()
             .padding(.top, 20)
           
-          if let wineDetailData =  store.windDetailData {
+          if let wineDetailData = store.windDetailData {
             WineDetailInfoMiddleView(
               wineType: WineType.changeType(at: wineDetailData.type),
               nationalAnthems: wineDetailData.country,
@@ -72,7 +71,6 @@ public struct WineDetailView: View {
     }
     .navigationBarHidden(true)
     .background(.wineyMainBackground)
-    
   }
 }
 
@@ -80,27 +78,20 @@ public struct WineDetailView: View {
 extension WineDetailView {
   @ViewBuilder
   private func wineTypeName() -> some View {
-    VStack(spacing: 0) {
-      HStack {
-        Text( store.wineCardData.wineType.typeName)
-          .wineyFont(.display1)
-          .foregroundColor(.wineyGray50)
-          .frame(height: 54, alignment: .topLeading)
-        
-        Spacer()
-      }
+    VStack(alignment: .leading, spacing: 0) {
+      Text(store.wineCardData.wineType.typeName)
+        .wineyFont(.display1)
+        .foregroundColor(.wineyGray50)
+        .frame(alignment: .topLeading)
       
-      HStack {
-        Text( store.wineCardData.name.useNonBreakingSpace())
-          .wineyFont(.bodyB2)
-          .foregroundColor(.wineyGray500)
-          .frame(alignment: .topLeading)
-        
-        Spacer()
-      }
-      .padding(.top, 16)
+      Text(store.wineCardData.name.useNonBreakingSpace())
+        .wineyFont(.bodyB2)
+        .foregroundColor(.wineyGray500)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .padding(.trailing, 51)
     }
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+    .padding(.top, 6)
   }
   
   @ViewBuilder

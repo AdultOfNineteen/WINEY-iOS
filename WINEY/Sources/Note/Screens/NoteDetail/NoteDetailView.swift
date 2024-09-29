@@ -151,34 +151,26 @@ extension NoteDetailView {
         .wineyFont(.bodyB1)
     }
     .wineyFont(.bodyB1)
-    .padding(.top, 20)
+    .padding(.top, 5.34)
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
   }
   
   @ViewBuilder
   private func noteWineType(noteData: NoteDetailDTO) -> some View {
-    VStack(spacing: 0) {
-      HStack {
-        Text(WineType.changeType(at: noteData.wineType).typeName)
-          .wineyFont(.display1)
-          .foregroundColor(.wineyGray50)
-          .frame(height: 54, alignment: .topLeading)
-        
-        Spacer()
-      }
+    VStack(alignment: .leading, spacing: 0) {
+      Text(WineType.changeType(at: noteData.wineType).typeName)
+        .wineyFont(.display1)
+        .foregroundColor(.wineyGray50)
+        .frame(alignment: .topLeading)
       
-      HStack {
-        Text(noteData.wineName.useNonBreakingSpace())
-          .wineyFont(.bodyB2)
-          .foregroundColor(.wineyGray500)
-          .frame(width: 271, alignment: .topLeading)
-        
-        Spacer()
-      }
-      .padding(.top, 16)
+      Text(noteData.wineName.useNonBreakingSpace())
+        .wineyFont(.bodyB2)
+        .foregroundColor(.wineyGray500)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .padding(.trailing, 51)
     }
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-    .padding(.top, 30)
+    .padding(.top, 16)
   }
   
   @ViewBuilder

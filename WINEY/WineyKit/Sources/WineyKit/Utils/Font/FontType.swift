@@ -27,6 +27,7 @@ public enum WineyFontType {
   case captionM1
   case captionM2
   case captionM3
+  case captionM4
   case display1
   case display2
   case cardTitle
@@ -46,6 +47,7 @@ public enum WineyFontType {
     case .captionM1: return .medium
     case .captionM2: return .medium
     case .captionM3: return .chaviera
+    case .captionM4: return .chaviera
     case .display1: return .chaviera
     case .display2: return .chaviera
     case .cardTitle: return .chaviera
@@ -67,6 +69,7 @@ public enum WineyFontType {
     case .captionM1: return 13
     case .captionM2: return 11
     case .captionM3: return 11
+    case .captionM4: return 13
     case .display1: return 54
     case .display2: return 28
     case .cardTitle: return 25
@@ -88,6 +91,7 @@ public enum WineyFontType {
     case .captionM1: return 4
     case .captionM2: return 7
     case .captionM3: return 2
+    case .captionM4: return 4
     case .display1: return 0
     case .display2: return 0
     case .cardTitle: return 29

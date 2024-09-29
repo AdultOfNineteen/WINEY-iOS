@@ -9,7 +9,7 @@
 import SwiftUI
 import WineyKit
 
-public enum DetailMode {
+@frozen public enum DetailMode {
   case note
   case recommendWine
 }
@@ -81,7 +81,7 @@ public struct WineDetailInfoMiddleView: View {
       VStack(spacing: 18) {
         // MARK: NATIONAL ANTHEMS
         wineInfoTable(
-          title: "national an thems",
+          title: "Countries",
           contents: nationalAnthems
         )
         
@@ -137,20 +137,14 @@ extension WineDetailInfoMiddleView {
   
   @ViewBuilder
   private func wineInfoTable(title: String, contents: String) -> some View {
-    VStack(alignment: .leading, spacing: 4) {
-      HStack {
-        Text(title)
-          .wineyFont(.captionM3)
-        
-        Spacer()
-      }
+    VStack(alignment: .leading, spacing: 6) {
+      Text(title)
+        .wineyFont(.captionM4)
+        .frame(maxWidth: .infinity, alignment: .leading)
       
-      HStack {
-        Text(contents.description)
-          .wineyFont(.captionB1)
-        
-        Spacer()
-      }
+      Text(contents.description)
+        .wineyFont(.captionB1)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
   }
   
