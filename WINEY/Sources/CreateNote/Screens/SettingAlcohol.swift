@@ -15,14 +15,17 @@ public struct SettingAlcohol {
   
   @ObservableState
   public struct State: Equatable {
-    public var officialAlcohol: Int? = nil  // 유저가 실제로 선택한 값.
-    public var alcoholValue: Int = 12 // 초기 화면을 위해 12로 셋팅.
-    public var alcoholValueRange: ClosedRange<Int> = 1...20
+    public var officialAlcohol: Double? = 12.0  // 유저가 실제로 선택한 값.
+    
+    public var alcoholValue: Int = 12
+    public var alcoholValueRange: Array = Array(0...20)
+    
+    public var alcoholPointValue: Int = 0
+    public var alcoholPointValueRange: Array = Array(0...9)
     
     public var pickerHeight: CGFloat = 150
     public var viewHeight: CGFloat = 362
     
-    public var buttonState: Bool = false
     public var tooltipVisible: Bool = true
     
     public var isPresentedBottomSheet: Bool = false
@@ -33,6 +36,7 @@ public struct SettingAlcohol {
     case tappedBackButton
     case tapPicker
     case selectAlcoholValue(Int)
+    case selectAlcoholPointValue(Int)
     case tappedSkipButton
     case tappedNextButton
     case tappedOutsideOfBottomSheet
@@ -40,7 +44,7 @@ public struct SettingAlcohol {
     // MARK: - Inner Business Action
     case _viewWillAppear
     case _setAlcoholValue(Int)
-    case _setButtonState(Bool)
+    case _setAlcoholPointValue(Int)
     case _tooltipHide
     case _moveNextPage
     case _backToNoteDetail
@@ -58,14 +62,14 @@ public struct SettingAlcohol {
     Reduce { state, action in
       switch action {
       case ._viewWillAppear:
-        state.alcoholValue = CreateNoteManager.shared.officialAlcohol ?? 12
-        state.officialAlcohol = CreateNoteManager.shared.officialAlcohol
+        state.officialAlcohol = CreateNoteManager.shared.officialAlcohol ?? 12.0
         
-        if CreateNoteManager.shared.officialAlcohol != nil {
-          return .send(._setButtonState(true))
-        } else {
-          return .none
+        if let officialAlcohol = state.officialAlcohol {
+          state.alcoholValue = Int(officialAlcohol)
+          state.alcoholPointValue = Int(modf(officialAlcohol).1 * 10)
         }
+        
+        return .none
         
       case .tappedBackButton:
         return .send(._presentBottomSheet(true))
@@ -79,14 +83,17 @@ public struct SettingAlcohol {
       case .selectAlcoholValue(let value):
         return .send(._setAlcoholValue(value))
         
+      case .selectAlcoholPointValue(let value):
+        return .send(._setAlcoholPointValue(value))
+        
       case ._setAlcoholValue(let value):
         state.tooltipVisible = false
         state.alcoholValue = value
-        state.officialAlcohol = value
-        return .send(._setButtonState(true))
+        return .none
         
-      case ._setButtonState(let bool):
-        state.buttonState = bool
+      case ._setAlcoholPointValue(let value):
+        state.tooltipVisible = false
+        state.alcoholPointValue = value
         return .none
         
       case ._presentBottomSheet(let bool):
@@ -94,11 +101,15 @@ public struct SettingAlcohol {
         return .none
         
       case .tappedNextButton:
+        let combinedAlcohol = Double(state.alcoholValue) + Double(state.alcoholPointValue) / 10.0
+        state.officialAlcohol = combinedAlcohol
+        
         CreateNoteManager.shared.officialAlcohol = state.officialAlcohol
         
         if CreateNoteManager.shared.mode == .create {
           AmplitudeProvider.shared.track(event: .ALCOHOL_INPUT_NEXT_CLICK)
         }
+        
         return .send(._moveNextPage)
         
       case ._deleteNote:

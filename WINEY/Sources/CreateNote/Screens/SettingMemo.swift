@@ -75,12 +75,15 @@ public struct SettingMemo {
         state.rating = CreateNoteManager.shared.rating ?? 0
         state.buyAgain = CreateNoteManager.shared.buyAgain
         state.displayImages = CreateNoteManager.shared.userSelectImages ?? []
+        state.isPublic = CreateNoteManager.shared.isPublic
+        
         return .none
         
       case .tappedBackButton:
         CreateNoteManager.shared.memo = state.memo
         CreateNoteManager.shared.rating = state.rating
         CreateNoteManager.shared.buyAgain = state.buyAgain
+        CreateNoteManager.shared.isPublic = state.isPublic
         CreateNoteManager.shared.userSelectImages = state.displayImages
         
         if CreateNoteManager.shared.mode == .create {
@@ -122,7 +125,6 @@ public struct SettingMemo {
         return .send(._makeNotes)
         
       case ._makeNotes:
-//        NoteManager.shared.noteList = nil
         if CreateNoteManager.shared.mode == .create {
           let createNoteData = CreateNoteManager.shared.createNote()
           
@@ -196,7 +198,6 @@ public struct SettingMemo {
           return .none
         }
         
-        // Semaphore을 통한 동기 처리
         let semaphore = DispatchSemaphore(value: 0)
         
         PHPhotoLibrary.requestAuthorization { _ in

@@ -110,7 +110,6 @@ extension NoteAPI: EndPointType {
         )
       }
     
-    // MARK: MultiPart 추가
     case let .createNote(
       createNoteData,
       images
@@ -131,7 +130,8 @@ extension NoteAPI: EndPointType {
           "memo": createNoteData.memo,
           "buyAgain": createNoteData.buyAgain,
           "rating": createNoteData.rating,
-          "smellKeywordList": createNoteData.smellKeywordList?.sorted()
+          "smellKeywordList": createNoteData.smellKeywordList?.sorted(),
+          "isPublic": createNoteData.isPublic
         ],
         images: images
       )
@@ -157,7 +157,8 @@ extension NoteAPI: EndPointType {
           "rating": patchNoteData.rating,
           "smellKeywordList": patchNoteData.smellKeywordList?.sorted(),
           "deleteSmellKeywordList": patchNoteData.deleteSmellKeywordList?.sorted(),
-          "deleteImgList": patchNoteData.deleteImgLists?.sorted()
+          "deleteImgList": patchNoteData.deleteImgLists?.sorted(),
+          "isPublic": patchNoteData.isPublic
         ],
         images: images
       )

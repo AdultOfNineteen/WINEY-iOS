@@ -93,7 +93,7 @@ extension WineSearchView {
           .wineyFont(.bodyM1)
           .foregroundStyle(.wineyGray400)
         
-        Text("\(store.wineCards?.totalCnt ?? 0)개")
+        Text("\(store.totalCnt)개")
           .wineyFont(.bodyB1)
           .foregroundStyle(.wineyMain3)
       }
@@ -109,42 +109,26 @@ extension WineSearchView {
   
   @ViewBuilder
   private func noteCards() -> some View {
-    if let wineCards = store.wineCards {
-      if wineCards.totalCnt > 0 {
-        wineCardList(wineCards: wineCards)
-      } else {
-        noCardView()
-      }
+    if store.userSearch.isEmpty || store.searchCard.isEmpty {
+      emptyCardView()
     } else {
-      noCardView()
-    }
-  }
-  
-  @ViewBuilder
-  private func wineCardList(wineCards: WineSearchDTO) -> some View {
-    ScrollView {
-      LazyVGrid(columns: columns, spacing: 20) {
-        ForEach(wineCards.contents, id: \.wineId) { wine in
-          wineCard(wineData: wine)
-            .onAppear {
-              // Pagination
-              if wineCards.contents[wineCards.contents.count - 1] == wine && !wineCards.isLast {
-                store.send(._fetchNextWinePage)
+      ScrollView(.vertical) {
+        LazyVStack(spacing: 0) {
+          ForEachStore(
+            store.scope(state: \.searchCard, action: \.searchCard)
+          ) { store in
+            WineSearchCardView(store: store)
+              .onAppear {
+                self.store.send(._checkPagination(data: store.data))
               }
-            }
-            .onTapGesture {
-              store.send(.tappedWineCard(wine))
-            }
+          }
         }
       }
-      .padding(.top, 1)
-      .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
     }
-    .padding(.top, 26)
   }
   
   @ViewBuilder 
-  private func noCardView() -> some View {
+  private func emptyCardView() -> some View {
     VStack(spacing: 0) {
       Image(.noSearchW)
         .padding(.top, 151)
@@ -157,27 +141,6 @@ extension WineSearchView {
       .foregroundStyle(.wineyGray800)
 
       Spacer()
-    }
-  }
-  
-  @ViewBuilder
-  private func wineCard(wineData: WineSearchContent) -> some View {
-    VStack(alignment: .leading, spacing: 0) {
-      SmallWineCard(
-        wineType: WineType.changeType(at: wineData.type)
-      )
-      
-      VStack(alignment: .leading, spacing: 4) {
-        Text(wineData.name)
-          .wineyFont(.captionB1)
-          .foregroundStyle(.wineyGray50)
-          .lineLimit(1)
-        Text("\(wineData.country) / \(WineType.changeType(at: wineData.type).korName)")
-          .wineyFont(.captionM2)
-          .foregroundStyle(.wineyGray700)
-          .lineLimit(1)
-      }
-      .padding(.top, 10)
     }
   }
 }

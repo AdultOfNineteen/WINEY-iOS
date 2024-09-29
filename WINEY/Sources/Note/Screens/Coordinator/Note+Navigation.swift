@@ -164,8 +164,8 @@ extension Note {
           return .none
           
       // MARK: - 노트 작성 화면 내 로직
-        case let .element(_, action: .wineSearch(.tappedWineCard(wineCard))):
-          state.path.append(.wineConfirm(.init(wineData: wineCard)))
+        case let .element(_, action: .wineSearch(.searchCard(.element(id: _, action: ._moveNextPage(data))))):
+          state.path.append(.wineConfirm(.init(wineData: data)))
           return .none
           
         case .element(_, action: .wineConfirm(._moveNextPage)):
@@ -236,7 +236,11 @@ extension Note {
           state.path.pop(from: id)
           return .none
           
-        case let .element(id, action: .noteDone(.tappedButton)):
+        case .element(_, action: .setMemo(._backToNoteDetail)):
+          state.path.pop(to: state.path.ids.first!)
+          return .none
+          
+        case .element(_, action: .noteDone(.tappedButton)):
           state.path.removeAll()
           return .none
 
