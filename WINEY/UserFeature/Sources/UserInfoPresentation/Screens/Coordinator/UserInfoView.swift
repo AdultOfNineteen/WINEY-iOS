@@ -20,42 +20,20 @@ public struct UserInfoView: View {
   public init(store: StoreOf<UserInfo>) { self.store = store }
   
   public var body: some View {
-    NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
-      content
-        .navigationBarBackButtonHidden()
-        .navigationDestination(
-          item: $store.scope(state: \.destination?.userBadge, action: \.destination.userBadge),
-          destination: { store in
-            UserBadgeView(store: store)
-          }
-        )
-        .navigationDestination(
-          item: $store.scope(state: \.destination?.wineyPolicy , action: \.destination.wineyPolicy),
-          destination: { store in
-            WineyPolicyView(store: store)
-          }
-        )
-    } destination: { store in
-      switch store.state {
-      case .userSetting:
-        if let store = store.scope(state: \.userSetting, action: \.userSetting) {
-          UserSettingView(store: store)
+    content
+      .navigationBarBackButtonHidden()
+      .navigationDestination(
+        item: $store.scope(state: \.destination?.userBadge, action: \.destination.userBadge),
+        destination: { store in
+          UserBadgeView(store: store)
         }
-      case .changeNickname:
-        if let store = store.scope(state: \.changeNickname, action: \.changeNickname) {
-          ChangeNicknameView(store: store)
+      )
+      .navigationDestination(
+        item: $store.scope(state: \.destination?.wineyPolicy , action: \.destination.wineyPolicy),
+        destination: { store in
+          WineyPolicyView(store: store)
         }
-      case .signOut:
-        if let store = store.scope(state: \.signOut, action: \.signOut) {
-          SignOutView(store: store)
-        }
-        
-      case .signOutConfirm:
-        if let store = store.scope(state: \.signOutConfirm, action: \.signOutConfirm) {
-          SignOutConfirmView(store: store)
-        }
-      }
-    }
+      )
   }
   
   private var content: some View {
@@ -205,7 +183,7 @@ public struct UserInfoView: View {
               .offset(x: CGFloat(grade.minCount)/CGFloat(store.hightestGradeCount) * lineGeometry.size.width - 21)
               .foregroundColor(
                 self.sliderValue == CGFloat(grade.minCount)/CGFloat(store.hightestGradeCount) ? .wineyMain2 :
-                  .wineyGray800
+                    .wineyGray800
               )
             }
             

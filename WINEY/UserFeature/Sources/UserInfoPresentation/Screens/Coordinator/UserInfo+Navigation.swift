@@ -45,6 +45,8 @@ public struct UserInfoPath {
     case signOutConfirm(SignOutConfirm.Action)
   }
   
+  public init() {}
+  
   public var body: some Reducer<State, Action> {
     Scope(state: \.userSetting, action: \.userSetting) { UserSetting() }
     Scope(state: \.changeNickname, action: \.changeNickname) { ChangeNickname() }
@@ -69,6 +71,7 @@ extension UserInfo {
         return .none
       
       case .destination(.presented(.userBadge(.tappedBackButton))):
+        print("뒤로가기 버튼 누름")
         return .send(.destination(.dismiss))
         
       case .destination(.presented(.wineyPolicy(.tappedBackButton))):
@@ -84,67 +87,15 @@ extension UserInfo {
 }
 
 extension UserInfo {
-  var pathReducer: some Reducer<State, Action> {
+  public var pathReducer: some Reducer<State, Action> {
     Reduce<State, Action> { state, action in
       switch action {
-        
       case let .userSettingTapped(userId):
         guard let userId else { return .none }
-        state.path.append(.userSetting(.init(userId: userId)))
-        return .none
-        
-      case let .path(action):
-        switch action {
-          
-          // MARK: - .append 진입 로직
-        case .element(id: _, action: .userSetting(.delegate(.toChangeUserNickNameView))):
-          state.path.append(.changeNickname(.init()))
-          return .none
-          
-        case let .element(id: _, action: .userSetting(.delegate(.toSignOutView(userId)))):
-          state.path.append(.signOut(.init(userId: userId)))
-          return .none
-          
-        case let .element(id: _, action: .signOut(.delegate(.toSignOutConfirmView(userId, selectedOption, userReason)))):
-          state.path.append(.signOutConfirm(.init(userId: userId, selectedSignOutOption: selectedOption, userReason: userReason)))
-          return .none
-          
-          // MARK: - .remove 삭제 로직
-        case let .element(id: id, action: .userSetting(.tappedBackButton)):
-          state.path.pop(from: id)
-          return .none
-          
-        case .element(id: _, action: .changeNickname(.delegate(.dismiss))):
-          state.path.removeLast()
-          return .none
-          
-        case .element(id: _, action: .signOut(.delegate(.dismiss))):
-          state.path.removeLast()
-          return .none
-          
-        case .element(id: _, action: .signOutConfirm(.delegate(.dismiss))):
-          state.path.removeLast()
-          return .none
-          
-          // MARK: - delegate 상위 전달 로직
-        case .element(id: _, action: .userSetting(.delegate(.logOut))):
-          return .send(.delegate(.logout))
-          
-        case .element(id: _, action: .signOutConfirm(.delegate(.signOut))):
-          return .send(.delegate(.signOut))
-          
-        case let .element(id: _, action: .changeNickname(.delegate(.changeNickName(newNickName)))):
-          state.userNickname = newNickName
-          return .none
-          
-        default: return .none
-        }
+        return .send(.tabDelegate(.userSetting(id: userId)))
         
       default: return .none
       }
-    }
-    .forEach(\.path, action: \.path) {
-      UserInfoPath()
     }
   }
 }
