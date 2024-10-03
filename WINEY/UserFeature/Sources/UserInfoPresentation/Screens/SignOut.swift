@@ -64,6 +64,7 @@ public struct SignOut {
     }
   }
   
+  public init() {}
   
   public var body: some Reducer<State, Action> {
     Reduce<State, Action> { state, action in

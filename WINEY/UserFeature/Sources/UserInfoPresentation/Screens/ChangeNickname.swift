@@ -20,6 +20,8 @@ public struct ChangeNickname {
     
     var userInput: String = ""
     var buttonValidation: Bool = false
+    
+    public init() { }
   }
   
   public enum Action {
@@ -51,6 +53,8 @@ public struct ChangeNickname {
   }
   
   @Dependency(\.user) var userService
+  
+  public init() {}
   
   public var body: some Reducer<State, Action> {
     Reduce<State, Action> { state, action in
