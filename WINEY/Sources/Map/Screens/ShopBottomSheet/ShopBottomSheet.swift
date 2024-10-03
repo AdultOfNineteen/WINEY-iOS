@@ -118,20 +118,17 @@ struct ShopBottomSheet<Content>: View where Content: View {
             .cornerRadius(12, corners: .topLeft)
             .cornerRadius(12, corners: .topRight)
             .offset(y: 5)
-          NavigationStack {
-            ZStack(alignment: .top) {
-              defaultBackGroundColor
-                .edgesIgnoringSafeArea(.bottom)
-              if presentProgress {
-                VStack {
-                  progressView
-                    .padding(.top, 35)
-                  Spacer()
-                }
-              } else {
-                self.content()
-                //                  .animation(.none)
+          ZStack(alignment: .top) {
+            defaultBackGroundColor
+              .edgesIgnoringSafeArea(.bottom)
+            if presentProgress {
+              VStack {
+                progressView
+                  .padding(.top, 35)
+                Spacer()
               }
+            } else {
+              self.content()
             }
           }
         }
