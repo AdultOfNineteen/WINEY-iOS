@@ -160,7 +160,7 @@
 		F3C206DA2CA027A6006D11B4 /* NoteDetail+SheetDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C206D92CA027A6006D11B4 /* NoteDetail+SheetDestination.swift */; };
 		F3C206DE2CA06648006D11B4 /* Main+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C206DD2CA06648006D11B4 /* Main+Navigation.swift */; };
 		F3D7445F2CAEF506006C79EA /* TabBar+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7445E2CAEF506006C79EA /* TabBar+Navigation.swift */; };
-		F3D744612CAF1A16006C79EA /* Note+Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D744602CAF1A16006C79EA /* Note+Path.swift */; };
+		F3D744612CAF1A16006C79EA /* NotePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D744602CAF1A16006C79EA /* NotePath.swift */; };
 		F3D744632CAF1AB7006C79EA /* UserInfoPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D744622CAF1AB7006C79EA /* UserInfoPath.swift */; };
 		F3D744652CAF1BBB006C79EA /* UserInfoAppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D744642CAF1BBB006C79EA /* UserInfoAppReducer.swift */; };
 		F3D744672CAF1EAE006C79EA /* MainPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D744662CAF1EAE006C79EA /* MainPath.swift */; };
@@ -372,7 +372,7 @@
 		F3C206D92CA027A6006D11B4 /* NoteDetail+SheetDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteDetail+SheetDestination.swift"; sourceTree = "<group>"; };
 		F3C206DD2CA06648006D11B4 /* Main+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main+Navigation.swift"; sourceTree = "<group>"; };
 		F3D7445E2CAEF506006C79EA /* TabBar+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBar+Navigation.swift"; sourceTree = "<group>"; };
-		F3D744602CAF1A16006C79EA /* Note+Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+Path.swift"; sourceTree = "<group>"; };
+		F3D744602CAF1A16006C79EA /* NotePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePath.swift; sourceTree = "<group>"; };
 		F3D744622CAF1AB7006C79EA /* UserInfoPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoPath.swift; sourceTree = "<group>"; };
 		F3D744642CAF1BBB006C79EA /* UserInfoAppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoAppReducer.swift; sourceTree = "<group>"; };
 		F3D744662CAF1EAE006C79EA /* MainPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPath.swift; sourceTree = "<group>"; };
@@ -889,7 +889,7 @@
 		F3D744692CAF1F01006C79EA /* DemoApp */ = {
 			isa = PBXGroup;
 			children = (
-				F3D744602CAF1A16006C79EA /* Note+Path.swift */,
+				F3D744602CAF1A16006C79EA /* NotePath.swift */,
 			);
 			path = DemoApp;
 			sourceTree = "<group>";
@@ -1598,7 +1598,7 @@
 				F3EFC8A02C975B3C00BC6DC9 /* WineRankData.swift in Sources */,
 				F3EFC8782C975B3C00BC6DC9 /* CreateNoteManager.swift in Sources */,
 				F3EFC89F2C975B3C00BC6DC9 /* TasteAnalysisDTO.swift in Sources */,
-				F3D744612CAF1A16006C79EA /* Note+Path.swift in Sources */,
+				F3D744612CAF1A16006C79EA /* NotePath.swift in Sources */,
 				F35A679C2C9F911F005491C5 /* TipCardDetail.swift in Sources */,
 				F35A671D2C9F801D005491C5 /* SettingTaste.swift in Sources */,
 				F35A65E12C98B820005491C5 /* AppRootView.swift in Sources */,
