@@ -113,6 +113,11 @@ public struct TabBarView: View {
           NoteDetailView(store: store)
         }
         
+      case .otherNoteList:
+        if let store = store.scope(state: \.otherNoteList, action: \.otherNoteList) {
+          OtherNoteListView(store: store)
+        }
+        
         // MARK: - Create/Edit Note
       case .wineSearch:
         if let store = store.scope(state: \.wineSearch, action: \.wineSearch) {

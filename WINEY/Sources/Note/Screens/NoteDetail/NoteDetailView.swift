@@ -248,7 +248,7 @@ extension NoteDetailView {
       }
       .background(.wineyMainBackground)
       .onTapGesture {
-        
+        store.send(.tappedMoreOtherNote)
       }
       .padding(.bottom, 110)
     }

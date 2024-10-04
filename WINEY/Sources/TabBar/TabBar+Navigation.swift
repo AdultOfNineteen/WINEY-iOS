@@ -25,6 +25,7 @@ public struct TabBarPath {
     
     // MARK: - NoteMain
     case noteDetail(NoteDetail.State)
+    case otherNoteList(OtherNoteList.State)
     
     // MARK: - Create/Edit Note
     case wineSearch(WineSearch.State)
@@ -58,6 +59,7 @@ public struct TabBarPath {
     
     // MARK: - NoteMain
     case noteDetail(NoteDetail.Action)
+    case otherNoteList(OtherNoteList.Action)
     
     // MARK: - Create/Edit Note
     case wineSearch(WineSearch.Action)
@@ -89,6 +91,7 @@ public struct TabBarPath {
     Scope(state: \.tipDetail, action: \.tipDetail) { TipCardDetail() }
     
     Scope(state: \.noteDetail, action: \.noteDetail, child: { NoteDetail() })
+    Scope(state: \.otherNoteList, action: \.otherNoteList, child: { OtherNoteList() })
     
     Scope(state: \.wineSearch, action: \.wineSearch) { WineSearch() }
     Scope(state: \.wineConfirm, action: \.wineConfirm) { WineConfirm() }
@@ -183,6 +186,15 @@ extension TabBar {
           return .none
           
         case let .element(id, action: .noteDetail(.tappedBackButton)):
+          state.path.pop(from: id)
+          return .none
+          
+      // MARK: - 노트 공유 리스트 로직
+        case let .element(_, action: .noteDetail(._moveMoreOtherNote(wineId))):
+          state.path.append(.otherNoteList(.init(wineId: wineId)))
+          return .none
+          
+        case let .element(id, action: .otherNoteList(.tappedBackButton)):
           state.path.pop(from: id)
           return .none
           

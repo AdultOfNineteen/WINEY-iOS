@@ -12,6 +12,8 @@
 		CD18ED852CB053DD0075CCDD /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD18ED822CB053DD0075CCDD /* Release.xcconfig */; };
 		CD18ED872CB058870075CCDD /* OtherNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED862CB058870075CCDD /* OtherNote.swift */; };
 		CD18ED892CB058990075CCDD /* OtherNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED882CB058990075CCDD /* OtherNoteView.swift */; };
+		CD18ED8B2CB06E580075CCDD /* OtherNoteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED8A2CB06E580075CCDD /* OtherNoteList.swift */; };
+		CD18ED8D2CB06E5E0075CCDD /* OtherNoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED8C2CB06E5E0075CCDD /* OtherNoteListView.swift */; };
 		CD706FF12CA937B7000FE7F0 /* WineSearchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD706FF02CA937B7000FE7F0 /* WineSearchCardView.swift */; };
 		CD706FF32CA937F9000FE7F0 /* WineSearchCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD706FF22CA937F9000FE7F0 /* WineSearchCard.swift */; };
 		CDA994EC2CA304950068063E /* TipCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA994EB2CA304950068063E /* TipCard.swift */; };
@@ -223,6 +225,8 @@
 		CD18ED822CB053DD0075CCDD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../../../../Shared/WineySecret/Release.xcconfig; sourceTree = "<group>"; };
 		CD18ED862CB058870075CCDD /* OtherNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNote.swift; sourceTree = "<group>"; };
 		CD18ED882CB058990075CCDD /* OtherNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNoteView.swift; sourceTree = "<group>"; };
+		CD18ED8A2CB06E580075CCDD /* OtherNoteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNoteList.swift; sourceTree = "<group>"; };
+		CD18ED8C2CB06E5E0075CCDD /* OtherNoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNoteListView.swift; sourceTree = "<group>"; };
 		CD706FF02CA937B7000FE7F0 /* WineSearchCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineSearchCardView.swift; sourceTree = "<group>"; };
 		CD706FF22CA937F9000FE7F0 /* WineSearchCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineSearchCard.swift; sourceTree = "<group>"; };
 		CDA994EB2CA304950068063E /* TipCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCard.swift; sourceTree = "<group>"; };
@@ -669,6 +673,8 @@
 				F35A66642C9981FD005491C5 /* WineInfoDetailSingleGraphView.swift */,
 				CD18ED862CB058870075CCDD /* OtherNote.swift */,
 				CD18ED882CB058990075CCDD /* OtherNoteView.swift */,
+				CD18ED8A2CB06E580075CCDD /* OtherNoteList.swift */,
+				CD18ED8C2CB06E5E0075CCDD /* OtherNoteListView.swift */,
 			);
 			path = NoteDetail;
 			sourceTree = "<group>";
@@ -1479,10 +1485,12 @@
 				F35A676A2C9F8C6A005491C5 /* WineDetailView.swift in Sources */,
 				F35A670F2C9F801D005491C5 /* CustomGallery.swift in Sources */,
 				F35A66DA2C9E9989005491C5 /* SignUpBottomSheetContent.swift in Sources */,
+				CD18ED8D2CB06E5E0075CCDD /* OtherNoteListView.swift in Sources */,
 				F35A66682C9981FE005491C5 /* WineInfoDetailSingleGraphView.swift in Sources */,
 				F35A65C12C989911005491C5 /* TabBarView.swift in Sources */,
 				F35A66DD2C9E9989005491C5 /* SignUpBottomSheetType.swift in Sources */,
 				F35A67912C9F90AB005491C5 /* MapSheet.swift in Sources */,
+				CD18ED8B2CB06E580075CCDD /* OtherNoteList.swift in Sources */,
 				F35A66932C998870005491C5 /* WinePreferTaste.swift in Sources */,
 				F35A67142C9F801D005491C5 /* HelpTasteView.swift in Sources */,
 				F35A670D2C9F801D005491C5 /* CustomCamera.swift in Sources */,

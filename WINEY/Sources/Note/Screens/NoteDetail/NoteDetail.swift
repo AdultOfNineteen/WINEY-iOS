@@ -63,9 +63,11 @@ public struct NoteDetail {
     case tappedOption(NoteDetailOption)
     case tappedNoteDelete(Int)
     case tappedNoteMode(NoteDetailSection)
+    case tappedMoreOtherNote
     
     // MARK: - Inner Business Action
     case _viewWillAppear
+    case _moveMoreOtherNote(wineId: Int)
 //    case _activateBottomSheet(mode: NoteDetailBottomSheet, data: NoteDetail.State)
     
     // MARK: - Inner SetState Action
@@ -147,6 +149,13 @@ public struct NoteDetail {
             }
         )
         return .none
+        
+      case .tappedMoreOtherNote:
+        guard let cardData = state.noteCardData else {
+          return .none
+        }
+        
+        return .send(._moveMoreOtherNote(wineId: cardData.wineId))
         
       default:
         return .none
