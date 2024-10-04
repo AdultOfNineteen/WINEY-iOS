@@ -11,6 +11,10 @@ import WineyKit
 
 public struct SignOutConfirmView: View {
   let store: StoreOf<SignOutConfirm>
+  
+  public init(store: StoreOf<SignOutConfirm>) {
+    self.store = store
+  }
 
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {

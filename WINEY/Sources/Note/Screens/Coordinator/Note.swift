@@ -18,7 +18,6 @@ public struct Note {
 
     public var filteredNote: FilteredNotes.State = .init()
     @Presents var destination: NoteDestination.State?
-    var path: StackState<NotePath.State> = .init()
 
     public init() { }
   }
@@ -38,7 +37,13 @@ public struct Note {
     case filteredNote(FilteredNotes.Action)
 
     case destination(PresentationAction<NoteDestination.Action>)
-    case path(StackAction<NotePath.State, NotePath.Action>)
+    case tabDelegate(TabNavigationDelegate)
+    
+    public enum TabNavigationDelegate {
+      case analysis
+      case wineSearch
+      case noteDetail(noteId: Int, country: String)
+    }
   }
   
   @Dependency(\.note) var noteService

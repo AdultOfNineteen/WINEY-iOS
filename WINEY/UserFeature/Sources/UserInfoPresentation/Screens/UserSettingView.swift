@@ -12,11 +12,15 @@ import WineyKit
 public struct UserSettingView: View {
   @Bindable var store: StoreOf<UserSetting>
   
+  public init(store: StoreOf<UserSetting>) {
+    self.store = store
+  }
+  
   public var body: some View {
     content
   }
   
-  var content: some View {
+  public var content: some View {
       VStack(alignment: .leading, spacing: 0) {
         navigationBarSpacer
           .padding(

@@ -20,6 +20,8 @@ public struct TabBar {
     var note: Note.State = .init()
     var userInfo: UserInfo.State = .init()
     
+    public var path: StackState<TabBarPath.State> = .init()
+    
     public var selectedTab: TabBarItem = .main
     public var isTabHidden: Bool = false
     
@@ -51,6 +53,8 @@ public struct TabBar {
     case note(Note.Action)
     case userInfo(UserInfo.Action)
     
+    case path(StackAction<TabBarPath.State, TabBarPath.Action>)
+    
     // MARK: - Delegate
     case delegate(Delegate)
     
@@ -68,6 +72,8 @@ public struct TabBar {
     Scope(state: \.note, action: \.note) { Note() }
     Scope(state: \.userInfo, action: \.userInfo) { UserInfo() }
     
+    pathReducer
+    
     Reduce<State, Action> { state, action in
       switch action {
         
@@ -77,7 +83,6 @@ public struct TabBar {
         }
         
       case let .tabSelected(tab):
-        print("본체에서 읽는 중 \(tab)")
         state.selectedTab = tab
         if tab == .map {
           return .concatenate([

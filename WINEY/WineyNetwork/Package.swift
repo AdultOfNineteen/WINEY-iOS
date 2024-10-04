@@ -14,7 +14,6 @@ let package = Package(
             targets: ["WineyNetwork"]),
     ],
     dependencies: [
-//      .package(path: "../ThirdPartyLibs")
     ],
     targets: [
         .target(

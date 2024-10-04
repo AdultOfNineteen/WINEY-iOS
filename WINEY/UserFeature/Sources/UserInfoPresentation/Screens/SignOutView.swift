@@ -14,6 +14,10 @@ public struct SignOutView: View {
 
   @FocusState private var isFocused: Bool  
   let rows: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 0), count: 2)
+  
+  public init(store: StoreOf<SignOut>) {
+    self.store = store
+  }
 
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {

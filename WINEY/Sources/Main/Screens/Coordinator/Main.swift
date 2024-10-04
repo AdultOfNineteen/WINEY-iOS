@@ -18,7 +18,6 @@ public struct Main {
     public var wineTipListState: TipCardList.State = .init(isShowNavigationBar: false, searchPage: 0, searchSize: 2)
     
     @Presents var destination: MainDestination.State?
-    var path: StackState<MainPath.State> = .init()
   }
   
   public enum Action {
@@ -36,7 +35,13 @@ public struct Main {
     case wineTipList(TipCardList.Action)
     
     case destination(PresentationAction<MainDestination.Action>)
-    case path(StackAction<MainPath.State, MainPath.Action>)
+    case tabDelegate(TabNavigationDelegate)
+    
+    public enum TabNavigationDelegate {
+      case analysis
+      case tipCardList
+      case detailWine(id: Int, data: RecommendWineData)
+    }
   }
   
   @Dependency(\.wine) var wineService

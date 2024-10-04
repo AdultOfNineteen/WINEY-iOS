@@ -13,10 +13,10 @@ public struct UserSetting {
   
   @ObservableState
   public struct State: Equatable {
-    var userId: Int
-    var isPresentedBottomSheet: Bool = false
+    public var userId: Int
+    public var isPresentedBottomSheet: Bool = false
     
-    @Presents var destination: UserInfoPath.State?
+    @Presents public var destination: UserInfoPath.State?
     
     public init(userId: Int) {
       self.userId = userId
@@ -56,6 +56,8 @@ public struct UserSetting {
   
   @Dependency(\.user) var userService
   @Dependency(\.userDefaults) var userDefaultsService
+  
+  public init() { }
   
   public var body: some Reducer<State, Action> {
     

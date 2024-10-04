@@ -33,7 +33,7 @@ public struct UserDefaultService {
   public let loadValue: (UserDefaultsKey.StringValues) -> String?
   public let deleteValue: (UserDefaultsKey.StringValues) -> Void // String
   
-  private init(
+  public init(
     saveFlag: @escaping (UserDefaultsKey.BoolValues, Bool) -> Void,
     saveValue: @escaping (UserDefaultsKey.StringValues, String) -> Void,
     loadFalg: @escaping (UserDefaultsKey.BoolValues) -> Bool?,
@@ -49,7 +49,7 @@ public struct UserDefaultService {
 }
 
 extension UserDefaultService {
-  static let live = Self(
+  public static let live = Self(
     saveFlag: { key, value in
       UserDefaults.standard.set(value, forKey: key.rawValue)
     },

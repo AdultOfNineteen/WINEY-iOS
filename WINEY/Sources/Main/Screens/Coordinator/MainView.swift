@@ -13,47 +13,15 @@ struct MainView: View {
   @Bindable var store: StoreOf<Main>
   
   var body: some View {
-    NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
-      content()
-        .navigationBarBackButtonHidden()
-        .navigationDestination(
-          item: $store.scope(state: \.destination?.tipDetail, action: \.destination.tipDetail),
-          destination: { store in
-            TipCardDetailView(store: store)
-          }
-        )
-        .background(.wineyMainBackground)
-    } destination: { store in
-      switch store.state {
-      case .analysis:
-        if let store = store.scope(state: \.analysis, action: \.analysis) {
-          WineAnalysisView(store: store)
-        }
-      case .loading:
-        if let store = store.scope(state: \.loading, action: \.loading) {
-          WineAnalysisLoadingView(store: store)
-        }
-      case .result:
-        if let store = store.scope(state: \.result, action: \.result) {
-          WineAnalysisResultView(store: store)
-        }
-        
-      case .detailWine:
-        if let store = store.scope(state: \.detailWine, action: \.detailWine) {
-          WineDetailView(store: store)
-        }
-        
-      case .tipCardList:
-        if let store = store.scope(state: \.tipCardList, action: \.tipCardList) {
-          TipCardListView(store: store)
-        }
-        
-      case .tipDetail:
-        if let store = store.scope(state: \.tipDetail, action: \.tipDetail) {
+    content()
+      .navigationBarBackButtonHidden()
+      .navigationDestination(
+        item: $store.scope(state: \.destination?.tipDetail, action: \.destination.tipDetail),
+        destination: { store in
           TipCardDetailView(store: store)
         }
-      }
-    }
+      )
+      .background(.wineyMainBackground)
   }
 }
 
@@ -186,16 +154,6 @@ private extension MainView {
       )
     )
     .padding(.top, 25)
-    
-    //    IfLetStore(
-    //      self.store.scope(
-    //        state: \.wineTipState,
-    //        action: Main.Action.wineTip
-    //      )
-    //    ) {
-    //      TipCardView(store: $0)
-    //        .padding(.top, 25)
-    //    }
   }
 }
 

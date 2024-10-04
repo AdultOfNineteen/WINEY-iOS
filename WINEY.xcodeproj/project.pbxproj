@@ -34,7 +34,6 @@
 		F35A65EB2C98B952005491C5 /* Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65EA2C98B952005491C5 /* Splash.swift */; };
 		F35A65ED2C98B957005491C5 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65EC2C98B957005491C5 /* SplashView.swift */; };
 		F35A66072C98CBB7005491C5 /* Demo_UserInfoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66062C98CBB7005491C5 /* Demo_UserInfoApp.swift */; };
-		F35A66092C98CBB7005491C5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A66082C98CBB7005491C5 /* ContentView.swift */; };
 		F35A660B2C98CBB8005491C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F35A660A2C98CBB8005491C5 /* Assets.xcassets */; };
 		F35A660E2C98CBB8005491C5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F35A660D2C98CBB8005491C5 /* Preview Assets.xcassets */; };
 		F35A66182C9957A5005491C5 /* UserInfoPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = F35A66172C9957A5005491C5 /* UserInfoPresentation */; };
@@ -160,6 +159,11 @@
 		F35A679F2C9F911F005491C5 /* TipCardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67992C9F911E005491C5 /* TipCardListView.swift */; };
 		F3C206DA2CA027A6006D11B4 /* NoteDetail+SheetDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C206D92CA027A6006D11B4 /* NoteDetail+SheetDestination.swift */; };
 		F3C206DE2CA06648006D11B4 /* Main+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C206DD2CA06648006D11B4 /* Main+Navigation.swift */; };
+		F3D7445F2CAEF506006C79EA /* TabBar+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7445E2CAEF506006C79EA /* TabBar+Navigation.swift */; };
+		F3D744612CAF1A16006C79EA /* NotePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D744602CAF1A16006C79EA /* NotePath.swift */; };
+		F3D744632CAF1AB7006C79EA /* UserInfoPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D744622CAF1AB7006C79EA /* UserInfoPath.swift */; };
+		F3D744652CAF1BBB006C79EA /* UserInfoAppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D744642CAF1BBB006C79EA /* UserInfoAppReducer.swift */; };
+		F3D744672CAF1EAE006C79EA /* MainPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D744662CAF1EAE006C79EA /* MainPath.swift */; };
 		F3EFC7B52C97575D00BC6DC9 /* WineyKit in Frameworks */ = {isa = PBXBuildFile; productRef = F3EFC7B42C97575D00BC6DC9 /* WineyKit */; };
 		F3EFC7B72C97576200BC6DC9 /* WineyNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = F3EFC7B62C97576200BC6DC9 /* WineyNetwork */; };
 		F3EFC8602C975B3C00BC6DC9 /* PreferenceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EFC7E32C975B3C00BC6DC9 /* PreferenceAPI.swift */; };
@@ -214,9 +218,9 @@
 /* Begin PBXFileReference section */
 		CD706FF02CA937B7000FE7F0 /* WineSearchCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineSearchCardView.swift; sourceTree = "<group>"; };
 		CD706FF22CA937F9000FE7F0 /* WineSearchCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineSearchCard.swift; sourceTree = "<group>"; };
-		CDA994E22CA2A5DC0068063E /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		CDA994E32CA2A5DC0068063E /* Shared.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
-		CDA994E42CA2A5DC0068063E /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		CDA994E22CA2A5DC0068063E /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../../../../../Shared/WineySecret/Release.xcconfig; sourceTree = "<group>"; };
+		CDA994E32CA2A5DC0068063E /* Shared.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Shared.xcconfig; path = ../../../../../Shared/WineySecret/Shared.xcconfig; sourceTree = "<group>"; };
+		CDA994E42CA2A5DC0068063E /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../../../../../Shared/WineySecret/Debug.xcconfig; sourceTree = "<group>"; };
 		CDA994EB2CA304950068063E /* TipCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCard.swift; sourceTree = "<group>"; };
 		F3171F502C971B0B00C14FC5 /* WINEYApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WINEYApp.swift; sourceTree = "<group>"; };
 		F3171F542C971B0C00C14FC5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -247,7 +251,6 @@
 		F35A65EC2C98B957005491C5 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		F35A66042C98CBB7005491C5 /* Demo-UserInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-UserInfo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F35A66062C98CBB7005491C5 /* Demo_UserInfoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo_UserInfoApp.swift; sourceTree = "<group>"; };
-		F35A66082C98CBB7005491C5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F35A660A2C98CBB8005491C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F35A660D2C98CBB8005491C5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F35A66142C98CC97005491C5 /* UserFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = UserFeature; path = WINEY/UserFeature; sourceTree = "<group>"; };
@@ -368,6 +371,11 @@
 		F35A67992C9F911E005491C5 /* TipCardListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipCardListView.swift; sourceTree = "<group>"; };
 		F3C206D92CA027A6006D11B4 /* NoteDetail+SheetDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteDetail+SheetDestination.swift"; sourceTree = "<group>"; };
 		F3C206DD2CA06648006D11B4 /* Main+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main+Navigation.swift"; sourceTree = "<group>"; };
+		F3D7445E2CAEF506006C79EA /* TabBar+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBar+Navigation.swift"; sourceTree = "<group>"; };
+		F3D744602CAF1A16006C79EA /* NotePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePath.swift; sourceTree = "<group>"; };
+		F3D744622CAF1AB7006C79EA /* UserInfoPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoPath.swift; sourceTree = "<group>"; };
+		F3D744642CAF1BBB006C79EA /* UserInfoAppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoAppReducer.swift; sourceTree = "<group>"; };
+		F3D744662CAF1EAE006C79EA /* MainPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPath.swift; sourceTree = "<group>"; };
 		F3EFC7B12C973F9A00BC6DC9 /* WineyNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WineyNetwork; path = WINEY/WineyNetwork; sourceTree = "<group>"; };
 		F3EFC7E32C975B3C00BC6DC9 /* PreferenceAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceAPI.swift; sourceTree = "<group>"; };
 		F3EFC7E92C975B3C00BC6DC9 /* login_inactive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login_inactive.json; sourceTree = "<group>"; };
@@ -525,8 +533,9 @@
 				F3171F562C971B0C00C14FC5 /* Preview Content */,
 				F3171F542C971B0C00C14FC5 /* Assets.xcassets */,
 			);
-			path = Resources;
-			sourceTree = "<group>";
+			name = Resources;
+			path = WINEY/Resources;
+			sourceTree = SOURCE_ROOT;
 		};
 		F3171F822C9736E500C14FC5 /* Config */ = {
 			isa = PBXGroup;
@@ -594,7 +603,8 @@
 			children = (
 				F35A66252C995D00005491C5 /* Info.plist */,
 				F35A66062C98CBB7005491C5 /* Demo_UserInfoApp.swift */,
-				F35A66082C98CBB7005491C5 /* ContentView.swift */,
+				F3D744642CAF1BBB006C79EA /* UserInfoAppReducer.swift */,
+				F3D744622CAF1AB7006C79EA /* UserInfoPath.swift */,
 				F35A660A2C98CBB8005491C5 /* Assets.xcassets */,
 				F35A660C2C98CBB8005491C5 /* Preview Content */,
 			);
@@ -623,6 +633,7 @@
 		F35A665A2C99716D005491C5 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				F3D744692CAF1F01006C79EA /* DemoApp */,
 				F35A66372C9967A6005491C5 /* NoteView.swift */,
 				F35A66462C9968A8005491C5 /* Note.swift */,
 				F35A66602C99770F005491C5 /* Note+Navigation.swift */,
@@ -859,11 +870,28 @@
 		F3C206DB2CA06520006D11B4 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				F3D744682CAF1EF3006C79EA /* DemoApp */,
 				F35A65D02C989952005491C5 /* MainView.swift */,
 				F35A65D22C989BD8005491C5 /* Main.swift */,
 				F3C206DD2CA06648006D11B4 /* Main+Navigation.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		F3D744682CAF1EF3006C79EA /* DemoApp */ = {
+			isa = PBXGroup;
+			children = (
+				F3D744662CAF1EAE006C79EA /* MainPath.swift */,
+			);
+			path = DemoApp;
+			sourceTree = "<group>";
+		};
+		F3D744692CAF1F01006C79EA /* DemoApp */ = {
+			isa = PBXGroup;
+			children = (
+				F3D744602CAF1A16006C79EA /* NotePath.swift */,
+			);
+			path = DemoApp;
 			sourceTree = "<group>";
 		};
 		F3EFC7B82C97576900BC6DC9 /* Sources */ = {
@@ -1156,6 +1184,7 @@
 			isa = PBXGroup;
 			children = (
 				F35A65C52C98991D005491C5 /* TabBar.swift */,
+				F3D7445E2CAEF506006C79EA /* TabBar+Navigation.swift */,
 				F35A65C02C989911005491C5 /* TabBarView.swift */,
 				F35A65C32C98991D005491C5 /* TabBarInfoContainerView.swift */,
 				F35A65C62C98991D005491C5 /* TabBarInfoView.swift */,
@@ -1422,6 +1451,7 @@
 				F35A663D2C996820005491C5 /* TripleSectionBottomSheet.swift in Sources */,
 				F3EFC8982C975B3C00BC6DC9 /* WineService.swift in Sources */,
 				F35A65CA2C98991D005491C5 /* TabBarItem.swift in Sources */,
+				F3D744672CAF1EAE006C79EA /* MainPath.swift in Sources */,
 				F3EFC87C2C975B3C00BC6DC9 /* KakaoShareMessage.swift in Sources */,
 				F3EFC8662C975B3C00BC6DC9 /* FirstFlavorType.swift in Sources */,
 				F35A66DF2C9E9989005491C5 /* FlavorSignUp.swift in Sources */,
@@ -1504,6 +1534,7 @@
 				F35A65E72C98B903005491C5 /* Auth.swift in Sources */,
 				F35A66902C998870005491C5 /* WinePreferNationView.swift in Sources */,
 				F3EFC8712C975B3C00BC6DC9 /* PatchNoteRequestDTO.swift in Sources */,
+				F3D7445F2CAEF506006C79EA /* TabBar+Navigation.swift in Sources */,
 				F35A66892C998870005491C5 /* WineAnalysisCarouselView.swift in Sources */,
 				F35A65D32C989BD9005491C5 /* Main.swift in Sources */,
 				F3EFC8722C975B3C00BC6DC9 /* FilterType.swift in Sources */,
@@ -1567,6 +1598,7 @@
 				F3EFC8A02C975B3C00BC6DC9 /* WineRankData.swift in Sources */,
 				F3EFC8782C975B3C00BC6DC9 /* CreateNoteManager.swift in Sources */,
 				F3EFC89F2C975B3C00BC6DC9 /* TasteAnalysisDTO.swift in Sources */,
+				F3D744612CAF1A16006C79EA /* NotePath.swift in Sources */,
 				F35A679C2C9F911F005491C5 /* TipCardDetail.swift in Sources */,
 				F35A671D2C9F801D005491C5 /* SettingTaste.swift in Sources */,
 				F35A65E12C98B820005491C5 /* AppRootView.swift in Sources */,
@@ -1581,7 +1613,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F35A66092C98CBB7005491C5 /* ContentView.swift in Sources */,
+				F3D744632CAF1AB7006C79EA /* UserInfoPath.swift in Sources */,
+				F3D744652CAF1BBB006C79EA /* UserInfoAppReducer.swift in Sources */,
 				F35A66072C98CBB7005491C5 /* Demo_UserInfoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,82 +16,18 @@ public struct NoteView: View {
   public init(store: StoreOf<Note>) { self.store = store }
   
   public var body: some View {
-    NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
-      content
-        .navigationBarBackButtonHidden()
-        .navigationDestination(
-          item: $store.scope(state: \.destination?.detailFilter, action: \.destination.detailFilter),
-          destination: { store in
-            FilterDetailView(store: store)
-          }
-        )
-        .background(.wineyMainBackground)
-      
-    } destination: { store in
-      switch store.state {
-      case .analysis:
-        if let store = store.scope(state: \.analysis, action: \.analysis) {
-          WineAnalysisView(store: store)
+    content
+      .navigationBarBackButtonHidden()
+      .navigationDestination(
+        item: $store.scope(state: \.destination?.detailFilter, action: \.destination.detailFilter),
+        destination: { store in
+          FilterDetailView(store: store)
         }
-      case .loading:
-        if let store = store.scope(state: \.loading, action: \.loading) {
-          WineAnalysisLoadingView(store: store)
-        }
-      case .result:
-        if let store = store.scope(state: \.result, action: \.result) {
-          WineAnalysisResultView(store: store)
-        }
-        
-      case .noteDetail:
-        if let store = store.scope(state: \.noteDetail, action: \.noteDetail) {
-          NoteDetailView(store: store)
-        }
-        
-      case .wineSearch:
-        if let store = store.scope(state: \.wineSearch, action: \.wineSearch) {
-          WineSearchView.init(store: store)
-        }
-      case .wineConfirm:
-        if let store = store.scope(state: \.wineConfirm, action: \.wineConfirm) {
-          WineConfirmView.init(store: store)
-        }
-      case .setAlcohol:
-        if let store = store.scope(state: \.setAlcohol, action: \.setAlcohol) {
-          SettingAlcoholView.init(store: store)
-        }
-      case .setVintage:
-        if let store = store.scope(state: \.setVintage, action: \.setVintage) {
-          SettingVintageView.init(store: store)
-        }
-      case .setColorSmell:
-        if let store = store.scope(state: \.setColorSmell, action: \.setColorSmell) {
-          SettingColorSmellView.init(store: store)
-        }
-      case .helpSmell:
-        if let store = store.scope(state: \.helpSmell, action: \.helpSmell) {
-          HelpSmellView.init(store: store)
-        }
-      case .setTaste:
-        if let store = store.scope(state: \.setTaste, action: \.setTaste) {
-          SettingTasteView.init(store: store)
-        }
-      case .helpTaste:
-        if let store = store.scope(state: \.helpTaste, action: \.helpTaste) {
-          HelpTasteView.init(store: store)
-        }
-      case .setMemo:
-        if let store = store.scope(state: \.setMemo, action: \.setMemo) {
-          SettingMemoView.init(store: store)
-        }
-      case .noteDone:
-        if let store = store.scope(state: \.noteDone, action: \.noteDone) {
-          NoteDoneView.init(store: store)
-        }
+      )
+      .background(.wineyMainBackground)
+      .onAppear {
+        store.send(._onAppear)
       }
-    }
-    .onAppear {
-      store.send(._onAppear)
-    }
   }
   
   @ViewBuilder

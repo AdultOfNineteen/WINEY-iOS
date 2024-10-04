@@ -13,6 +13,10 @@ import WineyKit
 public struct ChangeNicknameView: View {
   let store: StoreOf<ChangeNickname>
   
+  public init(store: StoreOf<ChangeNickname>) {
+    self.store = store
+  }
+  
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
       navigationBar()

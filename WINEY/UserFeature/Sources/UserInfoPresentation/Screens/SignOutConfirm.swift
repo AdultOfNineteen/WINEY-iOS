@@ -54,6 +54,8 @@ public struct SignOutConfirm {
   @Dependency(\.user) var userService
   @Dependency(\.userDefaults) var userDefaultsService
   
+  public init() {}
+  
   public var body: some Reducer<State, Action> {
     Reduce<State, Action> { state, action in
       switch action {

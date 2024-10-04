@@ -24,7 +24,6 @@ public struct UserInfo {
     var nextWineGrade: String = "GLASS"
     
     @Presents var destination: UserInfoDestination.State?
-    var path: StackState<UserInfoPath.State> = .init()
     
     public init() {}
   }
@@ -50,16 +49,21 @@ public struct UserInfo {
     // MARK: - Inner SetState Action
     case _failureSocialNetworking(Error)  // 추후 경고 처리
     case _setUserInfo(UserInfoDTO)
+    case _changeNickname(String)
     case _setNickname(UserNicknameDTO)
     case _setUserWineGrade(MyWineGradeDTO)
     case _setGradeList([WineGradeInfoDTO])
     
     // MARK: - Child Action
     case destination(PresentationAction<UserInfoDestination.Action>)
-    case path(StackAction<UserInfoPath.State, UserInfoPath.Action>)
     
     // MARK: - Delegate
     case delegate(Delegate)
+    case tabDelegate(TabNavigationDelegate)
+    
+    public enum TabNavigationDelegate {
+      case userSetting(id: Int)
+    }
     
     public enum Delegate {
       case logout
@@ -83,7 +87,6 @@ public struct UserInfo {
       
       switch action {
       case ._viewWillAppear:
-        print("_viewWillAppear")
         AmplitudeProvider.shared.track(event: .MYPAGE_ENTER)
         
         return .run { send in
@@ -126,8 +129,13 @@ public struct UserInfo {
         state.userId = data.userId
         return .send(._getUserWineGrade(data.userId))
         
+        
       case let ._setNickname(data):
         state.userNickname = data.nickname
+        return .none
+        
+      case let ._changeNickname(new):
+        state.userNickname = new
         return .none
         
       case let ._setGradeList(data):
