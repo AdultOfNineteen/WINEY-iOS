@@ -77,7 +77,7 @@ public struct SpecificWineTastingNotes {
         return .none
         
       case let .tappedTastingNoteCell(noteId):
-        state.noteDetail = .init(noteId: noteId, country: "", isMine: false)
+        state.noteDetail = .init(noteMode: .mynote, noteId: noteId, country: "", isMine: false)
         state.path.append(OtherTastingNoteNavigationDestination.tastingNoteDetail(noteId: noteId))
         return .none
         

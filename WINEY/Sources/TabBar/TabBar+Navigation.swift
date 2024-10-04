@@ -126,7 +126,7 @@ extension TabBar {
         state.path.append(.analysis(.init(isPresentedBottomSheet: false)))
         return .none
       case let .note(.tabDelegate(.noteDetail(noteId, country))):
-        state.path.append(.noteDetail(.init(noteId: noteId, country: country)))
+        state.path.append(.noteDetail(.init(noteMode: .mynote, noteId: noteId, country: country)))
         return .none
       case .note(.tabDelegate(.wineSearch)):
         state.path.append(.wineSearch(.init()))

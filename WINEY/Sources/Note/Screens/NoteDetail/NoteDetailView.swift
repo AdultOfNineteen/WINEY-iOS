@@ -93,6 +93,7 @@ extension NoteDetailView {
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
         
         Divider()
+          .frame(height: 0.8)
           .overlay(.wineyGray900)
           .padding(.top, 40)
           .padding(.bottom, 30)
@@ -104,9 +105,7 @@ extension NoteDetailView {
         )
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
         
-        Divider()
-          .overlay(.wineyGray900)
-          .padding(.vertical, 20)
+        noteDetailSection()
         
         // MARK: Note Card Graph
         NoteDetailGraphTabView(
@@ -123,6 +122,40 @@ extension NoteDetailView {
         noteImageMemo(noteData: noteData)
       }
     }
+  }
+  
+  @ViewBuilder
+  private func noteDetailSection() -> some View {
+    VStack(spacing: 0) {
+      Divider()
+        .frame(height: 0.8)
+        .overlay(.wineyGray900)
+      
+      HStack(spacing: 0) {
+        noteDetailSectionButton(mode: .mynote)
+        noteDetailSectionButton(mode: .otherNotes)
+      }
+      
+      Divider()
+        .frame(height: 0.8)
+        .overlay(.wineyGray900)
+    }
+    .padding(.top, 38)
+    .padding(.bottom, 30)
+  }
+  
+  @ViewBuilder
+  private func noteDetailSectionButton(mode: NoteDetailSection) -> some View {
+    Text(mode.rawValue)
+      .wineyFont(.bodyM2)
+      .frame(maxWidth: .infinity)
+      .padding(.top, 11)
+      .padding(.bottom, 10)
+      .foregroundStyle(store.noteMode == mode ? .white : .wineyGray700)
+      .background(.wineyMainBackground)
+      .onTapGesture {
+        store.send(.tappedNoteMode(mode))
+      }
   }
   
   @ViewBuilder
@@ -214,7 +247,7 @@ extension NoteDetailView {
   NoteDetailView(
     store: Store(
       initialState: NoteDetail.State.init(
-        noteId: 1, country: "test"
+        noteMode: .mynote, noteId: 1, country: "test"
       ),
       reducer: {
         NoteDetail()
