@@ -155,7 +155,7 @@ public struct TabBarView: View {
           NoteDoneView.init(store: store)
         }
         
-      // MARK: - UserInfo        
+      // MARK: - UserInfo
       case .userSetting:
         if let store = store.scope(state: \.userSetting, action: \.userSetting) {
           UserSettingView(store: store)
