@@ -13,7 +13,7 @@ import WineyKit
 public struct NoteDetailView: View {
   @Bindable var store: StoreOf<NoteDetail>
   
-  public init(store: StoreOf<NoteDetail>) { 
+  public init(store: StoreOf<NoteDetail>) {
     self.store = store
   }
   
@@ -52,7 +52,6 @@ public struct NoteDetailView: View {
     .sheet(item: $store.scope(state: \.sheetDestination?.tripleSectionSheet, action: \.sheetDestination.tripleSectionSheet), content: { store in
       TripleSectionBottomSheetView(store: store)
     })
-    
     .task {
       store.send(._viewWillAppear)
     }
@@ -92,34 +91,37 @@ extension NoteDetailView {
         )
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
         
-        Divider()
-          .frame(height: 0.8)
-          .overlay(.wineyGray900)
-          .padding(.top, 40)
-          .padding(.bottom, 30)
+        if store.noteMode != .otherNoteDetail {
+          noteDetailSection()
+        }
         
-        // MARK: FEATURE
-        NoteDetailSmellFeatureView(
-          circleColor: noteData.color,
-          smellKeywordList: Array(noteData.smellKeywordList)
-        )
-        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-        
-        noteDetailSection()
-        
-        // MARK: Note Card Graph
-        NoteDetailGraphTabView(
-          noteCardData: noteData
-        )
-        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-        
-        Divider()
-          .overlay(.wineyGray900)
-          .padding(.top, 10)
-          .padding(.bottom, 30)
-        
-        // MARK: Image, memo
-        noteImageMemo(noteData: noteData)
+        if store.noteMode == .mynote || store.noteMode == .otherNoteDetail {
+          NoteDetailSmellFeatureView(
+            circleColor: noteData.color,
+            smellKeywordList: Array(noteData.smellKeywordList)
+          )
+          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+          
+          Divider()
+            .frame(height: 0.8)
+            .overlay(.wineyGray900)
+            .padding(.vertical, 20)
+          
+          NoteDetailGraphTabView(
+            noteCardData: noteData
+          )
+          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+          
+          Divider()
+            .overlay(.wineyGray900)
+            .padding(.top, 10)
+            .padding(.bottom, 30)
+          
+          // MARK: Image, memo
+          noteImageMemo(noteData: noteData)
+        } else {
+          otherNoteList()
+        }
       }
     }
   }
@@ -189,6 +191,70 @@ extension NoteDetailView {
   }
   
   @ViewBuilder
+  private func otherNoteList() -> some View {
+    VStack(spacing: 0) {
+      VStack(alignment: .leading, spacing: 20) {
+        Text("Other Notes")
+          .wineyFont(.display2)
+          .foregroundStyle(.white)
+        
+        HStack(spacing: 0) {
+          Text("\(store.otherNoteCount)개")
+            .foregroundStyle(.wineyMain3)
+          
+          Text("의 테이스팅 노트가 있어요!")
+            .foregroundStyle(.white)
+          
+          Spacer()
+        }
+        .wineyFont(.title2)
+      }
+      .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+      
+      if store.otherNoteCount > 0 {
+        LazyVStack(spacing: 5) {
+          ForEachStore(
+            store.scope(state: \.otherNotes, action: \.otherNote)
+          ) { store in
+            OtherNoteView(store: store)
+          }
+        }
+        .padding(.leading, 24)
+        .padding(.trailing, 5)
+        .padding(.vertical, 20)
+      } else {
+        VStack(spacing: 13) {
+          Image(.emptyNoteIconW)
+          
+          VStack(spacing: 6) {
+            Text("등록된 노트가 없어요 :(")
+              .wineyFont(.headLine)
+            
+            Text("이 와인의 첫 와이너가 되어보세요!")
+              .wineyFont(.bodyM2)
+          }
+          .foregroundStyle(.wineyGray800)
+          .padding(.top, 13)
+        }
+        .padding(.vertical, 58)
+      }
+      
+      HStack(spacing: 0) {
+        Text("더 보러가기")
+          .wineyFont(.bodyM2)
+          .foregroundStyle(.wineyGray400)
+        
+        Image(.ic_arrow_rightW)
+      }
+      .background(.wineyMainBackground)
+      .onTapGesture {
+        
+      }
+      .padding(.bottom, 110)
+    }
+  }
+  
+  @ViewBuilder
   private func noteWineType(noteData: NoteDetailDTO) -> some View {
     VStack(alignment: .leading, spacing: 0) {
       Text(WineType.changeType(at: noteData.wineType).typeName)
@@ -210,7 +276,7 @@ extension NoteDetailView {
   private func noteImageMemo(noteData: NoteDetailDTO) -> some View {
     VStack(spacing: 0) {
       HStack {
-        Text("Feature")
+        Text("Feelings")
           .wineyFont(.display2)
         
         Spacer()

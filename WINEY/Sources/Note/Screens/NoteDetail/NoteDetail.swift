@@ -39,10 +39,12 @@ public struct NoteDetail {
     let country: String
     let isMine: Bool
     
-    public var noteMode: NoteDetailSection
+    var otherNoteCount = 0
     
+    public var noteMode: NoteDetailSection
     public var noteCardData: NoteDetailDTO?
     public var selectOption: NoteDetailOption?
+    public var otherNotes: IdentifiedArrayOf<OtherNote.State> = []
     
     @Presents var sheetDestination: NoteDetailSheetDestination.State?
     
@@ -69,10 +71,12 @@ public struct NoteDetail {
     // MARK: - Inner SetState Action
     case _setDetailNotes(data: NoteDetailDTO)
     case _failureSocialNetworking(Error)  // 추후 경고 처리
+    case _setOtherNotes(NoteDTO)
     case _setNoteMode(NoteDetailSection)
     
     // MARK: - Child Action
     case sheetDestination(PresentationAction<NoteDetailSheetDestination.Action>)
+    case otherNote(IdentifiedActionOf<OtherNote>)
     case delete
     
     case delegate(Delegate)
@@ -112,6 +116,36 @@ public struct NoteDetail {
         
       case let ._setNoteMode(mode):
         state.noteMode = mode
+        
+        guard let cardData = state.noteCardData else {
+          return .none
+        }
+        
+        if mode == .otherNotes {
+          return .run { send in
+            switch await noteService.loadNotes(0, 5, 0, [], [], nil, cardData.wineId) {
+            case let .success(data):
+              await send(._setOtherNotes(data))
+              
+            case let .failure(error):
+              print("데이터 가져오기 실패 \(error.localizedDescription)")
+            }
+          }
+        } else {
+          return .none
+        }
+        
+      case let ._setOtherNotes(data):
+        state.otherNoteCount = data.totalCnt
+        state.otherNotes  = IdentifiedArrayOf(
+          uniqueElements: data.contents
+            .enumerated()
+            .map {
+              OtherNote.State(
+                noteData: $0.element
+              )
+            }
+        )
         return .none
         
       default:
@@ -120,6 +154,9 @@ public struct NoteDetail {
     }
     .ifLet(\.$sheetDestination, action: \.sheetDestination) {
       NoteDetailSheetDestination()
+    }
+    .forEach(\.otherNotes, action: \.otherNote) {
+      OtherNote()
     }
   }
   
