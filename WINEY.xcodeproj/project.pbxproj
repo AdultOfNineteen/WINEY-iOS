@@ -10,6 +10,8 @@
 		CD18ED832CB053DD0075CCDD /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD18ED802CB053DD0075CCDD /* Debug.xcconfig */; };
 		CD18ED842CB053DD0075CCDD /* Shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD18ED812CB053DD0075CCDD /* Shared.xcconfig */; };
 		CD18ED852CB053DD0075CCDD /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD18ED822CB053DD0075CCDD /* Release.xcconfig */; };
+		CD18ED872CB058870075CCDD /* OtherNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED862CB058870075CCDD /* OtherNote.swift */; };
+		CD18ED892CB058990075CCDD /* OtherNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED882CB058990075CCDD /* OtherNoteView.swift */; };
 		CD706FF12CA937B7000FE7F0 /* WineSearchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD706FF02CA937B7000FE7F0 /* WineSearchCardView.swift */; };
 		CD706FF32CA937F9000FE7F0 /* WineSearchCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD706FF22CA937F9000FE7F0 /* WineSearchCard.swift */; };
 		CDA994EC2CA304950068063E /* TipCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA994EB2CA304950068063E /* TipCard.swift */; };
@@ -219,6 +221,8 @@
 		CD18ED802CB053DD0075CCDD /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../../../../Shared/WineySecret/Debug.xcconfig; sourceTree = "<group>"; };
 		CD18ED812CB053DD0075CCDD /* Shared.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Shared.xcconfig; path = ../../../../Shared/WineySecret/Shared.xcconfig; sourceTree = "<group>"; };
 		CD18ED822CB053DD0075CCDD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../../../../Shared/WineySecret/Release.xcconfig; sourceTree = "<group>"; };
+		CD18ED862CB058870075CCDD /* OtherNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNote.swift; sourceTree = "<group>"; };
+		CD18ED882CB058990075CCDD /* OtherNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNoteView.swift; sourceTree = "<group>"; };
 		CD706FF02CA937B7000FE7F0 /* WineSearchCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineSearchCardView.swift; sourceTree = "<group>"; };
 		CD706FF22CA937F9000FE7F0 /* WineSearchCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineSearchCard.swift; sourceTree = "<group>"; };
 		CDA994EB2CA304950068063E /* TipCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCard.swift; sourceTree = "<group>"; };
@@ -663,6 +667,8 @@
 				F35A66452C9968A8005491C5 /* NoteDetail.swift */,
 				F3C206D92CA027A6006D11B4 /* NoteDetail+SheetDestination.swift */,
 				F35A66642C9981FD005491C5 /* WineInfoDetailSingleGraphView.swift */,
+				CD18ED862CB058870075CCDD /* OtherNote.swift */,
+				CD18ED882CB058990075CCDD /* OtherNoteView.swift */,
 			);
 			path = NoteDetail;
 			sourceTree = "<group>";
@@ -1497,6 +1503,7 @@
 				F35A66692C9981FE005491C5 /* NoteDetailGraphTabView.swift in Sources */,
 				F35A66E12C9E9989005491C5 /* WelcomeSignUp.swift in Sources */,
 				F35A65CD2C98991D005491C5 /* TabBarPreferenceKey.swift in Sources */,
+				CD18ED892CB058990075CCDD /* OtherNoteView.swift in Sources */,
 				F35A676C2C9F8C6A005491C5 /* WineCardBackground.swift in Sources */,
 				F3EFC8832C975B3C00BC6DC9 /* MapPosition.swift in Sources */,
 				F35A67672C9F8C6A005491C5 /* WineDetailChartBackground.swift in Sources */,
@@ -1511,6 +1518,7 @@
 				F35A66DE2C9E9989005491C5 /* CodeSignUp.swift in Sources */,
 				F35A668B2C998870005491C5 /* WineAnalysisPieChart.swift in Sources */,
 				F3EFC8682C975B3C00BC6DC9 /* LoginPathType.swift in Sources */,
+				CD18ED872CB058870075CCDD /* OtherNote.swift in Sources */,
 				F35A66912C998870005491C5 /* WinePreferSmell.swift in Sources */,
 				F35A67682C9F8C6A005491C5 /* WineDetailGraph.swift in Sources */,
 				F35A669B2C998870005491C5 /* WineAnalysisLoading.swift in Sources */,
