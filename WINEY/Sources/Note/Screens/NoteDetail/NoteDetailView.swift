@@ -108,7 +108,8 @@ extension NoteDetailView {
             .padding(.vertical, 20)
           
           NoteDetailGraphTabView(
-            noteCardData: noteData
+            noteCardData: noteData,
+            isMine: store.noteMode == .openMyNote
           )
           .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
           

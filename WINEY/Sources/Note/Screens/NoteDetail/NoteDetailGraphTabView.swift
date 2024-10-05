@@ -26,12 +26,21 @@ public enum GraphCase {
 
 public struct NoteDetailGraphTabView: View {
   public let noteCardData: NoteDetailDTO
+  public let isMine: Bool
+  
+  public init(noteCardData: NoteDetailDTO, isMine: Bool) {
+    self.noteCardData = noteCardData
+    self.isMine = isMine
+  }
   
   public var body: some View {
     TabView {
       WineDetailGraphMyWineTasteView(
-        myWineTaste: noteCardData.myWineTaste
+        myWineTaste: noteCardData.myWineTaste,
+        isMine: isMine,
+        nickname: noteCardData.userNickname
       )
+      
       WineDetailGraphMyWineDefaultView(
         defaultTaste: noteCardData.defaultWineTaste
       )
@@ -48,6 +57,14 @@ public struct NoteDetailGraphTabView: View {
 public struct WineDetailGraphMyWineTasteView: View {
   public let myWineTaste: MyWineTaste
   public let graphColor: Color = .wineyMain2
+  public let isMine: Bool
+  public let nickname: String
+  
+  public init(myWineTaste: MyWineTaste, isMine: Bool, nickname: String) {
+    self.myWineTaste = myWineTaste
+    self.isMine = isMine
+    self.nickname = nickname
+  }
   
   public var body: some View {
     VStack(spacing: 0) {
@@ -57,8 +74,13 @@ public struct WineDetailGraphMyWineTasteView: View {
           .frame(width: 12)
           .aspectRatio(contentMode: .fit)
         
-        Text("내가 느낀 와인의 맛")
-          .wineyFont(.captionM2)
+        if isMine {
+          Text("내가 느낀 와인의 맛")
+            .wineyFont(.captionM2)
+        } else {
+          Text("\(nickname)님이 느낀 와인의 맛")
+            .wineyFont(.captionM2)
+        }
         
         Spacer()
       }
@@ -212,6 +234,6 @@ public struct WineDetailGraphMyWineDefaultView: View {
       memo: "test",
       userNickname: "보노", 
       public: true
-    )
+    ), isMine: true
   )
 }
