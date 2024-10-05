@@ -21,6 +21,8 @@ public struct OtherNoteList {
     var totalCnt: Int = 0
     var isLast: Bool = false
     
+    var userNickname: String = ""
+    
     public var otherNotes: IdentifiedArrayOf<OtherNote.State> = []
     
     public init(wineId: Int) {
@@ -37,24 +39,31 @@ public struct OtherNoteList {
     case _checkPagination(data: NoteContent)
     case _fetchNextOtherNote
     case _moveBack
+    case _fetchUserInfo
+    case _fetchOtherNote
     
     // MARK: - Inner SetState Action
     case _setOtherNotes(NoteDTO)
     case _appendOtherNotes(NoteDTO)
+    case _setNickname(String)
     
     // MARK: - Child Action
     case otherNote(IdentifiedActionOf<OtherNote>)
   }
   
   @Dependency(\.note) var noteService
+  @Dependency(\.user) var userService
   
   public var body: some Reducer<State, Action> {
     Reduce<State, Action> { state, action in
       switch action {
       case ._viewWillAppear:
+        return .run { send in
+          await send(._fetchOtherNote)
+          await send(._fetchUserInfo)
+        }
         
-        state.page = 0
-        
+      case ._fetchOtherNote:
         let wineId = state.wineId
         let page = state.page
         let size = state.size
@@ -69,6 +78,21 @@ public struct OtherNoteList {
           }
         }
         
+      case ._fetchUserInfo:
+        return .run { send in
+          switch await userService.nickname() {
+          case let .success(data):
+            await send(._setNickname(data.nickname))
+            
+          case let .failure(error):
+            print("데이터 가져오기 실패 \(error.localizedDescription)")
+          }
+        }
+        
+      case let ._setNickname(data):
+        state.userNickname = data
+        return .none
+        
       case .tappedBackButton:
         return .send(._moveBack)
         
@@ -80,7 +104,8 @@ public struct OtherNoteList {
             .enumerated()
             .map {
               OtherNote.State(
-                noteData: $0.element
+                noteData: $0.element,
+                isMine: state.userNickname == $0.element.userNickname
               )
             }
         )
@@ -91,7 +116,7 @@ public struct OtherNoteList {
           return .none
         }
         
-        let checkData = OtherNote.State(noteData: data)
+        let checkData = OtherNote.State(noteData: data, isMine: state.userNickname == data.userNickname)
         
         if lastData == checkData {
           if state.isLast {
@@ -129,7 +154,8 @@ public struct OtherNoteList {
             .enumerated()
             .map {
               OtherNote.State(
-                noteData: $0.element
+                noteData: $0.element,
+                isMine: state.userNickname == $0.element.userNickname
               )
             }
         )

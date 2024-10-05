@@ -198,6 +198,14 @@ extension TabBar {
           state.path.pop(from: id)
           return .none
           
+        case let .element(id: _, action: .noteDetail(.otherNote(.element(id: _, action: ._moveNoteDetail(data, isMine))))):
+          state.path.append(.noteDetail(.init(noteMode: isMine ? .openMyNote : .openOtherNote, noteId: data.noteId, country: data.country)))
+          return .none
+          
+        case let .element(id: _, action: .otherNoteList(.otherNote(.element(id: _, action: ._moveNoteDetail(data, isMine))))):
+          state.path.append(.noteDetail(.init(noteMode: isMine ? .openMyNote : .openOtherNote, noteId: data.noteId, country: data.country)))
+          return .none
+          
       // MARK: - 노트 작성 화면 내 로직
         case let .element(_, action: .wineSearch(.searchCard(.element(id: _, action: ._moveNextPage(data))))):
           state.path.append(.wineConfirm(.init(wineData: data)))

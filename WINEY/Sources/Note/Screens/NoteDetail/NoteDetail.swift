@@ -26,7 +26,8 @@ import SwiftUI
 @frozen public enum NoteDetailSection: String {
   case mynote = "My Note"
   case otherNotes = "Other Notes"
-  case otherNoteDetail
+  case openMyNote
+  case openOtherNote
 }
 
 @Reducer
@@ -37,9 +38,10 @@ public struct NoteDetail {
     
     let noteId: Int
     let country: String
-    let isMine: Bool
     
     var otherNoteCount = 0
+    
+    public var userNickname: String = ""
     
     public var noteMode: NoteDetailSection
     public var noteCardData: NoteDetailDTO?
@@ -48,11 +50,10 @@ public struct NoteDetail {
     
     @Presents var sheetDestination: NoteDetailSheetDestination.State?
     
-    public init(noteMode: NoteDetailSection, noteId: Int, country: String, isMine: Bool = true) {
+    public init(noteMode: NoteDetailSection, noteId: Int, country: String) {
       self.noteMode = noteMode
       self.noteId = noteId
       self.country = country
-      self.isMine = isMine
     }
   }
   
@@ -68,6 +69,8 @@ public struct NoteDetail {
     // MARK: - Inner Business Action
     case _viewWillAppear
     case _moveMoreOtherNote(wineId: Int)
+    case _fetchUserInfo
+    case _fetchNoteData
 //    case _activateBottomSheet(mode: NoteDetailBottomSheet, data: NoteDetail.State)
     
     // MARK: - Inner SetState Action
@@ -75,6 +78,7 @@ public struct NoteDetail {
     case _failureSocialNetworking(Error)  // 추후 경고 처리
     case _setOtherNotes(NoteDTO)
     case _setNoteMode(NoteDetailSection)
+    case _setUserNickname(String)
     
     // MARK: - Child Action
     case sheetDestination(PresentationAction<NoteDetailSheetDestination.Action>)
@@ -89,6 +93,7 @@ public struct NoteDetail {
   }
   
   @Dependency(\.note) var noteService
+  @Dependency(\.user) var userService
   @Dependency(\.kakaoShare) var kakaoShare
   
   public var body: some Reducer<State, Action> {
@@ -98,6 +103,12 @@ public struct NoteDetail {
     Reduce<State, Action> { state, action in
       switch action {
       case ._viewWillAppear:
+        return .run { send in
+          await send(._fetchNoteData)
+          await send(._fetchUserInfo)
+        }
+        
+      case ._fetchNoteData:
         let id = state.noteId
         
         return .run { send in
@@ -108,6 +119,21 @@ public struct NoteDetail {
             await send(._failureSocialNetworking(error))
           }
         }
+        
+      case ._fetchUserInfo:
+        return .run { send in
+          switch await userService.nickname() {
+          case let .success(data):
+            await send(._setUserNickname(data.nickname))
+            
+          case let .failure(error):
+            await send(._failureSocialNetworking(error))
+          }
+        }
+        
+      case let ._setUserNickname(data):
+        state.userNickname = data
+        return .none
         
       case let ._setDetailNotes(data: data):
         state.noteCardData = data
@@ -144,7 +170,8 @@ public struct NoteDetail {
             .enumerated()
             .map {
               OtherNote.State(
-                noteData: $0.element
+                noteData: $0.element,
+                isMine: state.userNickname == $0.element.userNickname
               )
             }
         )

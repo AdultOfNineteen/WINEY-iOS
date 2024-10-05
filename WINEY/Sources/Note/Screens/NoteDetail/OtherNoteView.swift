@@ -64,7 +64,7 @@ public struct OtherNoteView: View {
           userNickname: "테스터",
           noteDate: "test",
           public: false
-        )
+        ), isMine: false
       ),
       reducer: {
         OtherNote()

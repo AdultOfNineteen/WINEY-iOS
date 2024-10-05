@@ -20,7 +20,7 @@ public struct NoteDetailView: View {
   public var body: some View {
     VStack(spacing: 0) {
       // MARK: Navigation Bar
-      if store.isMine {
+      if store.noteMode != .openOtherNote {
         NavigationBar(
           leftIcon: Image(.navigationBack_buttonW),
           leftIconButtonAction: {
@@ -91,11 +91,11 @@ extension NoteDetailView {
         )
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
         
-        if store.noteMode != .otherNoteDetail {
+        if store.noteMode == .mynote || store.noteMode == .otherNotes {
           noteDetailSection()
         }
         
-        if store.noteMode == .mynote || store.noteMode == .otherNoteDetail {
+        if store.noteMode != .otherNotes {
           NoteDetailSmellFeatureView(
             circleColor: noteData.color,
             smellKeywordList: Array(noteData.smellKeywordList)
@@ -163,7 +163,7 @@ extension NoteDetailView {
   @ViewBuilder
   private func noteHeader(noteData: NoteDetailDTO) -> some View {
     HStack(spacing: 0) {
-      if store.isMine {
+      if store.noteMode != .openOtherNote {
         Text("No.")
           .wineyFont(.bodyB1)
         Text(noteData.tastingNoteNo < 10 ? "0" + noteData.tastingNoteNo.description : noteData.tastingNoteNo.description)
