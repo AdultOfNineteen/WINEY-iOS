@@ -19,7 +19,7 @@ public struct OtherNoteListView: View {
   
   public var body: some View {
     Group {
-      if store.mode == .top5 {
+      if store.mode != .all {
         top5List()
       } else {
         noteList()
@@ -35,9 +35,11 @@ private extension OtherNoteListView {
   private func top5List() -> some View {
     VStack(spacing: 0) {
       VStack(alignment: .leading, spacing: 20) {
-        Text("Other Notes")
-          .wineyFont(.display2)
-          .foregroundStyle(.white)
+        if store.mode == .top5Note {
+          Text("Other Notes")
+            .wineyFont(.display2)
+            .foregroundStyle(.white)
+        }
         
         HStack(spacing: 0) {
           Text("\(store.totalCnt)개")
@@ -91,8 +93,10 @@ private extension OtherNoteListView {
       .onTapGesture {
         store.send(.tappedMoreOtherNote)
       }
-      .padding(.bottom, 110)
-    }.task {
+      .padding(.bottom, store.mode == .top5RecoomendWine ? 50 : 110)
+    }
+    .padding(.top, store.mode == .top5RecoomendWine ? 20 : nil)
+    .task {
       store.send(._viewWillAppear)
     }
   }

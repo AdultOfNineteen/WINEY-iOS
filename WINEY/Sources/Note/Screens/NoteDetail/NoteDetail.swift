@@ -122,7 +122,7 @@ public struct NoteDetail {
         }
         
         if mode == .otherNotes {
-          state.otherNoteList = .init(mode: .top5, wineId: cardData.wineId)
+          state.otherNoteList = .init(mode: .top5Note, wineId: cardData.wineId)
           return .none
         } else {
           return .none

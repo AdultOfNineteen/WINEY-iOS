@@ -9,7 +9,8 @@ import ComposableArchitecture
 import SwiftUI
 
 @frozen public enum OtherNoteMode {
-  case top5
+  case top5RecoomendWine
+  case top5Note
   case all
 }
 
@@ -34,7 +35,7 @@ public struct OtherNoteList {
     public init(mode: OtherNoteMode, wineId: Int) {
       self.mode = mode
       self.wineId = wineId
-      self.size = mode == .top5 ? 5 : 10
+      self.size = mode == .all ? 10 : 5
     }
   }
   

@@ -140,8 +140,8 @@ extension TabBar {
         return .none
         
       case let .path(action):
-        // MARK: - 노트 분석 화면 내 로직
         switch action {
+          // MARK: - 노트 분석 화면 내 로직
         case let .element(id: _, action: .analysis(._navigateLoading(nickName))):
           state.path.append(.loading(.init(userNickname: nickName)))
           return .none
@@ -167,6 +167,15 @@ extension TabBar {
           state.path.pop(from: id)
           return .none
           
+          // MARK: - 추천 와인 공유 노트 로직
+        case let .element(id: _, action: .detailWine(.otherNoteList(.otherNote(.element(id: _, action: ._moveNoteDetail(data, isMine)))))):
+          state.path.append(.noteDetail(.init(noteMode: isMine ? .openMyNote : .openOtherNote, noteId: data.noteId, country: data.country)))
+          return .none
+          
+        case let .element(_, action: .detailWine(.otherNoteList(._moveMoreOtherNote(wineId)))):
+          state.path.append(.otherNoteList(.init(mode: .all, wineId: wineId)))
+          return .none
+          
           // MARK: - 팁 리스트 내 로직
         case let .element(id, action: .tipCardList(.tappedBackButton)):
           state.path.pop(from: id)
@@ -180,7 +189,7 @@ extension TabBar {
           state.path.pop(from: id)
           return .none
           
-      // MARK: - 노트 수정 화면 내 로직
+          // MARK: - 노트 수정 화면 내 로직
         case .element(id: _, action: .noteDetail(.delegate(.patchNote))):
           state.path.append(.setAlcohol(.init()))
           return .none
@@ -189,24 +198,24 @@ extension TabBar {
           state.path.pop(from: id)
           return .none
           
-      // MARK: - 노트 공유 리스트 로직
+          // MARK: - 노트 공유 리스트 로직
         case let .element(id: _, action: .noteDetail(.otherNoteList(._moveMoreOtherNote(wineId)))):
           state.path.append(.otherNoteList(.init(mode: .all, wineId: wineId)))
           return .none
           
-        case let .element(id, action: .otherNoteList(.otherNote(.element(id: _, action: ._moveNoteDetail(data, isMine))))):
+        case let .element(_, action: .otherNoteList(.otherNote(.element(id: _, action: ._moveNoteDetail(data, isMine))))):
           state.path.append(.noteDetail(.init(noteMode: isMine ? .openMyNote : .openOtherNote, noteId: data.noteId, country: data.country)))
           return .none
           
         case let .element(id, action: .otherNoteList(.tappedBackButton)):
           state.path.pop(from: id)
           return .none
-
+          
         case let .element(id: _, action: .noteDetail(.otherNoteList(.otherNote(.element(id: _, action: ._moveNoteDetail(data, isMine)))))):
           state.path.append(.noteDetail(.init(noteMode: isMine ? .openMyNote : .openOtherNote, noteId: data.noteId, country: data.country)))
           return .none
           
-      // MARK: - 노트 작성 화면 내 로직
+          // MARK: - 노트 작성 화면 내 로직
         case let .element(_, action: .wineSearch(.searchCard(.element(id: _, action: ._moveNextPage(data))))):
           state.path.append(.wineConfirm(.init(wineData: data)))
           return .none
@@ -270,7 +279,7 @@ extension TabBar {
         case let .element(id, action: .setTaste(._moveBackPage)):
           state.path.pop(from: id)
           return .none
-
+          
         case let .element(id, action: .helpTaste(.tappedBackButton)):
           state.path.pop(from: id)
           return .none
@@ -291,38 +300,38 @@ extension TabBar {
         case .element(id: _, action: .userSetting(.delegate(.toChangeUserNickNameView))):
           state.path.append(.changeNickname(.init()))
           return .none
-
+          
         case let .element(id: _, action: .userSetting(.delegate(.toSignOutView(userId)))):
           state.path.append(.signOut(.init(userId: userId)))
           return .none
-
+          
         case let .element(id: _, action: .signOut(.delegate(.toSignOutConfirmView(userId, selectedOption, userReason)))):
           state.path.append(.signOutConfirm(.init(userId: userId, selectedSignOutOption: selectedOption, userReason: userReason)))
           return .none
-
+          
         case let .element(id: id, action: .userSetting(.tappedBackButton)):
           state.path.pop(from: id)
           return .none
-
+          
         case .element(id: _, action: .changeNickname(.delegate(.dismiss))):
           state.path.removeLast()
           return .none
-
+          
         case .element(id: _, action: .signOut(.delegate(.dismiss))):
           state.path.removeLast()
           return .none
-
+          
         case .element(id: _, action: .signOutConfirm(.delegate(.dismiss))):
           state.path.removeLast()
           return .none
-
+          
           // MARK: - delegate 상위 전달 로직
         case .element(id: _, action: .userSetting(.delegate(.logOut))):
           return .send(.delegate(.logout))
-
+          
         case .element(id: _, action: .signOutConfirm(.delegate(.signOut))):
           return .send(.delegate(.signOut))
-
+          
           // MARK: - 하위 정보 하위로 전달
         case let .element(id: _, action: .changeNickname(.delegate(.changeNickName(newNickName)))):
           return .send(.userInfo(._changeNickname(newNickName)))

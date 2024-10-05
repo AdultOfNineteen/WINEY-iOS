@@ -131,9 +131,7 @@
 		F35A67242C9F801D005491C5 /* WineConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67082C9F801C005491C5 /* WineConfirmView.swift */; };
 		F35A67252C9F801D005491C5 /* WineSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67092C9F801C005491C5 /* WineSearch.swift */; };
 		F35A67262C9F801D005491C5 /* WineSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A670A2C9F801C005491C5 /* WineSearchView.swift */; };
-		F35A67642C9F8C6A005491C5 /* SpecificWineTastingNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67552C9F8C69005491C5 /* SpecificWineTastingNotes.swift */; };
 		F35A67652C9F8C6A005491C5 /* WineDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67562C9F8C69005491C5 /* WineDetail.swift */; };
-		F35A67662C9F8C6A005491C5 /* SpecificWineTastingNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67582C9F8C69005491C5 /* SpecificWineTastingNotesView.swift */; };
 		F35A67672C9F8C6A005491C5 /* WineDetailChartBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A67592C9F8C69005491C5 /* WineDetailChartBackground.swift */; };
 		F35A67682C9F8C6A005491C5 /* WineDetailGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A675A2C9F8C69005491C5 /* WineDetailGraph.swift */; };
 		F35A67692C9F8C6A005491C5 /* WineDetailInfoMiddleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A675B2C9F8C69005491C5 /* WineDetailInfoMiddleView.swift */; };
@@ -347,9 +345,7 @@
 		F35A67082C9F801C005491C5 /* WineConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineConfirmView.swift; sourceTree = "<group>"; };
 		F35A67092C9F801C005491C5 /* WineSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineSearch.swift; sourceTree = "<group>"; };
 		F35A670A2C9F801C005491C5 /* WineSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineSearchView.swift; sourceTree = "<group>"; };
-		F35A67552C9F8C69005491C5 /* SpecificWineTastingNotes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificWineTastingNotes.swift; sourceTree = "<group>"; };
 		F35A67562C9F8C69005491C5 /* WineDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineDetail.swift; sourceTree = "<group>"; };
-		F35A67582C9F8C69005491C5 /* SpecificWineTastingNotesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificWineTastingNotesView.swift; sourceTree = "<group>"; };
 		F35A67592C9F8C69005491C5 /* WineDetailChartBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineDetailChartBackground.swift; sourceTree = "<group>"; };
 		F35A675A2C9F8C69005491C5 /* WineDetailGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineDetailGraph.swift; sourceTree = "<group>"; };
 		F35A675B2C9F8C69005491C5 /* WineDetailInfoMiddleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WineDetailInfoMiddleView.swift; sourceTree = "<group>"; };
@@ -800,8 +796,6 @@
 		F35A675D2C9F8C69005491C5 /* WineDetail */ = {
 			isa = PBXGroup;
 			children = (
-				F35A67552C9F8C69005491C5 /* SpecificWineTastingNotes.swift */,
-				F35A67582C9F8C69005491C5 /* SpecificWineTastingNotesView.swift */,
 				F35A67562C9F8C69005491C5 /* WineDetail.swift */,
 				F35A675C2C9F8C69005491C5 /* WineDetailView.swift */,
 				F35A675B2C9F8C69005491C5 /* WineDetailInfoMiddleView.swift */,
@@ -1608,8 +1602,6 @@
 				F35A679E2C9F911F005491C5 /* TipCardView.swift in Sources */,
 				F3EFC8702C975B3C00BC6DC9 /* NoteFilterDTO.swift in Sources */,
 				F35A66992C998870005491C5 /* WineAnalysisResultView.swift in Sources */,
-				F35A67662C9F8C6A005491C5 /* SpecificWineTastingNotesView.swift in Sources */,
-				F35A67642C9F8C6A005491C5 /* SpecificWineTastingNotes.swift in Sources */,
 				F35A66592C996DC7005491C5 /* FilterDetailView.swift in Sources */,
 				F3EFC8A02C975B3C00BC6DC9 /* WineRankData.swift in Sources */,
 				F3EFC8782C975B3C00BC6DC9 /* CreateNoteManager.swift in Sources */,
