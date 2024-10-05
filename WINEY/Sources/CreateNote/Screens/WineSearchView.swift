@@ -93,7 +93,7 @@ extension WineSearchView {
           .wineyFont(.bodyM1)
           .foregroundStyle(.wineyGray400)
         
-        Text("\(store.totalCnt)개")
+        Text("\(store.userSearch.isEmpty ? 0 : store.totalCnt)개")
           .wineyFont(.bodyB1)
           .foregroundStyle(.wineyMain3)
       }
