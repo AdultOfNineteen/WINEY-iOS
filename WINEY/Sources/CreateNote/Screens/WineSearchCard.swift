@@ -42,6 +42,12 @@ public struct WineSearchCard {
     Reduce<State, Action> { state, action in
       switch action {
       case .tappedWineCard:
+        if state.data.type == WineType.sparkl.rawValue {
+          CreateNoteManager.shared.isSparkling = true
+        } else {
+          CreateNoteManager.shared.isSparkling = false
+        }
+        
         return .send(._moveNextPage(state.data))
         
       default:

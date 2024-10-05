@@ -38,6 +38,7 @@ public struct MyWineTaste: Hashable, Codable {
   public let alcohol: Double
   public let body: Double
   public let tannin: Double
+  public let sparkling: Double
   public let finish: Double
 }
 

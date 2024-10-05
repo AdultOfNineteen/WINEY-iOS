@@ -17,6 +17,7 @@ public struct CreateNoteRequestDTO: Encodable, Equatable {
   let sweetness: Int
   let acidity: Int
   let alcohol: Int
+  let sparkling: Int
   let body: Int
   let tannin: Int
   let finish: Int
@@ -35,6 +36,7 @@ public struct CreateNoteRequestDTO: Encodable, Equatable {
     sweetness: Int,
     acidity: Int,
     alcohol: Int,
+    sparkling: Int,
     body: Int,
     tannin: Int,
     finish: Int,
@@ -52,6 +54,7 @@ public struct CreateNoteRequestDTO: Encodable, Equatable {
     self.sweetness = sweetness
     self.acidity = acidity
     self.alcohol = alcohol
+    self.sparkling = sparkling
     self.body = body
     self.tannin = tannin
     self.finish = finish

@@ -159,6 +159,7 @@ public struct HexagonBackgroundView: View {
             alcohol: 1,
             body: 2,
             tannin: 3,
+            sparkling: 0,
             finish: 1
           )
       ),

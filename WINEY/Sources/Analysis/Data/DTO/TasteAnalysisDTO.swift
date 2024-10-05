@@ -86,5 +86,6 @@ public struct Taste: Codable, Equatable {
   let alcohol: Double
   let body: Double
   let tannin: Double
+  let sparkling: Double
   let finish: Double
 }

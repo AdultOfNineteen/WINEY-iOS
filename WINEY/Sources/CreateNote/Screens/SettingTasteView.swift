@@ -53,12 +53,13 @@ public struct SettingTasteView: View {
 
 extension SettingTasteView {
   
-  private enum TasteCategory {
+  @frozen private enum TasteCategory {
     case sweetness
     case acidity
     case body
     case tannin
     case alcohol
+    case sparkling
     case finish
     
     public var title: String {
@@ -74,6 +75,8 @@ extension SettingTasteView {
         return "탄닌"
       case .alcohol:
         return "알코올"
+      case .sparkling:
+        return "탄산감"
       case .finish:
         return "여운"
       }
@@ -92,6 +95,8 @@ extension SettingTasteView {
         return "떫고 씁쓸함의 정도"
       case .alcohol:
         return "알코올 향과 맛의 정도"
+      case .sparkling:
+        return "탄산의 세기"
       case .finish:
         return "마신 후 맛과 향이 지속되는 정도"
       }
@@ -164,17 +169,28 @@ extension SettingTasteView {
             })
             .id(3)
           
-          content(category: .alcohol, value: store.alcohol)
-            .opacity(store.tannin > 0 ? 1.0 : 0.0)
-            .onChange(of: store.alcohol, perform: { [alcohol = store.alcohol] value in
-              if alcohol == 0 && value > 0 {
-                proxy.scrollTo(5, anchor: .bottom)
-              }
-            })
-            .id(4)
+          if CreateNoteManager.shared.isSparkling {
+            content(category: .sparkling, value: store.sparkling)
+              .opacity(store.tannin > 0 ? 1.0 : 0.0)
+              .onChange(of: store.sparkling, perform: { [sparkling = store.sparkling] value in
+                if sparkling == 0 && value > 0 {
+                  proxy.scrollTo(5, anchor: .bottom)
+                }
+              })
+              .id(4)
+          } else {
+            content(category: .alcohol, value: store.alcohol)
+              .opacity(store.tannin > 0 ? 1.0 : 0.0)
+              .onChange(of: store.alcohol, perform: { [alcohol = store.alcohol] value in
+                if alcohol == 0 && value > 0 {
+                  proxy.scrollTo(5, anchor: .bottom)
+                }
+              })
+              .id(4)
+          }
           
           content(category: .finish, value: store.finish)
-            .opacity(store.alcohol > 0 ? 1.0 : 0.0)
+            .opacity((CreateNoteManager.shared.isSparkling ? store.sparkling : store.alcohol) > 0 ? 1.0 : 0.0)
             .onChange(of: store.finish, perform: { [finish = store.finish] value in
               if finish == 0 && value > 0 {
                 proxy.scrollTo(5, anchor: .bottom)
@@ -238,6 +254,8 @@ extension SettingTasteView {
                       store.send(._setBody(index))
                     case .tannin:
                       store.send(._setTannin(index))
+                    case .sparkling:
+                      store.send(._setSparkling(index))
                     case .alcohol:
                       store.send(._setAlcohol(index))
                     case .finish:

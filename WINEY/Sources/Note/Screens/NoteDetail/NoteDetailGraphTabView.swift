@@ -222,6 +222,7 @@ public struct WineDetailGraphMyWineDefaultView: View {
         alcohol: 1,
         body: 3,
         tannin: 4,
+        sparkling: 0,
         finish: 3
       ),
       defaultWineTaste: DefaultWineTaste(

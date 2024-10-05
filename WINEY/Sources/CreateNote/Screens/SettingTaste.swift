@@ -20,6 +20,7 @@ public struct SettingTaste {
     public var body: Int = 0
     public var tannin: Int = 0
     public var alcohol: Int = 0
+    public var sparkling: Int = 0
     public var finish: Int = 0
   }
   
@@ -41,6 +42,7 @@ public struct SettingTaste {
     case _setBody(Int)
     case _setTannin(Int)
     case _setAlcohol(Int)
+    case _setSparkling(Int)
     case _setFinish(Int)
     
     // MARK: - Child Action
@@ -55,6 +57,7 @@ public struct SettingTaste {
         state.body = CreateNoteManager.shared.body ?? 0
         state.tannin = CreateNoteManager.shared.tannin ?? 0
         state.alcohol = CreateNoteManager.shared.alcohol ?? 0
+        state.sparkling = CreateNoteManager.shared.sparkling ?? 0
         state.finish = CreateNoteManager.shared.finish ?? 0
         return .none
         
@@ -78,35 +81,41 @@ public struct SettingTaste {
         
       case ._setSweetness(let value):
         state.sweetness = value
-        CreateNoteManager.shared.sweetness = state.sweetness
         return .none
         
       case ._setAcidity(let value):
         state.acidity = value
-        CreateNoteManager.shared.acidity = state.acidity
         return .none
         
       case ._setBody(let value):
         state.body = value
-        CreateNoteManager.shared.body = state.body
         return .none
         
       case ._setTannin(let value):
         state.tannin = value
-        CreateNoteManager.shared.tannin = state.tannin
         return .none
         
       case ._setAlcohol(let value):
         state.alcohol = value
-        CreateNoteManager.shared.alcohol = state.alcohol
+        return .none
+        
+      case ._setSparkling(let value):
+        state.sparkling = value
         return .none
         
       case ._setFinish(let value):
         state.finish = value
-        CreateNoteManager.shared.finish = state.finish
         return .none
         
       case .tappedNextButton:
+        CreateNoteManager.shared.sweetness = state.sweetness
+        CreateNoteManager.shared.acidity = state.acidity
+        CreateNoteManager.shared.body = state.body
+        CreateNoteManager.shared.tannin = state.tannin
+        CreateNoteManager.shared.alcohol = state.alcohol
+        CreateNoteManager.shared.sparkling = state.sparkling
+        CreateNoteManager.shared.finish = state.finish
+        
         if CreateNoteManager.shared.mode == .create {
           AmplitudeProvider.shared.track(event: .TASTE_INPUT_NEXT_CLICK)
         }
