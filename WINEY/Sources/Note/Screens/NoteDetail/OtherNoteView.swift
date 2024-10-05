@@ -23,7 +23,7 @@ public struct OtherNoteView: View {
           .wineyFont(.bodyB1)
           .foregroundStyle(.white)
         
-        Text(store.noteData.noteDate)
+        Text(store.noteData.noteDate.replacingHyphensWithDots())
           .wineyFont(.captionM2)
           .foregroundStyle(.wineyGray700)
       }
@@ -45,6 +45,12 @@ public struct OtherNoteView: View {
     .onTapGesture {
       store.send(.tappedCard)
     }
+  }
+}
+
+private extension String {
+  func replacingHyphensWithDots() -> String {
+    return self.replacingOccurrences(of: "-", with: ".")
   }
 }
 

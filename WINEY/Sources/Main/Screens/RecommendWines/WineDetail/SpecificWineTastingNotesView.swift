@@ -66,21 +66,6 @@ struct SpecificWineTastingNotesView: View {
           )
         }
       }
-//      .navigationDestination(for: OtherTastingNoteNavigationDestination.self) { destination in
-//        switch destination {
-//        case .allTastingNotesList:
-//          allTastingNotesView
-//          
-//        case .tastingNoteDetail:
-//          IfLetStore(
-//            self.store.scope(
-//              state: \.noteDetail,
-//              action: SpecificWineTastingNotes.Action.noteDetail
-//            ),
-//            then: NoteDetailView.init
-//          )
-//        }
-//      }
     }
     .task {
        store.send(._viewWillAppear)

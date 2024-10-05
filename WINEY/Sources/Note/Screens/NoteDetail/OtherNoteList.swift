@@ -8,6 +8,11 @@
 import ComposableArchitecture
 import SwiftUI
 
+@frozen public enum OtherNoteMode {
+  case top5
+  case all
+}
+
 @Reducer
 public struct OtherNoteList {
   
@@ -15,9 +20,10 @@ public struct OtherNoteList {
   public struct State: Equatable {
     
     public let wineId: Int
+    public let mode: OtherNoteMode
     
     var page: Int = 0
-    var size: Int = 10
+    var size: Int
     var totalCnt: Int = 0
     var isLast: Bool = false
     
@@ -25,14 +31,17 @@ public struct OtherNoteList {
     
     public var otherNotes: IdentifiedArrayOf<OtherNote.State> = []
     
-    public init(wineId: Int) {
+    public init(mode: OtherNoteMode, wineId: Int) {
+      self.mode = mode
       self.wineId = wineId
+      self.size = mode == .top5 ? 5 : 10
     }
   }
   
   public enum Action {
     // MARK: - User Action
     case tappedBackButton
+    case tappedMoreOtherNote
     
     // MARK: - Inner Business Action
     case _viewWillAppear
@@ -41,6 +50,7 @@ public struct OtherNoteList {
     case _moveBack
     case _fetchUserInfo
     case _fetchOtherNote
+    case _moveMoreOtherNote(wineId: Int)
     
     // MARK: - Inner SetState Action
     case _setOtherNotes(NoteDTO)
@@ -62,6 +72,9 @@ public struct OtherNoteList {
           await send(._fetchOtherNote)
           await send(._fetchUserInfo)
         }
+        
+      case .tappedMoreOtherNote:
+        return .send(._moveMoreOtherNote(wineId: state.wineId))
         
       case ._fetchOtherNote:
         let wineId = state.wineId

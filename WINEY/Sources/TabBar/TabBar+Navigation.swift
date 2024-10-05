@@ -190,19 +190,19 @@ extension TabBar {
           return .none
           
       // MARK: - 노트 공유 리스트 로직
-        case let .element(_, action: .noteDetail(._moveMoreOtherNote(wineId))):
-          state.path.append(.otherNoteList(.init(wineId: wineId)))
+        case let .element(id: _, action: .noteDetail(.otherNoteList(._moveMoreOtherNote(wineId)))):
+          state.path.append(.otherNoteList(.init(mode: .all, wineId: wineId)))
+          return .none
+          
+        case let .element(id, action: .otherNoteList(.otherNote(.element(id: _, action: ._moveNoteDetail(data, isMine))))):
+          state.path.append(.noteDetail(.init(noteMode: isMine ? .openMyNote : .openOtherNote, noteId: data.noteId, country: data.country)))
           return .none
           
         case let .element(id, action: .otherNoteList(.tappedBackButton)):
           state.path.pop(from: id)
           return .none
-          
-        case let .element(id: _, action: .noteDetail(.otherNote(.element(id: _, action: ._moveNoteDetail(data, isMine))))):
-          state.path.append(.noteDetail(.init(noteMode: isMine ? .openMyNote : .openOtherNote, noteId: data.noteId, country: data.country)))
-          return .none
-          
-        case let .element(id: _, action: .otherNoteList(.otherNote(.element(id: _, action: ._moveNoteDetail(data, isMine))))):
+
+        case let .element(id: _, action: .noteDetail(.otherNoteList(.otherNote(.element(id: _, action: ._moveNoteDetail(data, isMine)))))):
           state.path.append(.noteDetail(.init(noteMode: isMine ? .openMyNote : .openOtherNote, noteId: data.noteId, country: data.country)))
           return .none
           

@@ -41,12 +41,11 @@ public struct NoteDetail {
     
     var otherNoteCount = 0
     
-    public var userNickname: String = ""
-    
     public var noteMode: NoteDetailSection
     public var noteCardData: NoteDetailDTO?
     public var selectOption: NoteDetailOption?
-    public var otherNotes: IdentifiedArrayOf<OtherNote.State> = []
+    
+    public var otherNoteList: OtherNoteList.State?
     
     @Presents var sheetDestination: NoteDetailSheetDestination.State?
     
@@ -64,13 +63,9 @@ public struct NoteDetail {
     case tappedOption(NoteDetailOption)
     case tappedNoteDelete(Int)
     case tappedNoteMode(NoteDetailSection)
-    case tappedMoreOtherNote
     
     // MARK: - Inner Business Action
     case _viewWillAppear
-    case _moveMoreOtherNote(wineId: Int)
-    case _fetchUserInfo
-    case _fetchNoteData
 //    case _activateBottomSheet(mode: NoteDetailBottomSheet, data: NoteDetail.State)
     
     // MARK: - Inner SetState Action
@@ -78,11 +73,10 @@ public struct NoteDetail {
     case _failureSocialNetworking(Error)  // 추후 경고 처리
     case _setOtherNotes(NoteDTO)
     case _setNoteMode(NoteDetailSection)
-    case _setUserNickname(String)
     
     // MARK: - Child Action
     case sheetDestination(PresentationAction<NoteDetailSheetDestination.Action>)
-    case otherNote(IdentifiedActionOf<OtherNote>)
+    case otherNoteList(OtherNoteList.Action)
     case delete
     
     case delegate(Delegate)
@@ -93,7 +87,6 @@ public struct NoteDetail {
   }
   
   @Dependency(\.note) var noteService
-  @Dependency(\.user) var userService
   @Dependency(\.kakaoShare) var kakaoShare
   
   public var body: some Reducer<State, Action> {
@@ -103,12 +96,6 @@ public struct NoteDetail {
     Reduce<State, Action> { state, action in
       switch action {
       case ._viewWillAppear:
-        return .run { send in
-          await send(._fetchNoteData)
-          await send(._fetchUserInfo)
-        }
-        
-      case ._fetchNoteData:
         let id = state.noteId
         
         return .run { send in
@@ -119,21 +106,6 @@ public struct NoteDetail {
             await send(._failureSocialNetworking(error))
           }
         }
-        
-      case ._fetchUserInfo:
-        return .run { send in
-          switch await userService.nickname() {
-          case let .success(data):
-            await send(._setUserNickname(data.nickname))
-            
-          case let .failure(error):
-            await send(._failureSocialNetworking(error))
-          }
-        }
-        
-      case let ._setUserNickname(data):
-        state.userNickname = data
-        return .none
         
       case let ._setDetailNotes(data: data):
         state.noteCardData = data
@@ -150,39 +122,11 @@ public struct NoteDetail {
         }
         
         if mode == .otherNotes {
-          return .run { send in
-            switch await noteService.loadNotes(0, 5, 0, [], [], nil, cardData.wineId) {
-            case let .success(data):
-              await send(._setOtherNotes(data))
-              
-            case let .failure(error):
-              print("데이터 가져오기 실패 \(error.localizedDescription)")
-            }
-          }
+          state.otherNoteList = .init(mode: .top5, wineId: cardData.wineId)
+          return .none
         } else {
           return .none
         }
-        
-      case let ._setOtherNotes(data):
-        state.otherNoteCount = data.totalCnt
-        state.otherNotes  = IdentifiedArrayOf(
-          uniqueElements: data.contents
-            .enumerated()
-            .map {
-              OtherNote.State(
-                noteData: $0.element,
-                isMine: state.userNickname == $0.element.userNickname
-              )
-            }
-        )
-        return .none
-        
-      case .tappedMoreOtherNote:
-        guard let cardData = state.noteCardData else {
-          return .none
-        }
-        
-        return .send(._moveMoreOtherNote(wineId: cardData.wineId))
         
       default:
         return .none
@@ -191,8 +135,8 @@ public struct NoteDetail {
     .ifLet(\.$sheetDestination, action: \.sheetDestination) {
       NoteDetailSheetDestination()
     }
-    .forEach(\.otherNotes, action: \.otherNote) {
-      OtherNote()
+    .ifLet(\.otherNoteList, action: \.otherNoteList) {
+      OtherNoteList()
     }
   }
   

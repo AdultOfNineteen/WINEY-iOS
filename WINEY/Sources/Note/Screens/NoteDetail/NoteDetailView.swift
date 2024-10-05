@@ -120,7 +120,12 @@ extension NoteDetailView {
           // MARK: Image, memo
           noteImageMemo(noteData: noteData)
         } else {
-          otherNoteList()
+          if let childStore = store.scope(state: \.otherNoteList, action: \.otherNoteList) {
+            OtherNoteListView(store: childStore)
+          } else {
+            ProgressView()
+              .frame(maxWidth: .infinity, maxHeight: .infinity)
+          }
         }
       }
     }
@@ -188,70 +193,6 @@ extension NoteDetailView {
     .wineyFont(.bodyB1)
     .padding(.top, 5.34)
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-  }
-  
-  @ViewBuilder
-  private func otherNoteList() -> some View {
-    VStack(spacing: 0) {
-      VStack(alignment: .leading, spacing: 20) {
-        Text("Other Notes")
-          .wineyFont(.display2)
-          .foregroundStyle(.white)
-        
-        HStack(spacing: 0) {
-          Text("\(store.otherNoteCount)개")
-            .foregroundStyle(.wineyMain3)
-          
-          Text("의 테이스팅 노트가 있어요!")
-            .foregroundStyle(.white)
-          
-          Spacer()
-        }
-        .wineyFont(.title2)
-      }
-      .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-      
-      if store.otherNoteCount > 0 {
-        LazyVStack(spacing: 5) {
-          ForEachStore(
-            store.scope(state: \.otherNotes, action: \.otherNote)
-          ) { store in
-            OtherNoteView(store: store)
-          }
-        }
-        .padding(.leading, 24)
-        .padding(.trailing, 5)
-        .padding(.vertical, 20)
-      } else {
-        VStack(spacing: 13) {
-          Image(.emptyNoteIconW)
-          
-          VStack(spacing: 6) {
-            Text("등록된 노트가 없어요 :(")
-              .wineyFont(.headLine)
-            
-            Text("이 와인의 첫 와이너가 되어보세요!")
-              .wineyFont(.bodyM2)
-          }
-          .foregroundStyle(.wineyGray800)
-          .padding(.top, 13)
-        }
-        .padding(.vertical, 58)
-      }
-      
-      HStack(spacing: 0) {
-        Text("더 보러가기")
-          .wineyFont(.bodyM2)
-          .foregroundStyle(.wineyGray400)
-        
-        Image(.ic_arrow_rightW)
-      }
-      .background(.wineyMainBackground)
-      .onTapGesture {
-        store.send(.tappedMoreOtherNote)
-      }
-      .padding(.bottom, 110)
-    }
   }
   
   @ViewBuilder
