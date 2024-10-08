@@ -19,7 +19,7 @@ public struct OtherNoteListView: View {
   
   public var body: some View {
     Group {
-      if store.mode != .all {
+      if store.mode != .allList {
         top5List()
       } else {
         noteList()
@@ -35,11 +35,9 @@ private extension OtherNoteListView {
   private func top5List() -> some View {
     VStack(spacing: 0) {
       VStack(alignment: .leading, spacing: 20) {
-        if store.mode == .top5Note {
-          Text("Other Notes")
-            .wineyFont(.display2)
-            .foregroundStyle(.white)
-        }
+        Text("Other Notes")
+          .wineyFont(.display2)
+          .foregroundStyle(.white)
         
         HStack(spacing: 0) {
           Text("\(store.totalCnt)개")
@@ -95,7 +93,6 @@ private extension OtherNoteListView {
       }
       .padding(.bottom, store.mode == .top5RecoomendWine ? 50 : 110)
     }
-    .padding(.top, store.mode == .top5RecoomendWine ? 20 : nil)
     .task {
       store.send(._viewWillAppear)
     }
@@ -114,10 +111,6 @@ private extension OtherNoteListView {
       )
       
       VStack(alignment: .leading, spacing: 20) {
-        Text("Other Notes")
-          .wineyFont(.display2)
-          .foregroundStyle(.white)
-        
         HStack(spacing: 0) {
           Text("\(store.totalCnt)개")
             .foregroundStyle(.wineyMain3)
@@ -129,6 +122,7 @@ private extension OtherNoteListView {
         }
         .wineyFont(.title2)
       }
+      .padding(.vertical, 20)
       .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
       
       Group {
@@ -146,7 +140,6 @@ private extension OtherNoteListView {
             }
             .padding(.leading, 24)
             .padding(.trailing, 5)
-            .padding(.top, 20)
           }
         } else {
           VStack(spacing: 13) {

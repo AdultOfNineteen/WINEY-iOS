@@ -55,6 +55,7 @@ public struct WineDetailView: View {
           wineGraph()
           
           divider()
+            .padding(.bottom, 20)
           
           OtherNoteListView(
             store: store.scope(

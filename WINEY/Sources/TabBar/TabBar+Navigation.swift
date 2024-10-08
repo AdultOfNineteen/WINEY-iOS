@@ -173,7 +173,7 @@ extension TabBar {
           return .none
           
         case let .element(_, action: .detailWine(.otherNoteList(._moveMoreOtherNote(wineId)))):
-          state.path.append(.otherNoteList(.init(mode: .all, wineId: wineId)))
+          state.path.append(.otherNoteList(.init(mode: .allList, wineId: wineId)))
           return .none
           
           // MARK: - 팁 리스트 내 로직
@@ -200,7 +200,7 @@ extension TabBar {
           
           // MARK: - 노트 공유 리스트 로직
         case let .element(id: _, action: .noteDetail(.otherNoteList(._moveMoreOtherNote(wineId)))):
-          state.path.append(.otherNoteList(.init(mode: .all, wineId: wineId)))
+          state.path.append(.otherNoteList(.init(mode: .allList, wineId: wineId)))
           return .none
           
         case let .element(_, action: .otherNoteList(.otherNote(.element(id: _, action: ._moveNoteDetail(data, isMine))))):

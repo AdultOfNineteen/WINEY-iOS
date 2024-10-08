@@ -11,7 +11,7 @@ import SwiftUI
 @frozen public enum OtherNoteMode {
   case top5RecoomendWine
   case top5Note
-  case all
+  case allList
 }
 
 @Reducer
@@ -35,7 +35,7 @@ public struct OtherNoteList {
     public init(mode: OtherNoteMode, wineId: Int) {
       self.mode = mode
       self.wineId = wineId
-      self.size = mode == .all ? 10 : 5
+      self.size = mode == .allList ? 10 : 5
     }
   }
   
