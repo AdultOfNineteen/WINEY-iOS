@@ -96,7 +96,7 @@ extension SettingTasteView {
       case .alcohol:
         return "알코올 향과 맛의 정도"
       case .sparkling:
-        return "탄산의 세기"
+        return "탄산의 세기 정도"
       case .finish:
         return "마신 후 맛과 향이 지속되는 정도"
       }
