@@ -80,7 +80,7 @@ extension NoteDetailView {
         // MARK: Wine Info
         WineDetailInfoMiddleView(
           wineType: WineType.changeType(at: noteData.wineType),
-          nationalAnthems: store.country,
+          nationalAnthems: noteData.country,
           varities: noteData.varietal,
           abv: noteData.officialAlcohol,
           purchasePrice: noteData.price,
@@ -255,7 +255,7 @@ extension NoteDetailView {
   NoteDetailView(
     store: Store(
       initialState: NoteDetail.State.init(
-        noteMode: .mynote, noteId: 1, country: "test"
+        noteMode: .mynote, noteId: 1
       ),
       reducer: {
         NoteDetail()

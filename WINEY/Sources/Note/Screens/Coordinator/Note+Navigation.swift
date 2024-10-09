@@ -56,8 +56,8 @@ extension Note {
         return .send(.tabDelegate(.wineSearch))
         
         // MARK: - 노트 상세 화면 시작
-      case let .filteredNote(.tastingNotes(.tappedNoteCard(noteId, country))):
-        return .send(.tabDelegate(.noteDetail(noteId: noteId, country: country)))
+      case let .filteredNote(.tastingNotes(.tappedNoteCard(noteId))):
+        return .send(.tabDelegate(.noteDetail(noteId: noteId)))
 
       default: return .none
       }

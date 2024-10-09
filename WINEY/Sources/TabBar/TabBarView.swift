@@ -70,11 +70,11 @@ public struct TabBarView: View {
             )
         }
       }
-      .onOpenURL { url in
-        print("공유 링크 타고 들어옴")
-      }
       .task {
         store.send(._onSetting)
+      }
+      .onOpenURL { url in
+        store.send(._handleDeepLink(url))
       }
       .navigationBarHidden(true)
     } destination: { store in

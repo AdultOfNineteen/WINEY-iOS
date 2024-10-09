@@ -37,7 +37,6 @@ public struct NoteDetail {
   public struct State: Equatable {
     
     let noteId: Int
-    let country: String
     
     var otherNoteCount = 0
     
@@ -49,10 +48,9 @@ public struct NoteDetail {
     
     @Presents var sheetDestination: NoteDetailSheetDestination.State?
     
-    public init(noteMode: NoteDetailSection, noteId: Int, country: String) {
+    public init(noteMode: NoteDetailSection, noteId: Int) {
       self.noteMode = noteMode
       self.noteId = noteId
-      self.country = country
     }
   }
   
@@ -112,7 +110,11 @@ public struct NoteDetail {
         return .none
         
       case let .tappedNoteMode(mode):
-        return .send(._setNoteMode(mode))
+        if state.noteMode == mode {
+          return .none
+        } else {
+          return .send(._setNoteMode(mode))
+        }
         
       case let ._setNoteMode(mode):
         state.noteMode = mode

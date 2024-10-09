@@ -128,9 +128,15 @@ extension TabBar {
       case .note(.tabDelegate(.analysis)):
         state.path.append(.analysis(.init(isPresentedBottomSheet: false)))
         return .none
-      case let .note(.tabDelegate(.noteDetail(noteId, country))):
-        state.path.append(.noteDetail(.init(noteMode: .mynote, noteId: noteId, country: country)))
+        
+      case let .note(.tabDelegate(.noteDetail(noteId))):
+        state.path.append(.noteDetail(.init(noteMode: .mynote, noteId: noteId)))
         return .none
+        
+      case let .note(.tabDelegate(.noteDetailShare(noteId, isMine))):
+        state.path.append(.noteDetail(.init(noteMode: isMine ? .openMyNote : .openOtherNote , noteId: noteId)))
+        return .none
+        
       case .note(.tabDelegate(.wineSearch)):
         state.path.append(.wineSearch(.init()))
         return .none
@@ -169,7 +175,7 @@ extension TabBar {
           
           // MARK: - 추천 와인 공유 노트 로직
         case let .element(id: _, action: .detailWine(.otherNoteList(.otherNote(.element(id: _, action: ._moveNoteDetail(data, isMine)))))):
-          state.path.append(.noteDetail(.init(noteMode: isMine ? .openMyNote : .openOtherNote, noteId: data.noteId, country: data.country)))
+          state.path.append(.noteDetail(.init(noteMode: isMine ? .openMyNote : .openOtherNote, noteId: data.noteId)))
           return .none
           
         case let .element(_, action: .detailWine(.otherNoteList(._moveMoreOtherNote(wineId)))):
@@ -204,7 +210,7 @@ extension TabBar {
           return .none
           
         case let .element(_, action: .otherNoteList(.otherNote(.element(id: _, action: ._moveNoteDetail(data, isMine))))):
-          state.path.append(.noteDetail(.init(noteMode: isMine ? .openMyNote : .openOtherNote, noteId: data.noteId, country: data.country)))
+          state.path.append(.noteDetail(.init(noteMode: isMine ? .openMyNote : .openOtherNote, noteId: data.noteId)))
           return .none
           
         case let .element(id, action: .otherNoteList(.tappedBackButton)):
@@ -212,7 +218,7 @@ extension TabBar {
           return .none
           
         case let .element(id: _, action: .noteDetail(.otherNoteList(.otherNote(.element(id: _, action: ._moveNoteDetail(data, isMine)))))):
-          state.path.append(.noteDetail(.init(noteMode: isMine ? .openMyNote : .openOtherNote, noteId: data.noteId, country: data.country)))
+          state.path.append(.noteDetail(.init(noteMode: isMine ? .openMyNote : .openOtherNote, noteId: data.noteId)))
           return .none
           
           // MARK: - 노트 작성 화면 내 로직

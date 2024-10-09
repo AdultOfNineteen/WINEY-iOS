@@ -42,7 +42,8 @@ public struct Note {
     public enum TabNavigationDelegate {
       case analysis
       case wineSearch
-      case noteDetail(noteId: Int, country: String)
+      case noteDetail(noteId: Int)
+      case noteDetailShare(noteId: Int, isMine: Bool)  // deeplink 용도
     }
   }
   

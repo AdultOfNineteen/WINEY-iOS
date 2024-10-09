@@ -43,6 +43,7 @@ public struct TabBar {
     case _setTabHiddenStatus(Bool)
     case _onSetting
     case _loadingTab(TabBarItem)
+    case _handleDeepLink(_ url: URL)
     
     // MARK: - Inner SetState Action
     case _mapStreamConnect
@@ -93,17 +94,29 @@ public struct TabBar {
           return .send(._loadingTab(tab))
         }
         
-//      case ._mapStreamConnect:
-//        return .send(.map(.routeAction(0, action: .map(._tappedMapTabBarItem))))
-//
-//      case .main(.routeAction(_, action: .main(._viewWillAppear))):
-//        return .send(._setTabHiddenStatus(false))
-//
-//      case .map(.routeAction(_, action: .map(._tabBarHidden))):
-//        return .send(._setTabHiddenStatus(true))
-//
-//      case .map(.routeAction(_, action: .map(._tabBarOpen))):
-//        return .send(._setTabHiddenStatus(false))
+      case let ._handleDeepLink(url):
+        if let components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
+          let queryItems = components.queryItems ?? []
+          for queryItem in queryItems {
+            if queryItem.name == "id", let value = queryItem.value, let noteId = Int(value) {
+              return .send(.note(.tabDelegate(.noteDetailShare(noteId: noteId, isMine: false))))
+            }
+          }
+        }
+        
+        return .none
+        
+        //      case ._mapStreamConnect:
+        //        return .send(.map(.routeAction(0, action: .map(._tappedMapTabBarItem))))
+        //
+        //      case .main(.routeAction(_, action: .main(._viewWillAppear))):
+        //        return .send(._setTabHiddenStatus(false))
+        //
+        //      case .map(.routeAction(_, action: .map(._tabBarHidden))):
+        //        return .send(._setTabHiddenStatus(true))
+        //
+        //      case .map(.routeAction(_, action: .map(._tabBarOpen))):
+        //        return .send(._setTabHiddenStatus(false))
         
       case .userInfo(.delegate(.logout)):
         return .send(.delegate(.logout))
@@ -111,9 +124,9 @@ public struct TabBar {
       case .userInfo(.delegate(.signOut)):
         return .send(.delegate(.signOut))
         
-        case ._setTabHiddenStatus(let status):
-          state.isTabHidden = status
-          return .none
+      case ._setTabHiddenStatus(let status):
+        state.isTabHidden = status
+        return .none
         
       default:
         return .none

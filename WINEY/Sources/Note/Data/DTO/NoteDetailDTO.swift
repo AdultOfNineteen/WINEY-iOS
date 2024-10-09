@@ -17,6 +17,7 @@ public struct NoteDetailDTO: Codable, Equatable {
   public let wineName: String
   public let region: String
   public let star: Int
+  public let country: String
   public let color: String
   public let vintage: Int?
   public let buyAgain: Bool

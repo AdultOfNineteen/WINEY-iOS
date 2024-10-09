@@ -27,7 +27,7 @@ public struct TastingNotes {
   
   public enum Action {
     // MARK: - User Action
-    case tappedNoteCard(noteId: Int, country: String)
+    case tappedNoteCard(noteId: Int)
     
     // MARK: - Inner Business Action
     case _fetchNextNotePage
