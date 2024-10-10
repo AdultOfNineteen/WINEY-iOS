@@ -43,7 +43,7 @@ public struct TabBar {
     case _setTabHiddenStatus(Bool)
     case _onSetting
     case _loadingTab(TabBarItem)
-    case _handleDeepLink(_ url: URL)
+    case _shareNoteOpen(noteId: Int, isMine: Bool)
     
     // MARK: - Inner SetState Action
     case _mapStreamConnect
@@ -94,17 +94,8 @@ public struct TabBar {
           return .send(._loadingTab(tab))
         }
         
-      case let ._handleDeepLink(url):
-        if let components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
-          let queryItems = components.queryItems ?? []
-          for queryItem in queryItems {
-            if queryItem.name == "id", let value = queryItem.value, let noteId = Int(value) {
-              return .send(.note(.tabDelegate(.noteDetailShare(noteId: noteId, isMine: false))))
-            }
-          }
-        }
-        
-        return .none
+      case let ._shareNoteOpen(noteId, isMine):
+        return .send(.note(.tabDelegate(.noteDetailShare(noteId: noteId, isMine: isMine))))
         
         //      case ._mapStreamConnect:
         //        return .send(.map(.routeAction(0, action: .map(._tappedMapTabBarItem))))

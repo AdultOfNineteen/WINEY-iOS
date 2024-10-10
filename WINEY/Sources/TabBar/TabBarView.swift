@@ -73,9 +73,6 @@ public struct TabBarView: View {
       .task {
         store.send(._onSetting)
       }
-      .onOpenURL { url in
-        store.send(._handleDeepLink(url))
-      }
       .navigationBarHidden(true)
     } destination: { store in
       switch store.state {

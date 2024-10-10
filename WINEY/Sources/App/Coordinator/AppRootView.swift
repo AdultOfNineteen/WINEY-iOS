@@ -36,30 +36,11 @@ struct AppRootView: View {
       for await _ in NotificationCenter.default.notifications(named: .userDidLogin) {
         // TODO: - 토큰 만료 잘 동작하는 지 확인하기
         print("토큰 만료 포착")
-        store.send(._moveToSplash)
+        store.send(._moveToAuth)
       }
+    }     
+    .onOpenURL { url in
+      store.send(.handleDeepLink(url))
     }
-//    .onOpenURL { url in
-//      handleURL(url)
-//    }
   }
-  
-  // TODO: - url 진입처리
-//  private func handleURL(_ url: URL) {
-//    if AuthApi.isKakaoTalkLoginUrl(url) {
-//      _ = AuthController.handleOpenUrl(url: url)
-//      return
-//    }
-//    
-//    if GIDSignIn.sharedInstance.handle(url) { return }
-//    
-//    if let components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
-//      let queryItems = components.queryItems ?? []
-//      for queryItem in queryItems {
-//        if queryItem.name == "id", let value = queryItem.value, let noteId = Int(value) {
-//          store.send(.deeplinkOpened(.detailNote(noteId: noteId)))
-//        }
-//      }
-//    }
-//  }
 }

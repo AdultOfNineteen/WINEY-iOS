@@ -10,17 +10,21 @@ import Foundation
 
 @Reducer
 public struct Splash {
-  public struct State: Equatable {}
+  public struct State: Equatable {
+    public var shareNoteId: Int? = nil
+  }
   
   public enum Action {
     // MARK: - Inner Business Action
     case _onAppear
     case _checkConnectHistory(_ status: Bool)
     case _serverConnection
-    case _moveToTabBar
+    case _moveToTabBar(shareNoteId: Int?)
     case _moveToAuth
     
     case _setLoginState
+    
+    case handleDeepLink(_ url: URL)
   }
   
   @Dependency(\.userDefaults) var userDefaultsService
@@ -53,10 +57,24 @@ public struct Splash {
         }
         
       case ._serverConnection:
+        let shareNoteId = state.shareNoteId
+        
         return .run { send in
           _ = await userService.connections()
-          await send(._moveToTabBar)
+          await send(._moveToTabBar(shareNoteId: shareNoteId))
         }
+        
+      case let .handleDeepLink(url):
+        if let components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
+          let queryItems = components.queryItems ?? []
+          for queryItem in queryItems {
+            if queryItem.name == "id", let value = queryItem.value, let noteId = Int(value) {
+              state.shareNoteId = noteId
+            }
+          }
+        }
+        
+        return .none
         
       default: return .none
       }

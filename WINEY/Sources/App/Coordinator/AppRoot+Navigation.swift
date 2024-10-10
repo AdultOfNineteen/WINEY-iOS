@@ -45,12 +45,22 @@ extension AppRoot {
         state.destination = .tabBar(.init(selectedTab: .main, isTabHidden: false))
         return .none
         
+      case let ._openOtherNote(noteId, isMine):
+        return .send(.destination(.tabBar(._shareNoteOpen(noteId: noteId, isMine: isMine))))
+        
       // MARK: - ChildReducer
       case .destination(.splash(._moveToAuth)):
         return .send(._moveToAuth)
         
-      case .destination(.splash(._moveToTabBar)):
-        return .send(._moveToTabBar)
+      case let .destination(.splash(._moveToTabBar(noteId))):
+        if let noteId = noteId {
+          return .concatenate([
+            .send(._moveToTabBar),
+            .send(._openOtherNote(noteId: noteId, isMine: false))
+          ])
+        } else {
+          return .send(._moveToTabBar)
+        }
         
       case .destination(.auth(.delegate(.moveToTab))):
         return .send(._moveToTabBar)
