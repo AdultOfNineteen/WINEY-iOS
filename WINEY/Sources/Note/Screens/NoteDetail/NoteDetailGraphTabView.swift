@@ -38,7 +38,8 @@ public struct NoteDetailGraphTabView: View {
       WineDetailGraphMyWineTasteView(
         myWineTaste: noteCardData.myWineTaste,
         isMine: isMine,
-        nickname: noteCardData.userNickname
+        nickname: noteCardData.userNickname,
+        isSparkling: noteCardData.wineType == WineType.sparkl.rawValue
       )
       
       WineDetailGraphMyWineDefaultView(
@@ -59,11 +60,13 @@ public struct WineDetailGraphMyWineTasteView: View {
   public let graphColor: Color = .wineyMain2
   public let isMine: Bool
   public let nickname: String
+  public let isSparkling: Bool
   
-  public init(myWineTaste: MyWineTaste, isMine: Bool, nickname: String) {
+  public init(myWineTaste: MyWineTaste, isMine: Bool, nickname: String, isSparkling: Bool) {
     self.myWineTaste = myWineTaste
     self.isMine = isMine
     self.nickname = nickname
+    self.isSparkling = isSparkling
   }
   
   public var body: some View {
@@ -114,8 +117,8 @@ public struct WineDetailGraphMyWineTasteView: View {
           isValid: true
         )
         WineInfoDetailSingleGraphView(
-          value: myWineTaste.alcohol,
-          category: "알코올",
+          value: isSparkling ? myWineTaste.sparkling : myWineTaste.alcohol,
+          category: isSparkling ? "탄산감" : "알코올",
           graphColor: graphColor,
           isValid: true
         )

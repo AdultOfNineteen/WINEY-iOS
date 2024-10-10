@@ -30,20 +30,25 @@ public struct WinePreferTaste {
     var topTaste = ""
     var animation = 0.0
     
+    var isSparkling: Bool = false
+    
     let sweet: WineTasteGraphData
     let remain: WineTasteGraphData
     let alcohol: WineTasteGraphData
     let tannin: WineTasteGraphData
     let wineBody: WineTasteGraphData
+    let sparkling: WineTasteGraphData
     let acid: WineTasteGraphData
     
-    public init(preferTastes taste: Taste) {
+    public init(preferTastes taste: Taste, isSparkling: Bool) {
       self.sweet = WineTasteGraphData(name: "당도", value: taste.sweetness)
       self.remain = WineTasteGraphData(name: "여운", value: taste.finish)
       self.alcohol = WineTasteGraphData(name: "알코올", value: taste.alcohol)
       self.tannin = WineTasteGraphData(name: "탄닌", value: taste.tannin)
       self.wineBody = WineTasteGraphData(name: "바디", value: taste.body)
+      self.sparkling = WineTasteGraphData(name: "탄산감", value: taste.sparkling)
       self.acid = WineTasteGraphData(name: "산도", value: taste.acidity)
+      self.isSparkling = isSparkling
     }
   }
   

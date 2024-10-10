@@ -48,7 +48,6 @@ public struct WineAnalysisCarouselView: View {
                 .id(5)
             }
           }
-          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
           .scrollDisabled(true)
           .simultaneousGesture(
             DragGesture()
