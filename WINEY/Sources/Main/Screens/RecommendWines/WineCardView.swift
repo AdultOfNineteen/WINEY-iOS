@@ -124,7 +124,7 @@ public struct WineCardView: View {
           // MARK: NATIONAL ANTHEMS
           VStack(spacing: 0) {
             HStack {
-              Text("national an thems")
+              Text("Countries")
                 .wineyFont(.captionM3)
                 .foregroundColor(.white)
               
