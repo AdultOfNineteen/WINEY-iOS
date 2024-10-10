@@ -15,16 +15,16 @@ public struct NoteRemoveBottomSheet {
   @ObservableState
   public struct State: Equatable {
     
-    public var noteDetail: NoteDetail.State
+    public var noteId: Int
     
-    public init(noteDetail: NoteDetail.State) {
-      self.noteDetail = noteDetail
+    public init(noteId: Int) {
+      self.noteId = noteId
     }
   }
   
   public enum Action {
     // MARK: - User Action
-    case tappedYesButton
+    case tappedYesButton(noteId: Int)
     case tappedNoButton
     
     // MARK: - Inner Business Action
@@ -33,23 +33,12 @@ public struct NoteRemoveBottomSheet {
     // MARK: - Inner SetState Action
     
     // MARK: - Child Action
-    case noteDetail(NoteDetail.Action)
   }
 
   public var body: some ReducerOf<Self> {
     
-    Scope(state: \.noteDetail, action: \.noteDetail) {
-      NoteDetail()
-    }
-    
     Reduce { state, action in
       switch action {
-        
-      case .tappedYesButton:
-        return .send(.noteDetail(.tappedNoteDelete(state.noteDetail.noteId)))
-        
-      case .tappedNoButton:
-        return .send(._dismissScreen)
         
       default:
         return .none

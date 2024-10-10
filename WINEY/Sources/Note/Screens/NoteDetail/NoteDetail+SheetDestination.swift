@@ -78,8 +78,17 @@ extension NoteDetail {
           }
           
         case .remove:
-          return .send(.tappedNoteDelete(state.noteId))
+          state.sheetDestination = nil
+          state.sheetDestination = .noteRemoveSheet(.init(noteId: state.noteId))
+          return .none
         }
+        
+      case let .sheetDestination(.presented(.noteRemoveSheet(.tappedYesButton(noteId)))):
+        return .send(.tappedNoteDelete(noteId))
+        
+      case .sheetDestination(.presented(.noteRemoveSheet(.tappedNoButton))):
+        state.sheetDestination = nil
+        return .none
         
       case .tappedNoteDelete(let noteId):
         return .run { send in

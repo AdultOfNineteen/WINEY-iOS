@@ -49,9 +49,22 @@ public struct NoteDetailView: View {
           .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
     }
-    .sheet(item: $store.scope(state: \.sheetDestination?.tripleSectionSheet, action: \.sheetDestination.tripleSectionSheet), content: { store in
-      TripleSectionBottomSheetView(store: store)
-    })
+    .sheet(
+      item: $store.scope(
+        state: \.sheetDestination?.tripleSectionSheet,
+        action: \.sheetDestination.tripleSectionSheet
+      ), content: { store in
+        TripleSectionBottomSheetView(store: store)
+      }
+    )
+    .sheet(
+      item: $store.scope(
+        state: \.sheetDestination?.noteRemoveSheet,
+        action: \.sheetDestination.noteRemoveSheet
+      ), content: { store in
+        NoteRemoveBottomSheetView(store: store)
+      }
+    )
     .task {
       store.send(._viewWillAppear)
     }
