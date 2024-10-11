@@ -25,6 +25,9 @@ public struct SplashView: View {
     .task { store.send(._onAppear) }
     .navigationViewStyle(StackNavigationViewStyle())
     .navigationBarHidden(true)
+    .onOpenURL { url in
+      store.send(.handleDeepLink(url))
+    }
   }
   
   private var mainLogoSpace: some View {

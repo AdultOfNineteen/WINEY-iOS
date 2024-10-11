@@ -46,6 +46,7 @@ public struct WineDetailView: View {
             .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
           } else {
             ProgressView()
+              .frame(maxWidth: .infinity, maxHeight: .infinity)
           }
           
           divider()
@@ -54,15 +55,14 @@ public struct WineDetailView: View {
           wineGraph()
           
           divider()
+            .padding(.bottom, 20)
           
-          SpecificWineTastingNotesView(
-            store: self.store.scope(
-              state: \.recommendWineTastingNotesList,
-              action: \._recommendWineTastingNotesList
+          OtherNoteListView(
+            store: store.scope(
+              state: \.otherNoteList,
+              action: \.otherNoteList
             )
           )
-          .padding(.top, 20)
-          .padding(.bottom, 50)
         }
       }
       .onAppear {

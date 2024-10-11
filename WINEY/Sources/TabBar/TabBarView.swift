@@ -70,9 +70,6 @@ public struct TabBarView: View {
             )
         }
       }
-      .onOpenURL { url in
-        print("공유 링크 타고 들어옴")
-      }
       .task {
         store.send(._onSetting)
       }
@@ -111,6 +108,11 @@ public struct TabBarView: View {
       case .noteDetail:
         if let store = store.scope(state: \.noteDetail, action: \.noteDetail) {
           NoteDetailView(store: store)
+        }
+        
+      case .otherNoteList:
+        if let store = store.scope(state: \.otherNoteList, action: \.otherNoteList) {
+          OtherNoteListView(store: store)
         }
         
         // MARK: - Create/Edit Note
@@ -155,7 +157,7 @@ public struct TabBarView: View {
           NoteDoneView.init(store: store)
         }
         
-      // MARK: - UserInfo        
+      // MARK: - UserInfo
       case .userSetting:
         if let store = store.scope(state: \.userSetting, action: \.userSetting) {
           UserSettingView(store: store)

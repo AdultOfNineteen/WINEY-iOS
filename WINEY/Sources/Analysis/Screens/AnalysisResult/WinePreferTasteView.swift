@@ -32,7 +32,7 @@ private extension WinePreferTasteView {
   @ViewBuilder
   func hexagonGraphSection() -> some View {
     ZStack(alignment: .top) {
-      HexagonBackgroundView(topTaste: store.topTaste)
+      HexagonBackgroundView(topTaste: store.topTaste, isSparkling: store.isSparkling)
       
       hexagonDataView()
     }
@@ -52,7 +52,7 @@ private extension WinePreferTasteView {
         let points: [CGPoint] = [
           CGPoint(x: centerX, y: centerY - size * store.sweet.value),
           CGPoint(x: centerX + sideLength * store.remain.value, y: centerY - size / 2 * store.remain.value),
-          CGPoint(x: centerX + sideLength * store.alcohol.value, y: centerY + size / 2 * store.alcohol.value),
+          CGPoint(x: centerX + sideLength * (store.isSparkling ? store.sparkling.value : store.alcohol.value), y: centerY + size / 2 * (store.isSparkling ? store.sparkling.value : store.alcohol.value)),
           CGPoint(x: centerX, y: centerY + size * store.tannin.value),
           CGPoint(x: centerX - sideLength * store.wineBody.value, y: centerY + size / 2 * store.wineBody.value),
           CGPoint(x: centerX - sideLength * store.acid.value, y: centerY - size / 2 * store.acid.value)
@@ -101,7 +101,13 @@ public struct HexagonView: View {
 public struct HexagonBackgroundView: View {
   
   let topTaste: String
+  let isSparkling: Bool
   let width = UIScreen.main.bounds.width
+  
+  public init(topTaste: String, isSparkling: Bool) {
+    self.topTaste = topTaste
+    self.isSparkling = isSparkling
+  }
   
   public var body: some View {
     ZStack(alignment: .center) {
@@ -137,9 +143,11 @@ public struct HexagonBackgroundView: View {
       Text("바디")
         .offset(x: -width / 3, y: width / 5 - 15)
         .foregroundStyle(topTaste == "바디" ? .white : .wineyGray600)
-      Text("알코올")
+      Text(isSparkling ? "탄산감" : "알코올")
         .offset(x: width / 3 + 5, y: width / 5 - 15)
-        .foregroundStyle(topTaste == "알코올" ? .white : .wineyGray600)
+        .foregroundStyle(
+          isSparkling ? (topTaste == "탄산감" ? .white : .wineyGray600) : (topTaste == "알코올" ? .white : .wineyGray600)
+        )
       Text("탄닌")
         .offset(y: width / 3 + 10)
         .foregroundStyle(topTaste == "탄닌" ? .white : .wineyGray600)
@@ -159,8 +167,10 @@ public struct HexagonBackgroundView: View {
             alcohol: 1,
             body: 2,
             tannin: 3,
+            sparkling: 0,
             finish: 1
-          )
+          ),
+        isSparkling: true
       ),
       reducer: {
         WinePreferTaste()

@@ -47,6 +47,7 @@ extension TasteAnalysisService {
             alcohol: 0,
             body: 0,
             tannin: 0,
+            sparkling: 0,
             finish: 0
           ),
           avgPrice: 0

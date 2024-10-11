@@ -37,7 +37,7 @@ public struct WineAnalysisCarousel {
         preferVarieties: data.topThreeVarieties
       )
       self.wineTaste = WinePreferTaste.State.init(
-        preferTastes: data.taste
+        preferTastes: data.taste, isSparkling: data.recommendWineType == WineType.sparkl.rawValue
       )
       self.wineSmell = WinePreferSmell.State.init(
         topSevenSmells: data.topSevenSmells

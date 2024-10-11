@@ -15,6 +15,7 @@ final class CreateNoteManager: ObservableObject {
   private init() { }
   
   @Published var mode: CreateNoteMode = .create
+  @Published var isSparkling = false
   @Published var noteId: Int?
   @Published var wineId: Int?
   @Published var vintage: String?
@@ -28,6 +29,7 @@ final class CreateNoteManager: ObservableObject {
   @Published var tannin: Int?
   @Published var finish: Int?
   @Published var memo: String?
+  @Published var sparkling: Int?
   @Published var buyAgain: Bool?
   @Published var isPublic: Bool?
   @Published var rating: Int?
@@ -54,6 +56,7 @@ final class CreateNoteManager: ObservableObject {
     self.tannin = nil
     self.finish = nil
     self.memo = nil
+    self.sparkling = nil
     self.buyAgain = nil
     self.isPublic = nil
     self.rating = nil
@@ -74,6 +77,7 @@ final class CreateNoteManager: ObservableObject {
     self.sweetness = Int(noteData.myWineTaste.sweetness)
     self.acidity = Int(noteData.myWineTaste.acidity)
     self.alcohol = Int(noteData.myWineTaste.alcohol)
+    self.sparkling = Int(noteData.myWineTaste.sparkling)
     self.body = Int(noteData.myWineTaste.body)
     self.tannin = Int(noteData.myWineTaste.tannin)
     self.finish = Int(noteData.myWineTaste.finish)
@@ -95,7 +99,8 @@ final class CreateNoteManager: ObservableObject {
       color: self.color!,
       sweetness: self.sweetness!,
       acidity: self.acidity!,
-      alcohol: self.alcohol!,
+      alcohol: self.alcohol ?? 0,
+      sparkling: self.sparkling ?? 0,
       body: self.body!,
       tannin: self.tannin!,
       finish: self.finish!,
@@ -133,7 +138,8 @@ final class CreateNoteManager: ObservableObject {
       color: self.color!,
       sweetness: self.sweetness!,
       acidity: self.acidity!,
-      alcohol: self.alcohol!,
+      alcohol: self.alcohol ?? 0,
+      sparkling: self.sparkling ?? 0,
       body: self.body!,
       tannin: self.tannin!,
       finish: self.finish!,

@@ -26,12 +26,22 @@ public enum GraphCase {
 
 public struct NoteDetailGraphTabView: View {
   public let noteCardData: NoteDetailDTO
+  public let isMine: Bool
+  
+  public init(noteCardData: NoteDetailDTO, isMine: Bool) {
+    self.noteCardData = noteCardData
+    self.isMine = isMine
+  }
   
   public var body: some View {
     TabView {
       WineDetailGraphMyWineTasteView(
-        myWineTaste: noteCardData.myWineTaste
+        myWineTaste: noteCardData.myWineTaste,
+        isMine: isMine,
+        nickname: noteCardData.userNickname,
+        isSparkling: noteCardData.wineType == WineType.sparkl.rawValue
       )
+      
       WineDetailGraphMyWineDefaultView(
         defaultTaste: noteCardData.defaultWineTaste
       )
@@ -48,6 +58,16 @@ public struct NoteDetailGraphTabView: View {
 public struct WineDetailGraphMyWineTasteView: View {
   public let myWineTaste: MyWineTaste
   public let graphColor: Color = .wineyMain2
+  public let isMine: Bool
+  public let nickname: String
+  public let isSparkling: Bool
+  
+  public init(myWineTaste: MyWineTaste, isMine: Bool, nickname: String, isSparkling: Bool) {
+    self.myWineTaste = myWineTaste
+    self.isMine = isMine
+    self.nickname = nickname
+    self.isSparkling = isSparkling
+  }
   
   public var body: some View {
     VStack(spacing: 0) {
@@ -57,8 +77,13 @@ public struct WineDetailGraphMyWineTasteView: View {
           .frame(width: 12)
           .aspectRatio(contentMode: .fit)
         
-        Text("내가 느낀 와인의 맛")
-          .wineyFont(.captionM2)
+        if isMine {
+          Text("내가 느낀 와인의 맛")
+            .wineyFont(.captionM2)
+        } else {
+          Text("\(nickname)님이 느낀 와인의 맛")
+            .wineyFont(.captionM2)
+        }
         
         Spacer()
       }
@@ -92,8 +117,8 @@ public struct WineDetailGraphMyWineTasteView: View {
           isValid: true
         )
         WineInfoDetailSingleGraphView(
-          value: myWineTaste.alcohol,
-          category: "알코올",
+          value: isSparkling ? myWineTaste.sparkling : myWineTaste.alcohol,
+          category: isSparkling ? "탄산감" : "알코올",
           graphColor: graphColor,
           isValid: true
         )
@@ -180,12 +205,14 @@ public struct WineDetailGraphMyWineDefaultView: View {
   NoteDetailGraphTabView(
     noteCardData: NoteDetailDTO(
       noteId: 1,
+      wineId: 2,
       tastingNoteNo: 1,
       noteDate: "2023.10.11",
       wineType: "RED",
       wineName: "test",
       region: "test",
       star: 4,
+      country: "test",
       color: "red",
       vintage: 10,
       buyAgain: true,
@@ -199,6 +226,7 @@ public struct WineDetailGraphMyWineDefaultView: View {
         alcohol: 1,
         body: 3,
         tannin: 4,
+        sparkling: 0,
         finish: 3
       ),
       defaultWineTaste: DefaultWineTaste(
@@ -211,6 +239,6 @@ public struct WineDetailGraphMyWineDefaultView: View {
       memo: "test",
       userNickname: "보노", 
       public: true
-    )
+    ), isMine: true
   )
 }

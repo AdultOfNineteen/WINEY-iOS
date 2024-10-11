@@ -33,7 +33,7 @@ public struct WineyPieChart: View {
       ZStack {
         ForEach(sliceData) { data in
           chartGraph(startAngle: data.startAngle, endAngle: data.endAngle, rank: data.rank)
-            .scaleEffect(data.rank == 0 ? 1.02 : 0.94)
+            .scaleEffect(data.rank == 0 ? 1.00 : 0.92)
           
           chartText(data: data)
         }
@@ -114,6 +114,8 @@ private extension WineyPieChart {
       let midRadians = Double.pi / 2 - (data.startAngle + data.endAngle).radians / 2 + textAdjustment(rank: data.rank)
       let radius = geo.size.width / 3.8 + textPadding(rank: data.rank)
       
+      let posX = CGFloat(geo.size.width / 2 + radius * cos(midRadians))
+      
       ZStack {
         VStack(spacing: 0) {
           HStack(spacing: 1) {
@@ -134,7 +136,7 @@ private extension WineyPieChart {
         .wineyFont(chartFont(rank: data.rank))
       }
       .position(
-        x: CGFloat(geo.size.width / 2 + radius * cos(midRadians)),
+        x: posX > 0 ? posX - 6 : posX + 4,
         y: CGFloat(geo.size.height / 2 - radius * sin(midRadians))
       )
     }

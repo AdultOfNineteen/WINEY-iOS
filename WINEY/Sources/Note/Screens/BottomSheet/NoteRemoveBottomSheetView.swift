@@ -59,7 +59,7 @@ private extension NoteRemoveBottomSheetView {
       },
       rightTitle: "네, 지울래요",
       rightAction: {
-        store.send(.tappedYesButton)
+        store.send(.tappedYesButton(noteId: store.noteId))
       }
     )
   }

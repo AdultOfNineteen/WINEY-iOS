@@ -13,14 +13,14 @@ import WineyKit
 public struct NoteDetailView: View {
   @Bindable var store: StoreOf<NoteDetail>
   
-  public init(store: StoreOf<NoteDetail>) { 
+  public init(store: StoreOf<NoteDetail>) {
     self.store = store
   }
   
   public var body: some View {
     VStack(spacing: 0) {
       // MARK: Navigation Bar
-      if store.isMine {
+      if store.noteMode != .openOtherNote {
         NavigationBar(
           leftIcon: Image(.navigationBack_buttonW),
           leftIconButtonAction: {
@@ -49,10 +49,22 @@ public struct NoteDetailView: View {
           .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
     }
-    .sheet(item: $store.scope(state: \.sheetDestination?.tripleSectionSheet, action: \.sheetDestination.tripleSectionSheet), content: { store in
-      TripleSectionBottomSheetView(store: store)
-    })
-    
+    .sheet(
+      item: $store.scope(
+        state: \.sheetDestination?.tripleSectionSheet,
+        action: \.sheetDestination.tripleSectionSheet
+      ), content: { store in
+        TripleSectionBottomSheetView(store: store)
+      }
+    )
+    .sheet(
+      item: $store.scope(
+        state: \.sheetDestination?.noteRemoveSheet,
+        action: \.sheetDestination.noteRemoveSheet
+      ), content: { store in
+        NoteRemoveBottomSheetView(store: store)
+      }
+    )
     .task {
       store.send(._viewWillAppear)
     }
@@ -81,7 +93,7 @@ extension NoteDetailView {
         // MARK: Wine Info
         WineDetailInfoMiddleView(
           wineType: WineType.changeType(at: noteData.wineType),
-          nationalAnthems: store.country,
+          nationalAnthems: noteData.country,
           varities: noteData.varietal,
           abv: noteData.officialAlcohol,
           purchasePrice: noteData.price,
@@ -92,43 +104,85 @@ extension NoteDetailView {
         )
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
         
-        Divider()
-          .overlay(.wineyGray900)
-          .padding(.top, 40)
-          .padding(.bottom, 30)
+        if store.noteMode == .mynote || store.noteMode == .otherNotes {
+          noteDetailSection()
+        }
         
-        // MARK: FEATURE
-        NoteDetailSmellFeatureView(
-          circleColor: noteData.color,
-          smellKeywordList: Array(noteData.smellKeywordList)
-        )
-        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-        
-        Divider()
-          .overlay(.wineyGray900)
-          .padding(.vertical, 20)
-        
-        // MARK: Note Card Graph
-        NoteDetailGraphTabView(
-          noteCardData: noteData
-        )
-        .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
-        
-        Divider()
-          .overlay(.wineyGray900)
-          .padding(.top, 10)
-          .padding(.bottom, 30)
-        
-        // MARK: Image, memo
-        noteImageMemo(noteData: noteData)
+        if store.noteMode != .otherNotes {
+          NoteDetailSmellFeatureView(
+            circleColor: noteData.color,
+            smellKeywordList: Array(noteData.smellKeywordList)
+          )
+          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+          
+          Divider()
+            .frame(height: 0.8)
+            .overlay(.wineyGray900)
+            .padding(.vertical, 20)
+          
+          NoteDetailGraphTabView(
+            noteCardData: noteData,
+            isMine: store.noteMode == .openMyNote || store.noteMode == .mynote
+          )
+          .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
+          
+          Divider()
+            .overlay(.wineyGray900)
+            .padding(.top, 10)
+            .padding(.bottom, 30)
+          
+          // MARK: Image, memo
+          noteImageMemo(noteData: noteData)
+        } else {
+          if let childStore = store.scope(state: \.otherNoteList, action: \.otherNoteList) {
+            OtherNoteListView(store: childStore)
+          } else {
+            ProgressView()
+              .frame(maxWidth: .infinity, maxHeight: .infinity)
+          }
+        }
       }
     }
   }
   
   @ViewBuilder
+  private func noteDetailSection() -> some View {
+    VStack(spacing: 0) {
+      Divider()
+        .frame(height: 0.8)
+        .overlay(.wineyGray900)
+      
+      HStack(spacing: 0) {
+        noteDetailSectionButton(mode: .mynote)
+        noteDetailSectionButton(mode: .otherNotes)
+      }
+      
+      Divider()
+        .frame(height: 0.8)
+        .overlay(.wineyGray900)
+    }
+    .padding(.top, 38)
+    .padding(.bottom, 30)
+  }
+  
+  @ViewBuilder
+  private func noteDetailSectionButton(mode: NoteDetailSection) -> some View {
+    Text(mode.rawValue)
+      .wineyFont(.bodyM2)
+      .frame(maxWidth: .infinity)
+      .padding(.top, 11)
+      .padding(.bottom, 10)
+      .foregroundStyle(store.noteMode == mode ? .white : .wineyGray700)
+      .background(.wineyMainBackground)
+      .onTapGesture {
+        store.send(.tappedNoteMode(mode))
+      }
+  }
+  
+  @ViewBuilder
   private func noteHeader(noteData: NoteDetailDTO) -> some View {
     HStack(spacing: 0) {
-      if store.isMine {
+      if store.noteMode != .openOtherNote {
         Text("No.")
           .wineyFont(.bodyB1)
         Text(noteData.tastingNoteNo < 10 ? "0" + noteData.tastingNoteNo.description : noteData.tastingNoteNo.description)
@@ -177,7 +231,7 @@ extension NoteDetailView {
   private func noteImageMemo(noteData: NoteDetailDTO) -> some View {
     VStack(spacing: 0) {
       HStack {
-        Text("Feature")
+        Text("Feelings")
           .wineyFont(.display2)
         
         Spacer()
@@ -214,7 +268,7 @@ extension NoteDetailView {
   NoteDetailView(
     store: Store(
       initialState: NoteDetail.State.init(
-        noteId: 1, country: "test"
+        noteMode: .mynote, noteId: 1
       ),
       reducer: {
         NoteDetail()

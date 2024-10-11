@@ -9,19 +9,26 @@
 import ComposableArchitecture
 import SwiftUI
 
-public enum NoteDetailOption: String {
+@frozen public enum NoteDetailOption: String {
   case shared = "공유하기"
   case remove = "삭제하기"
   case modify = "수정하기"
 }
 
 // Bottom Sheet 구분
-public enum NoteDetailBottomSheet: String {
+@frozen public enum NoteDetailBottomSheet: String {
   case shared
   case setting
   case remove
 }
 
+// 노트 작성 열람 구분 (내 노트, 다른 사람 노트 리스트, 다른 사름 노트)
+@frozen public enum NoteDetailSection: String {
+  case mynote = "My Note"
+  case otherNotes = "Other Notes"
+  case openMyNote
+  case openOtherNote
+}
 
 @Reducer
 public struct NoteDetail {
@@ -30,18 +37,20 @@ public struct NoteDetail {
   public struct State: Equatable {
     
     let noteId: Int
-    let country: String
-    let isMine: Bool
     
+    var otherNoteCount = 0
+    
+    public var noteMode: NoteDetailSection
     public var noteCardData: NoteDetailDTO?
     public var selectOption: NoteDetailOption?
     
+    public var otherNoteList: OtherNoteList.State?
+    
     @Presents var sheetDestination: NoteDetailSheetDestination.State?
     
-    public init(noteId: Int, country: String, isMine: Bool = true) {
+    public init(noteMode: NoteDetailSection, noteId: Int) {
+      self.noteMode = noteMode
       self.noteId = noteId
-      self.country = country
-      self.isMine = isMine
     }
   }
   
@@ -51,6 +60,7 @@ public struct NoteDetail {
     case tappedSettingButton
     case tappedOption(NoteDetailOption)
     case tappedNoteDelete(Int)
+    case tappedNoteMode(NoteDetailSection)
     
     // MARK: - Inner Business Action
     case _viewWillAppear
@@ -59,9 +69,12 @@ public struct NoteDetail {
     // MARK: - Inner SetState Action
     case _setDetailNotes(data: NoteDetailDTO)
     case _failureSocialNetworking(Error)  // 추후 경고 처리
+    case _setOtherNotes(NoteDTO)
+    case _setNoteMode(NoteDetailSection)
     
     // MARK: - Child Action
     case sheetDestination(PresentationAction<NoteDetailSheetDestination.Action>)
+    case otherNoteList(OtherNoteList.Action)
     case delete
     
     case delegate(Delegate)
@@ -96,12 +109,36 @@ public struct NoteDetail {
         state.noteCardData = data
         return .none
         
+      case let .tappedNoteMode(mode):
+        if state.noteMode == mode {
+          return .none
+        } else {
+          return .send(._setNoteMode(mode))
+        }
+        
+      case let ._setNoteMode(mode):
+        state.noteMode = mode
+        
+        guard let cardData = state.noteCardData else {
+          return .none
+        }
+        
+        if mode == .otherNotes {
+          state.otherNoteList = .init(mode: .top5Note, wineId: cardData.wineId)
+          return .none
+        } else {
+          return .none
+        }
+        
       default:
         return .none
       }
     }
     .ifLet(\.$sheetDestination, action: \.sheetDestination) {
       NoteDetailSheetDestination()
+    }
+    .ifLet(\.otherNoteList, action: \.otherNoteList) {
+      OtherNoteList()
     }
   }
   

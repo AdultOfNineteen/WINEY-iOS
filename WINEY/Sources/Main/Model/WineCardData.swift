@@ -59,7 +59,7 @@ struct WineBackgroundColor {
 }
 
 // MARK: WINE TYPE
-public enum WineType: String, CaseIterable {
+@frozen public enum WineType: String, CaseIterable {
   case red = "RED"
   case white = "WHITE"
   case rose = "ROSE"

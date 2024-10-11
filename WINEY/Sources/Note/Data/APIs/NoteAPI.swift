@@ -83,56 +83,64 @@ extension NoteAPI: EndPointType {
       )
       
     case let .tastingNotes(page, size, order, country, wineType, buyAgain, wineId):
-      if let wineId {
-        return .requestParameters(
-          parameters: [
-            "page": page,
-            "size": size,
-            "order": order,
-            country.isEmpty ? "" : "countries" : country.joined(separator: ", "),
-            wineType.isEmpty ? "w" : "wineTypes" : wineType.joined(separator: ", "),
-            "buyAgain": buyAgain ?? "",
-            "wineId": wineId
-          ],
-          encoding: .queryString
-        )
-      } else {
-        return .requestParameters(
-          parameters: [
-            "page": page,
-            "size": size,
-            "order": order,
-            country.isEmpty ? "" : "countries" : country.joined(separator: ", "),
-            wineType.isEmpty ? "w" : "wineTypes" : wineType.joined(separator: ", "),
-            "buyAgain": buyAgain ?? ""
-          ],
-          encoding: .queryString
-        )
+      var parameter: [String: Any] =
+      [
+        "page": page,
+        "size": size,
+        "order": order,
+        "buyAgain": buyAgain ?? ""
+      ]
+      
+      if !country.isEmpty {
+        parameter["countries"] = country.joined(separator: ", ")
       }
-    
+      
+      if !wineType.isEmpty {
+        parameter["wineTypes"] = wineType.joined(separator: ", ")
+      }
+
+      if let wineId {
+        parameter["wineId"] = wineId
+      }
+      
+      return .requestParameters(
+        parameters: parameter,
+        encoding: .queryString
+      )
+      
     case let .createNote(
       createNoteData,
       images
     ):
+      var parameter: [String: Any] =
+      [
+        "wineId": createNoteData.wineId,
+        "vintage": createNoteData.vintage,
+        "officialAlcohol": createNoteData.officialAlcohol,
+        "price": createNoteData.price,
+        "color": createNoteData.color,
+        "sweetness": createNoteData.sweetness,
+        "acidity": createNoteData.acidity,
+        "body": createNoteData.body,
+        "tannin": createNoteData.tannin,
+        "finish": createNoteData.finish,
+        "memo": createNoteData.memo,
+        "buyAgain": createNoteData.buyAgain,
+        "rating": createNoteData.rating,
+        "smellKeywordList": createNoteData.smellKeywordList?.sorted(),
+        "isPublic": createNoteData.isPublic
+      ]
+      
+      if createNoteData.alcohol > 0 {
+        parameter["alcohol"] = createNoteData.alcohol
+      }
+      
+      if createNoteData.sparkling > 0 {
+        parameter["sparkling"] = createNoteData.sparkling
+      }
+      
       return .requestMultipartData(
-        parameters: [
-          "wineId": createNoteData.wineId,
-          "vintage": createNoteData.vintage,
-          "officialAlcohol": createNoteData.officialAlcohol,
-          "price": createNoteData.price,
-          "color": createNoteData.color,
-          "sweetness": createNoteData.sweetness,
-          "acidity": createNoteData.acidity,
-          "alcohol": createNoteData.alcohol,
-          "body": createNoteData.body,
-          "tannin": createNoteData.tannin,
-          "finish": createNoteData.finish,
-          "memo": createNoteData.memo,
-          "buyAgain": createNoteData.buyAgain,
-          "rating": createNoteData.rating,
-          "smellKeywordList": createNoteData.smellKeywordList?.sorted(),
-          "isPublic": createNoteData.isPublic
-        ],
+        parameters: parameter,
         images: images
       )
       
@@ -140,26 +148,35 @@ extension NoteAPI: EndPointType {
       patchNoteData,
       images
     ):
+      var parameter: [String: Any] = [
+        "vintage": patchNoteData.vintage,
+        "officialAlcohol": patchNoteData.officialAlcohol,
+        "price": patchNoteData.price,
+        "color": patchNoteData.color,
+        "sweetness": patchNoteData.sweetness,
+        "acidity": patchNoteData.acidity,
+        "body": patchNoteData.body,
+        "tannin": patchNoteData.tannin,
+        "finish": patchNoteData.finish,
+        "memo": patchNoteData.memo,
+        "buyAgain": patchNoteData.buyAgain,
+        "rating": patchNoteData.rating,
+        "smellKeywordList": patchNoteData.smellKeywordList?.sorted(),
+        "deleteSmellKeywordList": patchNoteData.deleteSmellKeywordList?.sorted(),
+        "deleteImgList": patchNoteData.deleteImgLists?.sorted(),
+        "isPublic": patchNoteData.isPublic
+      ]
+      
+      if patchNoteData.alcohol > 0 {
+        parameter["alcohol"] = patchNoteData.alcohol
+      }
+      
+      if patchNoteData.sparkling > 0 {
+        parameter["sparkling"] = patchNoteData.sparkling
+      }
+      
       return .requestMultipartData(
-        parameters: [
-          "vintage": patchNoteData.vintage,
-          "officialAlcohol": patchNoteData.officialAlcohol,
-          "price": patchNoteData.price,
-          "color": patchNoteData.color,
-          "sweetness": patchNoteData.sweetness,
-          "acidity": patchNoteData.acidity,
-          "alcohol": patchNoteData.alcohol,
-          "body": patchNoteData.body,
-          "tannin": patchNoteData.tannin,
-          "finish": patchNoteData.finish,
-          "memo": patchNoteData.memo,
-          "buyAgain": patchNoteData.buyAgain,
-          "rating": patchNoteData.rating,
-          "smellKeywordList": patchNoteData.smellKeywordList?.sorted(),
-          "deleteSmellKeywordList": patchNoteData.deleteSmellKeywordList?.sorted(),
-          "deleteImgList": patchNoteData.deleteImgLists?.sorted(),
-          "isPublic": patchNoteData.isPublic
-        ],
+        parameters: parameter,
         images: images
       )
       

@@ -16,7 +16,7 @@ public struct WineDetail {
     let wineId: Int
     let wineCardData: RecommendWineData
     var windDetailData: WineDTO?
-    var recommendWineTastingNotesList: SpecificWineTastingNotes.State
+    var otherNoteList: OtherNoteList.State
     
     public init(
       windId: Int,
@@ -24,7 +24,7 @@ public struct WineDetail {
     ) {
       self.wineId = windId
       self.wineCardData = wineCardData
-      self.recommendWineTastingNotesList = .init(wineId: wineId) // 임시
+      self.otherNoteList = .init(mode: .top5RecoomendWine, wineId: wineId)
     }
   }
   
@@ -40,15 +40,15 @@ public struct WineDetail {
     case _failureSocialNetworking(Error) // 후에 경고창 처리
     
     // MARK: - Child Action
-    case _recommendWineTastingNotesList(SpecificWineTastingNotes.Action)
+    case otherNoteList(OtherNoteList.Action)
   }
   
   @Dependency(\.wine) var wineService
   
   public var body: some ReducerOf<Self> {
     
-    Scope(state: \.recommendWineTastingNotesList, action: \._recommendWineTastingNotesList) {
-      SpecificWineTastingNotes()
+    Scope(state: \.otherNoteList, action: \.otherNoteList) {
+      OtherNoteList()
     }
     
     Reduce { state, action in

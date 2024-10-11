@@ -34,7 +34,7 @@ public struct TastingNotesView: View {
                   }
                 }
                 .onTapGesture {
-                  store.send(.tappedNoteCard(noteId: note.noteId, country: note.country))
+                  store.send(.tappedNoteCard(noteId: note.noteId))
                 }
             }
           }
