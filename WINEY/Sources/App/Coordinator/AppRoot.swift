@@ -7,6 +7,8 @@
 
 import ComposableArchitecture
 import Foundation
+import KakaoSDKAuth
+import GoogleSignIn
 
 @Reducer
 public struct AppRoot {
@@ -34,6 +36,13 @@ public struct AppRoot {
     Reduce<State, Action> { state, action in
       switch action {
       case let .handleDeepLink(url):
+        if AuthApi.isKakaoTalkLoginUrl(url) {
+          _ = AuthController.handleOpenUrl(url: url)
+          return .none
+       }
+               
+       if GIDSignIn.sharedInstance.handle(url) { return .none }
+        
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
           let queryItems = components.queryItems ?? []
           for queryItem in queryItems {

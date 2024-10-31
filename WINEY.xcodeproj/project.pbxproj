@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CD18ED832CB053DD0075CCDD /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD18ED802CB053DD0075CCDD /* Debug.xcconfig */; };
-		CD18ED842CB053DD0075CCDD /* Shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD18ED812CB053DD0075CCDD /* Shared.xcconfig */; };
-		CD18ED852CB053DD0075CCDD /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD18ED822CB053DD0075CCDD /* Release.xcconfig */; };
 		CD18ED872CB058870075CCDD /* OtherNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED862CB058870075CCDD /* OtherNote.swift */; };
 		CD18ED892CB058990075CCDD /* OtherNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED882CB058990075CCDD /* OtherNoteView.swift */; };
 		CD18ED8B2CB06E580075CCDD /* OtherNoteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED8A2CB06E580075CCDD /* OtherNoteList.swift */; };
@@ -21,6 +18,9 @@
 		F3171F552C971B0C00C14FC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3171F542C971B0C00C14FC5 /* Assets.xcassets */; };
 		F3171F582C971B0C00C14FC5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3171F572C971B0C00C14FC5 /* Preview Assets.xcassets */; };
 		F3171F742C9723F600C14FC5 /* ThirdPartyLibs in Frameworks */ = {isa = PBXBuildFile; productRef = F3171F732C9723F600C14FC5 /* ThirdPartyLibs */; };
+		F3594F442CBE5D8B003DC09B /* Shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F3594F432CBE5B95003DC09B /* Shared.xcconfig */; };
+		F3594F452CBE5D8D003DC09B /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F3594F412CBE5B95003DC09B /* Release.xcconfig */; };
+		F3594F462CBE5D8F003DC09B /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F3594F422CBE5B95003DC09B /* Debug.xcconfig */; };
 		F35A65C12C989911005491C5 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65C02C989911005491C5 /* TabBarView.swift */; };
 		F35A65C82C98991D005491C5 /* View + SwipeGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65C22C98991D005491C5 /* View + SwipeGesture.swift */; };
 		F35A65C92C98991D005491C5 /* TabBarInfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65C32C98991D005491C5 /* TabBarInfoContainerView.swift */; };
@@ -218,9 +218,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CD18ED802CB053DD0075CCDD /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../../../../Shared/WineySecret/Debug.xcconfig; sourceTree = "<group>"; };
-		CD18ED812CB053DD0075CCDD /* Shared.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Shared.xcconfig; path = ../../../../Shared/WineySecret/Shared.xcconfig; sourceTree = "<group>"; };
-		CD18ED822CB053DD0075CCDD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../../../../Shared/WineySecret/Release.xcconfig; sourceTree = "<group>"; };
 		CD18ED862CB058870075CCDD /* OtherNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNote.swift; sourceTree = "<group>"; };
 		CD18ED882CB058990075CCDD /* OtherNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNoteView.swift; sourceTree = "<group>"; };
 		CD18ED8A2CB06E580075CCDD /* OtherNoteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNoteList.swift; sourceTree = "<group>"; };
@@ -239,6 +236,9 @@
 		F3171F802C972D0D00C14FC5 /* WINEY.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WINEY.entitlements; sourceTree = "<group>"; };
 		F3171F812C972DD100C14FC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3171F832C9738C000C14FC5 /* WineyKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WineyKit; path = WINEY/WineyKit; sourceTree = "<group>"; };
+		F3594F412CBE5B95003DC09B /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		F3594F422CBE5B95003DC09B /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		F3594F432CBE5B95003DC09B /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		F35A65C02C989911005491C5 /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		F35A65C22C98991D005491C5 /* View + SwipeGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View + SwipeGesture.swift"; sourceTree = "<group>"; };
 		F35A65C32C98991D005491C5 /* TabBarInfoContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarInfoContainerView.swift; sourceTree = "<group>"; };
@@ -503,9 +503,6 @@
 		F3171F4F2C971B0B00C14FC5 /* WINEY */ = {
 			isa = PBXGroup;
 			children = (
-				CD18ED822CB053DD0075CCDD /* Release.xcconfig */,
-				CD18ED802CB053DD0075CCDD /* Debug.xcconfig */,
-				CD18ED812CB053DD0075CCDD /* Shared.xcconfig */,
 				F3171F7F2C972CBD00C14FC5 /* Resources */,
 				F3EFC7B82C97576900BC6DC9 /* Sources */,
 				F3171F802C972D0D00C14FC5 /* WINEY.entitlements */,
@@ -533,6 +530,9 @@
 		F3171F7F2C972CBD00C14FC5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F3594F432CBE5B95003DC09B /* Shared.xcconfig */,
+				F3594F412CBE5B95003DC09B /* Release.xcconfig */,
+				F3594F422CBE5B95003DC09B /* Debug.xcconfig */,
 				F3171F812C972DD100C14FC5 /* Info.plist */,
 				F3171F562C971B0C00C14FC5 /* Preview Content */,
 				F3171F542C971B0C00C14FC5 /* Assets.xcassets */,
@@ -1402,11 +1402,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD18ED852CB053DD0075CCDD /* Release.xcconfig in Resources */,
+				F3594F452CBE5D8D003DC09B /* Release.xcconfig in Resources */,
 				F3171F582C971B0C00C14FC5 /* Preview Assets.xcassets in Resources */,
-				CD18ED832CB053DD0075CCDD /* Debug.xcconfig in Resources */,
 				F3171F552C971B0C00C14FC5 /* Assets.xcassets in Resources */,
-				CD18ED842CB053DD0075CCDD /* Shared.xcconfig in Resources */,
+				F3594F462CBE5D8F003DC09B /* Debug.xcconfig in Resources */,
+				F3594F442CBE5D8B003DC09B /* Shared.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1632,7 +1632,7 @@
 /* Begin XCBuildConfiguration section */
 		F3171F592C971B0C00C14FC5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CD18ED802CB053DD0075CCDD /* Debug.xcconfig */;
+			baseConfigurationReference = F3594F422CBE5B95003DC09B /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1696,7 +1696,7 @@
 		};
 		F3171F5A2C971B0C00C14FC5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3171F772C9727DB00C14FC5 /* Release.xcconfig */;
+			baseConfigurationReference = F3594F412CBE5B95003DC09B /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1753,7 +1753,7 @@
 		};
 		F3171F5C2C971B0C00C14FC5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CD18ED802CB053DD0075CCDD /* Debug.xcconfig */;
+			baseConfigurationReference = F3594F422CBE5B95003DC09B /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1790,7 +1790,7 @@
 		};
 		F3171F5D2C971B0C00C14FC5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3171F772C9727DB00C14FC5 /* Release.xcconfig */;
+			baseConfigurationReference = F3594F412CBE5B95003DC09B /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1827,7 +1827,7 @@
 		};
 		F35A66102C98CBB8005491C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CD18ED802CB053DD0075CCDD /* Debug.xcconfig */;
+			baseConfigurationReference = F3594F422CBE5B95003DC09B /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1864,7 +1864,7 @@
 		};
 		F35A66112C98CBB8005491C5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3171F772C9727DB00C14FC5 /* Release.xcconfig */;
+			baseConfigurationReference = F3594F412CBE5B95003DC09B /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
