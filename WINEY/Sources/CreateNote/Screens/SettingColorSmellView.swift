@@ -136,7 +136,7 @@ extension SettingColorSmellView {
   
   @ViewBuilder
   private func wineSmellSetting() -> some View {
-    VStack(alignment: .leading, spacing: 20) {
+    VStack(alignment: .leading, spacing: 0) {
       HStack(alignment: .center) {
         Text("와인의 향은요?")
           .wineyFont(.bodyB1)
@@ -157,6 +157,7 @@ extension SettingColorSmellView {
             store.send(.tappedHelpSmellButton)
           }
       }
+      .padding(.bottom, 20)
       
       VStack(spacing: 25) {
         smellCategoryInfo(category: .fruit)
@@ -164,6 +165,23 @@ extension SettingColorSmellView {
         smellCategoryInfo(category: .oak)
         smellCategoryInfo(category: .etc)
       }
+      .padding(.bottom, 25)
+      
+      Button {
+        
+      } label: {
+        Text("향 추가하기")
+          .wineyFont(.bodyM2)
+          .foregroundStyle(.wineyMain2)
+          .frame(maxWidth: .infinity)
+          .frame(height: 47)
+          .background(
+            RoundedRectangle(cornerRadius: 10)
+              .stroke(.wineyMain2)
+          )
+          .tint(.wineyMain2)
+      }
+      .padding(.bottom, 40)
     }
   }
   
