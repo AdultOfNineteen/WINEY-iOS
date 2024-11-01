@@ -65,6 +65,7 @@ DerivedData/
 APIKeys*.swift
 *.xcconfig
 **/baseURL.swift
+**/BaseURL.swift
 
 
 ### Tuist derived files ###
