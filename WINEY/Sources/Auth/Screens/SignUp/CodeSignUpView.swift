@@ -50,8 +50,7 @@ struct CodeSignUpView: View {
           maximumInputCount: 6,
           clockIndicator: store.codeValidateClock,
           completeCondition: store.inputCode.count == 6 && !store.isShowVerifyError,
-          keyboardType: .numberPad,
-          onEditingChange: { }
+          keyboardType: .numberPad
         )
         .focused($isTextFieldFocused)
         .padding(.horizontal, WineyGridRules.globalHorizontalPadding)

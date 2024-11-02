@@ -32,6 +32,11 @@ public struct SettingColorSmell {
     ]
     
     public var selectedSmell: Set<String> = []
+    public var userCustomSmell: Set<String> = []
+    public var selectedCustomSmell: Set<String> = []
+    
+    public var isShowAddSmellSection: Bool = false
+    public var userInputSmell: String = ""
     
     public var colorIndicator: Color = Color(red: 89/255, green: 0, blue: 43/255)
     
@@ -43,22 +48,32 @@ public struct SettingColorSmell {
     public var buttonState: Bool = false
   }
   
-  public enum Action {
+  public enum Action: BindableAction {
+    // MARK: - Binding
+    case binding(BindingAction<State>)
     
     // MARK: - User Action
     case tappedBackButton
-    case tappedSmellButton(String)
+    case tappedSmell(String)
+    case tappedCustomSmell(String)
     case tappedHelpSmellButton
     case dragSlider(DragGesture.Value)
     case tappedNextButton
+    case tappedAddSmellButton
+    case tappedConfirmAddSmellButton
     
     // MARK: - Inner Business Action
-    case _addSmell(String)
+    case _selectSmell(String)
     case _removeSmell(String)
+    
+    case _addCustomSmell(String)
+    case _selectCustomSmell(String)
+    case _removeCustomSmell(String)
     case _viewWillAppear
     case _moveNextPage
     case _moveBackPage
     case _moveSmellHelp
+    case _checkUserCustomSmell(String)
     
     // MARK: - Inner SetState Action
     case _setMaxValue(GeometryProxy)
@@ -66,14 +81,24 @@ public struct SettingColorSmell {
     case _setCoordinateValue(CGFloat)
     case _setColorValue(CGFloat)
     case _setSliderValue
+    case _setCustomSmellSheet(Bool)
     
     // MARK: - Child Action
     case wineCard(id: Int, action: WineCard.Action)
   }
   
   public var body: some Reducer<State, Action> {
+    BindingReducer()
+    
     Reduce<State, Action> { state, action in
       switch action {
+        
+      case .binding(\.userInputSmell):
+        return .none
+        
+      case .binding(\.isShowAddSmellSection):
+        return .none
+        
       case ._viewWillAppear:
         if let storedColor = CreateNoteManager.shared.color {
           state.colorIndicator = Color.init(hex: storedColor)
@@ -89,7 +114,6 @@ public struct SettingColorSmell {
         
         return .none
         
-        
       case .tappedBackButton:
         CreateNoteManager.shared.color = state.colorIndicator.toHex() == nil ? nil : "#" + state.colorIndicator.toHex()!
         CreateNoteManager.shared.smellKeywordList = state.selectedSmell
@@ -99,18 +123,56 @@ public struct SettingColorSmell {
         }
         return .send(._moveBackPage)
         
-      case .tappedSmellButton(let smell):
+      case .tappedSmell(let smell):
         if state.selectedSmell.contains(smell) {
           return .send(._removeSmell(smell))
         } else {
-          return .send(._addSmell(smell))
+          return .send(._selectSmell(smell))
         }
+        
+      case .tappedCustomSmell(let smell):
+        if state.selectedCustomSmell.contains(smell) {
+          return .send(._removeCustomSmell(smell))
+        } else {
+          return .send(._selectCustomSmell(smell))
+        }
+        
+      case let ._setCustomSmellSheet(bool):
+        state.isShowAddSmellSection = bool
+        return .none
         
       case .tappedHelpSmellButton:
         if CreateNoteManager.shared.mode == .create {
           AmplitudeProvider.shared.track(event: .SCENT_HELP_CLICK)
         }
         return .send(._moveSmellHelp)
+        
+      case .tappedAddSmellButton:
+        state.isShowAddSmellSection = true
+        return .none
+        
+      case .tappedConfirmAddSmellButton:
+        let smell = state.userInputSmell
+        state.userInputSmell = ""
+        
+        // TODO: Check String Validation
+        return .concatenate([
+          .send(._addCustomSmell(smell)),
+          .send(._selectCustomSmell(smell)),
+          .send(._setCustomSmellSheet(false))
+        ])
+        
+      case let ._addCustomSmell(smell):
+        state.userCustomSmell.insert(smell)
+        return .none
+        
+      case let ._selectCustomSmell(smell):
+        state.selectedCustomSmell.insert(smell)
+        return .none
+        
+      case let ._removeCustomSmell(smell):
+        state.selectedCustomSmell.remove(smell)
+        return .none
         
       case ._setMaxValue(let value):
         let maxValue = value.size.width - 11
@@ -130,7 +192,7 @@ public struct SettingColorSmell {
         }
         return .none
         
-      case ._addSmell(let smell):
+      case ._selectSmell(let smell):
         state.selectedSmell.insert(smell)
         return .none
         

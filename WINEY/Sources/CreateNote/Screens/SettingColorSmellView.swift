@@ -12,11 +12,7 @@ import WineyKit
 
 public struct SettingColorSmellView: View {
   
-  private let store: StoreOf<SettingColorSmell>
-  
-  public init(store: StoreOf<SettingColorSmell>) {
-    self.store = store
-  }
+  @Bindable var store: StoreOf<SettingColorSmell>
   
   public var body: some View {
     VStack(spacing: 0) {
@@ -46,6 +42,23 @@ public struct SettingColorSmellView: View {
       .padding(.top, 20)
       .padding(.bottom, WineyGridRules.bottomButtonPadding)
     }
+    .sheet(
+      isPresented: $store.isShowAddSmellSection,
+      content: {
+        ZStack(alignment: .top) {
+          Color.wineyGray950.ignoresSafeArea(edges: .all)
+          
+          customSmellAddSection()
+            .padding(
+              .horizontal,
+              WineyGridRules
+                .globalHorizontalPadding
+            )
+        }
+        .presentationDetents([.fraction(0.28)])
+        .presentationDragIndicator(.visible)
+      }
+    )
     .background(
       .wineyMainBackground
     )
@@ -164,11 +177,15 @@ extension SettingColorSmellView {
         smellCategoryInfo(category: .natural)
         smellCategoryInfo(category: .oak)
         smellCategoryInfo(category: .etc)
+        
+        if !store.userCustomSmell.isEmpty {
+          smellCategoryInfo(category: .custom)
+        }
       }
       .padding(.bottom, 25)
       
       Button {
-        
+        store.send(.tappedAddSmellButton)
       } label: {
         Text("향 추가하기")
           .wineyFont(.bodyM2)
@@ -194,19 +211,55 @@ extension SettingColorSmellView {
       
       ScrollView(.horizontal, showsIndicators: false) {
         LazyHStack(spacing: 7) {
-          ForEach(category.list, id: \.codeName) { category in
-            CapsuleButton(
-              title: category.korName,
-              validation: store.selectedSmell.contains { $0 == category.codeName },
-              action: {
-                store.send(.tappedSmellButton(category.codeName))
-              }
-            )
+          if category != .custom {
+            ForEach(category.list, id: \.codeName) { smell in
+              CapsuleButton(
+                title: smell.korName,
+                validation: store.selectedSmell.contains { $0 == smell.codeName },
+                action: {
+                  store.send(.tappedSmell(smell.codeName))
+                }
+              )
+            }
+          } else {
+            ForEach(store.userCustomSmell.sorted(), id: \.self) { smell in
+              CapsuleButton(
+                title: smell,
+                validation: store.selectedCustomSmell.contains { $0 == smell },
+                action: {
+                  store.send(.tappedCustomSmell(smell))
+                }
+              )
+            }
           }
         }
         .padding(1)
       }
     }
+  }
+  
+  @ViewBuilder
+  private func customSmellAddSection() -> some View {
+    VStack(spacing: 32) {
+      CustomTextField(
+        mainTitle: "향 키워드",
+        placeholderText: "와인의 향을 입력해주세요",
+        errorMessage: "다른 키워드로 향을 표현해주세요",
+        inputText: $store.userInputSmell,
+        textStyle: { $0 },
+        maximumInputCount: 7,
+        showStringLength: true,
+        completeCondition: store.userInputSmell.count > 0 && store.userInputSmell.count < 8,
+        keyboardType: .default
+      )
+      
+      WineyConfirmButton(
+        title: "확인",
+        validBy: store.userInputSmell.count > 0 && store.userInputSmell.count < 8,
+        action: { store.send(.tappedConfirmAddSmellButton) }
+      )
+    }
+    .padding(.top, 47)
   }
 }
 

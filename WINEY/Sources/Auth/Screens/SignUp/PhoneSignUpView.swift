@@ -52,8 +52,7 @@ struct PhoneSignUpView: View {
           maximumInputCount: 11,
           completeCondition: store.inputPhoneNumber.count == 11, 
           textDeleteButton: Image(.text_delete_iconW),
-          keyboardType: .numberPad,
-          onEditingChange: { }
+          keyboardType: .numberPad
         )
         .padding(
           .horizontal,

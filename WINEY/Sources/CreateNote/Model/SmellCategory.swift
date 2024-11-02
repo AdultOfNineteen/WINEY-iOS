@@ -12,6 +12,7 @@ public enum SmellCategory: CaseIterable {
   case natural
   case oak
   case etc
+  case custom
   
   public var title: String {
     switch self {
@@ -24,6 +25,8 @@ public enum SmellCategory: CaseIterable {
       return "오크향"
     case .etc:
       return "기타"
+    case .custom:
+      return "직접 추가"
     }
   }
   
@@ -60,6 +63,9 @@ public enum SmellCategory: CaseIterable {
         WineSmell(korName: "흙/재", codeName: "EARTHASH"),
         WineSmell(korName: "약품", codeName: "MEDICINE")
       ]
+      
+    case .custom:
+      return []
     }
   }
 }
