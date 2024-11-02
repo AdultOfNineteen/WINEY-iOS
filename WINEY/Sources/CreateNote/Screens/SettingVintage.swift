@@ -22,13 +22,15 @@ public struct SettingVintage {
     public var tooltipVisible: Bool = true
   }
   
-  public enum Action {
+  public enum Action: BindableAction {
+    
+    // MARK: - Binding
+    case binding(BindingAction<State>)
+    
     // MARK: - User Action
     case tappedBackButton
     case tappedSkipButton
     case tappedNextButton
-    case editVintage(String)
-    case editPrice(String)
     
     // MARK: - Inner Business Action
     case _viewWillAppear
@@ -47,6 +49,8 @@ public struct SettingVintage {
   
   public var body: some Reducer<State, Action> {
     
+    BindingReducer()
+    
     Reduce<State, Action> { state, action in
       switch action {
       case ._viewWillAppear:
@@ -62,14 +66,6 @@ public struct SettingVintage {
         withAnimation(.easeInOut(duration: 0.7)) {
           state.tooltipVisible = bool
         }
-        return .none
-        
-      case .editVintage(let value):
-        state.vintage = value
-        return .none
-        
-      case .editPrice(let value):
-        state.price = value
         return .none
         
       case ._checkVintageValue(let value):
