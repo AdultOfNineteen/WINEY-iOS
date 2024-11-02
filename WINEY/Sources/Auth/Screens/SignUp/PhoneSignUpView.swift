@@ -11,18 +11,14 @@ import SwiftUI
 import WineyKit
 
 struct PhoneSignUpView: View {
-  private let store: StoreOf<PhoneSignUp>
   
-  public init(store: StoreOf<PhoneSignUp>) {
-    self.store = store
-  }
+  @Bindable var store: StoreOf<PhoneSignUp>
   
   var body: some View {
     GeometryReader { geometry in
       VStack(spacing: 0) {
         NavigationBar(
-          leftIcon: Image(.navigationBack_buttonW)
-          ,
+          leftIcon: Image(.navigationBack_buttonW),
           leftIconButtonAction: {
             store.send(.tappedBackButton)
           },
@@ -44,14 +40,12 @@ struct PhoneSignUpView: View {
           mainTitle: "전화번호",
           placeholderText: "11자리 입력",
           errorMessage: "올바른 번호를 입력해주세요",
-          inputText: .init(
-            get: { store.inputPhoneNumber },
-            set: { text in store.send(.edited(inputText: text))}
-          ),
+          inputText: $store.inputPhoneNumber,
           textStyle: formatPhoneNumber(_:),
-          maximumInputCount: 11,
-          completeCondition: store.inputPhoneNumber.count == 11, 
+          maximumInputCount: 13,
+          completeCondition: store.inputPhoneNumber.count == 13,
           textDeleteButton: Image(.text_delete_iconW),
+          isLimitMaxString: true,
           keyboardType: .numberPad
         )
         .padding(
@@ -65,7 +59,7 @@ struct PhoneSignUpView: View {
         
         WineyConfirmButton(
           title: "다음",
-          validBy: store.state.validPhoneNumber,
+          validBy: String(store.state.inputPhoneNumber.filter("0123456789".contains)).count == 11,
           action: {
             store.send(.tappedNextButton)
           }
@@ -116,7 +110,7 @@ struct PhoneSignUpView: View {
     .onDisappear {
       store.send(._disappear)
     }
-    .onChange(of: store.isPresentedBottomSheet ) { sheetAppear in
+    .onChange(of: store.isPresentedBottomSheet) { oldValue, sheetAppear in
       if sheetAppear {
         UIApplication.shared.endEditing()
       }

@@ -19,6 +19,7 @@ public struct CustomTextField: View {
   public let placeholderText: String
   public var clockIndicator: Int?
   public var keyboardType: UIKeyboardType
+  public var isLimitMaxString: Bool
   
   @Binding public var inputText: String
     
@@ -33,6 +34,7 @@ public struct CustomTextField: View {
     clockIndicator: Int? = nil,
     completeCondition: Bool,
     textDeleteButton: Image? = nil,
+    isLimitMaxString: Bool = false,
     keyboardType: UIKeyboardType
   ) {
     self.mainTitle = mainTitle
@@ -45,6 +47,7 @@ public struct CustomTextField: View {
     self.clockIndicator = clockIndicator
     self.textDeleteButton = textDeleteButton
     self.completeCondition = completeCondition
+    self.isLimitMaxString = isLimitMaxString
     self.keyboardType = keyboardType
   }
     
@@ -66,7 +69,11 @@ public struct CustomTextField: View {
       HStack {
         TextField(placeholderText, text: $inputText)
           .onChange(of: inputText) { oldValue, newValue in
-            inputText = textStyle(String(newValue.prefix(maximumInputCount)))
+            if isLimitMaxString {
+              inputText = textStyle(String(newValue.prefix(maximumInputCount)))
+            } else {
+              inputText = textStyle(newValue)
+            }
           }
           .keyboardType(keyboardType)
           .tint(.wineyMain1)

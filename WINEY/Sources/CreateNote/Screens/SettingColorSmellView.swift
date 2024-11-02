@@ -250,6 +250,7 @@ extension SettingColorSmellView {
         maximumInputCount: 7,
         showStringLength: true,
         completeCondition: store.userInputSmell.count > 0 && store.userInputSmell.count < 8,
+        isLimitMaxString: true,
         keyboardType: .default
       )
       
