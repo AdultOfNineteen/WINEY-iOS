@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import Foundation
+import UIKit
 
 @Reducer
 public struct ForeceUpdate {
@@ -27,6 +28,7 @@ public struct ForeceUpdate {
     // MARK: - Inner Business Action
     case _viewWillAppear
     case _fetchRemoteConfigData(_ target: FirebaseRemoteConfigTarget)
+    case _openAppStore
     
     // MARK: - Inner SetState Action
     case _setUpdateContents(String)
@@ -86,6 +88,19 @@ public struct ForeceUpdate {
         return .none
         
       case .tappedUpdateButton:
+        return .send(._openAppStore)
+        
+      case ._openAppStore:
+        let appId = Config.getPropertyValue(.appID)
+        
+        if let url = URL(string: "itms-apps://itunes.apple.com/app/\(appId)"), UIApplication.shared.canOpenURL(url) {
+          if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+          } else {
+            UIApplication.shared.openURL(url)
+          }
+        }
+        
         return .none
       }
     }

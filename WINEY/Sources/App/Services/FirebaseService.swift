@@ -65,21 +65,23 @@ final class FirebaseController {
         if status == .success {
           self.remoteConfig.activate() { (changed, error) in
             
-            // TODO: BundleVersionString or BundleVersion 선택
-            guard let info = Bundle.main.infoDictionary, let currentVersion = info["CFBundleShortVersionString"] as? String else {
-              return continuation.resume(returning: .NONE)
-            }
-            
-            let latestVersion = self.remoteConfig[FirebaseRemoteConfigTarget.IOS_LATEST_VERSION.rawValue].stringValue
-            let minimumUpdateVersion = self.remoteConfig[FirebaseRemoteConfigTarget.IOS_MINIMUM_VERSION.rawValue].stringValue
-            
-            if currentVersion < minimumUpdateVersion {
               continuation.resume(returning: .FORCE)
-            } else if currentVersion < latestVersion {
-              continuation.resume(returning: .SOFT)
-            } else {
-              continuation.resume(returning: .NONE)
-            }
+            
+            // TODO: BundleVersionString or BundleVersion 선택
+//            guard let info = Bundle.main.infoDictionary, let currentVersion = info["CFBundleShortVersionString"] as? String else {
+//              return continuation.resume(returning: .NONE)
+//            }
+//            
+//            let latestVersion = self.remoteConfig[FirebaseRemoteConfigTarget.IOS_LATEST_VERSION.rawValue].stringValue
+//            let minimumUpdateVersion = self.remoteConfig[FirebaseRemoteConfigTarget.IOS_MINIMUM_VERSION.rawValue].stringValue
+//            
+//            if currentVersion < minimumUpdateVersion {
+//              continuation.resume(returning: .FORCE)
+//            } else if currentVersion < latestVersion {
+//              continuation.resume(returning: .SOFT)
+//            } else {
+//              continuation.resume(returning: .NONE)
+//            }
           }
         } else {
           continuation.resume(returning: .NONE)

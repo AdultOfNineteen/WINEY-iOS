@@ -11,6 +11,7 @@
 		CD18ED892CB058990075CCDD /* OtherNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED882CB058990075CCDD /* OtherNoteView.swift */; };
 		CD18ED8B2CB06E580075CCDD /* OtherNoteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED8A2CB06E580075CCDD /* OtherNoteList.swift */; };
 		CD18ED8D2CB06E5E0075CCDD /* OtherNoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED8C2CB06E5E0075CCDD /* OtherNoteListView.swift */; };
+		CD3CCFAF2CDA810D00691B5A /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3CCFAE2CDA810D00691B5A /* Config.swift */; };
 		CD4B13142CDA02B2008A5851 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD4B13132CDA02B2008A5851 /* GoogleService-Info.plist */; };
 		CD4B13162CDA07FA008A5851 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4B13152CDA07FA008A5851 /* FirebaseService.swift */; };
 		CD706FF12CA937B7000FE7F0 /* WineSearchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD706FF02CA937B7000FE7F0 /* WineSearchCardView.swift */; };
@@ -226,6 +227,7 @@
 		CD18ED882CB058990075CCDD /* OtherNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNoteView.swift; sourceTree = "<group>"; };
 		CD18ED8A2CB06E580075CCDD /* OtherNoteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNoteList.swift; sourceTree = "<group>"; };
 		CD18ED8C2CB06E5E0075CCDD /* OtherNoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNoteListView.swift; sourceTree = "<group>"; };
+		CD3CCFAE2CDA810D00691B5A /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		CD4B13132CDA02B2008A5851 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CD4B13152CDA07FA008A5851 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		CD706FF02CA937B7000FE7F0 /* WineSearchCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineSearchCardView.swift; sourceTree = "<group>"; };
@@ -1118,6 +1120,7 @@
 			isa = PBXGroup;
 			children = (
 				F3EFC8162C975B3C00BC6DC9 /* Print + Override.swift */,
+				CD3CCFAE2CDA810D00691B5A /* Config.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1564,6 +1567,7 @@
 				F3EFC8722C975B3C00BC6DC9 /* FilterType.swift in Sources */,
 				F35A66562C996DB8005491C5 /* TastingNotesView.swift in Sources */,
 				F35A678D2C9F90AB005491C5 /* EmptyListInfoView.swift in Sources */,
+				CD3CCFAF2CDA810D00691B5A /* Config.swift in Sources */,
 				F35A676D2C9F8C6A005491C5 /* WineCardCarousel.swift in Sources */,
 				F35A67882C9F90AB005491C5 /* ShopBottomSheet.swift in Sources */,
 				F35A67892C9F90AB005491C5 /* BottomSheetCategoryTitle.swift in Sources */,
