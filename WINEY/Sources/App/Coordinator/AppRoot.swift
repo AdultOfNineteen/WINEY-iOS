@@ -22,6 +22,7 @@ public struct AppRoot {
     case _moveToSplash
     case _moveToAuth
     case _moveToTabBar
+    case _moteToForceUpdate
     case _openOtherNote(noteId: Int, isMine: Bool)
     
     case handleDeepLink(_ url: URL)

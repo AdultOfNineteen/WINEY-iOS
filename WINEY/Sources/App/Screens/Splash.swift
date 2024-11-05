@@ -22,6 +22,7 @@ public struct Splash {
     case _serverConnection
     case _moveToTabBar(shareNoteId: Int?)
     case _moveToAuth
+    case _moveForceUpdate
     case _checkUser
     
     case _setLoginState
@@ -46,6 +47,7 @@ public struct Splash {
             // 강제 업데이트 필요
           case .FORCE:
             print("강제 업데이트 필요!!")
+            return await send(._moveForceUpdate)
             
           case .SOFT:
             print("SOFT UPDATE")

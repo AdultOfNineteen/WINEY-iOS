@@ -39,6 +39,9 @@ public struct ForeceUpdateView: View {
       }
       .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
     }
+    .task {
+      store.send(._viewWillAppear)
+    }
     .background(
       ZStack {
         Color.wineyMainBackground.ignoresSafeArea()
@@ -63,15 +66,20 @@ private extension ForeceUpdateView {
           .wineyFont(.title1)
           .foregroundStyle(.white)
         
-        // TODO: REMOTE CONFIG 데이터 활용
-        Text("v 0.0.0")
-          .wineyFont(.captionM1)
-          .padding(.vertical, 3)
-          .padding(.horizontal, 10)
-          .background(
-            Capsule()
-              .fill(.wineyMain1)
-          )
+        Group {
+          if let appVersion = store.appVersion {
+            Text(appVersion)
+          } else {
+            Text("버전 정보 오류")
+          }
+        }
+        .wineyFont(.captionM1)
+        .padding(.vertical, 3)
+        .padding(.horizontal, 10)
+        .background(
+          Capsule()
+            .fill(.wineyMain1)
+        )
         
         Spacer()
       }
@@ -80,24 +88,20 @@ private extension ForeceUpdateView {
   
   @ViewBuilder
   func updateContentBox() -> some View {
-    
-    // TODO: REMOTE CONFIG 데이터 활용
     VStack(alignment: .leading, spacing: 20) {
-      Text("더욱 쉽고 편리한\n테이스팅 노트 기록을 경험해보세요!")
+      Text(store.updateTitle)
         .wineyFont(.bodyB2)
         .foregroundStyle(.white)
       
-      HStack {
-        VStack(alignment: .leading, spacing: 8) {
-          Text("와인 검색 개선")
-          Text("도수 입력 시 소수점 지원")
+      VStack(alignment: .leading, spacing: 8) {
+        ForEach(store.updateContents, id: \.self) { content in
+          Text(content)
         }
-        
-        Spacer()
       }
       .wineyFont(.bodyM2)
       .foregroundStyle(.white)
     }
+    .frame(maxWidth: .infinity, alignment: .leading)
     .padding(.vertical, 20)
     .padding(.horizontal, 15)
     .background(

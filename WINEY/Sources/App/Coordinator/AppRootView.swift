@@ -18,6 +18,10 @@ struct AppRootView: View {
         if let store = store.scope(state: \.destination?.splash, action: \.destination.splash) {
           SplashView(store: store)
         }
+      case .forceUpdate:
+        if let store = store.scope(state: \.destination?.forceUpdate, action: \.destination.forceUpdate) {
+          ForeceUpdateView(store: store)
+        }
       case .auth:
         if let store = store.scope(state: \.destination?.auth, action: \.destination.auth) {
           AuthView(store: store)

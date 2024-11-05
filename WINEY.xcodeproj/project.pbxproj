@@ -587,8 +587,8 @@
 			children = (
 				F35A65EA2C98B952005491C5 /* Splash.swift */,
 				F35A65EC2C98B957005491C5 /* SplashView.swift */,
-				CDD5DEFB2CD672410068DF32 /* ForeceUpdateView.swift */,
 				CDD5DEFD2CD672460068DF32 /* ForeceUpdate.swift */,
+				CDD5DEFB2CD672410068DF32 /* ForeceUpdateView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";

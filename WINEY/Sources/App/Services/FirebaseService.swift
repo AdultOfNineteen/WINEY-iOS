@@ -9,15 +9,23 @@ import Foundation
 import Dependencies
 import FirebaseRemoteConfig
 
-public enum FirbaseUpdateStrategy: Int {
+@frozen public enum FirbaseUpdateStrategy: Int {
   case NONE = 0
   case FORCE = 1
   case SOFT = 2
 }
 
+@frozen public enum FirebaseRemoteConfigTarget: String {
+  case IOS_LATEST_VERSION = "ios_latest_version"
+  case IOS_MINIMUM_VERSION = "ios_minimum_version"
+  case IOS_UPDATE_CONTENT = "ios_update_content"
+  case IOS_UPDATE_STRATEGY = "ios_update_strategy"
+  case IOS_LATEST_VERSION_NAME = "ios_latest_version_name"
+}
+
 public struct FirebaseService {
   public var checkAppVersion: () async -> FirbaseUpdateStrategy
-  public var fetchUpdateContent: () async -> String?
+  public var fetchRemoteConfigData: (_ target: FirebaseRemoteConfigTarget) async -> String?
 }
 
 public extension FirebaseService {
@@ -30,19 +38,14 @@ public extension FirebaseService {
       checkAppVersion: {
         await controller.checkAppVersion()
       },
-      fetchUpdateContent: {
-        await controller.fetchUpdateContent()
+      fetchRemoteConfigData: { target in
+        await controller.fetchRemoteConfigData(target: target)
       }
     )
   }()
 }
 
 final class FirebaseController {
-  
-  private let IOS_LATEST_VERSION = "ios_latest_version"
-  private let IOS_MINIMUM_VERSION = "ios_minimum_version"
-  private let IOS_UPDATE_CONTENT = "ios_update_content"
-  private let IOS_UPDATE_STRATEGY = "ios_update_strategy"
   
   private let remoteConfig: RemoteConfig
   private let settings: RemoteConfigSettings
@@ -62,15 +65,14 @@ final class FirebaseController {
         if status == .success {
           self.remoteConfig.activate() { (changed, error) in
             
-            // BundleVersionString or BundleVersion 선택
+            // TODO: BundleVersionString or BundleVersion 선택
             guard let info = Bundle.main.infoDictionary, let currentVersion = info["CFBundleShortVersionString"] as? String else {
               return continuation.resume(returning: .NONE)
             }
             
-            let latestVersion = self.remoteConfig[self.IOS_LATEST_VERSION].stringValue
-            let minimumUpdateVersion = self.remoteConfig[self.IOS_MINIMUM_VERSION].stringValue
+            let latestVersion = self.remoteConfig[FirebaseRemoteConfigTarget.IOS_LATEST_VERSION.rawValue].stringValue
+            let minimumUpdateVersion = self.remoteConfig[FirebaseRemoteConfigTarget.IOS_MINIMUM_VERSION.rawValue].stringValue
             
-            print(currentVersion, "!!!!!!!!!!!!!!!!!!!!!!!")
             if currentVersion < minimumUpdateVersion {
               continuation.resume(returning: .FORCE)
             } else if currentVersion < latestVersion {
@@ -87,14 +89,14 @@ final class FirebaseController {
     }
   }
   
-  func fetchUpdateContent() async -> String? {
+  func fetchRemoteConfigData(target: FirebaseRemoteConfigTarget) async -> String? {
     return await withUnsafeContinuation { continuation in
       self.remoteConfig.fetch() { [weak self] (status, error) -> Void in
         guard let self = self else { return }
         
         if status == .success {
           self.remoteConfig.activate() { (changed, error) in
-            let content = self.remoteConfig[self.IOS_UPDATE_CONTENT].stringValue
+            let content = self.remoteConfig[target.rawValue].stringValue
             continuation.resume(returning: content)
           }
         } else {

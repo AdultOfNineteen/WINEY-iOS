@@ -12,18 +12,21 @@ public struct AppRootDestination {
   @ObservableState
   public enum State: Equatable {
     case splash(Splash.State)
+    case forceUpdate(ForeceUpdate.State)
     case auth(Auth.State)
     case tabBar(TabBar.State)
   }
   
   public enum Action {
     case splash(Splash.Action)
+    case forceUpdate(ForeceUpdate.Action)
     case auth(Auth.Action)
     case tabBar(TabBar.Action)
   }
   
   public var body: some Reducer<State, Action> {
     Scope(state: \.splash, action: \.splash) { Splash() }
+    Scope(state: \.forceUpdate, action: \.forceUpdate) { ForeceUpdate() }
     Scope(state: \.auth, action: \.auth) { Auth() }
     Scope(state: \.tabBar, action: \.tabBar) { TabBar() }
   }
@@ -35,6 +38,10 @@ extension AppRoot {
       switch action {
       case ._moveToSplash:
         state.destination = .splash(.init())
+        return .none
+        
+      case ._moteToForceUpdate:
+        state.destination = .forceUpdate(.init())
         return .none
         
       case ._moveToAuth:
@@ -61,6 +68,9 @@ extension AppRoot {
         } else {
           return .send(._moveToTabBar)
         }
+        
+      case .destination(.splash(._moveForceUpdate)):
+        return .send(._moteToForceUpdate)
         
       case .destination(.auth(.delegate(.moveToTab))):
         return .send(._moveToTabBar)
