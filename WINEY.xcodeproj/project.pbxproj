@@ -11,6 +11,8 @@
 		CD18ED892CB058990075CCDD /* OtherNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED882CB058990075CCDD /* OtherNoteView.swift */; };
 		CD18ED8B2CB06E580075CCDD /* OtherNoteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED8A2CB06E580075CCDD /* OtherNoteList.swift */; };
 		CD18ED8D2CB06E5E0075CCDD /* OtherNoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED8C2CB06E5E0075CCDD /* OtherNoteListView.swift */; };
+		CD4B13142CDA02B2008A5851 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD4B13132CDA02B2008A5851 /* GoogleService-Info.plist */; };
+		CD4B13162CDA07FA008A5851 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4B13152CDA07FA008A5851 /* FirebaseService.swift */; };
 		CD706FF12CA937B7000FE7F0 /* WineSearchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD706FF02CA937B7000FE7F0 /* WineSearchCardView.swift */; };
 		CD706FF32CA937F9000FE7F0 /* WineSearchCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD706FF22CA937F9000FE7F0 /* WineSearchCard.swift */; };
 		CDA994EC2CA304950068063E /* TipCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA994EB2CA304950068063E /* TipCard.swift */; };
@@ -224,6 +226,8 @@
 		CD18ED882CB058990075CCDD /* OtherNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNoteView.swift; sourceTree = "<group>"; };
 		CD18ED8A2CB06E580075CCDD /* OtherNoteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNoteList.swift; sourceTree = "<group>"; };
 		CD18ED8C2CB06E5E0075CCDD /* OtherNoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNoteListView.swift; sourceTree = "<group>"; };
+		CD4B13132CDA02B2008A5851 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CD4B13152CDA07FA008A5851 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		CD706FF02CA937B7000FE7F0 /* WineSearchCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineSearchCardView.swift; sourceTree = "<group>"; };
 		CD706FF22CA937F9000FE7F0 /* WineSearchCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineSearchCard.swift; sourceTree = "<group>"; };
 		CDA994EB2CA304950068063E /* TipCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCard.swift; sourceTree = "<group>"; };
@@ -507,6 +511,7 @@
 		F3171F4F2C971B0B00C14FC5 /* WINEY */ = {
 			isa = PBXGroup;
 			children = (
+				CD4B13132CDA02B2008A5851 /* GoogleService-Info.plist */,
 				F3171F7F2C972CBD00C14FC5 /* Resources */,
 				F3EFC7B82C97576900BC6DC9 /* Sources */,
 				F3171F802C972D0D00C14FC5 /* WINEY.entitlements */,
@@ -1104,6 +1109,7 @@
 			children = (
 				F3EFC8122C975B3C00BC6DC9 /* KakaoSharedService.swift */,
 				F3EFC8132C975B3C00BC6DC9 /* KakaoShareMessage.swift */,
+				CD4B13152CDA07FA008A5851 /* FirebaseService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1413,6 +1419,7 @@
 				F3171F552C971B0C00C14FC5 /* Assets.xcassets in Resources */,
 				CDD5DEF62CD53B320068DF32 /* Shared.xcconfig in Resources */,
 				CDD5DEF52CD53B320068DF32 /* Release.xcconfig in Resources */,
+				CD4B13142CDA02B2008A5851 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1612,6 +1619,7 @@
 				F35A66992C998870005491C5 /* WineAnalysisResultView.swift in Sources */,
 				F35A66592C996DC7005491C5 /* FilterDetailView.swift in Sources */,
 				F3EFC8A02C975B3C00BC6DC9 /* WineRankData.swift in Sources */,
+				CD4B13162CDA07FA008A5851 /* FirebaseService.swift in Sources */,
 				F3EFC8782C975B3C00BC6DC9 /* CreateNoteManager.swift in Sources */,
 				F3EFC89F2C975B3C00BC6DC9 /* TasteAnalysisDTO.swift in Sources */,
 				F3D744612CAF1A16006C79EA /* NotePath.swift in Sources */,

@@ -10,6 +10,7 @@ import WineyKit
 import ComposableArchitecture
 import UserInfoPresentation
 import UserInfoData
+import FirebaseCore
 import KakaoSDKCommon
 
 @main
@@ -17,6 +18,7 @@ struct WINEYApp: App {
   init() {
     AmplitudeProvider.initProvider(apiKey: getAmplitudeAPIKey())
     KakaoSDK.initSDK(appKey: getKakaoAPIKey())
+    FirebaseApp.configure()
     
     @Dependency(\.userDefaults) var userDefaultsService
     WineyFont.registerAll()

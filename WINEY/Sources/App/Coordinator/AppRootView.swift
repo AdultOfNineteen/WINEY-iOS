@@ -38,7 +38,7 @@ struct AppRootView: View {
         print("토큰 만료 포착")
         store.send(._moveToAuth)
       }
-    }     
+    }
     .onOpenURL { url in
       store.send(.handleDeepLink(url))
     }

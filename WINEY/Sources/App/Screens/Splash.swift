@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import Foundation
+import FirebaseRemoteConfig
 
 @Reducer
 public struct Splash {
@@ -21,6 +22,7 @@ public struct Splash {
     case _serverConnection
     case _moveToTabBar(shareNoteId: Int?)
     case _moveToAuth
+    case _checkUser
     
     case _setLoginState
     
@@ -29,6 +31,7 @@ public struct Splash {
   
   @Dependency(\.userDefaults) var userDefaultsService
   @Dependency(\.user) var userService
+  @Dependency(\.firebase) var firebaseService
   
   public var body: some Reducer<State, Action> {
     Reduce<State, Action> { state, action in
@@ -38,12 +41,30 @@ public struct Splash {
         userDefaultsService.saveFlag(.isPopGestureEnabled, true)
         print("지금 로그아웃해서 다시 돌아옴")
         return .run { send in
+          switch await firebaseService.checkAppVersion() {
+            
+            // 강제 업데이트 필요
+          case .FORCE:
+            print("강제 업데이트 필요!!")
+            
+          case .SOFT:
+            print("SOFT UPDATE")
+            return await send(._checkUser)
+            
+          case .NONE:
+            print("Nothing Update")
+            return await send(._checkUser)
+          }
+        }
+        
+      case ._checkUser:
+        return .run { send in
           switch await userService.info() {
           case .success(let data):
             // MARK: - 테스트용. 삭제 예정
-//            await send(._moveToTabBar)
-            // MARK: - 실제 코드 
-            await send(._checkConnectHistory(data.status == "ACTIVE"))
+            //            await send(._moveToTabBar)
+            // MARK: - 실제 코드
+            return await send(._checkConnectHistory(data.status == "ACTIVE"))
           case .failure:
             return await send(._moveToAuth)
           }
