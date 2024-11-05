@@ -12,6 +12,7 @@
 		CD18ED8B2CB06E580075CCDD /* OtherNoteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED8A2CB06E580075CCDD /* OtherNoteList.swift */; };
 		CD18ED8D2CB06E5E0075CCDD /* OtherNoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED8C2CB06E5E0075CCDD /* OtherNoteListView.swift */; };
 		CD3CCFAF2CDA810D00691B5A /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3CCFAE2CDA810D00691B5A /* Config.swift */; };
+		CD3CCFB02CDA888100691B5A /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3CCFAE2CDA810D00691B5A /* Config.swift */; };
 		CD4B13142CDA02B2008A5851 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD4B13132CDA02B2008A5851 /* GoogleService-Info.plist */; };
 		CD4B13162CDA07FA008A5851 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4B13152CDA07FA008A5851 /* FirebaseService.swift */; };
 		CD706FF12CA937B7000FE7F0 /* WineSearchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD706FF02CA937B7000FE7F0 /* WineSearchCardView.swift */; };
@@ -1642,6 +1643,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3D744632CAF1AB7006C79EA /* UserInfoPath.swift in Sources */,
+				CD3CCFB02CDA888100691B5A /* Config.swift in Sources */,
 				F3D744652CAF1BBB006C79EA /* UserInfoAppReducer.swift in Sources */,
 				F35A66072C98CBB7005491C5 /* Demo_UserInfoApp.swift in Sources */,
 			);

@@ -16,8 +16,8 @@ import KakaoSDKCommon
 @main
 struct WINEYApp: App {
   init() {
-    AmplitudeProvider.initProvider(apiKey: getAmplitudeAPIKey())
-    KakaoSDK.initSDK(appKey: getKakaoAPIKey())
+    AmplitudeProvider.initProvider(apiKey: Config.getPropertyValue(.amplitudeKey))
+    KakaoSDK.initSDK(appKey: Config.getPropertyValue(.kakaoAPIKey))
     FirebaseApp.configure()
     
     @Dependency(\.userDefaults) var userDefaultsService
@@ -35,25 +35,4 @@ struct WINEYApp: App {
       )
     }
   }
-}
-
-
-func getFakeUserToken() -> String? {
-  return Bundle.main.object(forInfoDictionaryKey: "FakeUserToken") as? String
-}
-
-func getFakeUserID() -> String? {
-  return Bundle.main.object(forInfoDictionaryKey: "FakeUserID") as? String
-}
-
-func getBaseURL() -> String? {
-  return Bundle.main.object(forInfoDictionaryKey: "BaseURL") as? String
-}
-
-func getAmplitudeAPIKey() -> String {
-  return Bundle.main.object(forInfoDictionaryKey: "AmplitudeAPIKey") as! String
-}
-
-func getKakaoAPIKey() -> String {
-  return Bundle.main.object(forInfoDictionaryKey: "KakaoAPIKey") as! String
 }

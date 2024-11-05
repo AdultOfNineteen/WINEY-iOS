@@ -13,6 +13,9 @@ public enum Config {
       case appID = "AppID"
       case amplitudeKey = "AmplitudeAPIKey"
       case baseURL = "BaseURL"
+      case kakaoAPIKey = "KakaoAPIKey"
+      case fakeUserToken = "FakeUserToken"
+      case fakeUserID = "FakeUserID"
     }
   }
   
