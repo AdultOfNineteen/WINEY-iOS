@@ -75,7 +75,7 @@ struct WineDetailGraph: View {
         
         
         HStack(spacing: 0) {
-          Text("와인의 기본맛\n")
+          Text("와인의 맛\n")
           
           Spacer()
             .frame(width: geo.size.width / 11 * 2)
