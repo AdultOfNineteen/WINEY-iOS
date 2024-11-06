@@ -112,6 +112,7 @@ private extension ForeceUpdateView {
   @ViewBuilder
   func shadowBox() -> some View {
     RoundedRectangle(cornerRadius: 8)
+      .fill(Color(red: 63/255, green: 63/255, blue: 63/255).opacity(0.4))
       .stroke(
         LinearGradient(
           colors: [
@@ -124,7 +125,6 @@ private extension ForeceUpdateView {
         lineWidth: 1
       )
       .foregroundStyle(.ultraThinMaterial)
-      .background(Color(red: 63/255, green: 63/255, blue: 63/255).opacity(0.4))
   }
   
   @ViewBuilder
