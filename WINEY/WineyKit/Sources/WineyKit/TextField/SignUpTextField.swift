@@ -13,12 +13,13 @@ public struct CustomTextField: View {
   public let errorMessage: String
   public let textStyle: (String) -> String // Formatter로 만들 지 고민 중
   public let maximumInputCount: Int
+  public let showStringLength: Bool
   public let completeCondition: Bool
-  public var onEditingChange: () -> Void = {}
   public let textDeleteButton: Image?
   public let placeholderText: String
   public var clockIndicator: Int?
   public var keyboardType: UIKeyboardType
+  public var isLimitMaxString: Bool
   
   @Binding public var inputText: String
     
@@ -29,23 +30,25 @@ public struct CustomTextField: View {
     inputText: Binding<String>,
     textStyle: @escaping (String) -> String,
     maximumInputCount: Int,
+    showStringLength: Bool = false,
     clockIndicator: Int? = nil,
     completeCondition: Bool,
     textDeleteButton: Image? = nil,
-    keyboardType: UIKeyboardType,
-    onEditingChange: @escaping () -> Void = {}
+    isLimitMaxString: Bool = false,
+    keyboardType: UIKeyboardType
   ) {
     self.mainTitle = mainTitle
     self.placeholderText = placeholderText
     self.errorMessage = errorMessage
     self._inputText = inputText
+    self.showStringLength = showStringLength
     self.textStyle = textStyle
     self.maximumInputCount = maximumInputCount
     self.clockIndicator = clockIndicator
     self.textDeleteButton = textDeleteButton
     self.completeCondition = completeCondition
+    self.isLimitMaxString = isLimitMaxString
     self.keyboardType = keyboardType
-    self.onEditingChange = onEditingChange
   }
     
   public var body: some View {
@@ -65,12 +68,14 @@ public struct CustomTextField: View {
           
       HStack {
         TextField(placeholderText, text: $inputText)
-          .keyboardType(keyboardType)
-          .onChange(of: inputText) { newValue in
-            inputText =
-            textStyle(String(newValue.prefix(maximumInputCount)))
-            onEditingChange()
+          .onChange(of: inputText) { oldValue, newValue in
+            if isLimitMaxString {
+              inputText = textStyle(String(newValue.prefix(maximumInputCount)))
+            } else {
+              inputText = textStyle(newValue)
+            }
           }
+          .keyboardType(keyboardType)
           .tint(.wineyMain1)
           .foregroundColor(.white)
           .wineyFont(.bodyB1)
@@ -87,6 +92,12 @@ public struct CustomTextField: View {
           let minute = clock % 60
           
           Text("\(hour.description):\(minute.description.count == 1 ? "0" : "")\(minute.description)")
+            .wineyFont(.captionM1)
+        }
+        
+        if showStringLength {
+          Text("\(inputText.count)/\(maximumInputCount)")
+            .foregroundStyle(.wineyGray500)
             .wineyFont(.captionM1)
         }
       }
@@ -121,8 +132,7 @@ struct CustomTextFieldExample: View {
         textStyle: formatPhoneNumber(_:),
         maximumInputCount: 13,
         completeCondition: true,
-        keyboardType: .numberPad,
-        onEditingChange: { }
+        keyboardType: .numberPad
       )
             
       CustomTextField(
@@ -133,8 +143,7 @@ struct CustomTextFieldExample: View {
         textStyle: { $0 },
         maximumInputCount: 6,
         completeCondition: false,
-        keyboardType: .numberPad,
-        onEditingChange: { }
+        keyboardType: .numberPad
       )
       
       Button("Start Timer") {
@@ -142,6 +151,7 @@ struct CustomTextFieldExample: View {
       }
     }
     .padding()
+    .background(.wineyMainBackground)
   }
 
   func formatPhoneNumber(_ number: String) -> String {

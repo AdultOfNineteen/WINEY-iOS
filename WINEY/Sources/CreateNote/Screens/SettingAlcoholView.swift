@@ -11,13 +11,8 @@ import SwiftUI
 import WineyKit
 
 public struct SettingAlcoholView: View {
-  private let store: StoreOf<SettingAlcohol>
   
-  public init(store: StoreOf<SettingAlcohol>) {
-    self.store = store
-  }
-  
-  @State var selectedNumber: Int = 3
+  @Bindable var store: StoreOf<SettingAlcohol>
   
   public var body: some View {
     VStack(spacing: 0) {
@@ -43,10 +38,7 @@ public struct SettingAlcoholView: View {
     .popGestureDisabled()
     .bottomSheet(
       backgroundColor: Color.wineyGray950,
-      isPresented: .init(
-        get: { store.isPresentedBottomSheet },
-        set: { _ in store.send(.tappedOutsideOfBottomSheet) }
-      ),
+      isPresented: $store.isPresentedBottomSheet,
       headerArea: {
         Image(.noteColorImageW)
       },
@@ -121,10 +113,7 @@ extension SettingAlcoholView {
         CustomWheelPickerView(
           store.alcoholValueRange,
           .trailing,
-          .init(
-            get: { store.alcoholValue },
-            set: { value in store.send(.selectAlcoholValue(value)) }
-          )
+          $store.alcoholValue
         )
         
         Circle()
@@ -135,10 +124,7 @@ extension SettingAlcoholView {
         CustomWheelPickerView(
           store.alcoholPointValueRange,
           .center,
-          .init(
-            get: { store.alcoholPointValue },
-            set: { value in store.send(.selectAlcoholPointValue(value)) }
-          )
+          $store.alcoholPointValue
         )
         
         Circle()

@@ -79,8 +79,7 @@ extension ChangeNicknameView {
       maximumInputCount: 50,
       completeCondition: !store.userInput.isEmpty && store.userInput.count <= 9,
       textDeleteButton: Image(.text_delete_iconW),
-      keyboardType: .default,
-      onEditingChange: { }
+      keyboardType: .default
     )
     .padding(.top, 30)
     .padding(.horizontal, WineyGridRules.globalHorizontalPadding)

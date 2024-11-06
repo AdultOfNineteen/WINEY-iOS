@@ -21,7 +21,11 @@ public  struct PhoneSignUp {
     var isPresentedBottomSheet: Bool = false
   }
   
-  public enum Action {
+  public enum Action: BindableAction {
+    
+    // MARK: - Binding
+    case binding(BindingAction<State>)
+    
     // MARK: - User Action
     case tappedBackButton
     case tappedNextButton
@@ -44,6 +48,9 @@ public  struct PhoneSignUp {
   @Dependency(\.signUp) var signUpService
   
   public var body: some Reducer<State, Action> {
+    
+    BindingReducer()
+    
     Reduce<State, Action> { state, action in
       switch action {
       case .edited(let number):

@@ -11,6 +11,7 @@ import SwiftUI
 public enum RadialCircleType {
   case splash
   case login
+  case forceUpdate
   
   public var centerColor: Color {
     switch self {
@@ -20,6 +21,11 @@ public enum RadialCircleType {
     case .login:
       return Color(red: 80/255, green: 53/255, blue: 162/255)
         .opacity(0.5)
+      
+    case .forceUpdate:
+      return Color(red: 48/255, green: 22/255, blue: 127/255)
+        .opacity(0.5)
+      
     }
   }
   
@@ -34,6 +40,9 @@ public enum RadialCircleType {
       
     case .login:
       return CGFloat(726)
+      
+    case .forceUpdate:
+      return CGFloat(892)
     }
   }
 }

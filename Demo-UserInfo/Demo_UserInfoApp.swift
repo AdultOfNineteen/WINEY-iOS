@@ -18,8 +18,9 @@ struct Demo_UserInfoApp: App {
     @Dependency(\.userDefaults) var userDefaultsService
     WineyFont.registerAll()
     store = .init(initialState: .init(), reducer: { UserInfoAppReducer() })
-    guard let token = getFakeUserToken() else { print("Fake User Token 실패"); return }
-    guard let userID = getFakeUserID() else { print("Fake User ID: 실패"); return }
+    
+    let token = Config.getPropertyValue(.fakeUserToken)
+    let userID = Config.getPropertyValue(.fakeUserID)
     
     userDefaultsService.saveValue(.accessToken, token)
     userDefaultsService.saveValue(.userID, userID)
@@ -52,16 +53,5 @@ struct Demo_UserInfoApp: App {
         }
       }
     }
-  }
-  
-  func getFakeUserToken() -> String? {
-    return Bundle.main.object(forInfoDictionaryKey: "FakeUserToken") as? String
-  }
-  
-  func getFakeUserID() -> String? {
-    if let userIDString = Bundle.main.object(forInfoDictionaryKey: "FakeUserID") as? String {
-      return userIDString
-    }
-    return nil
   }
 }

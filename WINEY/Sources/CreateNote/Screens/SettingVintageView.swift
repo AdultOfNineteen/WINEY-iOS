@@ -11,11 +11,8 @@ import SwiftUI
 import WineyKit
 
 public struct SettingVintageView: View {
-  private let store: StoreOf<SettingVintage>
   
-  public init(store: StoreOf<SettingVintage>) {
-    self.store = store
-  }
+  @Bindable var store: StoreOf<SettingVintage>
   
   @FocusState private var focusedField: FieldCategory?
   
@@ -31,18 +28,12 @@ public struct SettingVintageView: View {
       VStack(spacing: 73) {
         vintageTextField(
           category: .vintage,
-          userInput: .init(
-            get: { store.vintage },
-            set: { edit in store.send(.editVintage(edit)) }
-          )
+          userInput: $store.vintage
         )
         
         vintageTextField(
           category: .price,
-          userInput: .init(
-            get: { store.price },
-            set: { edit in store.send(.editPrice(edit)) }
-          )
+          userInput: $store.price
         )
       }
       .padding(.top, 131)
@@ -59,12 +50,12 @@ public struct SettingVintageView: View {
     .onAppear {
       store.send(._viewWillAppear)
     }
-    .onChange(of: store.vintage, perform: { newValue in
+    .onChange(of: store.vintage) { oldValue, newValue in
       store.send(._checkVintageValue(newValue))
-    })
-    .onChange(of: store.price, perform: { newValue in
+    }
+    .onChange(of: store.price) { oldValue, newValue in
       store.send(._checkPriceValue(newValue))
-    })
+    }
     .background(
       .wineyMainBackground
     )

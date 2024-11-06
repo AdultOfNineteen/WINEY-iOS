@@ -31,20 +31,20 @@ public struct SettingAlcohol {
     public var isPresentedBottomSheet: Bool = false
   }
   
-  public enum Action {
+  public enum Action: BindableAction {
+    
+    // MARK: - Binding
+    case binding(BindingAction<State>)
+    
     // MARK: - User Action
     case tappedBackButton
     case tapPicker
-    case selectAlcoholValue(Int)
-    case selectAlcoholPointValue(Int)
     case tappedSkipButton
     case tappedNextButton
     case tappedOutsideOfBottomSheet
     
     // MARK: - Inner Business Action
     case _viewWillAppear
-    case _setAlcoholValue(Int)
-    case _setAlcoholPointValue(Int)
     case _tooltipHide
     case _moveNextPage
     case _backToNoteDetail
@@ -58,9 +58,11 @@ public struct SettingAlcohol {
   }
   
   public var body: some ReducerOf<Self> {
+    BindingReducer()
     
     Reduce { state, action in
       switch action {
+        
       case ._viewWillAppear:
         state.officialAlcohol = CreateNoteManager.shared.officialAlcohol ?? 12.0
         
@@ -79,22 +81,6 @@ public struct SettingAlcohol {
           AmplitudeProvider.shared.track(event: .ALCOHOL_INPUT_SKIP_CLICK)
         }
         return .send(._moveNextPage)
-        
-      case .selectAlcoholValue(let value):
-        return .send(._setAlcoholValue(value))
-        
-      case .selectAlcoholPointValue(let value):
-        return .send(._setAlcoholPointValue(value))
-        
-      case ._setAlcoholValue(let value):
-        state.tooltipVisible = false
-        state.alcoholValue = value
-        return .none
-        
-      case ._setAlcoholPointValue(let value):
-        state.tooltipVisible = false
-        state.alcoholPointValue = value
-        return .none
         
       case ._presentBottomSheet(let bool):
         state.isPresentedBottomSheet = bool

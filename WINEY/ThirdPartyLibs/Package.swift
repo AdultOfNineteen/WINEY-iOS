@@ -19,7 +19,9 @@ let package = Package(
     .package(url: "https://github.com/kakao/kakao-ios-sdk", branch: "master"),
     .package(url: "https://github.com/jaemyeong/NMapsMap.git", .upToNextMajor(from: "3.16.0")),
     
-    .package(url: "https://github.com/google/GoogleSignIn-iOS", branch: "main")
+    .package(url: "https://github.com/google/GoogleSignIn-iOS", branch: "main"),
+    .package(url: "https://github.com/firebase/firebase-ios-sdk", exact: "11.4.0")
+    
   ],
   targets: [
     .target(
@@ -31,8 +33,9 @@ let package = Package(
         .product(name: "KakaoSDK", package: "kakao-ios-sdk"),
         .product(name: "NMapsMap", package: "NMapsMap"),
         
-        .product(name: "GoogleSignIn", package: "GoogleSignIn-iOS")
-
+        .product(name: "GoogleSignIn", package: "GoogleSignIn-iOS"),
+        .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk"),
+        .product(name: "FirebaseRemoteConfig", package: "firebase-ios-sdk")
       ]
     ),
     .testTarget(

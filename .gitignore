@@ -37,6 +37,9 @@ xcuserdata/
 ## API Keys
 APIKeys.swift
 
+# Firebase
+*/GoogleService-Info.plist
+
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint
 *.xccheckout
@@ -65,6 +68,7 @@ DerivedData/
 APIKeys*.swift
 *.xcconfig
 **/baseURL.swift
+**/BaseURL.swift
 
 
 ### Tuist derived files ###

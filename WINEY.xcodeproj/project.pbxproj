@@ -11,16 +11,22 @@
 		CD18ED892CB058990075CCDD /* OtherNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED882CB058990075CCDD /* OtherNoteView.swift */; };
 		CD18ED8B2CB06E580075CCDD /* OtherNoteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED8A2CB06E580075CCDD /* OtherNoteList.swift */; };
 		CD18ED8D2CB06E5E0075CCDD /* OtherNoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18ED8C2CB06E5E0075CCDD /* OtherNoteListView.swift */; };
+		CD3CCFAF2CDA810D00691B5A /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3CCFAE2CDA810D00691B5A /* Config.swift */; };
+		CD3CCFB02CDA888100691B5A /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3CCFAE2CDA810D00691B5A /* Config.swift */; };
+		CD4B13142CDA02B2008A5851 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD4B13132CDA02B2008A5851 /* GoogleService-Info.plist */; };
+		CD4B13162CDA07FA008A5851 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4B13152CDA07FA008A5851 /* FirebaseService.swift */; };
 		CD706FF12CA937B7000FE7F0 /* WineSearchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD706FF02CA937B7000FE7F0 /* WineSearchCardView.swift */; };
 		CD706FF32CA937F9000FE7F0 /* WineSearchCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD706FF22CA937F9000FE7F0 /* WineSearchCard.swift */; };
 		CDA994EC2CA304950068063E /* TipCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA994EB2CA304950068063E /* TipCard.swift */; };
+		CDD5DEF42CD53B320068DF32 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CDD5DEF12CD53B320068DF32 /* Debug.xcconfig */; };
+		CDD5DEF52CD53B320068DF32 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CDD5DEF22CD53B320068DF32 /* Release.xcconfig */; };
+		CDD5DEF62CD53B320068DF32 /* Shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CDD5DEF32CD53B320068DF32 /* Shared.xcconfig */; };
+		CDD5DEFC2CD672410068DF32 /* ForeceUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD5DEFB2CD672410068DF32 /* ForeceUpdateView.swift */; };
+		CDD5DEFE2CD672460068DF32 /* ForeceUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD5DEFD2CD672460068DF32 /* ForeceUpdate.swift */; };
 		F3171F512C971B0B00C14FC5 /* WINEYApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3171F502C971B0B00C14FC5 /* WINEYApp.swift */; };
 		F3171F552C971B0C00C14FC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3171F542C971B0C00C14FC5 /* Assets.xcassets */; };
 		F3171F582C971B0C00C14FC5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3171F572C971B0C00C14FC5 /* Preview Assets.xcassets */; };
 		F3171F742C9723F600C14FC5 /* ThirdPartyLibs in Frameworks */ = {isa = PBXBuildFile; productRef = F3171F732C9723F600C14FC5 /* ThirdPartyLibs */; };
-		F3594F442CBE5D8B003DC09B /* Shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F3594F432CBE5B95003DC09B /* Shared.xcconfig */; };
-		F3594F452CBE5D8D003DC09B /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F3594F412CBE5B95003DC09B /* Release.xcconfig */; };
-		F3594F462CBE5D8F003DC09B /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F3594F422CBE5B95003DC09B /* Debug.xcconfig */; };
 		F35A65C12C989911005491C5 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65C02C989911005491C5 /* TabBarView.swift */; };
 		F35A65C82C98991D005491C5 /* View + SwipeGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65C22C98991D005491C5 /* View + SwipeGesture.swift */; };
 		F35A65C92C98991D005491C5 /* TabBarInfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A65C32C98991D005491C5 /* TabBarInfoContainerView.swift */; };
@@ -222,9 +228,17 @@
 		CD18ED882CB058990075CCDD /* OtherNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNoteView.swift; sourceTree = "<group>"; };
 		CD18ED8A2CB06E580075CCDD /* OtherNoteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNoteList.swift; sourceTree = "<group>"; };
 		CD18ED8C2CB06E5E0075CCDD /* OtherNoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherNoteListView.swift; sourceTree = "<group>"; };
+		CD3CCFAE2CDA810D00691B5A /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		CD4B13132CDA02B2008A5851 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CD4B13152CDA07FA008A5851 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		CD706FF02CA937B7000FE7F0 /* WineSearchCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineSearchCardView.swift; sourceTree = "<group>"; };
 		CD706FF22CA937F9000FE7F0 /* WineSearchCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WineSearchCard.swift; sourceTree = "<group>"; };
 		CDA994EB2CA304950068063E /* TipCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCard.swift; sourceTree = "<group>"; };
+		CDD5DEF12CD53B320068DF32 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = WINEY/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
+		CDD5DEF22CD53B320068DF32 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = WINEY/Release.xcconfig; sourceTree = SOURCE_ROOT; };
+		CDD5DEF32CD53B320068DF32 /* Shared.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Shared.xcconfig; path = WINEY/Shared.xcconfig; sourceTree = SOURCE_ROOT; };
+		CDD5DEFB2CD672410068DF32 /* ForeceUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForeceUpdateView.swift; sourceTree = "<group>"; };
+		CDD5DEFD2CD672460068DF32 /* ForeceUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForeceUpdate.swift; sourceTree = "<group>"; };
 		F3171F502C971B0B00C14FC5 /* WINEYApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WINEYApp.swift; sourceTree = "<group>"; };
 		F3171F542C971B0C00C14FC5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3171F572C971B0C00C14FC5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -236,9 +250,6 @@
 		F3171F802C972D0D00C14FC5 /* WINEY.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WINEY.entitlements; sourceTree = "<group>"; };
 		F3171F812C972DD100C14FC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3171F832C9738C000C14FC5 /* WineyKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WineyKit; path = WINEY/WineyKit; sourceTree = "<group>"; };
-		F3594F412CBE5B95003DC09B /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		F3594F422CBE5B95003DC09B /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		F3594F432CBE5B95003DC09B /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		F35A65C02C989911005491C5 /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		F35A65C22C98991D005491C5 /* View + SwipeGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View + SwipeGesture.swift"; sourceTree = "<group>"; };
 		F35A65C32C98991D005491C5 /* TabBarInfoContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarInfoContainerView.swift; sourceTree = "<group>"; };
@@ -503,6 +514,7 @@
 		F3171F4F2C971B0B00C14FC5 /* WINEY */ = {
 			isa = PBXGroup;
 			children = (
+				CD4B13132CDA02B2008A5851 /* GoogleService-Info.plist */,
 				F3171F7F2C972CBD00C14FC5 /* Resources */,
 				F3EFC7B82C97576900BC6DC9 /* Sources */,
 				F3171F802C972D0D00C14FC5 /* WINEY.entitlements */,
@@ -530,9 +542,9 @@
 		F3171F7F2C972CBD00C14FC5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F3594F432CBE5B95003DC09B /* Shared.xcconfig */,
-				F3594F412CBE5B95003DC09B /* Release.xcconfig */,
-				F3594F422CBE5B95003DC09B /* Debug.xcconfig */,
+				CDD5DEF12CD53B320068DF32 /* Debug.xcconfig */,
+				CDD5DEF22CD53B320068DF32 /* Release.xcconfig */,
+				CDD5DEF32CD53B320068DF32 /* Shared.xcconfig */,
 				F3171F812C972DD100C14FC5 /* Info.plist */,
 				F3171F562C971B0C00C14FC5 /* Preview Content */,
 				F3171F542C971B0C00C14FC5 /* Assets.xcassets */,
@@ -578,6 +590,8 @@
 			children = (
 				F35A65EA2C98B952005491C5 /* Splash.swift */,
 				F35A65EC2C98B957005491C5 /* SplashView.swift */,
+				CDD5DEFD2CD672460068DF32 /* ForeceUpdate.swift */,
+				CDD5DEFB2CD672410068DF32 /* ForeceUpdateView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -1098,6 +1112,7 @@
 			children = (
 				F3EFC8122C975B3C00BC6DC9 /* KakaoSharedService.swift */,
 				F3EFC8132C975B3C00BC6DC9 /* KakaoShareMessage.swift */,
+				CD4B13152CDA07FA008A5851 /* FirebaseService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1106,6 +1121,7 @@
 			isa = PBXGroup;
 			children = (
 				F3EFC8162C975B3C00BC6DC9 /* Print + Override.swift */,
+				CD3CCFAE2CDA810D00691B5A /* Config.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1402,11 +1418,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3594F452CBE5D8D003DC09B /* Release.xcconfig in Resources */,
 				F3171F582C971B0C00C14FC5 /* Preview Assets.xcassets in Resources */,
+				CDD5DEF42CD53B320068DF32 /* Debug.xcconfig in Resources */,
 				F3171F552C971B0C00C14FC5 /* Assets.xcassets in Resources */,
-				F3594F462CBE5D8F003DC09B /* Debug.xcconfig in Resources */,
-				F3594F442CBE5D8B003DC09B /* Shared.xcconfig in Resources */,
+				CDD5DEF62CD53B320068DF32 /* Shared.xcconfig in Resources */,
+				CDD5DEF52CD53B320068DF32 /* Release.xcconfig in Resources */,
+				CD4B13142CDA02B2008A5851 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1461,6 +1478,7 @@
 				F3EFC87C2C975B3C00BC6DC9 /* KakaoShareMessage.swift in Sources */,
 				F3EFC8662C975B3C00BC6DC9 /* FirstFlavorType.swift in Sources */,
 				F35A66DF2C9E9989005491C5 /* FlavorSignUp.swift in Sources */,
+				CDD5DEFC2CD672410068DF32 /* ForeceUpdateView.swift in Sources */,
 				F3EFC8872C975B3C00BC6DC9 /* MapService.swift in Sources */,
 				F35A66492C9968A8005491C5 /* TastingNotes.swift in Sources */,
 				F35A671B2C9F801D005491C5 /* SettingMemo.swift in Sources */,
@@ -1550,6 +1568,7 @@
 				F3EFC8722C975B3C00BC6DC9 /* FilterType.swift in Sources */,
 				F35A66562C996DB8005491C5 /* TastingNotesView.swift in Sources */,
 				F35A678D2C9F90AB005491C5 /* EmptyListInfoView.swift in Sources */,
+				CD3CCFAF2CDA810D00691B5A /* Config.swift in Sources */,
 				F35A676D2C9F8C6A005491C5 /* WineCardCarousel.swift in Sources */,
 				F35A67882C9F90AB005491C5 /* ShopBottomSheet.swift in Sources */,
 				F35A67892C9F90AB005491C5 /* BottomSheetCategoryTitle.swift in Sources */,
@@ -1585,6 +1604,7 @@
 				F35A66532C996DA8005491C5 /* FilteredNotesView.swift in Sources */,
 				F3EFC8A22C975B3C00BC6DC9 /* WineTipDTO.swift in Sources */,
 				F35A67212C9F801D005491C5 /* SmellList.swift in Sources */,
+				CDD5DEFE2CD672460068DF32 /* ForeceUpdate.swift in Sources */,
 				F3EFC86E2C975B3C00BC6DC9 /* NoteDetailDTO.swift in Sources */,
 				F35A67262C9F801D005491C5 /* WineSearchView.swift in Sources */,
 				F3EFC8792C975B3C00BC6DC9 /* PhotoManager.swift in Sources */,
@@ -1604,6 +1624,7 @@
 				F35A66992C998870005491C5 /* WineAnalysisResultView.swift in Sources */,
 				F35A66592C996DC7005491C5 /* FilterDetailView.swift in Sources */,
 				F3EFC8A02C975B3C00BC6DC9 /* WineRankData.swift in Sources */,
+				CD4B13162CDA07FA008A5851 /* FirebaseService.swift in Sources */,
 				F3EFC8782C975B3C00BC6DC9 /* CreateNoteManager.swift in Sources */,
 				F3EFC89F2C975B3C00BC6DC9 /* TasteAnalysisDTO.swift in Sources */,
 				F3D744612CAF1A16006C79EA /* NotePath.swift in Sources */,
@@ -1622,6 +1643,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3D744632CAF1AB7006C79EA /* UserInfoPath.swift in Sources */,
+				CD3CCFB02CDA888100691B5A /* Config.swift in Sources */,
 				F3D744652CAF1BBB006C79EA /* UserInfoAppReducer.swift in Sources */,
 				F35A66072C98CBB7005491C5 /* Demo_UserInfoApp.swift in Sources */,
 			);
@@ -1632,7 +1654,7 @@
 /* Begin XCBuildConfiguration section */
 		F3171F592C971B0C00C14FC5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3594F422CBE5B95003DC09B /* Debug.xcconfig */;
+			baseConfigurationReference = CDD5DEF12CD53B320068DF32 /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1696,7 +1718,7 @@
 		};
 		F3171F5A2C971B0C00C14FC5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3594F412CBE5B95003DC09B /* Release.xcconfig */;
+			baseConfigurationReference = CDD5DEF22CD53B320068DF32 /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1753,7 +1775,7 @@
 		};
 		F3171F5C2C971B0C00C14FC5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3594F422CBE5B95003DC09B /* Debug.xcconfig */;
+			baseConfigurationReference = CDD5DEF12CD53B320068DF32 /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1790,7 +1812,7 @@
 		};
 		F3171F5D2C971B0C00C14FC5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3594F412CBE5B95003DC09B /* Release.xcconfig */;
+			baseConfigurationReference = CDD5DEF22CD53B320068DF32 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1827,7 +1849,7 @@
 		};
 		F35A66102C98CBB8005491C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3594F422CBE5B95003DC09B /* Debug.xcconfig */;
+			baseConfigurationReference = CDD5DEF12CD53B320068DF32 /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1864,7 +1886,7 @@
 		};
 		F35A66112C98CBB8005491C5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3594F412CBE5B95003DC09B /* Release.xcconfig */;
+			baseConfigurationReference = CDD5DEF22CD53B320068DF32 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
