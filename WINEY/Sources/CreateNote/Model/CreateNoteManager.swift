@@ -34,10 +34,12 @@ final class CreateNoteManager: ObservableObject {
   @Published var isPublic: Bool?
   @Published var rating: Int?
   @Published var smellKeywordList: Set<String>?
+  @Published var deleteSmellKeywordList: Set<String>?
+  @Published var originalSmellKeywordList: Set<String>?
   @Published var directSmellKeywordList: Set<String>?
   @Published var directSmellKeywordSelectList: Set<String>?
-  @Published var originalSmellKeywordList: Set<String>?
-  @Published var deleteSmellKeywordList: Set<String>?
+  @Published var originDirectSmellKeywordList: Set<String>?
+  @Published var deleteDirectSmellKeywordList: Set<String>?
   @Published var originalImages: [TastingNoteImage]?
   @Published var originalUIImages: [UIImage]?
   @Published var tastingNoteImages: [TastingNoteImage]?
@@ -65,6 +67,10 @@ final class CreateNoteManager: ObservableObject {
     self.smellKeywordList = nil
     self.originalSmellKeywordList = nil
     self.deleteSmellKeywordList = nil
+    self.directSmellKeywordList = nil
+    self.directSmellKeywordSelectList = nil
+    self.originDirectSmellKeywordList = nil
+    self.deleteDirectSmellKeywordList = nil
     self.originalImages = nil
     self.originalUIImages = nil
     self.tastingNoteImages = nil
@@ -87,6 +93,7 @@ final class CreateNoteManager: ObservableObject {
     self.buyAgain = noteData.buyAgain
     self.isPublic = noteData.public
     self.rating = noteData.star
+    self.originDirectSmellKeywordList = noteData.directKeywordList
     self.originalSmellKeywordList = noteData.smellKeywordList.setmap(transform: ({ getSmellCode(for: $0) ?? "" }))
     self.originalImages = noteData.tastingNoteImage
     self.isPublic = noteData.public
@@ -151,7 +158,9 @@ final class CreateNoteManager: ObservableObject {
       rating: self.rating!,
       smellKeywordList: self.smellKeywordList,
       deleteSmellKeywordList: self.deleteSmellKeywordList,
-      deleteImgLists: deleteImageIndex, 
+      directKeywordList: self.directSmellKeywordSelectList,
+      deleteDirectKeywordList: self.deleteDirectSmellKeywordList,
+      deleteImgLists: deleteImageIndex,
       isPublic: self.isPublic!
     ), updateImage)
   }

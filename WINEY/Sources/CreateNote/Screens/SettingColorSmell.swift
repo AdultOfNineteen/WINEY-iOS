@@ -111,6 +111,8 @@ public struct SettingColorSmell {
           state.selectedCustomSmell = CreateNoteManager.shared.directSmellKeywordSelectList ?? []
         } else {
           state.selectedSmell = CreateNoteManager.shared.originalSmellKeywordList ?? []
+          state.userCustomSmell = CreateNoteManager.shared.originDirectSmellKeywordList ?? []
+          state.selectedCustomSmell = CreateNoteManager.shared.originDirectSmellKeywordList ?? []
           state.buttonState = true
         }
         
@@ -259,6 +261,9 @@ public struct SettingColorSmell {
         } else {
           CreateNoteManager.shared.smellKeywordList = state.selectedSmell.subtracting(CreateNoteManager.shared.originalSmellKeywordList ?? [])
           CreateNoteManager.shared.deleteSmellKeywordList = CreateNoteManager.shared.originalSmellKeywordList?.subtracting(state.selectedSmell)
+          
+          CreateNoteManager.shared.directSmellKeywordSelectList = state.selectedCustomSmell.subtracting(CreateNoteManager.shared.originDirectSmellKeywordList ?? [])
+          CreateNoteManager.shared.deleteDirectSmellKeywordList = CreateNoteManager.shared.originDirectSmellKeywordList?.subtracting(state.selectedCustomSmell)
         }
         
         CreateNoteManager.shared.color = "#" + (state.colorIndicator.toHex() ?? "FFFFFF")

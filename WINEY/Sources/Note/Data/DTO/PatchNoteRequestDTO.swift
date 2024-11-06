@@ -26,6 +26,8 @@ public struct PatchNoteRequestDTO: Encodable, Equatable {
   let rating: Int
   let smellKeywordList: Set<String>?  // 추가되는 향
   let deleteSmellKeywordList: Set<String>?  // 삭제되는 향
+  let directKeywordList: Set<String>?  // 삭제되는 향 (커스텀)
+  let deleteDirectKeywordList: Set<String>?  // 삭제되는 향 (커스텀)
   let deleteImgLists: Set<Int>?  // 삭제되는 이미지 (int)
   let isPublic: Bool
   
@@ -47,6 +49,8 @@ public struct PatchNoteRequestDTO: Encodable, Equatable {
     rating: Int,
     smellKeywordList: Set<String>?,
     deleteSmellKeywordList: Set<String>?,
+    directKeywordList: Set<String>?,
+    deleteDirectKeywordList: Set<String>?,
     deleteImgLists: Set<Int>?,
     isPublic: Bool
   ) {
@@ -67,6 +71,8 @@ public struct PatchNoteRequestDTO: Encodable, Equatable {
     self.rating = rating
     self.smellKeywordList = smellKeywordList
     self.deleteSmellKeywordList = deleteSmellKeywordList
+    self.directKeywordList = directKeywordList
+    self.deleteDirectKeywordList = deleteDirectKeywordList
     self.deleteImgLists = deleteImgLists
     self.isPublic = isPublic
   }

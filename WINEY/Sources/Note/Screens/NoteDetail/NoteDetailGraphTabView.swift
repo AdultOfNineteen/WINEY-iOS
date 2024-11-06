@@ -220,6 +220,7 @@ public struct WineDetailGraphMyWineDefaultView: View {
       officialAlcohol: 24,
       price: 5,
       smellKeywordList: ["test"],
+      directKeywordList: ["directTest"],
       myWineTaste: MyWineTaste(
         sweetness: 3,
         acidity: 4,

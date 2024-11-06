@@ -164,6 +164,8 @@ extension NoteAPI: EndPointType {
         "rating": patchNoteData.rating,
         "smellKeywordList": patchNoteData.smellKeywordList?.sorted(),
         "deleteSmellKeywordList": patchNoteData.deleteSmellKeywordList?.sorted(),
+        "directKeywordList": patchNoteData.directKeywordList?.sorted(),
+        "deleteDirectKeywordList": patchNoteData.deleteDirectKeywordList?.sorted(),
         "deleteImgList": patchNoteData.deleteImgLists?.sorted(),
         "isPublic": patchNoteData.isPublic
       ]
