@@ -128,6 +128,7 @@ extension NoteAPI: EndPointType {
         "buyAgain": createNoteData.buyAgain,
         "rating": createNoteData.rating,
         "smellKeywordList": createNoteData.smellKeywordList?.sorted(),
+        "directKeywordList": createNoteData.directKeywordList?.sorted(),
         "isPublic": createNoteData.isPublic
       ]
       

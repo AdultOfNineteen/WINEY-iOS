@@ -34,6 +34,8 @@ final class CreateNoteManager: ObservableObject {
   @Published var isPublic: Bool?
   @Published var rating: Int?
   @Published var smellKeywordList: Set<String>?
+  @Published var directSmellKeywordList: Set<String>?
+  @Published var directSmellKeywordSelectList: Set<String>?
   @Published var originalSmellKeywordList: Set<String>?
   @Published var deleteSmellKeywordList: Set<String>?
   @Published var originalImages: [TastingNoteImage]?
@@ -108,6 +110,7 @@ final class CreateNoteManager: ObservableObject {
       buyAgain: self.buyAgain!,
       rating: self.rating!,
       smellKeywordList: self.smellKeywordList, 
+      directKeywordList: self.directSmellKeywordSelectList,
       isPublic: self.isPublic!
     ), userSelectImages!)
   }
