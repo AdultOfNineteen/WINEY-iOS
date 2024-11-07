@@ -30,10 +30,11 @@ public struct NoteContent: Codable, Equatable {
   let buyAgain: Bool
   let wineType: String
   let userNickname : String
-  let noteDate : String
+  let noteDate: String
+  let thumbnail: String?
   let `public`: Bool
   
-  public init(noteId: Int, tastingNoteNo: Int, wineName: String, country: String, varietal: String, starRating: Int, buyAgain: Bool, wineType: String, userNickname: String, noteDate: String, public: Bool) {
+  public init(noteId: Int, tastingNoteNo: Int, wineName: String, country: String, varietal: String, starRating: Int, buyAgain: Bool, wineType: String, userNickname: String, noteDate: String, thumbnail: String?, public: Bool) {
     self.noteId = noteId
     self.tastingNoteNo = tastingNoteNo
     self.wineName = wineName
@@ -44,6 +45,7 @@ public struct NoteContent: Codable, Equatable {
     self.wineType = wineType
     self.userNickname = userNickname
     self.noteDate = noteDate
+    self.thumbnail = thumbnail
     self.public = `public`
   }
 }
@@ -54,5 +56,5 @@ extension NoteDTO {
 }
 
 extension NoteContent {
-  static let mock = Self(noteId: 0, tastingNoteNo: 1, wineName: "test1", country: "test1", varietal: "11", starRating: 5, buyAgain: true, wineType: "RED", userNickname: "보노", noteDate: "20220912", public: true)
+  static let mock = Self(noteId: 0, tastingNoteNo: 1, wineName: "test1", country: "test1", varietal: "11", starRating: 5, buyAgain: true, wineType: "RED", userNickname: "보노", noteDate: "20220912", thumbnail: nil, public: true)
 }
