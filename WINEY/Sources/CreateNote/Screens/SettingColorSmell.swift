@@ -107,8 +107,12 @@ public struct SettingColorSmell {
         
         if CreateNoteManager.shared.mode == .create {
           state.selectedSmell = CreateNoteManager.shared.smellKeywordList ?? []
+          state.userCustomSmell = CreateNoteManager.shared.directSmellKeywordList ?? []
+          state.selectedCustomSmell = CreateNoteManager.shared.directSmellKeywordSelectList ?? []
         } else {
           state.selectedSmell = CreateNoteManager.shared.originalSmellKeywordList ?? []
+          state.userCustomSmell = CreateNoteManager.shared.originDirectSmellKeywordList ?? []
+          state.selectedCustomSmell = CreateNoteManager.shared.originDirectSmellKeywordList ?? []
           state.buttonState = true
         }
         
@@ -117,6 +121,8 @@ public struct SettingColorSmell {
       case .tappedBackButton:
         CreateNoteManager.shared.color = state.colorIndicator.toHex() == nil ? nil : "#" + state.colorIndicator.toHex()!
         CreateNoteManager.shared.smellKeywordList = state.selectedSmell
+        CreateNoteManager.shared.directSmellKeywordList = state.userCustomSmell
+        CreateNoteManager.shared.directSmellKeywordSelectList = state.selectedCustomSmell
         
         if CreateNoteManager.shared.mode == .create {
           AmplitudeProvider.shared.track(event: .COLOR_SCENT_INPUT_BACK_CLICK)
@@ -248,10 +254,16 @@ public struct SettingColorSmell {
       case .tappedNextButton:
         if CreateNoteManager.shared.mode == .create {
           CreateNoteManager.shared.smellKeywordList = state.selectedSmell
+          CreateNoteManager.shared.directSmellKeywordList = state.userCustomSmell
+          CreateNoteManager.shared.directSmellKeywordSelectList = state.selectedCustomSmell
+          
           AmplitudeProvider.shared.track(event: .COLOR_SCENT_INPUT_NEXT_CLICK)
         } else {
           CreateNoteManager.shared.smellKeywordList = state.selectedSmell.subtracting(CreateNoteManager.shared.originalSmellKeywordList ?? [])
           CreateNoteManager.shared.deleteSmellKeywordList = CreateNoteManager.shared.originalSmellKeywordList?.subtracting(state.selectedSmell)
+          
+          CreateNoteManager.shared.directSmellKeywordSelectList = state.selectedCustomSmell.subtracting(CreateNoteManager.shared.originDirectSmellKeywordList ?? [])
+          CreateNoteManager.shared.deleteDirectSmellKeywordList = CreateNoteManager.shared.originDirectSmellKeywordList?.subtracting(state.selectedCustomSmell)
         }
         
         CreateNoteManager.shared.color = "#" + (state.colorIndicator.toHex() ?? "FFFFFF")
