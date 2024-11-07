@@ -111,7 +111,7 @@ extension NoteDetailView {
         if store.noteMode != .otherNotes {
           NoteDetailSmellFeatureView(
             circleColor: noteData.color,
-            smellKeywordList: Array(noteData.smellKeywordList) + Array(noteData.directKeywordList)
+            smellKeywordList: Array(noteData.korSmellKeywordList) + Array(noteData.directKeywordList)
           )
           .padding(.horizontal, WineyGridRules.globalHorizontalPadding)
           

@@ -45,6 +45,8 @@ final class CreateNoteManager: ObservableObject {
   @Published var tastingNoteImages: [TastingNoteImage]?
   @Published var userSelectImages: [UIImage]?
   
+  @Published var korSmellList: Set<String>?
+  
   func initData() {
     self.mode = .create
     self.noteId = nil
@@ -97,6 +99,8 @@ final class CreateNoteManager: ObservableObject {
     self.originalSmellKeywordList = noteData.smellKeywordList.setmap(transform: ({ getSmellCode(for: $0) ?? "" }))
     self.originalImages = noteData.tastingNoteImage
     self.isPublic = noteData.public
+    
+    self.korSmellList = noteData.korSmellKeywordList
   }
   
   func createNote() -> (CreateNoteRequestDTO, [UIImage]) {

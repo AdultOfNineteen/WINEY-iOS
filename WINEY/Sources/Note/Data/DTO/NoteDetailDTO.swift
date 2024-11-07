@@ -25,6 +25,7 @@ public struct NoteDetailDTO: Codable, Equatable {
   public let officialAlcohol: Double?
   public let price: Int?
   public let smellKeywordList: Set<String>
+  public let korSmellKeywordList: Set<String>
   public let directKeywordList: Set<String>
   public let myWineTaste: MyWineTaste
   public let defaultWineTaste: DefaultWineTaste
