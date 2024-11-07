@@ -54,7 +54,8 @@ extension TastingNotesView {
   private func noteCard(noteData: NoteContent) -> some View {
     VStack(alignment: .leading, spacing: 10) {
       SmallWineCard(
-        wineType: WineType.changeType(at: noteData.wineType)
+        wineType: WineType.changeType(at: noteData.wineType),
+        thumbnailURL: URL(string: noteData.thumbnail ?? "")
       )
       
       VStack(alignment: .leading, spacing: 4) {
