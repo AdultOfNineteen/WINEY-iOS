@@ -108,8 +108,8 @@ private extension SmallWineCard {
       .stroke(
         LinearGradient(
           colors: [
-            .white.opacity(0.9),
-            .white.opacity(0.1)
+            .wineyMain3.opacity(0.9),
+            .wineyMain3.opacity(0.1)
           ],
           startPoint: .topLeading,
           endPoint: .bottomTrailing
