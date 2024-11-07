@@ -190,7 +190,7 @@ public struct WineDetailInfoSum: View {
       
       HStack {
         Circle()
-          .fill(.wineyMain3)
+          .fill(.wineyMain2)
           .frame(width: 12, height: 12)
         
         Text("나와 취향이 비슷한 사람들이 느낀 맛")

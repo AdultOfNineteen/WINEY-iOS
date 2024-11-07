@@ -40,7 +40,7 @@ struct WineDetailGraph: View {
             Rectangle()
               .frame(width: 38, height: originalHeight)
               .cornerRadius(8, corners: [.topLeft, .topRight])
-              .foregroundColor(.wineyMain2)
+              .foregroundColor(.wineyPoint1)
           }
           
           Spacer()
@@ -51,7 +51,7 @@ struct WineDetailGraph: View {
             Rectangle()
               .frame(width: 38, height: peopleHeight)
               .cornerRadius(8, corners: [.topLeft, .topRight])
-              .foregroundColor(.wineyPoint1)
+              .foregroundColor(.wineyMain2)
           }
         }
         .offset(y: -geo.size.height / 2 + 70)
@@ -80,7 +80,7 @@ struct WineDetailGraph: View {
           Spacer()
             .frame(width: geo.size.width / 11 * 2)
           
-          Text("취향이 비슷한 사람들이\n느낀 와인의 맛")
+          Text("나와 취향이 비슷한\n사람들이 느낀 맛")
             .multilineTextAlignment(.center)
         }
         .wineyFont(.captionM2)

@@ -148,7 +148,7 @@ public struct WineDetailGraphMyWineDefaultView: View {
           .frame(width: 12)
           .aspectRatio(contentMode: .fit)
         
-        Text("와인의 기본 맛")
+        Text("와인의 맛")
           .wineyFont(.captionM2)
         
         Spacer()
