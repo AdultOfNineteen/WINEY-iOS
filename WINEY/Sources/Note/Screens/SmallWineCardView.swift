@@ -11,6 +11,7 @@ import WineyKit
 
 public struct SmallWineCard: View {
   public var wineType: WineType
+  var thumbnailURL: URL?
   
   public var body: some View {
     VStack(spacing: -6) {
@@ -21,23 +22,28 @@ public struct SmallWineCard: View {
         Spacer()
       }
       
-      Spacer()
-        .frame(maxHeight: wineType.smallCardSpacer)
+      if thumbnailURL == nil {
+        Spacer()
+          .frame(maxHeight: wineType.smallCardSpacer)
+        
+        wineType.illustImage
+          .resizable()
+          .scaledToFit()
+      } else {
+        Spacer()
+      }
       
-      wineType.illustImage
-        .resizable()
-        .scaledToFit()
     }
     .padding(.top, 14)
     .padding(
-      .bottom, 
+      .bottom,
       wineType == .red || wineType == .etc ? 14 : wineType == .rose ? 8 : 4
     )
     .padding(.horizontal, 18)
     .frame(height: 163)
-    .background(
+    .background {
       cardBackground()
-    )
+    }
   }
 }
 
@@ -45,37 +51,55 @@ private extension SmallWineCard {
   
   @ViewBuilder
   func cardBackground() -> some View {
+    backgroundStroke()
+    
     ZStack {
-      backgroundStroke()
-      
-      ZStack {
-        Circle()
-          .fill(
-            LinearGradient(
-              colors: [
-                wineType.backgroundColor.firstCircleStart,
-                wineType.backgroundColor.firstCircleEnd.opacity(0.4),
-                .clear
-              ],
-              startPoint: .top,
-              endPoint: .bottom
-            )
-          )
-          .frame(height: 74)
-          .padding(.trailing, 60)
-          .padding(.bottom, 50)
-        
-        Circle()
-          .fill(wineType.backgroundColor.secondCircle)
-          .frame(height: 94)
-          .padding(.leading, 24)
-          .padding(.top, 36)
+      AsyncImage(url: thumbnailURL) { phase in
+        switch phase {
+        case .success(let image):
+          image
+            .resizable()
+            .scaledToFill()
+            .frame(height: 163)
+            .clipped()
+            .mask(RoundedRectangle(cornerRadius: 10))
+        default:
+          blurBackground()
+        }
       }
-      
-      RoundedRectangle(cornerRadius: 10)
-        .foregroundStyle(.ultraThinMaterial)
     }
     .frame(height: 163)
+    .clipped()
+  }
+  
+  @ViewBuilder
+  func blurBackground() -> some View {
+    ZStack {
+      Circle()
+        .fill(
+          LinearGradient(
+            colors: [
+              wineType.backgroundColor.firstCircleStart,
+              wineType.backgroundColor.firstCircleEnd.opacity(0.4),
+              .clear
+            ],
+            startPoint: .top,
+            endPoint: .bottom
+          )
+        )
+        .frame(height: 74)
+        .padding(.trailing, 60)
+        .padding(.bottom, 50)
+      
+      Circle()
+        .fill(wineType.backgroundColor.secondCircle)
+        .frame(height: 94)
+        .padding(.leading, 24)
+        .padding(.top, 36)
+    }
+    
+    RoundedRectangle(cornerRadius: 10)
+      .foregroundStyle(.ultraThinMaterial)
   }
   
   @ViewBuilder
@@ -84,8 +108,8 @@ private extension SmallWineCard {
       .stroke(
         LinearGradient(
           colors: [
-            .white.opacity(0.9),
-            .white.opacity(0.1)
+            .wineyMain3.opacity(0.9),
+            .wineyMain3.opacity(0.1)
           ],
           startPoint: .topLeading,
           endPoint: .bottomTrailing
@@ -98,10 +122,12 @@ private extension SmallWineCard {
 #Preview {
   HStack {
     SmallWineCard(
-      wineType: .red
+      wineType: .red,
+      thumbnailURL: URL(string: "")
     )
     SmallWineCard(
       wineType: .port
     )
   }
+  .padding(.horizontal, 24)
 }

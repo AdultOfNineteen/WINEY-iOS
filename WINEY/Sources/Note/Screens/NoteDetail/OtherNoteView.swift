@@ -69,6 +69,7 @@ private extension String {
           wineType: "test",
           userNickname: "테스터",
           noteDate: "test",
+          thumbnail: nil,
           public: false
         ), isMine: false
       ),

@@ -179,10 +179,10 @@ public struct WineDetailInfoSum: View {
     VStack(alignment: .leading, spacing: 0) {
       HStack {
         Circle()
-          .fill(.wineyMain3)
+          .fill(.wineyPoint1)
           .frame(width: 12, height: 12)
         
-        Text("테이스팅 노트 기반 데이터")
+        Text("와인의 맛")
           .wineyFont(.captionM2)
         
       }
@@ -190,10 +190,10 @@ public struct WineDetailInfoSum: View {
       
       HStack {
         Circle()
-          .fill(.wineyPoint1)
+          .fill(.wineyMain2)
           .frame(width: 12, height: 12)
         
-        Text("와인의 기본맛")
+        Text("나와 취향이 비슷한 사람들이 느낀 맛")
           .wineyFont(.captionM2)
         
       }
