@@ -24,7 +24,7 @@ public struct SmellListView: View {
           .wineyFont(.subhead)
           .foregroundStyle(store.isOpenList ? .wineyGray300 : .wineyGray600)
         
-        Image(store.isOpenList ? "smellPlusOpen" : "smellPlusDefault")
+        Image(store.isOpenList ? .smellPlusOpenW : .smellPlusDefaultW)
         
         Spacer()
       }
