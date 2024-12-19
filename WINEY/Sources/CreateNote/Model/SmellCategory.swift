@@ -41,7 +41,6 @@ public enum SmellCategory: CaseIterable {
         WineSmell(korName: "배", codeName: "PEAR"),
         WineSmell(korName: "사과", codeName: "APPLE"),
         WineSmell(korName: "복숭아", codeName: "PEACH"),
-        WineSmell(korName: "사과", codeName: "APPLE"),
         WineSmell(korName: "베리류", codeName: "BERRY"),
         WineSmell(korName: "자두", codeName: "PLUM"),
         WineSmell(korName: "열대과일", codeName: "TROPICALFRUIT")

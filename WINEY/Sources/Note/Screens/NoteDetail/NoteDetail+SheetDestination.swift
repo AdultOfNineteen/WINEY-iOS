@@ -67,6 +67,7 @@ extension NoteDetail {
           if let noteData = state.noteCardData {
             CreateNoteManager.shared.fetchData(noteData: noteData)
             CreateNoteManager.shared.noteId = state.noteId
+            CreateNoteManager.shared.wineId = state.noteCardData?.wineId
             
             return .run { send in
               await CreateNoteManager.shared.loadNoteImage()
